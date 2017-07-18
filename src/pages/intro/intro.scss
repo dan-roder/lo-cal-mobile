@@ -1,0 +1,8 @@
+page-intro {
+  .swiper-pagination-bullet-active {
+    background: map-get( $colors, red );
+  }
+  ion-slides {
+    height: 85%;
+  }
+}
