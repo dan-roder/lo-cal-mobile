@@ -21,7 +21,7 @@ $app-direction: ltr;
 // the Sass variables found in Ionic's source scss files.
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
-
+$toolbar-background: #fff;
 
 
 
@@ -40,7 +40,9 @@ $colors: (
   light:      #f4f4f4,
   dark:       #333,
   red:        #ff3b30,
-  light-gray: #cbcbcb
+  dark-gray:  #555,
+  light-gray: #cbcbcb,
+  text: #1e1e1e
 );
 
 
@@ -48,6 +50,8 @@ $colors: (
 // --------------------------------------------------
 // iOS only Sass variables can go here
 
+$toolbar-ios-border-color : transparent;
+$toolbar-ios-button-color : map-get($colors, text);
 
 
 
@@ -82,6 +86,10 @@ $colors: (
 
 @import "ionic.ionicons";
 
+////////////////////////////////////////////////////////////////////
+// Custom Icons made with icomoon, see selection.json in `icons/` //
+////////////////////////////////////////////////////////////////////
+@import "icons/icons";
 
 // Fonts
 // --------------------------------------------------

@@ -1,8 +1,8 @@
-<ion-menu type="push" side="left" [content]="content">
+<ion-menu type="reveal" side="left" [content]="content" swipeEnabled="false">
 
-  <ion-content>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" [class.active]="checkActivePage(p)">
+  <ion-content class="side-menu-content">
+    <ion-list class="menu-list">
+      <button menuClose ion-item no-lines detail-none *ngFor="let p of pages" (click)="openPage(p)" [class.active]="checkActivePage(p)">
         {{p.title}}
       </button>
     </ion-list>

@@ -19,6 +19,8 @@ export class MyApp {
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+
+
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -28,10 +30,10 @@ export class MyApp {
       { title: 'Our Food', component: ListPage },
       { title: 'Catering', component: ListPage },
       { title: 'Contact Us', component: ListPage },
-      { title: 'My Account', component: ListPage },
-      { title: 'List', component: ListPage }
+      { title: 'My Account', component: ListPage }
     ];
 
+    this.activePage = this.pages[0];
   }
 
   initializeApp() {
@@ -44,6 +46,7 @@ export class MyApp {
   }
 
   openPage(page) {
+    console.log("THE PAGE: ", page);
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);

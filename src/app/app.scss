@@ -16,8 +16,26 @@
 // automatically applied to the <body> element in the app.
 
 
-.scroll-content {
-  background: linear-gradient(151deg, #fbfbfb, #eeeeee);
+// .scroll-content {
+//   background: linear-gradient(151deg, #fbfbfb, #eeeeee);
+// }
+
+.small-icon {
+  font-size: 12px !important;
+}
+
+.bar-button {
+  min-width: 36px !important;
+}
+
+.toolbar-title {
+  // text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 1px;
+  text-align: center;
+  color: map-get($colors, text);
 }
 
 .bottom-links-col {
@@ -37,3 +55,70 @@
     border-right: none;
   }
 }
+
+.side-menu-content {
+  background: map-get($colors, dark-gray);
+}
+.menu-list {
+  background: transparent;
+  margin-top: 15%;
+  &.list-ios {
+    .item-block:first-child {
+      border: none;
+    }
+    .item-block:last-child {
+      border: none;
+    }
+  }
+}
+
+.menu-list .item {
+  background-color: transparent;
+  border:none;
+  color: white;
+  .item-inner {
+    border: none;
+    .label {
+      text-transform: uppercase;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 2.81;
+      letter-spacing: 1.6px;
+      text-align: left;
+    }
+  }
+  &.active {
+    background-color: map-get($colors, red);
+  }
+}
+
+.horizontal-scroll-sub {
+  height: 25px;
+  .item-block {
+    padding: 0 !important;
+    .item-inner {
+      padding: 0;
+      .label {
+        margin: 0 !important;
+      }
+    }
+  }
+
+}
+
+ion-scroll[scrollX] {
+  white-space: nowrap;
+  height: 25px;
+  overflow: hidden;
+
+  .scroll-item {
+    display: inline-block;
+    height: 25px;
+    padding: 0 20px;
+  }
+}
+
+::-webkit-scrollbar{
+  display:none;
+}
+
