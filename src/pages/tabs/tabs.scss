@@ -1,0 +1,21 @@
+page-tabs {
+  super-tabs-toolbar .toolbar {
+    // border-bottom: 1px solid map-get($colors, dark)
+  }
+  super-tab-button{
+    border-bottom: 1px solid map-get($colors, light);
+    .title {
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: 1.7px;
+      color: map-get($colors, dark);
+      opacity: 0.4;
+    }
+    &.selected {
+      .title {
+        opacity: 1;
+        color: map-get($colors, red);
+      }
+    }
+  }
+}

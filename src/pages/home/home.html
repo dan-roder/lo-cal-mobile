@@ -1,43 +1,24 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
-    </button>
-    <ion-title>Menu</ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only>
-        <ion-icon name="history-menu" class="small-icon"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-
-</ion-header>
-
 <ion-content>
-  <div class="horizontal-scroll-sub">
-    <ion-row class="row-no-padding">
-      <ion-item no-lines class="row-no-padding">
-        <ion-scroll scrollX="true" no-padding>
-          <span class="scroll-item">Menu</span>
-          <span class="scroll-item">Salad</span>
-          <span class="scroll-item">Bowls</span>
-          <span class="scroll-item">Smoothie</span>
-          <span class="scroll-item">Burger</span>
-          <span class="scroll-item">Sandwich</span>
-          <span class="scroll-item">Breakfast</span>
-          <span class="scroll-item">Juices</span>
-          <span class="scroll-item">Coffee/Tea</span>
-        </ion-scroll>
-      </ion-item>
-    </ion-row>
-  </div>
+
   <div padding>
-    <h3>Ionic Menu Starter</h3>
+    <h1>Category</h1>
+    <!-- <button ion-button (click)="pushPage(1)">Push page</button> -->
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4 *ngFor="let category of categories; let i = index" no-margin>
+          <ion-card (click)="pushPage(i)" no-margin class="full-width no-shadow light-background">
+          <img src="http://lorempixel.com/400/200/food" />
+            <ion-card-content>
 
-    <p>
-      If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-    </p>
+                {{category.title}}
 
-    <button ion-button secondary menuToggle>Toggle Menu</button>
+            </ion-card-content>
+
+          </ion-card>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
+
 </ion-content>

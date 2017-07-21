@@ -93,9 +93,11 @@
 }
 
 .horizontal-scroll-sub {
-  height: 25px;
+  height: auto;
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.07);
   .item-block {
     padding: 0 !important;
+    min-height: 40px !important;
     .item-inner {
       padding: 0;
       .label {
@@ -108,13 +110,19 @@
 
 ion-scroll[scrollX] {
   white-space: nowrap;
-  height: 25px;
+  height: 40px;
   overflow: hidden;
 
   .scroll-item {
     display: inline-block;
-    height: 25px;
+    height: 40px;
     padding: 0 20px;
+    font-size: 12px;
+    color: map-get($colors, text);
+    opacity: .4;
+    font-weight: 600;
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
   }
 }
 

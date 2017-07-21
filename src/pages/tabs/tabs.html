@@ -1,0 +1,28 @@
+<ion-header no-shadow no-border>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
+    </button>
+    <ion-title>Menu</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="history-menu" class="small-icon"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+<ion-content no-bounce>
+
+  <super-tabs id="mainTabs" selectedTabIndex="0" [config]="{ sideMenu: 'left' }" indicatorColor="red" scrollTabs no-shadow (tabSelect)="onTabSelect($event)">
+      <super-tab [root]="tab1Root" title="Menu"></super-tab>
+      <super-tab [root]="tab2Root" title="Bowls"></super-tab>
+      <super-tab [root]="tab1Root" title="Salads"></super-tab>
+      <super-tab [root]="tab2Root" title="Burgers"></super-tab>
+      <super-tab [root]="tab1Root" title="Sandwiches"></super-tab>
+      <super-tab [root]="tab2Root" title="Breakfast"></super-tab>
+      <super-tab [root]="tab1Root" title="Smoothies"></super-tab>
+      <super-tab [root]="tab2Root" title="Coffe/Tea"></super-tab>
+      <super-tab [root]="tab1Root" title="Juices"></super-tab>
+  </super-tabs>
+</ion-content>

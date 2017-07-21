@@ -14,17 +14,18 @@ $app-direction: ltr;
 
 @import "ionic.globals";
 
-
 // Shared Variables
 // --------------------------------------------------
 // To customize the look and feel of this app, you can override
 // the Sass variables found in Ionic's source scss files.
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
+
+$local-red: #ff3b30;
 $toolbar-background: #fff;
-
-
-
+$tabs-background: #fff;
+$tabs-tab-color-active: $local-red;
+$grid-padding-width: 5px;
 // Named Color Variables
 // --------------------------------------------------
 // Named colors makes it easy to reuse colors on various components.
@@ -39,7 +40,7 @@ $colors: (
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #333,
-  red:        #ff3b30,
+  red:        $local-red,
   dark-gray:  #555,
   light-gray: #cbcbcb,
   text: #1e1e1e
@@ -50,21 +51,26 @@ $colors: (
 // --------------------------------------------------
 // iOS only Sass variables can go here
 
-$toolbar-ios-border-color : transparent;
 $toolbar-ios-button-color : map-get($colors, text);
-
-
+$tabs-ios-tab-text-color: map-get($colors, text);
+$tabs-ios-tab-text-color-active: map-get($colors, red);
+$tabs-ios-tab-icon-color: map-get($colors, text);
+$tabs-ios-tab-icon-color-active: map-get($colors, red);
 
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 
-
+$tabs-md-tab-text-color: map-get($colors, text);
+$tabs-md-tab-text-color-active: map-get($colors, red);
+$tabs-md-tab-icon-color: map-get($colors, text);
+$tabs-md-tab-icon-color-active: map-get($colors, red);
 
 
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here
+
 
 
 
@@ -77,7 +83,6 @@ $toolbar-ios-button-color : map-get($colors, text);
 // default are overridden.
 
 @import "ionic.theme.default";
-
 
 // Ionicons
 // --------------------------------------------------
@@ -97,5 +102,20 @@ $toolbar-ios-button-color : map-get($colors, text);
 @import "roboto";
 @import "noto-sans";
 
+h1 {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  letter-spacing: 1.8px !important;;
+}
 
-
+ion-card {
+  &.full-width {
+    width: 100% !important;
+  }
+  &.no-shadow {
+    box-shadow: none;
+  }
+  &.light-background {
+    background: map-get($colors, light);
+  }
+}
