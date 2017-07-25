@@ -24,7 +24,7 @@ export class OurfoodComponent implements OnInit {
    ) {}
 
   ngOnInit() {
-    this.getPage( 17 );
+    this.getPage( 26 );
   }
 
   getPage( id ) {
