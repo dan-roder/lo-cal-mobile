@@ -1,47 +1,49 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { IonicStorageModule } from '@ionic/storage';
-import { SuperTabsModule } from 'ionic2-super-tabs';
-
-import { MyApp } from './app.component';
-import { IntroPage } from '../pages/intro/intro';
-import { HomePage } from '../pages/home/home';
-import { StoryPage } from '../pages/story/story';
-import { ListPage } from '../pages/list/list';
-import { TabsPage } from '../pages/tabs/tabs';
-import { Tab1Page } from '../pages/tab1/tab1';
-import { Tab2Page } from '../pages/tab2/tab2';
+// import { IonicStorageModule } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+// import { SuperTabsModule } from 'ionic2-super-tabs';
+
+import { MyApp } from './app.component';
+
+import { SharedModule } from './shared/shared.module';
+
+import { IntroModule } from '../pages/intro/intro.module';
+import { HomeModule } from '../pages/home/home.module';
+import { ListModule } from '../pages/list/list.module';
+import { TabsModule } from '../pages/tabs/tabs.module';
+import { Tab1Module } from '../pages/tab1/tab1.module';
+import { Tab2Module } from '../pages/tab2/tab2.module';
+import { AppPagesModule } from '../pages/appPages/appPages.module';
+
 @NgModule({
   declarations: [
-    MyApp,
-    IntroPage,
-    HomePage,
-    StoryPage,
-    ListPage,
-    TabsPage,
-    Tab1Page,
-    Tab2Page
+
+    MyApp
+
   ],
   imports: [
+
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot(),
-    SuperTabsModule.forRoot()
+    SharedModule,
+    IntroModule,
+    HomeModule,
+    ListModule,
+    TabsModule,
+    Tab1Module,
+    Tab2Module,
+    AppPagesModule
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    IntroPage,
-    HomePage,
-    StoryPage,
-    ListPage,
-    TabsPage,
-    Tab1Page,
-    Tab2Page
+
+    MyApp
+
   ],
   providers: [
     StatusBar,

@@ -1,12 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-// import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
-import { StoryPage } from '../pages/story/story';
-import { ListPage } from '../pages/list/list';
+import { TabsComponent } from '../pages/tabs/tabs-component/tabs.component';
+import { OurstoryComponent } from '../pages/appPages/ourstory-component/ourstory.component';
+import { OurfoodComponent } from '../pages/appPages/ourfood-component/ourfood.component';
+
+import { ListComponent } from '../pages/list/list-component/list.component';
 
 @Component({
   templateUrl: 'app.html'
@@ -14,7 +15,7 @@ import { ListPage } from '../pages/list/list';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = TabsPage;
+  rootPage: any = TabsComponent;
   activePage: any;
 
   pages: Array<{title: string, component: any}>;
@@ -23,7 +24,8 @@ export class MyApp {
 
     public platform: Platform,
     public statusBar: StatusBar,
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    private menuController: MenuController
 
     ){
 
@@ -31,12 +33,12 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Menu', component: TabsPage },
-      { title: 'Our Story', component: StoryPage },
-      { title: 'Our Food', component: ListPage },
-      { title: 'Catering', component: ListPage },
-      { title: 'Contact Us', component: ListPage },
-      { title: 'My Account', component: ListPage }
+      { title: 'Menu', component: TabsComponent },
+      { title: 'Our Story', component: OurstoryComponent },
+      { title: 'Our Food', component: OurfoodComponent },
+      { title: 'Catering', component: ListComponent },
+      { title: 'Contact Us', component: ListComponent },
+      { title: 'My Account', component: ListComponent }
     ];
 
     this.activePage = this.pages[0];

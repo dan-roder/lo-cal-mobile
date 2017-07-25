@@ -2,23 +2,23 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the StoryPage page.
+ * Generated class for the Tab2Page page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
 
 @Component({
-  selector: 'page-story',
-  templateUrl: 'story.html',
+  selector: 'page-tab2',
+  templateUrl: 'tab2.html',
 })
-export class StoryPage {
+export class Tab2Component {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad StoryPage');
+    console.log('ionViewDidLoad Tab2Page');
   }
 
 }

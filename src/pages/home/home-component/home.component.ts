@@ -4,15 +4,13 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import {SuperTabsController} from "ionic2-super-tabs";
 
-import { IntroPage } from '../intro/intro';
-import { StoryPage } from '../story/story';
-import { ListPage } from '../list/list';
+import { ListComponent } from '../../list/list-component/list.component';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomeComponent {
 
   activePage: any;
   categories: any;
@@ -22,25 +20,25 @@ export class HomePage {
     this.rootNavCtrl = navParams.get('rootNavCtrl');
 
     this.categories = [
-      { title: 'Bowls' },
-      { title: 'Salad' },
-      { title: 'Burgers' },
-      { title: 'Sandwiches' },
-      { title: 'Breakfast' },
-      { title: 'Smoothies' },
-      { title: 'Coffe/Tea' },
-      { title: 'Juices' }
+      { title: 'Bowls', items: ['Rice', 'Chicken', 'Pork'] },
+      { title: 'Salad', items: ['Ceaser', 'House', 'Wedge']},
+      { title: 'Burgers', items: ['Real', 'Fake']},
+      { title: 'Sandwiches', items: ['BLT', 'Turkey', 'Roast Beef'] },
+      { title: 'Breakfast', items: ['eggs', 'bacon'] },
+      { title: 'Smoothies', items: ['Blueberry', 'Strawberry', 'Mango'] },
+      { title: 'Coffe/Tea', items: ['Regular', 'Dark', 'Light'] },
+      { title: 'Juices', items: ['Orange','Carrot', 'Pineapple'] }
     ];
 
   }
 
   ionViewDidLoad() {
-    this.storage.get('intro-done').then(done => {
-      if (!done) {
-        this.storage.set('intro-done', true);
-        this.navCtrl.setRoot(IntroPage);
-      }
-    });
+    // this.storage.get('intro-done').then(done => {
+    //   if (!done) {
+    //     this.storage.set('intro-done', true);
+    //     this.navCtrl.setRoot(IntroComponent);
+    //   }
+    // });
   }
 
   checkActivePage(page): boolean{

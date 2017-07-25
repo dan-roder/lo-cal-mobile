@@ -12,7 +12,7 @@ import { NavController, NavParams } from 'ionic-angular';
   selector: 'page-tab1',
   templateUrl: 'tab1.html',
 })
-export class Tab1Page {
+export class Tab1Component {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
