@@ -7,10 +7,10 @@ import {SuperTabsController} from "ionic2-super-tabs";
 import { ListComponent } from '../../list/list-component/list.component';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-menu',
+  templateUrl: 'menu.html'
 })
-export class HomeComponent {
+export class MenuComponent {
 
   activePage: any;
   categories: any;
@@ -33,12 +33,7 @@ export class HomeComponent {
   }
 
   ionViewDidLoad() {
-    // this.storage.get('intro-done').then(done => {
-    //   if (!done) {
-    //     this.storage.set('intro-done', true);
-    //     this.navCtrl.setRoot(IntroComponent);
-    //   }
-    // });
+
   }
 
   checkActivePage(page): boolean{

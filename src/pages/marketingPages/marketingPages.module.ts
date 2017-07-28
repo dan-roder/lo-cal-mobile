@@ -29,4 +29,4 @@ import { FeaturedMedia } from './featured-media-component/featured-media.compone
     FeaturedMedia
   ]
 })
-export class AppPagesModule {}
+export class MarketingPagesModule {}

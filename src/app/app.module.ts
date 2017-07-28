@@ -12,12 +12,12 @@ import { MyApp } from './app.component';
 import { SharedModule } from './shared/shared.module';
 
 import { IntroModule } from '../pages/intro/intro.module';
-import { HomeModule } from '../pages/home/home.module';
+import { MenuModule } from '../pages/menu/menu.module';
 import { ListModule } from '../pages/list/list.module';
 import { TabsModule } from '../pages/tabs/tabs.module';
 import { Tab1Module } from '../pages/tab1/tab1.module';
 import { Tab2Module } from '../pages/tab2/tab2.module';
-import { AppPagesModule } from '../pages/appPages/appPages.module';
+import { MarketingPagesModule } from '../pages/marketingPages/marketingPages.module';
 
 @NgModule({
   declarations: [
@@ -31,12 +31,12 @@ import { AppPagesModule } from '../pages/appPages/appPages.module';
     IonicModule.forRoot(MyApp),
     SharedModule,
     IntroModule,
-    HomeModule,
+    MenuModule,
     ListModule,
     TabsModule,
     Tab1Module,
     Tab2Module,
-    AppPagesModule
+    MarketingPagesModule
 
   ],
   bootstrap: [IonicApp],

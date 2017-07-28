@@ -4,8 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { TabsComponent } from '../pages/tabs/tabs-component/tabs.component';
-import { OurstoryComponent } from '../pages/appPages/ourstory-component/ourstory.component';
-import { OurfoodComponent } from '../pages/appPages/ourfood-component/ourfood.component';
+import { OurstoryComponent } from '../pages/marketingPages/ourstory-component/ourstory.component';
+import { OurfoodComponent } from '../pages/marketingPages/ourfood-component/ourfood.component';
 
 import { ListComponent } from '../pages/list/list-component/list.component';
 

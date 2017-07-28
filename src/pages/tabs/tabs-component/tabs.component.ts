@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
-import { HomeComponent } from '../../home/home-component/home.component';
+import { MenuComponent } from '../../menu/menu-component/menu.component';
 import { Tab2Component } from '../../tab2/tab2-component/tab2.component';
 
 import { IntroComponent } from '../../intro/intro-component/intro.component';
@@ -20,7 +20,7 @@ import {SuperTabsController} from "ionic2-super-tabs";
 })
 export class TabsComponent {
 
-  tab1Root = HomeComponent;
+  tab1Root = MenuComponent;
   tab2Root = Tab2Component;
 
 
