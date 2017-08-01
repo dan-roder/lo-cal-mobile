@@ -7,6 +7,22 @@
           {{p.title}}
         </button>
       </ion-list>
+      <div padding>
+        <button menuClose ion-button block outline color="white" (click)="openLogin()">Log In</button>
+      </div>
+      <ion-grid padding>
+        <ion-row>
+          <ion-col col-3>
+            <ion-icon name="facebook" class="large-icon" color="white"></ion-icon>
+          </ion-col>
+          <ion-col col-3>
+            <ion-icon name="twitter" class="large-icon" color="white"></ion-icon>
+          </ion-col>
+          <ion-col col-3>
+            <ion-icon name="instagram" class="large-icon" color="white"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-content>
 
   </ion-menu>

@@ -9,12 +9,9 @@
 
 <ion-content class="page" padding>
   <div *ngIf="page">
+
     <featured-media *ngIf="page.featured_media" [id]="page.featured_media"></featured-media>
+    <div [innerHtml]="page.content.rendered"></div>
 
-
-      <!-- <ion-card-content text-wrap *ngIf="page.content.rendered"> -->
-        <div [innerHtml]="page.content.rendered"></div>
-      <!-- </ion-card-content> -->
-    <!-- </ion-card> -->
   </div>
 </ion-content>

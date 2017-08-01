@@ -1,6 +1,8 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/v2/theming/
 
+
+
 // Font path is used to include ionicons,
 // roboto, and noto sans fonts
 $font-path: "../assets/fonts";
@@ -22,10 +24,13 @@ $app-direction: ltr;
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 
 $local-red: #ff3b30;
-$toolbar-background: #fff;
-$tabs-background: #fff;
+$white: #fff;
+
+$toolbar-background: $white;
+$tabs-background: $white;
 $tabs-tab-color-active: $local-red;
 $grid-padding-width: 5px;
+
 // Named Color Variables
 // --------------------------------------------------
 // Named colors makes it easy to reuse colors on various components.
@@ -40,10 +45,11 @@ $colors: (
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #333,
+  white:      $white,
   red:        $local-red,
   dark-gray:  #555,
   light-gray: #cbcbcb,
-  text: #1e1e1e
+  text:       #1e1e1e
 );
 
 
@@ -119,3 +125,4 @@ ion-card {
     background: map-get($colors, light);
   }
 }
+
