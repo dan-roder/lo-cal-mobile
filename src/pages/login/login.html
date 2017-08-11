@@ -10,11 +10,14 @@
     <p>Log in now to explore the menu and place your order!</p>
     <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
         <ion-list>
-            <ion-item [ngClass]="{'has-error':!loginForm.controls['email'].valid}" no-padding>
+            <ion-item [ngClass]="{ 'has-error': email.invalid && email.dirty }" no-padding>
                 <ion-label stacked>Email</ion-label>
                 <ion-input type="email" name="email" formControlName="email"></ion-input>
+                <div class="form-control-feedback" *ngIf="email.invalid && email.dirty"> 
+                    Please enter a valid email.
+                </div>
             </ion-item>
-            <ion-item [ngClass]="{'has-error':!loginForm.controls['password'].valid}" no-padding>
+            <ion-item [ngClass]="{ 'has-error': password.invalid && password.dirty }" no-padding>
                 <ion-label stacked>Password</ion-label>
                 <ion-input type="password" name="password" formControlName="password"></ion-input>
             </ion-item>
