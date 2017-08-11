@@ -1,21 +1,14 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../app/shared/shared.module';
-import { ListComponent } from './list-component/list.component';
+import { IonicPageModule } from "ionic-angular";
+
+import { ListComponent } from './list';
 
 @NgModule({
   declarations: [
     ListComponent
   ],
   imports: [
-    CommonModule,
-    SharedModule
-  ],
-  exports: [
-    ListComponent
-  ],
-  entryComponents:[
-    ListComponent
+    IonicPageModule.forChild(ListComponent)
   ]
 })
 export class ListModule {}

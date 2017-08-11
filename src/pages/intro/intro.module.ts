@@ -1,21 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../app/shared/shared.module';
-import { IntroComponent } from './intro-component/intro.component';
+import { IonicPageModule } from "ionic-angular";
+// import { CommonModule } from '@angular/common';
+// import { SharedModule } from '../../app/shared/shared.module';
+import { IntroComponent } from './intro';
 
 @NgModule({
   declarations: [
     IntroComponent
   ],
   imports: [
-    CommonModule,
-    SharedModule
-  ],
-  exports: [
-    IntroComponent
-  ],
-  entryComponents:[
-    IntroComponent
+    IonicPageModule.forChild(IntroComponent)
   ]
 })
 export class IntroModule {}

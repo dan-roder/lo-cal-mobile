@@ -1,21 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../app/shared/shared.module';
-import { MenuComponent } from './menu-component/menu.component';
+import { IonicPageModule } from 'ionic-angular';
+// import { SharedModule } from '../../app/shared/shared.module';
+import { MenuComponent } from './menu';
 
 @NgModule({
   declarations: [
     MenuComponent
   ],
   imports: [
-    CommonModule,
-    SharedModule
-  ],
-  exports: [
-    MenuComponent
-  ],
-  entryComponents:[
-    MenuComponent
+    // SharedModule,
+    IonicPageModule.forChild(MenuComponent)
   ]
 })
 export class MenuModule {}

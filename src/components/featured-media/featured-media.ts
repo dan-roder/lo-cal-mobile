@@ -1,14 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { OnInit } from '@angular/core';
 
-import { WordpressService } from '../../shared/wordpress.service';
+import { WordpressService } from '../../pages/shared/wordpress.service';
 
 @Component({
   selector: 'featured-media',
   templateUrl: 'featured-media.html',
   providers: [WordpressService]
 })
-export class FeaturedMedia implements OnInit {
+export class FeaturedMediaComponent implements OnInit {
   @Input() id: number;
 
   media: any;

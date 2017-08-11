@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 import {SuperTabsController} from "ionic2-super-tabs";
 
-import { ListComponent } from '../../list/list-component/list.component';
+// import { ListComponent } from '../list/list.component';
 
+@IonicPage()
 @Component({
   selector: 'page-menu',
   templateUrl: 'menu.html'

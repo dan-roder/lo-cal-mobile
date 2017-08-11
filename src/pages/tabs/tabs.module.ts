@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../app/shared/shared.module';
-import { TabsComponent } from './tabs-component/tabs.component';
+import { IonicPageModule } from 'ionic-angular';
+
+import { TabsComponent } from './tabs';
 import { SuperTabsModule } from 'ionic2-super-tabs';
 
 @NgModule({
@@ -9,15 +9,8 @@ import { SuperTabsModule } from 'ionic2-super-tabs';
     TabsComponent
   ],
   imports: [
-    CommonModule,
-    SharedModule,
-    SuperTabsModule
-  ],
-  exports: [
-    TabsComponent
-  ],
-  entryComponents:[
-    TabsComponent
+    SuperTabsModule,
+    IonicPageModule.forChild(TabsComponent)
   ]
 })
 export class TabsModule {}

@@ -1,21 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../app/shared/shared.module';
-import { Tab2Component } from './tab2-component/tab2.component';
+import { IonicPageModule } from "ionic-angular";
+// import { SharedModule } from '../../app/shared/shared.module';
+import { Tab2Component } from './tab2';
 
 @NgModule({
   declarations: [
     Tab2Component
   ],
   imports: [
-    CommonModule,
-    SharedModule
-  ],
-  exports: [
-    Tab2Component
-  ],
-  entryComponents:[
-    Tab2Component
+    // SharedModule,
+    IonicPageModule.forChild(Tab2Component)
   ]
 })
 export class Tab2Module {}

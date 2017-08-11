@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
-import { WordpressService } from '../../shared/wordpress.service';
+import { WordpressService } from '../shared/wordpress.service';
 
+@IonicPage()
 @Component({
   selector: 'page-ourstory',
   templateUrl: 'ourstory.html',
