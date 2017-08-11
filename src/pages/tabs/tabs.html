@@ -14,7 +14,7 @@
 </ion-header>
 <ion-content no-bounce>
 
-  <super-tabs id="mainTabs" selectedTabIndex="0" [config]="{ sideMenu: 'left' }" indicatorColor="red" scrollTabs no-shadow (tabSelect)="onTabSelect($event)">
+  <super-tabs id="mainTabs" selectedTabIndex="0" [config]="{ sideMenu: 'left' }" indicatorColor="red" scrollTabs no-shadow (tabSelect)="onTabSelect( $event )">
       <super-tab [root]="tab1Root" title="Menu"></super-tab>
       <super-tab [root]="tab2Root" title="Bowls"></super-tab>
       <super-tab [root]="tab1Root" title="Salads"></super-tab>

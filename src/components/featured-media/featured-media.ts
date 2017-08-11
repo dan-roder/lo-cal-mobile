@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { OnInit } from '@angular/core';
 
-import { WordpressService } from '../../pages/shared/wordpress.service';
+import { WordPressProvider } from '../../providers/word-press/word-press';
 
 @Component({
   selector: 'featured-media',
   templateUrl: 'featured-media.html',
-  providers: [WordpressService]
+  providers: [WordPressProvider]
 })
 export class FeaturedMediaComponent implements OnInit {
   @Input() id: number;
@@ -14,7 +14,7 @@ export class FeaturedMediaComponent implements OnInit {
   media: any;
 
   constructor(
-    private wordpressService: WordpressService) {}
+    private wordpressService: WordPressProvider) {}
 
   ngOnInit() {
     if (this.id > 0) {

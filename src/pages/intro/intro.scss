@@ -1,8 +1,59 @@
 page-intro {
-  .swiper-pagination-bullet-active {
-    background: map-get( $colors, red );
-  }
-  ion-slides {
-    height: 85%;
-  }
+
+    .scroll-content {
+        padding: 16px 0 !important;
+        background: map-get( $colors, light );
+    }
+    .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {
+        margin: 0 15px;
+    }
+    .swiper-pagination-bullet-active {
+        background: map-get( $colors, red );
+    }
+
+    ion-slides {
+        height: 85%;
+    }
+    .slide-1 {
+        background: url("assets/images/bitmap@3x.png");
+    }
+    ion-slide {
+        
+        .slide-content {
+            padding: 0 50px;
+            position: relative;
+            &.top {
+                position : absolute;
+                top: 25px;
+            }
+            &.bottom{
+                position: absolute;
+                bottom: 50px;
+                font-size: 15px;
+                line-height: 1.4;
+                letter-spacing: 0.6px;
+            }
+        }
+        h1 {
+            text-align: left;
+            text-transform: uppercase;
+            font-size: 45px !important;
+            line-height: 52px !important;
+            letter-spacing: 2.7px !important;
+            span.red {
+                color: map-get( $colors, red );
+            }
+        }
+        p {
+            text-align: left;
+        }
+    }
+
+    button.order-now {
+        text-transform: uppercase;
+        font-weight: 600;
+        height: 40px;
+        width: 90%;
+        margin: 2% auto;
+    }
 }

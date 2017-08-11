@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
 
-import { WordpressService } from '../shared/wordpress.service';
+import { WordPressProvider } from '../../providers/word-press/word-press';
 
 @IonicPage()
 @Component({
   selector: 'page-ourstory',
   templateUrl: 'ourstory.html',
-  providers: [ WordpressService ]
+  providers: [ WordPressProvider ]
 })
 export class OurstoryComponent implements OnInit {
 
@@ -17,7 +16,7 @@ export class OurstoryComponent implements OnInit {
   constructor(
 
     private navParams: NavParams,
-    private wordpressService: WordpressService,
+    private wordpressService: WordPressProvider,
     private navController: NavController,
     private loadingController: LoadingController,
     private storage: Storage

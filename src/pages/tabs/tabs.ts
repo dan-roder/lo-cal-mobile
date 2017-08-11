@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { SuperTabsController } from "ionic2-super-tabs";
+// import { SuperTabsController } from "ionic2-super-tabs";
 
 @IonicPage()
 @Component({
@@ -14,7 +14,13 @@ export class TabsComponent {
   tab2Root = 'Tab2Component';
 
 
-  constructor(public navCtrl: NavController, public storage: Storage, private superTabsCtrl: SuperTabsController) {}
+  constructor(
+
+    public navCtrl: NavController, 
+    public storage: Storage, 
+    // private superTabsCtrl: SuperTabsController
+
+  ) {}
 
   ionViewDidLoad() {
     this.storage.get('intro-done').then( done => {

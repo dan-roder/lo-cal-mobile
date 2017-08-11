@@ -6,6 +6,7 @@ import { IonicStorageModule } from '@ionic/storage';
 
 // Providers
 import { Config } from './app.config';
+import { WordPressProvider } from '../providers/word-press/word-press';
 
 // Directives
 
@@ -33,6 +34,7 @@ export const MODULES = [
 
 export const PROVIDERS = [
     Config,
+    WordPressProvider,
     // Ionic native specific providers
     InAppBrowser,
     StatusBar,
