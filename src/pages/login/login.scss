@@ -1,3 +1,18 @@
 page-login {
 
+    .login-button {
+
+        margin-top: 50px;
+        height: 40px;
+        font-weight: 600;
+        letter-spacing: 1.4px;
+        
+    }
+
+    [ion-button][disabled] {
+
+        background: map-get( $colors, offWhite );
+
+    }
+
 }

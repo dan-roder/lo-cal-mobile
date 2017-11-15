@@ -18,8 +18,7 @@ export class OurstoryComponent implements OnInit {
     private navParams: NavParams,
     private wordpressService: WordPressProvider,
     private navController: NavController,
-    private loadingController: LoadingController,
-    private storage: Storage
+    private loadingController: LoadingController
 
    ) {}
 

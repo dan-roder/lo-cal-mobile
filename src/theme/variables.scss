@@ -27,11 +27,16 @@ $gray-brown: #585858;
 $local-red: #ff3b30;
 $white: #fff;
 $off-white: #e1e1e1;
+$dark-gray: #555;
+$light-gray: #cbcbcb;
+$gray: #a8a8a8;
 
 $toolbar-background: $white;
 $tabs-background: $white;
 $tabs-tab-color-active: $local-red;
 $grid-padding-width: 5px;
+
+$list-border-color: $black;
 
 // Named Color Variables
 // --------------------------------------------------
@@ -47,15 +52,15 @@ $colors: (
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #333,
-  
+
   black:      $black,
   gray-brown:   $gray-brown,
   red:        $local-red,
   white:      $white,
   offWhite:     $off-white,
 
-  dark-gray:  #555,
-  light-gray: #cbcbcb,
+  dark-gray:  $dark-gray,
+  light-gray: $light-gray,
 
 );
 
@@ -70,6 +75,8 @@ $tabs-ios-tab-text-color-active: map-get($colors, red);
 $tabs-ios-tab-icon-color: map-get($colors, text);
 $tabs-ios-tab-icon-color-active: map-get($colors, red);
 
+$text-input-ios-show-focus-highlight: false;
+
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
@@ -79,12 +86,16 @@ $tabs-md-tab-text-color-active: map-get($colors, red);
 $tabs-md-tab-icon-color: map-get($colors, text);
 $tabs-md-tab-icon-color-active: map-get($colors, red);
 
+$text-input-md-show-focus-highlight: false;
+$list-md-border-color: $list-border-color;
+$item-md-divider-border-bottom: 2px solid $list-md-border-color;
+
 
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here
 
-
+$text-input-wp-show-focus-highlight: false;
 
 
 

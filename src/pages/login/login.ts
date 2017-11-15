@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 
+import { LoCalApiProvider } from '../../providers/lo-cal-api/lo-cal-api';
+
 @IonicPage()
 @Component({
 
     selector: 'page-login',
     templateUrl: 'login.html',
-
+    providers: [ LoCalApiProvider ]
 })
 export class LoginPage {
 
@@ -21,6 +23,7 @@ export class LoginPage {
 
         public navCtrl: NavController,
         public navParams: NavParams,
+        private localApi: LoCalApiProvider,
         private loadingController: LoadingController,
         private toastController: ToastController,
         private fb: FormBuilder
@@ -44,25 +47,43 @@ export class LoginPage {
     }
 
     login() {
+
+        let loader = this.loadingController.create({
+            content: "Please Wait"
+        });
+
         if( this.loginForm.valid ) {
-            console.log( this.loginForm.valid, this.email.value, this.password.value );
-            let message = `Form Valid, email: ${this.email.value}, password: ${this.password.value}`;
-            let toast = this.toastController.create({
-                message: message,
-                duration: 6000,
-                position: 'bottom'
+
+            let credentials = { "email": this.email.value, "password": this.password.value }
+            loader.present();
+
+            this.localApi.login( credentials ).subscribe( ( response ) => {
+                console.log( response );
+                loader.dismiss();
+            }, error => {
+                loader.dismiss();
+                console.log( error );
+                let message = error;
+                let toast = this.toastController.create({
+                    message: message,
+                    duration: 6000,
+                    position: 'bottom'
+                });
+                toast.present();
             });
-            toast.present();
+
+            // console.log( this.loginForm.valid, this.email.value, this.password.value );
+            // let message = `Form Valid, email: ${this.email.value}, password: ${this.password.value}`;
+            // let toast = this.toastController.create({
+            //     message: message,
+            //     duration: 6000,
+            //     position: 'bottom'
+            // });
+            // toast.present();
 
         } else {
             console.log( this.loginForm.valid );
-            let message = `Form not valid`;
-            let toast = this.toastController.create({
-                message: message,
-                duration: 6000,
-                position: 'bottom'
-            });
-            toast.present();
+
         }
         
     }

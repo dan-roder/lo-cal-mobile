@@ -21,13 +21,24 @@
                 <ion-input type="password" name="password" formControlName="password"></ion-input>
             </ion-item>
             <ion-row>
-                <ion-col col-6>
-                    <button type="submit" ion-button block icon-left [disabled]="!loginForm.valid" color="orange">
-                        <ion-icon name="log-in"></ion-icon>
+                <ion-col>
+                    <button type="submit" ion-button block [disabled]="!loginForm.valid" color="red" class="login-button">
                         Log In
                     </button>
                 </ion-col>
             </ion-row>
         </ion-list>
     </form>
+    <div class="bottom-buttons-wrap">
+        <ion-grid>
+            <ion-row>
+                <ion-col class="bottom-links-col">
+                    <a href="#" class="bottom-link" [navPush]="'LoginPage'">New Account</a>
+                </ion-col>
+                <ion-col class="bottom-links-col">
+                    <a href="#" class="bottom-link">Register</a>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+      </div>
 </ion-content>

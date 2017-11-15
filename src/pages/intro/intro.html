@@ -25,18 +25,35 @@
     </ion-slide>
 
     <ion-slide>
-      <img src="assets/img2.svg">
-      <h1>All of the features</h1>
-      <p>Here's what you can do with the app...</p>
+      <div class="slide-2">
+        <div class="slide-content top">
+            <h1>All of the features</h1>
+        </div>
+        <div class="slide-image">
+          <img src="assets/images/slide1@3x.png">
+        </div>
+        <div class="slide-content bottom">
+            <p>Here's what you can do with the app...</p>
+        </div>
+      </div>
     </ion-slide>
 
     <ion-slide>
-      <img src="assets/img3.svg">
-      <h1>Get started now!</h1>
-
+      <div class="slide-2">
+        <div class="slide-content top">
+            <h1>Get started now!</h1>
+        </div>
+        <div class="slide-image">
+          <img src="assets/images/slide1@3x.png">
+        </div>
+        <div class="slide-content bottom">
+            <p></p>
+        </div>
+      </div>      
     </ion-slide>
 
   </ion-slides>
+  
   <div class="bottom-buttons-wrap">
     <button ion-button block color="dark" (click)="navHome()" class="order-now">
       Order Now
@@ -44,7 +61,7 @@
     <ion-grid>
       <ion-row>
         <ion-col class="bottom-links-col">
-          <a href="#" class="bottom-link">login</a>
+          <a href="#" class="bottom-link" [navPush]="'LoginPage'">login</a>
         </ion-col>
         <ion-col class="bottom-links-col">
           <a href="#" class="bottom-link">new account</a>

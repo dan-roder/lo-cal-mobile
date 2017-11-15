@@ -19,6 +19,10 @@
 //   background: linear-gradient(151deg, #fbfbfb, #eeeeee);
 // }
 
+.list-ios > .item-block:first-child {
+  border-top: none !important;
+}
+
 .small-icon {
   font-size: 12px !important;
 }
@@ -39,6 +43,9 @@
   letter-spacing: 1px;
   text-align: center;
   color: map-get($colors, text);
+}
+super-tabs-toolbar>ion-toolbar.toolbar.scroll-tabs .tab-buttons-container .tab-buttons super-tab-button {
+  min-width: auto !important;
 }
 
 .bottom-links-col {
