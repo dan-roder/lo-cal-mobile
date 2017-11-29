@@ -1,6 +1,4 @@
 // http://ionicframework.com/docs/v2/theming/
-
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,129 +12,124 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-
 // .scroll-content {
 //   background: linear-gradient(151deg, #fbfbfb, #eeeeee);
 // }
-
-.list-ios > .item-block:first-child {
-  border-top: none !important;
+.list-ios>.item-block:first-child {
+    border-top: none !important;
 }
 
 .small-icon {
-  font-size: 12px !important;
+    font-size: 12px !important;
 }
 
 .large-icon {
-  font-size: 36px !important;
+    font-size: 36px !important;
 }
 
 .bar-button {
-  min-width: 36px !important;
+    min-width: 36px !important;
 }
 
 .toolbar-title {
-  // text-transform: uppercase;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: 1px;
-  text-align: center;
-  color: map-get($colors, text);
+    // text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 1px; //   text-align: center;
+    color: map-get($colors, text);
 }
+
 super-tabs-toolbar>ion-toolbar.toolbar.scroll-tabs .tab-buttons-container .tab-buttons super-tab-button {
-  min-width: auto !important;
+    min-width: auto !important;
 }
 
 .bottom-links-col {
-  text-align: center;
-  border-right: 1px solid map-get($colors, light-gray);
-  margin-top: 15px;
-  a {
-    text-transform: uppercase;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 1.2px;
-    color: map-get($colors, dark);
-
-  }
-  &:last-child {
-    border-right: none;
-  }
+    text-align: center;
+    border-right: 1px solid map-get($colors, light-gray);
+    margin-top: 15px;
+    a {
+        text-transform: uppercase;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 1.2px;
+        color: map-get($colors, dark);
+    }
+    &:last-child {
+        border-right: none;
+    }
 }
 
 .side-menu-content {
-  background: map-get($colors, dark-gray);
+    background: map-get($colors, dark-gray);
 }
+
 .menu-list {
-  background: transparent;
-  margin-top: 15%;
-  &.list-ios {
-    .item-block:first-child {
-      border: none;
+    background: transparent;
+    margin-top: 15%;
+    &.list-ios {
+        .item-block:first-child {
+            border: none;
+        }
+        .item-block:last-child {
+            border: none;
+        }
     }
-    .item-block:last-child {
-      border: none;
-    }
-  }
 }
 
 .menu-list .item {
-  background-color: transparent;
-  border:none;
-  color: white;
-  .item-inner {
+    background-color: transparent;
     border: none;
-    .label {
-      text-transform: uppercase;
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 2.81;
-      letter-spacing: 1.6px;
-      text-align: left;
+    color: white;
+    .item-inner {
+        border: none;
+        .label {
+            text-transform: uppercase;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 2.81;
+            letter-spacing: 1.6px;
+            text-align: left;
+        }
     }
-  }
-  &.active {
-    background-color: map-get($colors, red);
-  }
+    &.active {
+        background-color: map-get($colors, red);
+    }
 }
 
 .horizontal-scroll-sub {
-  height: auto;
-  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.07);
-  .item-block {
-    padding: 0 !important;
-    min-height: 40px !important;
-    .item-inner {
-      padding: 0;
-      .label {
-        margin: 0 !important;
-      }
+    height: auto;
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.07);
+    .item-block {
+        padding: 0 !important;
+        min-height: 40px !important;
+        .item-inner {
+            padding: 0;
+            .label {
+                margin: 0 !important;
+            }
+        }
     }
-  }
-
 }
 
 ion-scroll[scrollX] {
-  white-space: nowrap;
-  height: 40px;
-  overflow: hidden;
-
-  .scroll-item {
-    display: inline-block;
+    white-space: nowrap;
     height: 40px;
-    padding: 0 20px;
-    font-size: 12px;
-    color: map-get($colors, text);
-    opacity: .4;
-    font-weight: 600;
-    letter-spacing: 1.7px;
-    text-transform: uppercase;
-  }
+    overflow: hidden;
+    .scroll-item {
+        display: inline-block;
+        height: 40px;
+        padding: 0 20px;
+        font-size: 12px;
+        color: map-get($colors, text);
+        opacity: .4;
+        font-weight: 600;
+        letter-spacing: 1.7px;
+        text-transform: uppercase;
+    }
 }
 
-::-webkit-scrollbar{
-  display:none;
+::-webkit-scrollbar {
+    display: none;
 }
-

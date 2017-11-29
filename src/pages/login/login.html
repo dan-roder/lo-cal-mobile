@@ -12,7 +12,7 @@
             <ion-item [ngClass]="{ 'has-error': email.invalid && email.dirty }" no-padding>
                 <ion-label floating>Email</ion-label>
                 <ion-input type="email" name="email" formControlName="email"></ion-input>
-                <div class="form-control-feedback" *ngIf="email.invalid && email.dirty"> 
+                <div class="form-control-feedback" *ngIf="email.invalid && email.dirty">
                     Please enter a valid email.
                 </div>
             </ion-item>
@@ -21,8 +21,8 @@
                 <ion-input type="password" name="password" formControlName="password"></ion-input>
             </ion-item>
             <ion-row>
-                <ion-col>
-                    <button type="submit" ion-button block [disabled]="!loginForm.valid" color="red" class="login-button">
+                <ion-col no-padding>
+                    <button type="submit" ion-button block no-border [disabled]="!loginForm.valid" color="red" class="login-button">
                         Log In
                     </button>
                 </ion-col>
@@ -36,7 +36,7 @@
                     <a href="#" class="bottom-link" [navPush]="'LoginPage'">New Account</a>
                 </ion-col>
                 <ion-col class="bottom-links-col">
-                    <a href="#" class="bottom-link">Register</a>
+                    <a href="#" class="bottom-link">Forgot Password</a>
                 </ion-col>
             </ion-row>
         </ion-grid>

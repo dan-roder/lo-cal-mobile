@@ -1,90 +1,100 @@
 <ion-content>
 
-  <div class="menu" no-padding>
-    <h2 class="menu-heading">Category</h2>
-    <!-- <button ion-button (click)="pushPage(1)">Push page</button> -->
-    <ion-grid no-padding>
-      <ion-row>
-        <ion-col col-4 *ngFor="let category of categories; let i = index" no-margin>
-          <ion-card (click)="pushPage(i)" no-margin class="full-width no-shadow light-background menu-item">
-            <img class="food-item" src="http://lorempixel.com/400/400/food" />
+    <div class="menu" no-padding>
+        <h2 class="menu-heading">Category</h2>
+        <!-- <button ion-button (click)="pushPage(1)">Push page</button> -->
+        <ion-grid no-padding>
+            <ion-row>
+                <ion-col col-4 *ngFor="let category of categories; let i = index" no-margin>
+                    <ion-card (click)="pushPage(i)" no-margin class="full-width no-shadow light-background menu-item">
+                        <img class="food-item" src="assets/images/menu-1.png" />
+                        <ion-card-content no-padding>
+                            <ion-card-title text-center>{{category.title}}</ion-card-title>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+    <div class="featured" no-padding>
+        <h2 class="menu-heading">Featured Items</h2>
+        <ion-card no-margin class="full-width">
+            <img class="food-item" src="http://lorempixel.com/750/330/food" />
             <ion-card-content no-padding>
-              <ion-card-title text-center>{{category.title}}</ion-card-title>
+                <ion-card-title>
+                    <ion-row>
+                        <ion-col>
+                            Alamo Salad
+                        </ion-col>
+                        <ion-col text-right>
+                            <ion-icon class="featured-title-icon" name="chevron"></ion-icon>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-title>
+                <p class="featured-description">Romaine, grilled shrimp, cucumber, tomato, kalamata olives, feta, chickpeas, something else, greek dressing</p>
             </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
-  <div class="featured" no-padding>
-    <h2 class="menu-heading">Featured Items</h2>
-    <ion-card no-margin class="full-width">
-      <img class="food-item" src="http://lorempixel.com/750/330/food" />
-      <ion-card-content no-padding>
-        <ion-card-title>
-          <ion-row>
-            <ion-col>
-               Alamo Salad
-            </ion-col>
-            <ion-col text-right>
-              <ion-icon class="featured-title-icon" name="chevron"></ion-icon>
-            </ion-col>
-          </ion-row>
-        </ion-card-title>
-        <p class="featured-description">Romaine, grilled shrimp, cucumber, tomato, kalamata olives, feta, chickpeas, something else, greek dressing</p>
-      </ion-card-content>
-      <ion-row class="featured-meta">
-        <ion-col col-3 class="border">
-          <span class="price">$12.99</span>
-        </ion-col>
-        <ion-col col-3 text-center class="border">
-          <span class="calories">360 cal</span>
-        </ion-col>
-        <ion-col col-4 text-center>
-          <span class="allergen">
-            <ion-icon name="vegan"></ion-icon>
-            <ion-icon name="paleo"></ion-icon>
-            <ion-icon name="veget"></ion-icon>
-          </span>
-        </ion-col>
-        <ion-col col-2 text-right>
-          <span class="add">Add</span>
-        </ion-col>
-      </ion-row>
-    </ion-card>
-    <ion-card no-margin class="full-width">
-      <img class="food-item" src="http://lorempixel.com/750/330/food" />
-      <ion-card-content no-padding>
-        <ion-card-title>
-          <ion-row>
-            <ion-col>
-              Alamo Salad
-            </ion-col>
-            <ion-col text-right>
-              <ion-icon class="featured-title-icon" name="chevron"></ion-icon>
-            </ion-col>
-          </ion-row>
-        </ion-card-title>
-        <p class="featured-description">Romaine, grilled shrimp, cucumber, tomato, kalamata olives, feta, chickpeas, something else, greek dressing</p>
-      </ion-card-content>
-      <ion-row class="featured-meta">
-        <ion-col col-3 class="border">
-          <span class="price">$12.99</span>
-        </ion-col>
-        <ion-col col-3 text-center class="border">
-          <span class="calories">360 cal</span>
-        </ion-col>
-        <ion-col col-4 text-center>
-          <span class="allergen">
-            <ion-icon name="vegan"></ion-icon>
-            <ion-icon name="paleo"></ion-icon>
-            <ion-icon name="veget"></ion-icon>
-          </span>
-        </ion-col>
-        <ion-col col-2 text-right>
-          <span class="add">Add</span>
-        </ion-col>
-      </ion-row>
-    </ion-card>
-  </div>
+            <ion-row class="featured-meta">
+                <ion-col col-3 class="border">
+                    <span class="price">$12.99</span>
+                </ion-col>
+                <ion-col col-3 text-center class="border">
+                    <span class="calories">360 cal</span>
+                </ion-col>
+                <ion-col col-4 text-center>
+                    <span class="allergen">
+                        <ion-icon name="vegan"></ion-icon>
+                        <ion-icon name="paleo"></ion-icon>
+                        <ion-icon name="veget"></ion-icon>
+                    </span>
+                </ion-col>
+                <ion-col col-2 text-right>
+                    <span class="add">Add</span>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+        <ion-card no-margin class="full-width">
+            <img class="food-item" src="http://lorempixel.com/750/330/food" />
+            <ion-card-content no-padding>
+                <ion-card-title>
+                    <ion-row>
+                        <ion-col>
+                            Alamo Salad
+                        </ion-col>
+                        <ion-col text-right>
+                            <ion-icon class="featured-title-icon" name="chevron"></ion-icon>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-title>
+                <p class="featured-description">Romaine, grilled shrimp, cucumber, tomato, kalamata olives, feta, chickpeas, something else, greek dressing</p>
+            </ion-card-content>
+            <ion-row class="featured-meta">
+                <ion-col col-3 class="border">
+                    <span class="price">$12.99</span>
+                </ion-col>
+                <ion-col col-3 text-center class="border">
+                    <span class="calories">360 cal</span>
+                </ion-col>
+                <ion-col col-4 text-center>
+                    <span class="allergen">
+                        <ion-icon name="vegan"></ion-icon>
+                        <ion-icon name="paleo"></ion-icon>
+                        <ion-icon name="veget"></ion-icon>
+                    </span>
+                </ion-col>
+                <ion-col col-2 text-right>
+                    <span class="add">Add</span>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+    </div>
 </ion-content>
+
+<ion-footer no-border>
+    <ion-toolbar color="light" no-padding>
+        <div class="button-bag-wrap">
+            <button ion-button block color="red" (click)="openBag('BagPage')">
+                View My Bag
+            </button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

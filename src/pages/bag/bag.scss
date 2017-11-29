@@ -1,0 +1,80 @@
+page-bag {
+    ion-content {
+        &.content-md, &.content-ios {
+            background: map-get($colors, light);
+        }
+    }
+
+    .bag-item {
+        background: map-get($colors, white);
+        margin:     20px 0;
+        min-height: 150px;
+        max-height: 150px;
+
+        &-title {
+            font-size:      16px;
+            font-weight:    600;
+            letter-spacing: 1.1px;
+            text-align:     left;
+            text-transform: uppercase;
+            color:          map-get($colors, dark);
+            padding-top: 15px;
+
+        }
+        &-quantity {
+            font-size:      13px;
+            font-weight:    600;
+            line-height:    1.46;
+            letter-spacing: 3px;
+            text-transform: lowercase;
+        }
+        &-edit {
+            color: $local-red;
+            font-size: 12.5px;
+            font-weight: 600;
+            line-height: 1.52;
+            letter-spacing: 0.8px;
+        }
+        &-description {
+            font-size: 13px;
+            line-height: 1.23;
+            letter-spacing: 0.7px;
+            color : map-get($colors, dark);
+        }
+        &-meta {
+            // padding: 10px 0 20px;
+            ion-col.border {
+                border-right: 1px solid $light-gray;
+            }
+            ion-col {
+                span {
+                    font-size: 14px;
+                    letter-spacing: 0.9px;
+                    color: map-get($colors, black);
+                }
+                .price {
+                    padding-left: 0;
+                }
+                .add {
+                    padding-right: 20px;
+                    text-transform: uppercase;
+                    color: $local-red;
+                    font-size: 12.5px;
+                    font-weight: 600;
+                    letter-spacing: 0.8px;
+                }
+                .allergen {
+                    ion-icon {
+                        color: $gray;
+                        padding-right: 5px;
+                        vertical-align: middle;
+                        &:last-child {
+                            padding-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}

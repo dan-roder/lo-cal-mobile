@@ -80,6 +80,7 @@ $text-input-ios-show-focus-highlight: false;
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
+$button-md-box-shadow: none;
 
 $tabs-md-tab-text-color: map-get($colors, text);
 $tabs-md-tab-text-color-active: map-get($colors, red);

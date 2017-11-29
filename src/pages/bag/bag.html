@@ -1,0 +1,81 @@
+<ion-header no-border>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
+        </button>
+        <ion-title>My Bag</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content no-padding>
+    <ion-list class="bag-items" no-margin>
+        <div class="bag-item">
+            <ion-row>
+                <ion-col col-4 no-padding>
+                    <img src="http://via.placeholder.com/100x150" alt="bag item">
+                </ion-col>
+                <ion-col>
+                    <div class="bag-item-title">
+                        <ion-row>
+                            <ion-col col-8>
+                                 Athena Bowl
+                                <span class="bag-item-quantity">x1</span>
+                            </ion-col>
+                            <ion-col class="bag-item-edit" text-center>
+                                Edit
+                            </ion-col>
+                        </ion-row>
+
+                    </div>
+                    <p class="bag-item-description">Romaine, grilled shrimp, cucumber, tomato, kalamata olives, feta, chickpeas, greek dressing</p>
+                    <ion-row class="bag-item-meta">
+                        <ion-col col-3 class="border">
+                            <span class="price">$12.99</span>
+                        </ion-col>
+                        <ion-col col-4 text-center class="border">
+                            <span class="calories">360 cal</span>
+                        </ion-col>
+                        <ion-col col-5 text-center>
+                            <span class="allergen">
+                                <ion-icon name="vegan"></ion-icon>
+                                <ion-icon name="paleo"></ion-icon>
+                                <ion-icon name="veget"></ion-icon>
+                            </span>
+                        </ion-col>
+                    </ion-row>
+                </ion-col>
+            </ion-row>
+        </div>
+    </ion-list>
+    <ion-list class="amounts-charged" padding>
+        <!-- <ion-item> -->
+            <ion-row class="subtotal">
+                <ion-col col-3>
+                    Subtotal
+                </ion-col>
+                <ion-col col-9 text-right>
+                    $22.98
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="taxes">
+                <ion-col col-3>
+                    Tax
+                </ion-col>
+                <ion-col col-9 text-right>
+                    $3.00
+                </ion-col>
+            </ion-row>
+            <hr class="dark">
+            <ion-row class="total">
+                <ion-col col-3>
+                    Total
+                </ion-col>
+                <ion-col col-9 text-right>
+                   $25.98
+                </ion-col>
+            </ion-row>
+        <!-- </ion-item> -->
+    </ion-list>
+</ion-content>
