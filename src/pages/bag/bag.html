@@ -13,7 +13,10 @@
         <div class="bag-item">
             <ion-row>
                 <ion-col col-4 no-padding>
-                    <img src="http://via.placeholder.com/100x150" alt="bag item">
+                    <img src="http://via.placeholder.com/200x300" alt="bag item" class="bag-item-image" />
+                    <div tappable class="remove" (tap)="removeItem()">
+                        <ion-icon name="close" class="remove-icon"></ion-icon>
+                    </div>
                 </ion-col>
                 <ion-col>
                     <div class="bag-item-title">
@@ -78,4 +81,26 @@
             </ion-row>
         <!-- </ion-item> -->
     </ion-list>
+
 </ion-content>
+<ion-footer no-border class="bag-footer">
+    <ion-toolbar color="light" no-padding>
+        <div class="bottom-buttons-wrap">
+            <div class="checkout-button-wrap">
+                <button ion-button block color="red" class="order-now">
+                    Checkout as Guest
+                </button>
+            </div>
+            <ion-grid no-padding>
+                <ion-row>
+                    <ion-col class="bottom-links-col">
+                        <a href="#" class="bottom-link" [navPush]="'LoginPage'">log in</a>
+                    </ion-col>
+                    <ion-col class="bottom-links-col">
+                        <a href="#" class="bottom-link">sign up</a>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </ion-toolbar>
+</ion-footer>

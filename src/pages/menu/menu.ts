@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { App, IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { SuperTabsController } from "ionic2-super-tabs";
 
@@ -21,17 +20,16 @@ export class MenuComponent {
         public navCtrl:        NavController,
         public navParams:      NavParams,
         public storage:        Storage,
-        private superTabsCtrl: SuperTabsController,
-        private app: App
+        private superTabsCtrl: SuperTabsController
     ) {
         this.rootNavCtrl = navParams.get('rootNavCtrl');
 
         this.categories = [
             { title: 'Bowls', items: ['Rice', 'Chicken', 'Pork'] },
             { title: 'Salad', items: ['Ceaser', 'House', 'Wedge'] },
-            { title: 'Burgers', items: ['Real', 'Fake'] },
+            { title: 'Burgers', items: ['RealBurger', 'FakeBurger', 'FakeCheese RealBurger'] },
             { title: 'Sandwiches', items: ['BLT', 'Turkey', 'Roast Beef'] },
-            { title: 'Breakfast', items: ['eggs', 'bacon'] },
+            { title: 'Breakfast', items: ['eggs', 'pancakes', 'waffles'] },
             { title: 'Smoothies', items: ['Blueberry', 'Strawberry', 'Mango'] },
             { title: 'Coffe/Tea', items: ['Regular', 'Dark', 'Light'] },
             { title: 'Juices', items: ['Orange', 'Carrot', 'Pineapple'] }
@@ -54,8 +52,5 @@ export class MenuComponent {
         this.superTabsCtrl.slideTo(index);
     }
 
-    openBag( page ) {
-        this.app.getRootNav().push( page );
-    }
 
 }

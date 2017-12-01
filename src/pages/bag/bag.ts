@@ -9,16 +9,22 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
  */
 @IonicPage()
 @Component({
-  selector: 'page-bag',
-  templateUrl: 'bag.html',
+    selector: 'page-bag',
+    templateUrl: 'bag.html',
 })
 export class BagPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+    constructor(
+        public navCtrl: NavController,
+        public navParams: NavParams
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad BagPage');
-  }
+    ) {}
 
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad BagPage');
+    }
+
+    removeItem() {
+        console.log("Item Removed");
+    }
 }
