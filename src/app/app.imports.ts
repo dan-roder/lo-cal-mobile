@@ -8,6 +8,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { Config } from './app.config';
 import { WordPressProvider } from '../providers/word-press/word-press';
 import { LoCalApiProvider } from '../providers/lo-cal-api/lo-cal-api';
+import { MenuProvider } from "../providers/menu/menu";
 
 // Directives
 
@@ -37,6 +38,7 @@ export const PROVIDERS = [
     Config,
     WordPressProvider,
     LoCalApiProvider,
+    MenuProvider,
     // Ionic native specific providers
     InAppBrowser,
     StatusBar,

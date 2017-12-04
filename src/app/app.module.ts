@@ -7,6 +7,7 @@ import { MODULES, PROVIDERS } from './app.imports';
 
 
 
+
 @NgModule({
   declarations: [
 
@@ -29,7 +30,7 @@ import { MODULES, PROVIDERS } from './app.imports';
 
     PROVIDERS,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
-    
+
   ]
 })
 export class AppModule {}
