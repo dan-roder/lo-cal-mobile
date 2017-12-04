@@ -15,6 +15,12 @@
 // .scroll-content {
 //   background: linear-gradient(151deg, #fbfbfb, #eeeeee);
 // }
+
+* {
+    box-sizing: border-box;
+}
+
+
 .list-ios>.item-block:first-child {
     border-top: none !important;
 }
@@ -24,6 +30,7 @@ button {
     padding: 0;
     line-height: 40px;
 }
+
 .small-icon {
     font-size: 12px !important;
 }

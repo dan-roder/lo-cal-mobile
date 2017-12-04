@@ -1,6 +1,5 @@
-page-menu {
+page-burgers {
 
-    background: map-get($colors, light);
     .menu-heading {
         font-size: 14px;
         font-weight: 600;
@@ -9,44 +8,29 @@ page-menu {
         letter-spacing: 1.6px;
         text-transform: uppercase;
     }
-    .menu ion-card.menu-item {
-        max-height: 140px;
-        border: 1px solid $white;
-        padding-top: 10px;
-        .food-item {
-            max-height: 100px;
-            width: auto;
-            max-width: 100px;
-            margin: 0 auto;
-        }
-    }
-    .menu ion-card-title.card-title-md,
-    .menu ion-card-title.card-title-ios {
-        font-size: 13px !important;
-        font-weight: 600;
-        letter-spacing: 1.6px;
-        // padding: 0 0 10px;
-        margin: 0;
-        text-transform: uppercase;
-    }
+
     .featured {
         ion-card {
+            box-shadow: none;
             border-bottom: 20px solid map-get($colors, light);
         }
     }
-    .featured ion-card-title.card-title-md,
-    .featured ion-card-title.card-title-ios {
+
+    ion-card-title.card-title-md,
+    ion-card-title.card-title-ios {
         font-size: 18px;
         font-weight: 600;
         letter-spacing: 1.2px;
         padding: 15px 0 10px 20px;
     }
+
     .featured-title-icon {
         color: red;
         margin-right: 20px;
         font-size: 15px;
         vertical-align: middle;
     }
+
     p.featured-description {
         margin-left: 20px;
         margin-right: 20px;
@@ -54,6 +38,7 @@ page-menu {
         line-height: 1.54;
         letter-spacing: 0.6px;
     }
+
     .featured-meta {
         padding: 10px 0 20px;
         ion-col.border {
@@ -88,4 +73,5 @@ page-menu {
             }
         }
     }
+
 }

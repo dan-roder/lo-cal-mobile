@@ -5,43 +5,42 @@ import { Storage } from "@ionic/storage";
 
 @IonicPage()
 @Component({
-    selector: "page-tabs",
-    templateUrl: "tabs.html"
+  selector: "page-tabs",
+  templateUrl: "tabs.html"
 })
 export class TabsComponent {
+  tab1Root = "MenuComponent";
+  tab2Root = "Tab2Component";
+  tab3Root = "MenuComponent";
+  tab4Root = "BurgersPage";
+  tab5Root = "MenuComponent";
+  tab6Root = "Tab2Component";
+  tab7Root = "MenuComponent";
+  tab8Root = "Tab2Component";
+  tab9Root = "MenuComponent";
 
-    tab1Root = "MenuComponent";
-    tab2Root = "Tab2Component";
-    tab3Root = "MenuComponent";
-    tab4Root = "Tab2Component";
-    tab5Root = "MenuComponent";
-    tab6Root = "Tab2Component";
-    tab7Root = "MenuComponent";
-    tab8Root = "Tab2Component";
-    tab9Root = "MenuComponent";
+  constructor(
+    public navCtrl: NavController,
+    public storage: Storage,
+    private app: App // private superTabsCtrl: SuperTabsController
+  ) {}
 
-    constructor(
-        public navCtrl: NavController,
-        public storage: Storage,
-        private app: App // private superTabsCtrl: SuperTabsController
-    ) {}
+  ionViewDidLoad() {
+    this.storage.get("intro-done").then(done => {
+      if (!done) {
+        this.storage.set("intro-done", true);
+        this.navCtrl.setRoot("IntroComponent");
+      } else {
+        // Nothing else
+      }
+    });
+  }
 
-    ionViewDidLoad() {
-        this.storage.get("intro-done").then(done => {
-            if (!done) {
-                this.storage.set("intro-done", true);
-                this.navCtrl.setRoot("IntroComponent");
-            } else {
-                // Nothing else
-            }
-        });
-    }
+  onTabSelect(tab: { index: number; id: string }) {
+    console.log(`Selected tab: `, tab);
+  }
 
-    onTabSelect(tab: { index: number; id: string }) {
-        console.log(`Selected tab: `, tab);
-    }
-
-    openBag(page) {
-        this.app.getRootNavs()[0].push(page);
-    }
+  openBag(page) {
+    this.app.getRootNavs()[0].push(page);
+  }
 }
