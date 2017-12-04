@@ -6,6 +6,8 @@ page-intro {
     }
     .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {
         margin: 0 15px;
+        line-height: 1;
+        min-height: auto;
     }
     .swiper-pagination-bullet-active {
         background: map-get( $colors, red );
@@ -18,7 +20,7 @@ page-intro {
         background: url("assets/images/bitmap@3x.png");
     }
     ion-slide {
-        
+
         .slide-content {
             padding: 0 50px;
             position: relative;

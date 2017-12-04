@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { SuperTabsController } from "ionic2-super-tabs";
 
@@ -20,7 +20,8 @@ export class MenuComponent {
         public navCtrl:        NavController,
         public navParams:      NavParams,
         public storage:        Storage,
-        private superTabsCtrl: SuperTabsController
+        private superTabsCtrl: SuperTabsController,
+        private app: App
     ) {
         this.rootNavCtrl = navParams.get('rootNavCtrl');
 
@@ -52,5 +53,8 @@ export class MenuComponent {
         this.superTabsCtrl.slideTo(index);
     }
 
-
+    openMenuItem() {
+        console.log( "OPENING MENU ITEM" );
+        this.app.getRootNavs()[0].push( 'MenuItemPage' );
+    }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { AlertController, IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 
 /**
  * Generated class for the BagPage page.
@@ -15,8 +15,9 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 export class BagPage {
 
     constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams
+        public navCtrl:    NavController,
+        public navParams:  NavParams,
+        private alertCtrl: AlertController
 
     ) {}
 
@@ -26,5 +27,26 @@ export class BagPage {
 
     removeItem() {
         console.log("Item Removed");
+        let alert = this.alertCtrl.create({
+          title: "Confirm",
+          message: "Are you sure you want to remove this item from your bag?",
+          buttons: [
+            {
+              text: "No.",
+              role: "cancel",
+              handler: () => {
+                console.log("Cancel clicked");
+              }
+            },
+            {
+              text: "Yes.",
+              handler: () => {
+                console.log("Removed clicked");
+              }
+            }
+          ]
+        });
+        alert.present();
     }
+
 }
