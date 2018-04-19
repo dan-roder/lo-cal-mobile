@@ -10,23 +10,16 @@
             </button>
         </ion-buttons>
     </ion-navbar>
-
 </ion-header>
-<ion-content no-bounce>
 
-    <super-tabs id="mainTabs" selectedTabIndex="0" [config]="{ sideMenu: 'left' }" indicatorColor="red" scrollTabs no-shadow
-        (tabSelect)="onTabSelect( $event )">
-        <super-tab [root]="tab0Root" [rootParams]="{ 'menu' : categories }" title="Menu"></super-tab>
-        <super-tab *ngFor="let category of categories" [root]="tab4Root" [rootParams]="{ 'menuItem' : category }" title="{{category.title}}"></super-tab>
-        <!-- <super-tab [root]="tab3Root" title="Salads"></super-tab>
-        <super-tab [root]="tab4Root" title="Burgers"></super-tab>
-        <super-tab [root]="tab5Root" title="Sandwiches"></super-tab>
-        <super-tab [root]="tab6Root" title="Breakfast"></super-tab>
-        <super-tab [root]="tab7Root" title="Smoothies"></super-tab>
-        <super-tab [root]="tab8Root" title="Coffe/Tea"></super-tab>
-        <super-tab [root]="tab9Root" title="Juices"></super-tab> -->
+<ion-content no-bounce>
+    <!-- {{ categories | json }} -->
+    <super-tabs id="mainTabs" selectedTabIndex="0" [config]="{ sideMenu: 'left' }" indicatorColor="red" scrollTabs no-shadow (tabSelect)="onTabSelect( $event )" *ngIf="subMenus">
+        <super-tab [root]="tab0Root" [rootParams]="{ 'menu' : subMenus }" title="Menu"></super-tab>
+        <super-tab *ngFor="let category of subMenus; let i = index" [root]="tab4Root" [rootParams]="{ 'menuItem' : subMenus[i] }" title="{{category.Name}}"></super-tab>
     </super-tabs>
 </ion-content>
+
 <ion-footer no-border>
     <ion-toolbar color="light" no-padding>
         <div class="button-bag-wrap">

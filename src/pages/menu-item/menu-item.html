@@ -7,11 +7,11 @@
 </ion-header>
 
 <ion-content no-padding>
-    <div class="menu-item-header">
+    <div class="menu-item-header" *ngIf="menuItem">
         <div class="title-box">
-            <h2 class="menu-item-title">Name of food item</h2>
+            <h2 class="menu-item-title">{{ menuItem.Name }}</h2>
             <p class="menu-item-description">
-                 Lorem ipsum dolor sit amet, consectetur adipiscing eget venenatis elit.
+                {{ menuItem.Description }}
             </p>
             <ion-row class="menu-item-meta">
                 <ion-col col-3 class="border">

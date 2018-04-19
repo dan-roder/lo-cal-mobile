@@ -18,40 +18,26 @@ export class MenuComponent {
     rootNavCtrl: NavController;
 
     constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public storage: Storage,
-        private superTabsCtrl: SuperTabsController,
-        private app: App,
-        private menu: MenuProvider
+        public  navCtrl       : NavController,
+        public  navParams     : NavParams,
+        public  storage       : Storage,
+        private superTabsCtrl : SuperTabsController,
+        private app           : App,
+        private menu          : MenuProvider
 
-    ) {
+    ) {}
 
-        // console.log( this.navParams.get('menu') );
+    ngOnInit() {
+
+        // console.log( this.navParams);
         this.categories = this.navParams.get('menu');
-        // this.menu.get().subscribe( data => {
-        //     console.log( data );
-        //     this.categories = data;
-        // });
+        // this.rootNavCtrl = this.navParams.get("rootNavCtrl");
 
-        this.rootNavCtrl = navParams.get("rootNavCtrl");
-
-        // this.categories = [
-        // { title: "Bowls", items: ["Rice", "Chicken", "Pork"] },
-        // { title: "Salad", items: ["Ceaser", "House", "Wedge"] },
-        // {
-        //     title: "Burgers",
-        //     items: ["RealBurger", "FakeBurger", "FakeCheese RealBurger"]
-        // },
-        // { title: "Sandwiches", items: ["BLT", "Turkey", "Roast Beef"] },
-        // { title: "Breakfast", items: ["eggs", "pancakes", "waffles"] },
-        // { title: "Smoothies", items: ["Blueberry", "Strawberry", "Mango"] },
-        // { title: "Coffe/Tea", items: ["Regular", "Dark", "Light"] },
-        // { title: "Juices", items: ["Orange", "Carrot", "Pineapple"] }
-        // ];
     }
 
-    ionViewDidLoad() {}
+    ionViewDidLoad() {
+
+    }
 
     checkActivePage(page): boolean {
         return page === this.activePage;
@@ -60,7 +46,6 @@ export class MenuComponent {
     pushPage(index) {
         // adjust for menu
         index = index + 1;
-        // this.rootNavCtrl.push(StoryPage);
         this.superTabsCtrl.slideTo(index);
     }
 

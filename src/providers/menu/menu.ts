@@ -1,7 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Http } from "@angular/http";
+import { Config } from '../../app/app.config';
 import "rxjs/add/operator/map";
+import 'rxjs/add/operator/catch';
 import { Observable } from "rxjs/Observable";
+// import { INTERNAL_BROWSER_PLATFORM_PROVIDERS } from "@angular/platform-browser";
 
 /*
   Generated class for the MenuProvider provider.
@@ -13,25 +16,48 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class MenuProvider {
     theMenu = [
-        { id: 0, title: "Bowls", items: ["Rice", "Chicken", "Pork"] },
-        { id: 1, title: "Salad", items: ["Ceaser", "House", "Wedge"] },
+        { id: 0, Name: "Bowls", items: ["Rice", "Chicken", "Pork"] },
+        { id: 1, Name: "Salad", items: ["Ceaser", "House", "Wedge"] },
         {
             id: 2,
-            title: "Burgers",
+            Name: "Burgers",
             items: ["RealBurger", "FakeBurger", "FakeCheese RealBurger"]
         },
-        { id: 3, title: "Sandwiches", items: ["BLT", "Turkey", "Roast Beef"] },
-        { id: 4, title: "Breakfast", items: ["eggs", "pancakes", "waffles"] },
-        { id: 5, title: "Smoothies", items: ["Blueberry", "Strawberry", "Mango"] },
-        { id: 6, title: "Coffe/Tea", items: ["Regular", "Dark", "Light"] },
-        { id: 7, title: "Juices", items: ["Orange", "Carrot", "Pineapple"] }
+        { id: 3, Name: "Sandwiches", items: ["BLT", "Turkey", "Roast Beef"] },
+        { id: 4, Name: "Breakfast", items: ["eggs", "pancakes", "waffles"] },
+        { id: 5, Name: "Smoothies", items: ["Blueberry", "Strawberry", "Mango"] },
+        { id: 6, Name: "Coffe/Tea", items: ["Regular", "Dark", "Light"] },
+        { id: 7, Name: "Juices", items: ["Orange", "Carrot", "Pineapple"] }
     ];
+    // theMenu:any;
 
-    constructor(public http: Http) {
-        console.log("Hello MenuProvider Provider");
+    constructor(
+        public  http   : Http,
+        private config : Config
+    ) {
+        // console.log("Hello MenuProvider Provider");
+        // this.theMenu = null;
     }
 
-    get() {
+    get():Observable<any> {
         return Observable.of(this.theMenu);
+    }
+
+    getSubmenus():Observable<any> {
+        return this.http.get( `${this.config.localApi}/menus/1/submenus` )
+            .map( res => res.json() )
+            .catch( error => Observable.throw( error.json().error || "Server Error" ) );
+    }
+
+    getSubmenu( subMenuId ):Observable<any> {
+        return this.http.get( `${this.config.localApi}/menus/1/submenus/${subMenuId}` )
+            .map( res => res.json() )
+            .catch( error => Observable.throw( error.json().error || "Server Error" ) );
+    }
+
+    getMenuItem( itemId ):Observable<any> {
+        return this.http.get( `${this.config.localApi}/menus/1/menu-item/${itemId}` )
+            .map( res => res.json() )
+            .catch( error => Observable.throw( error.json().error || "Server Error" ) );
     }
 }

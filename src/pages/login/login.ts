@@ -13,23 +13,23 @@ import { LoCalApiProvider } from '../../providers/lo-cal-api/lo-cal-api';
 })
 export class LoginPage {
 
-    loading: boolean;
+    loading:   boolean;
     loginForm: FormGroup;
-    email: AbstractControl;
-    password: AbstractControl;
-    error: any;
+    email:     AbstractControl;
+    password:  AbstractControl;
+    error:     any;
 
-    constructor( 
+    constructor(
 
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        private localApi: LoCalApiProvider,
+        public navCtrl:            NavController,
+        public navParams:          NavParams,
+        private localApi:          LoCalApiProvider,
         private loadingController: LoadingController,
-        private toastController: ToastController,
-        private fb: FormBuilder
+        private toastController:   ToastController,
+        private fb:                FormBuilder
 
     ) {
-    
+
         this.loginForm = this.fb.group({
             'email': ['', Validators.compose([Validators.required, Validators.pattern(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)])],
             'password': ['', Validators.compose([Validators.required, Validators.minLength(1)])]
@@ -85,7 +85,7 @@ export class LoginPage {
             console.log( this.loginForm.valid );
 
         }
-        
+
     }
 
 }

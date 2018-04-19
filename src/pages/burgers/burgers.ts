@@ -1,23 +1,54 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { MenuProvider } from "../../providers/menu/menu";
+// import { PipesModule } from '../../pipes/pipes.module';
 
 @IonicPage()
 @Component({
-  selector: "page-burgers",
-  templateUrl: "burgers.html"
+    selector: "page-burgers",
+    templateUrl: "burgers.html"
 })
 export class BurgersPage {
-    menuItem;
-  constructor(
-      public navCtrl: NavController,
-      public navParams: NavParams
-    ) {
+    subMenuMeta;
+    subMenu;
+    constructor(
+        public  app       : App,
+        public  navCtrl   : NavController,
+        public  navParams : NavParams,
+        public  loading   : LoadingController,
+        private menu      : MenuProvider
+    ) { }
 
-        console.log( this.navParams.get('menuItem') );
-        this.menuItem = this.navParams.get("menuItem");
+    ngOnInit() {
+
+        let loading = this.loading.create({
+            content: "Loading Menu ... ",
+            spinner: "circles"
+        });
+        loading.present();
+        this.subMenuMeta = this.navParams.get("menuItem");
+        this.menu.getSubmenu( this.subMenuMeta.SubMenuId ).subscribe( data => {
+            this.subMenu = data;
+            loading.dismiss();
+            console.log( this.subMenu );
+        });
     }
 
-  ionViewDidLoad() {
-    console.log("ionViewDidLoad BurgersPage");
-  }
+    /**
+     * Super Tabs loads the next tab before the transition
+     */
+    ionViewDidLoad() {
+
+    }
+
+    ionViewWillEnter() {
+        console.log( "ionViewDidLoad BurgersPage" );
+        console.log( this.navParams.get( 'menuItem' ) );
+    }
+
+    addItem( item ) {
+        console.log( item );
+        this.app.getRootNavs()[0].push( 'MenuItemPage', { menuItem: item }, { animate: true } );
+        // this.navCtrl.push( 'MenuItemPage', { menuItem: item } );
+    }
 }

@@ -13,12 +13,12 @@ export class LoCalApiProvider {
     apiUrl:string;
 
     constructor(
-        
+
         public http: Http,
         private config: Config
 
     ) {
-        
+
         console.log( 'Hello LoCalApiProvider Provider' );
         this.apiUrl = this.config.localApi;
 
@@ -26,12 +26,20 @@ export class LoCalApiProvider {
 
     login( credentials ) {
 
-        let url = this.apiUrl + '/auth/sign_in';
+        // let url = this.apiUrl + '/auth/sign_in';
 
-        return this.http.post( url, credentials ).map( response => {
-            console.log( response.headers.get( 'access-token' ) );
+        // return this.http.post( url, credentials ).map( response => {
+        //     console.log( response.headers.get( 'access-token' ) );
+        //     return response.json();
+        // });
+
+        let url = this.apiUrl + "/settings";
+
+        return this.http.get(url).map(response => {
+            // console.log(response.headers.get("access-token"));
             return response.json();
         });
+
 
     }
 

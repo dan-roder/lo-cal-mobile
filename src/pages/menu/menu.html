@@ -2,6 +2,7 @@
 
     <div class="menu" no-padding>
         <h2 class="menu-heading">Category</h2>
+        <!-- {{ categories | json }} -->
         <!-- <button ion-button (click)="pushPage(1)">Push page</button> -->
         <ion-grid no-padding>
             <ion-row>
@@ -9,7 +10,7 @@
                     <ion-card (click)="pushPage(i)" no-margin class="full-width no-shadow light-background menu-item">
                         <img class="food-item" src="assets/images/menu-1.png" />
                         <ion-card-content no-padding>
-                            <ion-card-title text-center>{{category.title}}</ion-card-title>
+                            <ion-card-title text-center>{{category.Name}}</ion-card-title>
                         </ion-card-content>
                     </ion-card>
                 </ion-col>

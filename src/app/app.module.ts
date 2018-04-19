@@ -9,28 +9,28 @@ import { MODULES, PROVIDERS } from './app.imports';
 
 
 @NgModule({
-  declarations: [
+    declarations: [
 
-    MyApp
+        MyApp
 
-  ],
-  imports: [
+    ],
+    imports: [
 
-    MODULES,
-    IonicModule.forRoot(MyApp)
+        MODULES,
+        IonicModule.forRoot(MyApp)
 
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
+    ],
+    bootstrap: [IonicApp],
+    entryComponents: [
 
-    MyApp
+        MyApp
 
-  ],
-  providers: [
+    ],
+    providers: [
 
-    PROVIDERS,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+        PROVIDERS,
+        { provide: ErrorHandler, useClass: IonicErrorHandler }
 
-  ]
+    ]
 })
-export class AppModule {}
+export class AppModule { }
