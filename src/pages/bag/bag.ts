@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Platform, AlertController, IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+
 import { BagProvider } from '../../providers/bag/bag';
 import { LineItem, LineItemModifier } from '../../models/LineItem';
 
@@ -10,10 +11,10 @@ import { LineItem, LineItemModifier } from '../../models/LineItem';
 })
 export class BagPage {
 
-    itemsInBag : Array<LineItem> = [];
-    subtotal : number;
-    tax : number;
-    total : number;
+    itemsInBag : Array<LineItem>;
+    subtotal   : number;
+    tax        : number;
+    total      : number;
 
     constructor(
         public  platform  : Platform,
@@ -25,20 +26,11 @@ export class BagPage {
 
         this.platform.ready().then( () => {
 
-            let bagWatcher = this.bag.watchBag().subscribe( bag => {
-
-                console.log( bag );
-                if ( bag ) {
-
-                    this.itemsInBag = bag;
-                    this.subtotal = this.calculateSubtotal( bag );
-                    this.tax = 0.00;
-                    this.total = this.subtotal + this.tax;
-                }
-
-
-            });
-            // console.log( this.itemsInBag );
+            console.log( this.bag.itemsInBag );
+            this.itemsInBag = this.bag.itemsInBag;
+            this.subtotal = this.calculateSubtotal( this.itemsInBag );
+            this.tax = 0.00;
+            this.total = this.subtotal + this.tax;
 
         });
 
@@ -46,21 +38,16 @@ export class BagPage {
 
     ionViewDidLoad() {
 
-        // console.log('ionViewDidLoad BagPage');
-        // this.itemsInBag = this.bag.itemsInBag;
-        // console.log( this.itemsInBag );
-
     }
 
-    calculateSubtotal( bag ):number {
+    calculateSubtotal( bagItems ):number {
 
         let total = 0.00;
-        bag.forEach( item => {
+        bagItems.forEach( item => {
 
             total += parseFloat( item.ExtendedPrice );
 
         });
-
         return total;
 
     }
@@ -87,6 +74,7 @@ export class BagPage {
                         this.subtotal = this.calculateSubtotal( this.itemsInBag );
                         this.tax = 0.00;
                         this.total = this.subtotal + this.tax;
+
                     }
                 }
             ]

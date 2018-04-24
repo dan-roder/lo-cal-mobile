@@ -59,10 +59,31 @@
     <div *ngIf="menuItem" >
         <ion-textarea placeholder="Enter a description"></ion-textarea>
     </div>
-    <ion-toolbar color="light">
+
+    <ion-toolbar color="light" *ngIf="totalPrice">
+        <div class="quantity">
+            <ion-row no-padding>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col text-center>
+                            <span class="quantity-title">Quantity</span>
+                        </ion-col>
+                        <ion-col text-center float-right>
+                            <p>
+                                <!-- <button (tap)="decrementQuantity()"><ion-icon name="minus" color="red" margin-right></ion-icon></button> -->
+                                <ion-icon name="minus" color="red" margin-right (tap)="decrementQuantity()"></ion-icon>
+                                <span class="quantity-number">{{ quantity }}</span>
+                                <ion-icon name="plus" color="red" margin-left (tap)="incrementQuantity()"></ion-icon>
+                                <!-- <button (tap)="incrementQuantity()"><ion-icon name="plus" color="red" margin-left ></ion-icon></button> -->
+                            </p>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-row>
+        </div>
         <div class="button-bag-wrap">
             <button ion-button block color="red" (tap)="addToBag()" class="button-bag-view">
-                    ({{ totalPrice | currency:'USD':'symbol' }}) Add to Bag
+                    (+{{ totalPrice | currency:'USD':'symbol' }}) Add to Bag
             </button>
         </div>
     </ion-toolbar>

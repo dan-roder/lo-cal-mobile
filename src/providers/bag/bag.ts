@@ -3,7 +3,7 @@ import { Platform } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { LineItem, LineItemModifier } from '../../models/LineItem';
-import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 
 
@@ -14,8 +14,8 @@ export class BagProvider {
     public lineItems: Array<LineItem> = [];
     public _itemsInBag: Array<LineItem> = [];
     public _itemCountInBag: number = 0;
-    bag;
-    bagObserver: any = null;
+    private bagObserver = new Subject();
+    bagItems = this.bagObserver.asObservable();
 
     constructor(
         public platform: Platform,
@@ -24,11 +24,7 @@ export class BagProvider {
     ) {
 
         console.log('Hello BagProvider Provider');
-        // this.bag = Observable.create( observer => {
-        //     console.log( observer );
-        //     this.bagObserver = observer;
 
-        // });
         this.platform.ready().then(() => {
 
             this.storage.get('bag').then(bagItemsFromLocalStorage => {
@@ -36,7 +32,7 @@ export class BagProvider {
                     if (bagItemsFromLocalStorage) {
 
                         this.itemsInBag = bagItemsFromLocalStorage;
-                        // this.bagObserver.next(this.itemsInBag);
+                        this.bagObserver.next( this.itemsInBag );
                     }
 
                 })
@@ -48,12 +44,6 @@ export class BagProvider {
 
         });
 
-
-    }
-
-    watchBag(): Observable<Array<LineItem>> {
-
-        return Observable.of(this.itemsInBag);
 
     }
 
@@ -114,8 +104,8 @@ export class BagProvider {
         return this._itemsInBag.length;
     }
 
-    get itemsInBag(): Array<LineItem> {
-        console.log('service bag items getter', JSON.stringify(this._itemsInBag));
+    get itemsInBag() {
+        // console.log('service bag items getter', JSON.stringify(this._itemsInBag));
         return this._itemsInBag;
     }
 
@@ -127,7 +117,7 @@ export class BagProvider {
 
         this.storage.set('bag', this.itemsInBag).then(() => {
 
-            // this.bagObserver.next(this.itemsInBag);
+            this.bagObserver.next( this.itemsInBag );
 
         })
             .catch(error => {

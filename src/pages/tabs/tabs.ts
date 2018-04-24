@@ -1,10 +1,11 @@
 import { Component } from "@angular/core";
-import { App, IonicPage, NavController, NavParams } from "ionic-angular";
+import { App, Platform, IonicPage, NavController, NavParams, ItemOptions } from "ionic-angular";
 import { Storage } from "@ionic/storage";
 // import { SuperTabsController } from "ionic2-super-tabs";
 import { MenuProvider } from "../../providers/menu/menu";
 import { BagProvider } from '../../providers/bag/bag';
 import { LineItem, LineItemModifier } from '../../models/LineItem';
+import { Observable } from 'rxjs/Observable';
 
 @IonicPage()
 @Component({
@@ -16,35 +17,41 @@ export class TabsComponent {
     subMenus:any;
     tab0Root = "MenuComponent";
     tab4Root = "BurgersPage";
-    public itemsInBag : Array<LineItem> = [];
+    itemsInBag: Array<LineItem> = [];
+    menuObserver;
+    bagObserver;
 
     constructor(
+        public  platform  : Platform,
         public  navCtrl   : NavController,
         public  navParams : NavParams,
         public  storage   : Storage,
         private menu      : MenuProvider,
         private bag       : BagProvider,
         private app       : App
-        // private superTabsCtrl: SuperTabsController
     ) {
-        this.menu.getSubmenus().subscribe( data => {
-            console.log( "ON INIT ", data );
-            this.subMenus = data;
-        });
+        this.platform.ready().then( () => {
 
-        // TO DO: Alert users if there is a leftover bag
-        this.storage.get('bag').then(bagItemsFromLocalStorage => {
+            console.log( "Platform ready ... " );
+            this.menuObserver = this.menu.getSubmenus().subscribe( data => {
 
-            if (bagItemsFromLocalStorage) {
+                console.log(data );
+                this.subMenus = data;
 
-                this.itemsInBag = bagItemsFromLocalStorage;
-                // this.bagObserver.next(this.itemsInBag);
-            }
+            });
 
-        })
-        .catch(error => {
+            this.bagObserver = this.bag.bagItems.subscribe( ( items: Array<LineItem> ) => {
 
-            console.log(error);
+                if( items ) {
+
+                    this.itemsInBag = items;
+                    console.log( this.itemsInBag );
+
+                }
+
+            });
+
+
 
         });
 
@@ -62,6 +69,13 @@ export class TabsComponent {
                 // Nothing else
             }
         });
+    }
+
+    ionViewWillLeave() {
+
+        this.bagObserver.unsubscribe();
+        this.menuObserver.unsubscribe();
+
     }
 
     onTabSelect(tab: { index: number; id: string }) {

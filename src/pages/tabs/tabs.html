@@ -20,11 +20,16 @@
     </super-tabs>
 </ion-content>
 
-<ion-footer no-border>
+<ion-footer no-border *ngIf="itemsInBag.length">
     <ion-toolbar color="light" no-padding>
         <div class="button-bag-wrap">
             <button ion-button block color="red" (tap)="openBag('BagPage')" class="button-bag-view">
-                View My Bag
+                <ion-grid no-padding>
+                    <ion-row>
+                        <ion-col text-right float-right><span>View My Bag</span></ion-col>
+                        <ion-col text-left margin-left><span *ngIf="itemsInBag">({{ itemsInBag.length }} Items)</span></ion-col>
+                    </ion-row>
+                </ion-grid>
             </button>
         </div>
     </ion-toolbar>

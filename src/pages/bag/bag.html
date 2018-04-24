@@ -36,7 +36,7 @@
                     </p>
                     <ion-row class="bag-item-meta">
                         <ion-col col-3 class="border">
-                            <span class="price">{{ item.ExtendedPrice }}</span>
+                            <span class="price">{{ item.ExtendedPrice | currency:'USD':'symbol' }}</span>
                         </ion-col>
                         <ion-col col-4 text-center class="border">
                             <span class="calories">360 cal</span>
@@ -92,7 +92,7 @@
     <ion-toolbar color="light" no-padding>
         <div class="bottom-buttons-wrap">
             <div class="checkout-button-wrap">
-                <button ion-button block color="red" class="order-now">
+                <button ion-button block color="red" class="order-now" no-padding>
                     Checkout as Guest
                 </button>
             </div>

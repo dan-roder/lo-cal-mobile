@@ -23,40 +23,39 @@ page-menu-item {
 
             }
             .menu-item-description {
-                font-size: 12px;
-                line-height: 1.67;
-                letter-spacing: 0.6px;
-
+                font-size      : 12px;
+                line-height    : 1.67;
+                letter-spacing : 0.6px;
             }
             .menu-item-meta {
-                padding: 10px 0 20px;
+                padding : 10px 0 20px;
                 ion-col.border {
-                    border-right: 1px solid $light-gray;
+                    border-right : 1px solid $light-gray;
                 }
                 ion-col {
                     span {
-                        font-size: 14px;
-                        letter-spacing: 0.9px;
+                        font-size      : 14px;
+                        letter-spacing : 0.9px;
                     }
                     .price {
                         // padding-left: 20px
                     }
                     .add {
-                        padding-right: 20px;
-                        text-transform: uppercase;
-                        color: $local-red;
-                        font-size: 12.5px;
-                        font-weight: 600;
-                        letter-spacing: 0.8px;
+                        padding-right  : 20px;
+                        text-transform : uppercase;
+                        color          : $local-red;
+                        font-size      : 12.5px;
+                        font-weight    : 600;
+                        letter-spacing : 0.8px;
                     }
                     .allergen {
                         ion-icon {
-                            color: $gray;
-                            padding-right: 5px;
-                            vertical-align: middle;
-                            font-size: 20px;
+                            color          : $gray;
+                            padding-right  : 5px;
+                            vertical-align : middle;
+                            font-size      : 20px;
                             &:last-child {
-                                padding-right: 0;
+                                padding-right : 0;
                             }
                         }
                     }
@@ -92,4 +91,22 @@ page-menu-item {
         padding-bottom: $toolbar-ios-height;
     }
 
+    .quantity {
+        &-title {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 50px;
+        }
+        &-number {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        ion-icon {
+
+            &:before {
+                width: 11px;
+                height: 11px;
+            }
+        }
+    }
 }
