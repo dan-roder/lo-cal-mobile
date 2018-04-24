@@ -9,6 +9,7 @@ import { Config } from './app.config';
 import { WordPressProvider } from '../providers/word-press/word-press';
 import { LoCalApiProvider } from '../providers/lo-cal-api/lo-cal-api';
 import { MenuProvider } from "../providers/menu/menu";
+import { BagProvider } from '../providers/bag/bag';
 
 // Directives
 
@@ -27,7 +28,9 @@ export const MODULES = [
 
     BrowserModule,
     HttpModule,
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot({
+        name: 'lo_cal_kitchen_bag'
+    }),
     ComponentsModule,
     PipesModule,
     SuperTabsModule.forRoot()
@@ -39,6 +42,7 @@ export const PROVIDERS = [
     WordPressProvider,
     LoCalApiProvider,
     MenuProvider,
+    BagProvider,
     // Ionic native specific providers
     InAppBrowser,
     StatusBar,

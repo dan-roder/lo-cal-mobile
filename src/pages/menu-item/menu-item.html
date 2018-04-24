@@ -11,23 +11,60 @@
         <div class="title-box">
             <h2 class="menu-item-title">{{ menuItem.Name }}</h2>
             <p class="menu-item-description">
-                {{ menuItem.Description }}
+                {{ (menuItem.Description | allergens).description }}
             </p>
             <ion-row class="menu-item-meta">
                 <ion-col col-3 class="border">
-                    <span class="price">$12.99</span>
+                    <span class="price">{{ defaultPrice | currency:'USD':'symbol' }}</span>
                 </ion-col>
-                <ion-col col-4 text-center class="border">
-                    <span class="calories">360 cal</span>
+                <ion-col col-4 text-center class="border" *ngIf="menuItem?.CaloricServingUnit">
+                    <span class="calories">{{ menuItem.CaloricServingUnit }} cal</span>
                 </ion-col>
-                <ion-col text-center>
-                    <span class="allergen">
-                        <ion-icon name="vegan"></ion-icon>
-                        <ion-icon name="paleo"></ion-icon>
-                        <ion-icon name="veget"></ion-icon>
+                <ion-col text-center *ngIf="(menuItem?.Description | allergens)?.allergens">
+                    <span class="allergen" *ngFor="let allergen of (menuItem?.Description | allergens)?.allergens">
+                        {{ allergen }}
                     </span>
                 </ion-col>
             </ion-row>
         </div>
     </div>
+
+    <div *ngFor="let group of salesItems?.ModGroups; let i = index">
+        <ion-list *ngIf="group.MaximumItems === 1" radio-group class="sales-item sales-item-{{ i }}" no-lines no-margin>
+            <ion-list-header no-lines>
+                {{ group.Name }}
+            </ion-list-header>
+            <ion-item *ngFor="let mod of group.Mods, let i = index" no-lines>
+                <ion-label>{{ mod.Name }}</ion-label>
+                <ion-radio value="{{ mod.ModifierId }}" checked="{{ defaultItem( group, mod ) }}"></ion-radio>
+            </ion-item>
+        </ion-list>
+        <ion-list *ngIf="group.MaximumItems !== 1" class="sales-item sales-item-{{ i }}" no-lines no-margin>
+            <ion-list-header no-lines>
+                <span class="title">{{ group.Name }}</span>
+                <span class="choices">Choose up to {{ group.MaximumItems }} ({{ customData[group.$id].currentlySelected.length }}/{{ group.MaximumItems }})</span>
+            </ion-list-header>
+            <ion-item *ngFor="let mod of group.Mods, let i = index" name="mod.Name" no-lines no-margin>
+                <ion-label>
+                    {{ (mod.Name| allergens).description }}
+                    <span class="allergen" *ngFor="let allergen of (mod.Name | allergens).allergens">
+                        {{ allergen }}
+                    </span>
+                </ion-label>
+                <ion-checkbox (ionChange)="buildModifiers( group, mod, $event )" item-right [disabled]="modDisabled( group, mod )"></ion-checkbox>
+            </ion-item>
+        </ion-list>
+    </div>
+
+    <div *ngIf="menuItem" >
+        <ion-textarea placeholder="Enter a description"></ion-textarea>
+    </div>
+    <ion-toolbar color="light">
+        <div class="button-bag-wrap">
+            <button ion-button block color="red" (tap)="addToBag()" class="button-bag-view">
+                    ({{ totalPrice | currency:'USD':'symbol' }}) Add to Bag
+            </button>
+        </div>
+    </ion-toolbar>
 </ion-content>
+

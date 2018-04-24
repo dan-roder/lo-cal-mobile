@@ -26,17 +26,9 @@ export class LoCalApiProvider {
 
     login( credentials ) {
 
-        // let url = this.apiUrl + '/auth/sign_in';
-
-        // return this.http.post( url, credentials ).map( response => {
-        //     console.log( response.headers.get( 'access-token' ) );
-        //     return response.json();
-        // });
-
         let url = this.apiUrl + "/settings";
 
         return this.http.get(url).map(response => {
-            // console.log(response.headers.get("access-token"));
             return response.json();
         });
 
