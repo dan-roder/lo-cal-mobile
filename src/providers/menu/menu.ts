@@ -4,44 +4,33 @@ import { Config } from '../../app/app.config';
 import "rxjs/add/operator/map";
 import 'rxjs/add/operator/catch';
 import { Observable } from "rxjs/Observable";
-// import { INTERNAL_BROWSER_PLATFORM_PROVIDERS } from "@angular/platform-browser";
-
-/*
-  Generated class for the MenuProvider provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular DI.
-*/
 
 @Injectable()
 export class MenuProvider {
-    theMenu = [
-        { id: 0, Name: "Bowls", items: ["Rice", "Chicken", "Pork"] },
-        { id: 1, Name: "Salad", items: ["Ceaser", "House", "Wedge"] },
-        {
-            id: 2,
-            Name: "Burgers",
-            items: ["RealBurger", "FakeBurger", "FakeCheese RealBurger"]
-        },
-        { id: 3, Name: "Sandwiches", items: ["BLT", "Turkey", "Roast Beef"] },
-        { id: 4, Name: "Breakfast", items: ["eggs", "pancakes", "waffles"] },
-        { id: 5, Name: "Smoothies", items: ["Blueberry", "Strawberry", "Mango"] },
-        { id: 6, Name: "Coffe/Tea", items: ["Regular", "Dark", "Light"] },
-        { id: 7, Name: "Juices", items: ["Orange", "Carrot", "Pineapple"] }
-    ];
-    // theMenu:any;
+    // theMenu : Array<Object> = [
+    //     { id: 0, Name: "Bowls", items: ["Rice", "Chicken", "Pork"] },
+    //     { id: 1, Name: "Salad", items: ["Ceaser", "House", "Wedge"] },
+    //     {
+    //         id: 2,
+    //         Name: "Burgers",
+    //         items: ["RealBurger", "FakeBurger", "FakeCheese RealBurger"]
+    //     },
+    //     { id: 3, Name: "Sandwiches", items: ["BLT", "Turkey", "Roast Beef"] },
+    //     { id: 4, Name: "Breakfast", items: ["eggs", "pancakes", "waffles"] },
+    //     { id: 5, Name: "Smoothies", items: ["Blueberry", "Strawberry", "Mango"] },
+    //     { id: 6, Name: "Coffe/Tea", items: ["Regular", "Dark", "Light"] },
+    //     { id: 7, Name: "Juices", items: ["Orange", "Carrot", "Pineapple"] }
+    // ];
+
 
     constructor(
         public  http   : Http,
         private config : Config
-    ) {
-        // console.log("Hello MenuProvider Provider");
-        // this.theMenu = null;
-    }
+    ) {}
 
-    get():Observable<any> {
-        return Observable.of(this.theMenu);
-    }
+    // get():Observable<any> {
+    //     return Observable.of(this.theMenu);
+    // }
 
     getSubmenus():Observable<any> {
         return this.http.get( `${this.config.localApi}/menus/1/submenus` )

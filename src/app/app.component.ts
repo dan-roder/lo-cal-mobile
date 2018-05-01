@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, MenuController } from 'ionic-angular';
+import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Subject } from 'rxjs';
@@ -19,8 +19,7 @@ export class MyApp {
 
         public platform: Platform,
         public statusBar: StatusBar,
-        public splashScreen: SplashScreen,
-        private menuController: MenuController
+        public splashScreen: SplashScreen
 
     ){
 

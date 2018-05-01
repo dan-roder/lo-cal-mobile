@@ -1,9 +1,9 @@
-import { Component, forwardRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { App, IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
 
 import { MenuProvider } from "../../providers/menu/menu";
 import { BagProvider } from '../../providers/bag/bag';
-import { Observable } from "rxjs/Observable";
+// import { Observable } from "rxjs/Observable";
 import { DefaultOptions } from '../../models/DefaultOptions';
 
 
@@ -28,10 +28,14 @@ export class MenuItemPage {
 
 
     constructor(
+
+        public  app       : App,
         public  navCtrl   : NavController,
         public  navParams : NavParams,
+        private alertCtrl : AlertController,
         private menu      : MenuProvider,
         private bag       : BagProvider
+
     ) {
 
         this.menuItemId   = this.navParams.get('menuItem').MenuItemId;
@@ -181,7 +185,7 @@ export class MenuItemPage {
 
         console.log( defaultOptions );
         let tempObj      = {};
-        let defaultArray = [];
+        // let defaultArray = [];
         allModifiers.forEach( modifierGroup => {
             console.log( modifierGroup );
             let modObject = {};
@@ -240,7 +244,7 @@ export class MenuItemPage {
     modDisabled( group, mod ){
 
         let groupId = group.$id;
-        let modId = mod.$id;
+        // let modId = mod.$id;
         let selectedItems = this.customData[groupId].currentlySelected;
         let itemsLength = selectedItems.length;
         let maxItems = this.customData[groupId]['maximumItems'];
@@ -269,7 +273,6 @@ export class MenuItemPage {
         }
     }
 
-    // TO DO: Add alert when added, ask to view
     addToBag() {
 
         console.log( this.customData );
@@ -286,9 +289,35 @@ export class MenuItemPage {
         menuItem['Modifiers']  = Object.values( this.customData );
         menuItem['UnitPrice']  = this.salesItems.Price;
         console.log( menuItem );
+
+        let message = `${ menuItem['DisplayName'] } has been added to you your bag.`
         // Push full object to bag service
         this.bag.createLineItem( menuItem );
+        let alert = this.alertCtrl.create({
+            title: message,
+            message: 'Would you like to continue adding items or checkout?',
+            buttons: [
+                {
+                    text: "Go back?",
+                    role: "cancel",
+                    handler: () => {
 
+                        console.log("Cancel clicked");
+
+                    }
+                },
+                {
+                    text: "Checkout?",
+                    handler: () => {
+
+                        console.log("Go to bag");
+                        this.app.getRootNavs()[0].push('BagPage');
+
+                    }
+                }
+            ]
+        });
+        alert.present();
         // Wipe out local values
         menuItem   = null;
         quantity   = null;

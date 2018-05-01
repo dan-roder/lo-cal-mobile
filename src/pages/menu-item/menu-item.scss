@@ -1,5 +1,6 @@
 page-menu-item {
 
+    background-color: #f4f4f4;
 
     .menu-item-header {
         background: url('http://via.placeholder.com/750x600') no-repeat center center;
@@ -9,24 +10,26 @@ page-menu-item {
             position: absolute;
             bottom: 20px;
             width: 90%;
-            height: 150px;
+            height: auto;
             left: 50%;
             transform: translateX(-50%);
             background: rgba(255, 255, 255, .95);
             padding: 10px 15px;
+
             .menu-item-title {
                 margin: 0;
                 font-size: 18px;
                 font-weight: 600;
                 letter-spacing: 1.2px;
                 text-transform: uppercase;
-
             }
+
             .menu-item-description {
                 font-size      : 12px;
                 line-height    : 1.67;
                 letter-spacing : 0.6px;
             }
+
             .menu-item-meta {
                 padding : 10px 0 20px;
                 ion-col.border {
@@ -37,9 +40,11 @@ page-menu-item {
                         font-size      : 14px;
                         letter-spacing : 0.9px;
                     }
+
                     .price {
                         // padding-left: 20px
                     }
+
                     .add {
                         padding-right  : 20px;
                         text-transform : uppercase;
@@ -48,6 +53,7 @@ page-menu-item {
                         font-weight    : 600;
                         letter-spacing : 0.8px;
                     }
+
                     .allergen {
                         ion-icon {
                             color          : $gray;
@@ -64,6 +70,18 @@ page-menu-item {
         }
     }
 
+    .sub-heading {
+        background: map-get($colors, light);
+        padding: 1em 0;
+
+        p{
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.9px;
+            color: map-get($colors, black);
+            margin: 0;
+        }
+    }
 
     ion-navbar,
     ion-tabbar,
@@ -91,22 +109,86 @@ page-menu-item {
         padding-bottom: $toolbar-ios-height;
     }
 
-    .quantity {
-        &-title {
-            font-size: 16px;
-            font-weight: 600;
-            line-height: 50px;
+    ion-toolbar.toolbar {
+        padding: 0 10px;
+    }
+
+    ion-list {
+        background: map-get($colors, light);
+        padding-bottom: 20px;
+
+        ion-list-header.list-header {
+            border-top: none;
+            border-bottom: 2px solid #f4f4f4;
         }
+
+        .label {
+            color: map-get($colors, black);
+
+            .title {
+                font-size: 16px;
+                font-weight: 600;
+                letter-spacing: 0.9px;
+            }
+
+            .choices {
+                font-size: 13px;
+                letter-spacing: 0.7px;
+                padding-top: 4px;
+            }
+        }
+
+        ion-item.item, ion-item.item.item-md, ion-item.item.item-ios {
+            min-height: 55px;
+
+            .item-inner {
+                border-bottom: 2px solid map-get($colors, light);
+            }
+        }
+    }
+
+    .quantity {
+        margin: 0 5px;
+        p {
+            margin: 20px 10px 20px 55px;
+        }
+
+        &-title {
+            font-size: 21px;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
         &-number {
             font-size: 18px;
             font-weight: 600;
+            // display: flex;
+            // justify-content: center;
+            // align-items: center;
+            // height: 100%;
         }
-        ion-icon {
 
-            &:before {
-                width: 11px;
-                height: 11px;
-            }
+        ion-icon {
+            font-size: 12px;
+            line-height: 21px;
+        }
+    }
+
+    .special-instructions {
+        background: url('../assets/images/dot-background.png');
+        background-size: cover;
+        background-position: center;
+
+        p {
+            margin: 0;
+        }
+
+        ion-textarea {
+            border-bottom: 2px solid #979797;
+            min-height: 150px;
         }
     }
 }

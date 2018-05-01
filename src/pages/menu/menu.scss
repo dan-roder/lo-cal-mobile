@@ -10,19 +10,20 @@ page-menu {
         text-transform : uppercase;
     }
     .menu ion-card.menu-item {
-        min-height : 165px;
+        // min-height : 125px;
+        min-height : 150px;
         border     : 1px solid $white;
         padding    : 10px 10px 0;
         .food-item {
-            max-height : 100px;
+            // max-height : 100px;
             width      : auto;
-            max-width  : 100px;
+            max-width  : 100%;
             margin     : 0 auto;
         }
     }
     .menu ion-card-title.card-title-md,
     .menu ion-card-title.card-title-ios {
-        font-size      : 13px !important;
+        font-size      : 0.8em;
         font-weight    : 600;
         letter-spacing : 1.6px;
         margin         : 0;

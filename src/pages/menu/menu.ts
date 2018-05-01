@@ -4,13 +4,13 @@ import { Storage } from "@ionic/storage";
 import { SuperTabsController } from "ionic2-super-tabs";
 
 // import { ListComponent } from '../list/list.component';
-import { MenuProvider } from "../../providers/menu/menu";
+// import { MenuProvider } from "../../providers/menu/menu";
 
 @IonicPage()
 @Component({
     selector: "page-menu",
     templateUrl: "menu.html",
-    providers: [MenuProvider]
+    // providers: [MenuProvider]
 })
 export class MenuComponent {
     activePage: any;
@@ -23,7 +23,7 @@ export class MenuComponent {
         public  storage       : Storage,
         private superTabsCtrl : SuperTabsController,
         private app           : App,
-        private menu          : MenuProvider
+        // private menu          : MenuProvider
 
     ) {}
 

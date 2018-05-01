@@ -1,11 +1,12 @@
 import { Component } from "@angular/core";
-import { App, Platform, IonicPage, NavController, NavParams, ItemOptions } from "ionic-angular";
+import { App, Platform, IonicPage, NavController, NavParams } from "ionic-angular";
 import { Storage } from "@ionic/storage";
 // import { SuperTabsController } from "ionic2-super-tabs";
 import { MenuProvider } from "../../providers/menu/menu";
 import { BagProvider } from '../../providers/bag/bag';
-import { LineItem, LineItemModifier } from '../../models/LineItem';
+import { LineItem } from '../../models/LineItem';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from "rxjs/Subscription";
 
 @IonicPage()
 @Component({
@@ -13,13 +14,13 @@ import { Observable } from 'rxjs/Observable';
     templateUrl: "tabs.html"
 })
 export class TabsComponent {
-    categories:any;
-    subMenus:any;
-    tab0Root = "MenuComponent";
-    tab4Root = "BurgersPage";
-    itemsInBag: Array<LineItem> = [];
-    menuObserver;
-    bagObserver;
+
+    subMenus     : Observable<any>;
+    itemsInBag   : Array<LineItem> = [];
+    menuObserver : Subscription;
+    bagObserver  : Subscription;
+    tab0Root     : String = "MenuComponent";
+    tab4Root     : String = "BurgersPage";
 
     constructor(
         public  platform  : Platform,
@@ -30,9 +31,9 @@ export class TabsComponent {
         private bag       : BagProvider,
         private app       : App
     ) {
+
         this.platform.ready().then( () => {
 
-            console.log( "Platform ready ... " );
             this.menuObserver = this.menu.getSubmenus().subscribe( data => {
 
                 console.log(data );
@@ -48,27 +49,25 @@ export class TabsComponent {
                     console.log( this.itemsInBag );
 
                 }
-
             });
 
-
-
         });
-
     }
 
-    ngOnInit() {}
+    // ngOnInit() {}
 
     ionViewDidLoad() {
 
-        this.storage.get("intro-done").then(done => {
+        this.storage.get("intro-done").then( done => {
             if (!done) {
+
                 this.storage.set("intro-done", true);
                 this.navCtrl.setRoot("IntroComponent");
-            } else {
-                // Nothing else
+
             }
-        });
+        })
+        .catch( error => console.log( error ) );
+
     }
 
     ionViewWillLeave() {
@@ -79,21 +78,26 @@ export class TabsComponent {
     }
 
     onTabSelect(tab: { index: number; id: string }) {
-        let index = tab.index-1;
-        // console.log(`Selected tab: `, tab.index, index );
-        // console.log( this.subMenus[`${index}`], this.navParams);
+
+        // let index = tab.index-1;
 
     }
 
     openBag(page) {
+
         this.app.getRootNavs()[0].push(page);
+
     }
 
     setParams(category) {
+
         console.log( category );
         let params = {
+
             menuCategory: category
+
         };
         return params;
+
     }
 }

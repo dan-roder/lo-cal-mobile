@@ -1,8 +1,7 @@
 <ion-content no-padding>
     <div class="menu-items">
         <div  *ngFor="let menuItem of subMenu?.menuItems; let i = index" class="menu-item menu-item-{{ i }}"  no-padding>
-            <!-- <h2 class="menu-heading">{{ menuItem.Name }}</h2> -->
-            <ion-card no-margin class="full-width">
+            <ion-card no-margin class="full-width" no-shadow no-border>
                 <img class="food-item" src="http://via.placeholder.com/370x165" />
                 <ion-card-content no-padding (tap)="addItem( menuItem )">
                     <ion-card-title>
@@ -32,7 +31,7 @@
                             <ion-icon name="veget"></ion-icon> -->
                         </span>
                     </ion-col>
-                    <ion-col col float-right text-right>
+                    <ion-col col float-right text-right (tap)="quickAdd(menuItem)">
                         <span class="add">Add</span>
                     </ion-col>
                 </ion-row>

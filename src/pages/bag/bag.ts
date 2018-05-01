@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Platform, AlertController, IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { Platform, AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { BagProvider } from '../../providers/bag/bag';
-import { LineItem, LineItemModifier } from '../../models/LineItem';
+import { LineItem } from '../../models/LineItem';
 
 @IonicPage()
 @Component({
@@ -38,8 +38,12 @@ export class BagPage {
 
     ionViewDidLoad() {
 
+
     }
 
+    ionViewCanLeave() {
+        this.navCtrl.popToRoot();
+    }
     calculateSubtotal( bagItems ):number {
 
         let total = 0.00;
