@@ -132,4 +132,16 @@ page-bag {
         min-height: 100px;
     }
 
+    .empty-bag {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 50vh;
+        &-notice {
+            font-size: 21px;
+            font-weight: 600;
+            text-align: center;
+        }
+    }
+
 }

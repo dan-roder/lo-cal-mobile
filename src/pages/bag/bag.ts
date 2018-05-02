@@ -44,6 +44,10 @@ export class BagPage {
     ionViewCanLeave() {
         this.navCtrl.popToRoot();
     }
+
+    backToMenu() {
+        this.navCtrl.popToRoot();
+    }
     calculateSubtotal( bagItems ):number {
 
         let total = 0.00;

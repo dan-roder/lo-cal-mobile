@@ -9,7 +9,7 @@
 
 
 <ion-content no-padding>
-    <ion-list class="bag-items" no-margin>
+    <ion-list class="bag-items" no-margin *ngIf="itemsInBag.length">
         <div class="bag-item" *ngFor="let item of itemsInBag; let i = index">
             <ion-row>
                 <ion-col col-4 no-padding>
@@ -56,7 +56,7 @@
             </ion-row>
         </div>
     </ion-list>
-    <ion-list class="amounts-charged" padding>
+    <ion-list class="amounts-charged" padding *ngIf="itemsInBag.length">
         <!-- <ion-item> -->
         <ion-row class="subtotal">
             <ion-col col-3>
@@ -86,12 +86,17 @@
         </ion-row>
         <!-- </ion-item> -->
     </ion-list>
-
+    <div *ngIf="!itemsInBag.length" class="empty-bag">
+        <div>
+            <p class="empty-bag-notice">Your bag is empty.</p>
+            <p class="empty-bag-notice">Go to the <a href="#" class="empty-bag-link" (tap)="backToMenu()">menu</a> and select your fav!</p>
+        </div>
+    </div>
 </ion-content>
 <ion-footer no-border class="bag-footer">
     <ion-toolbar color="light" no-padding>
         <div class="bottom-buttons-wrap">
-            <div class="checkout-button-wrap">
+            <div class="checkout-button-wrap" *ngIf="itemsInBag.length">
                 <button ion-button block color="red" class="order-now" no-padding>
                     Checkout as Guest
                 </button>
