@@ -64,9 +64,8 @@ export class BurgersPage implements OnInit {
     }
 
     ionViewWillLeave() {
-
-        this.subMenuObserver.unsubscribe();
-        this.menuItemObserver.unsubscribe();
+        if ( this.subMenuObserver ) this.subMenuObserver.unsubscribe();
+        if ( this.menuItemObserver ) this.menuItemObserver.unsubscribe();
 
     }
 
@@ -162,6 +161,7 @@ export class BurgersPage implements OnInit {
                                 {
                                     text: "No?",
                                     role: "cancel",
+                                    cssClass: "alert-button-reject",
                                     handler: () => {
 
                                         console.log("Cancel clicked");
@@ -170,6 +170,7 @@ export class BurgersPage implements OnInit {
                                 },
                                 {
                                     text: "Yes!",
+                                    cssClass: "alert-button-accept",
                                     handler: () => {
 
                                         this.addToBag( item );

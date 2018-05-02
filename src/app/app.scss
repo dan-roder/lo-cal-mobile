@@ -144,3 +144,22 @@ ion-scroll[scrollX] {
 ::-webkit-scrollbar {
     display: none;
 }
+
+.alert-md, .alert-ios {
+    .alert-button {
+        width: 45%;
+        font-size: 18px;
+        font-weight: 600;
+        &-reject {
+        }
+        &-accept {
+            background: map-get( $colors, red );
+            color: white;
+        }
+        &-reject, &-accept {
+            .button-inner {
+                justify-content: center;
+            }
+        }
+    }
+}

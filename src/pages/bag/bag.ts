@@ -69,12 +69,14 @@ export class BagPage {
                 {
                     text: "No.",
                     role: "cancel",
+                    cssClass: "button-cancel",
                     handler: () => {
                         console.log("Cancel clicked");
                     }
                 },
                 {
                     text: "Yes.",
+                    cssClass: "button-accept",
                     handler: () => {
                         console.log("Removed clicked");
                         this.bag.removeFromBagAtIndex( index );
