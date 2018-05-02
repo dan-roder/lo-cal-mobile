@@ -38,16 +38,16 @@ export class BagPage {
 
     ionViewDidLoad() {
 
-
     }
 
     ionViewCanLeave() {
-        this.navCtrl.popToRoot();
+        // this.navCtrl.popToRoot();
     }
 
     backToMenu() {
         this.navCtrl.popToRoot();
     }
+
     calculateSubtotal( bagItems ):number {
 
         let total = 0.00;

@@ -9,8 +9,10 @@ import { DefaultOptions } from '../../models/DefaultOptions';
 
 @IonicPage()
 @Component({
+
     selector: "page-menu-item",
     templateUrl: "menu-item.html"
+
 })
 export class MenuItemPage {
 
@@ -164,17 +166,17 @@ export class MenuItemPage {
         this.itemPrice        = data.salesItems[0].Price;
         this.calorieCount     = data.salesItems[0].CaloricValue;
         this.recalculateCost();
-        console.log(data, this.menuItem, data.salesItems, this.itemPrice, this.calorieCount );
+        // console.log(data, this.menuItem, data.salesItems, this.itemPrice, this.calorieCount );
 
         if ( this.salesItems.ModGroups.length > 0 &&  this.salesItems.DefaultOptions.length > 0 ) {
 
-            console.log(this.salesItems.ModGroups.length);
+            // console.log(this.salesItems.ModGroups.length);
             defaults = this.salesItems.DefaultOptions;
             this.registerCustomizationVariables( this.salesItems.ModGroups, defaults );
 
         } else {
 
-            console.log("No Default Options", this.salesItems.ModGroups.length);
+            // console.log("No Default Options", this.salesItems.ModGroups.length);
             this.registerCustomizationVariables( this.salesItems.ModGroups );
 
         }
@@ -212,8 +214,7 @@ export class MenuItemPage {
                     modObject['modifiers'][mod.$id]['quantity'] = isModDefault.DefaultQuantity;
                     modObject['currentlySelected'].push(mod);
 
-                }
-                else {
+                } else {
 
                     modObject['modifiers'][mod.$id]['quantity'] = 0;
 

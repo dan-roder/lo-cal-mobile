@@ -1,0 +1,54 @@
+<ion-header no-border>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
+        </button>
+        <ion-title></ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <h2>Sign Up.</h2>
+    <p>
+        Get past orders, save your payment methods and more.
+        <br>
+        Fill out and submit the form below.
+    </p>
+    <form [formGroup]="signupForm" (ngSubmit)="save(signupForm)" novalidate>
+        <ion-list>
+            <ion-item [ngClass]="{ 'has-error': firstName.invalid && firstName.dirty }" no-padding>
+                <ion-label floating>First Name</ion-label>
+                <ion-input type="text" name="firstName" formControlName="firstName"></ion-input>
+            </ion-item>
+            <ion-item [ngClass]="{ 'has-error': lastName.invalid && lastName.dirty }" no-padding>
+                <ion-label floating>Last Name</ion-label>
+                <ion-input type="text" name="lastName" formControlName="lastName"></ion-input>
+            </ion-item>
+            <ion-item [ngClass]="{ 'has-error': email.invalid && email.dirty }" no-padding>
+                <ion-label floating>Email</ion-label>
+                <ion-input type="email" name="email" formControlName="email"></ion-input>
+            </ion-item>
+            <div formGroupName="passwords">
+                <ion-item no-padding>
+                    <ion-label floating>Password</ion-label>
+                    <ion-input type="password" name="password" formControlName="password"></ion-input>
+                </ion-item>
+                <ion-item no-padding>
+                    <ion-label floating>Confirm your password</ion-label>
+                    <ion-input type="password" name="confirm" formControlName="confirm"></ion-input>
+                </ion-item>
+                <p class="form-control-feedback" *ngIf="signupForm.hasError('notSame','passwords')">Please ensure your password matches the confirmation. </p>
+                <p class="help-text">Your password needs to be at least 8 characters long, and contain at least one lowercase, one uppercase letter and at least one number.</p>
+            </div>
+            <ion-row>
+                <ion-col no-padding>
+                    <button type="submit" ion-button block no-border [disabled]="!signupForm.valid" color="red" class="login-button">
+                        Log In
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-list>
+    </form>
+
+</ion-content>

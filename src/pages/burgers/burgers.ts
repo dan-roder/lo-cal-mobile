@@ -81,12 +81,8 @@ export class BurgersPage implements OnInit {
         let defaults     = [];
         let menuItem     = data.item;
         let salesItems   = data.salesItems[0];
-        let itemPrice    = data.salesItems[0].Price;
-        let calorieCount = data.salesItems[0].CaloricValue;
-
-        // let recalculateCost();
-        // console.log(data, this.menuItem, data.salesItems, this.itemPrice, this.calorieCount );
-
+        // let itemPrice    = data.salesItems[0].Price;
+        // let calorieCount = data.salesItems[0].CaloricValue;
         if ( salesItems.ModGroups.length > 0 &&  salesItems.DefaultOptions.length > 0 ) {
 
             // console.log(this.salesItems.ModGroups.length);
@@ -150,51 +146,43 @@ export class BurgersPage implements OnInit {
     }
     quickAdd( item ) {
 
-        let message = `Would you like to add ${ item['DisplayName'] } to your bag?`
-                // Push full object to bag service
+        let message = `Add ${ item['DisplayName'] } to your bag?`
+        let alert = this.alertCtrl.create({
 
-                let alert = this.alertCtrl.create({
+            title   : message,
+            message : `Your item will be added with the included extras.`,
+            buttons : [
+                        {
+                            text: "No :(",
+                            role: "cancel",
+                            cssClass: "alert-button-reject",
+                            handler: () => {
 
-                    title   : message,
-                    message : null,
-                    buttons : [
-                                {
-                                    text: "No?",
-                                    role: "cancel",
-                                    cssClass: "alert-button-reject",
-                                    handler: () => {
+                                console.log("Cancel clicked");
 
-                                        console.log("Cancel clicked");
+                            }
+                        },
+                        {
+                            text: "Yes!",
+                            cssClass: "alert-button-accept",
+                            handler: () => {
 
-                                    }
-                                },
-                                {
-                                    text: "Yes!",
-                                    cssClass: "alert-button-accept",
-                                    handler: () => {
+                                this.addToBag( item );
 
-                                        this.addToBag( item );
+                            }
+                        }
+                    ]
+        });
 
-                                    }
-                                }
-                            ]
-                        });
-
-                        alert.present();
+        alert.present();
 
 
 
     }
 
     addToBag( item ) {
+
         console.log(item);
-        // let loading = this.loading.create({
-
-        //     content: "Adding item to bag ... ",
-        //     spinner: "circles"
-
-        // });
-        // loading.present();
         this.menuItemObserver = this.menu.getMenuItem( item.MenuItemId )
             .subscribe( data => {
 
@@ -217,7 +205,7 @@ export class BurgersPage implements OnInit {
                 menuItem['UnitPrice']  = salesItems.Price;
                 console.log( menuItem );
 
-                let message = `${ menuItem['DisplayName'] } has been added to you your bag.`
+                // let message = `${ menuItem['DisplayName'] } has been added to you your bag.`
                 // Push full object to bag service
                 this.bag.createLineItem( menuItem );
 
@@ -227,8 +215,6 @@ export class BurgersPage implements OnInit {
                 // quantity   = null;
                 // totalPrice = null;
             });
-
-
 
     }
 }

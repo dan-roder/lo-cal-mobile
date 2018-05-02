@@ -89,7 +89,12 @@
     <div *ngIf="!itemsInBag.length" class="empty-bag">
         <div>
             <p class="empty-bag-notice">Your bag is empty.</p>
-            <p class="empty-bag-notice">Go to the <a href="#" class="empty-bag-link" (tap)="backToMenu()">menu</a> and select your fav!</p>
+            <p class="empty-bag-notice">
+                Go to the <a href="#" class="empty-bag-link" (tap)="backToMenu()">
+                    menu
+                </a>
+                and select your fav!
+            </p>
         </div>
     </div>
 </ion-content>
@@ -107,7 +112,7 @@
                         <a href="#" class="bottom-link" [navPush]="'LoginPage'">log in</a>
                     </ion-col>
                     <ion-col class="bottom-links-col">
-                        <a href="#" class="bottom-link">sign up</a>
+                        <a href="#" class="bottom-link"[navPush]="'SignupPage'">sign up</a>
                     </ion-col>
                 </ion-row>
             </ion-grid>

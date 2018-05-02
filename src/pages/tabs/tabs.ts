@@ -79,7 +79,7 @@ export class TabsComponent {
 
     onTabSelect(tab: { index: number; id: string }) {
 
-        // let index = tab.index-1;
+        let index = tab.index-1;
 
     }
 
