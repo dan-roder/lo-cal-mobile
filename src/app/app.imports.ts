@@ -12,7 +12,7 @@ import { MenuProvider } from "../providers/menu/menu";
 import { BagProvider } from '../providers/bag/bag';
 
 // Directives
-
+import { DirectivesModule } from '../directives/directives.module';
 // Pipes
 import { PipesModule } from '../pipes/pipes.module';
 
@@ -53,4 +53,6 @@ export const PROVIDERS = [
 // Components Exported as module
 // export const COMPONENTS = [];
 
-export const DIRECTIVES = [];
+export const DIRECTIVES = [
+    DirectivesModule
+];

@@ -3,7 +3,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 
-import { MODULES, PROVIDERS } from './app.imports';
+import { MODULES, PROVIDERS, DIRECTIVES } from './app.imports';
 
 @NgModule({
     declarations: [
@@ -14,6 +14,7 @@ import { MODULES, PROVIDERS } from './app.imports';
     imports: [
 
         MODULES,
+        DIRECTIVES,
         IonicModule.forRoot(MyApp)
 
     ],
