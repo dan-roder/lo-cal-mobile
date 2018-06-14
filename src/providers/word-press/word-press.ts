@@ -37,6 +37,14 @@ export class WordPressProvider {
         });
     }
 
+    getCustomPostTypeById( base, id ) {
+        return this.http.get(this.config.wordpressApiUrl + `/wp/v2/${base}/${id}`)
+            .map(result => {
+            return result.json();
+        });
+
+    }
+
     getMedia(id) {
         return this.http.get(this.config.wordpressApiUrl + `/wp/v2/media/${id}`)
             .map(result => {

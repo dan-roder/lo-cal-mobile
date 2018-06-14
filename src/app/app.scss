@@ -16,7 +16,29 @@
 //   background: linear-gradient(151deg, #fbfbfb, #eeeeee);
 // }
 
+@font-face{
+    font-family:  'Muli';
+    src: url('../assets/fonts/muli300.woff2');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face{
+    font-family:  'Muli';
+    src: url('../assets/fonts/muli400.woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face{
+    font-family:  'Muli';
+    src: url('../assets/fonts/muli700.woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
 * {
+    font-family: Muli;
     box-sizing: border-box;
 }
 
