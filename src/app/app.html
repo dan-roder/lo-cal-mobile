@@ -1,32 +1,35 @@
 <!-- <ion-split-pane> -->
-  <ion-menu type="reveal" side="left" [content]="content" swipeEnabled="false">
+<ion-menu type="reveal" side="left" [content]="content" swipeEnabled="false">
 
     <ion-content class="side-menu-content">
-      <ion-list class="menu-list">
-        <button menuClose ion-item no-lines detail-none *ngFor="let p of pages" (click)="openPage(p)" [class.active]="p.active">
-          {{p.title}}
-        </button>
-      </ion-list>
-      <div padding>
-        <button menuClose ion-button block outline color="white" (click)="pushPage('LoginPage')">Log In</button>
-      </div>
-      <ion-grid padding>
-        <ion-row>
-          <ion-col col-3>
-            <ion-icon name="facebook" class="large-icon" color="white"></ion-icon>
-          </ion-col>
-          <ion-col col-3>
-            <ion-icon name="twitter" class="large-icon" color="white"></ion-icon>
-          </ion-col>
-          <ion-col col-3>
-            <ion-icon name="instagram" class="large-icon" color="white"></ion-icon>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+        <ion-list class="menu-list">
+            <button menuClose ion-item no-lines detail-none *ngFor="let p of pages" (tap)="openPage(p)" [class.active]="p.active">
+                {{p.title}}
+            </button>
+        </ion-list>
+        <div padding *ngIf="!currentCustomer">
+            <button menuClose ion-button block outline color="white" (tap)="pushPage('LoginPage')">Log In</button>
+        </div>
+        <div padding *ngIf="currentCustomer">
+            <button menuClose ion-button block outline color="white" (tap)="logout()">Log Out</button>
+        </div>
+        <ion-grid padding>
+            <ion-row>
+                <ion-col col-3>
+                    <ion-icon name="facebook" class="large-icon" color="white"></ion-icon>
+                </ion-col>
+                <ion-col col-3>
+                    <ion-icon name="twitter" class="large-icon" color="white"></ion-icon>
+                </ion-col>
+                <ion-col col-3>
+                    <ion-icon name="instagram" class="large-icon" color="white"></ion-icon>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
     </ion-content>
 
-  </ion-menu>
+</ion-menu>
 
-  <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-  <ion-nav [root]="rootPage" #content swipeBackEnabled="false" main ></ion-nav>
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false" main></ion-nav>
 <!-- </ion-split-pane> -->

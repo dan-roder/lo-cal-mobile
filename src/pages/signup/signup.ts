@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
-
+import { CustomerProvider } from '../../providers/customer/customer';
 
 @IonicPage()
 @Component({
@@ -10,23 +10,32 @@ import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray } from '
 })
 export class SignupPage implements OnInit {
 
+    customerSubscription;
     custInfoComp : boolean = false;
-    addressComp : boolean = false;
+    addressComp  : boolean = false;
     passwordComp : boolean = false;
-    signupForm : FormGroup;
-    custInfo   : AbstractControl;
-    firstName  : AbstractControl;
-    lastName   : AbstractControl;
-    email      : AbstractControl;
-    phone      : AbstractControl;
-    passwords  : AbstractControl;
-    address    : AbstractControl;
-    error      : any;
+    signupForm   : FormGroup;
+    custInfo     : AbstractControl;
+    firstName    : AbstractControl;
+    lastName     : AbstractControl;
+    email        : AbstractControl;
+    phone        : AbstractControl;
+    passwords    : AbstractControl;
+    question     : AbstractControl;
+    answer       : AbstractControl;
+    error        : any;
+    // line1        : AbstractControl;
+    // line2        : AbstractControl;
+    // state        : AbstractControl;
+    // city         : AbstractControl;
+    // zip          : AbstractControl;
+    // address      : AbstractControl;
 
     constructor(
         public  navCtrl   : NavController,
         public  navParams : NavParams,
-        private fb        : FormBuilder
+        private fb        : FormBuilder,
+        private customer  : CustomerProvider
     ) {}
 
     ngOnInit() {
@@ -39,14 +48,14 @@ export class SignupPage implements OnInit {
                     'email'     : [ '', Validators.compose([Validators.required, Validators.pattern(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)])],
                     'phone' : [ '', [Validators.required, Validators.pattern(/(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}/)] ]
                 }, { validator: this.checkCustInfo }),
-                'address' : this.fb.group({
-                    'line1' : [ '', [Validators.required] ],
-                    'line2' :[ '' ],
-                    'city' : [ '', [Validators.required] ],
-                    'state' : [ '', [Validators.required] ],
-                    'zip' : [ '', [Validators.required] ],
-                    'description' : [ '', [Validators.required] ],
-                }, { validator: this.checkAddress }),
+                // 'address' : this.fb.group({
+                //     'line1' : [ '', [Validators.required] ],
+                //     'line2' :[ '' ],
+                //     'city' : [ '', [Validators.required] ],
+                //     'state' : [ '', [Validators.required] ],
+                //     'zip' : [ '', [Validators.required] ],
+                //     'description' : [ '', [Validators.required] ],
+                // }, { validator: this.checkAddress }),
                 'passwords' : this.fb.group({
 
                     'password' : ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)])],
@@ -60,13 +69,21 @@ export class SignupPage implements OnInit {
         });
 
         console.log( this.signupForm.controls );
-        this.custInfo = this.signupForm.controls['custInfo'];
+        this.custInfo  = this.signupForm.controls['custInfo'];
         this.firstName = this.signupForm.controls.custInfo['controls']['firstName'];
         this.lastName  = this.signupForm.controls.custInfo['controls']['lastName'];
         this.email     = this.signupForm.controls.custInfo['controls']['email'];
         this.phone     = this.signupForm.controls.custInfo['controls']['phone'];
-        this.address = this.signupForm.controls['address'];
+        // this.address   = this.signupForm.controls['address'];
+        // this.line1     = this.signupForm.controls.address['controls']['line1'];
+        // this.line2     = this.signupForm.controls.address['controls']['line2'];
+        // this.city      = this.signupForm.controls.address['controls']['city'];
+        // this.state     = this.signupForm.controls.address['controls']['state'];
+        // this.zip       = this.signupForm.controls.address['controls']['zip'];
         this.passwords = this.signupForm.controls['passwords'];
+        this.question = this.signupForm.controls.passwords['controls']['question'];
+        this.answer = this.signupForm.controls.passwords['controls']['answer'];
+
 
     }
 
@@ -76,22 +93,20 @@ export class SignupPage implements OnInit {
 
     }
 
+    ionViewWillLeave() {
+
+        if( this.customerSubscription ) this.customerSubscription.unsubscribe();
+    }
     checkCustInfo( group: FormGroup ) {
 
         console.log( group.controls.phone.invalid );
         console.log( group.controls.firstName.invalid || group.controls.lastName.invalid || group.controls.email.invalid || group.controls.phone.invalid );
+
         if ( group.controls.firstName.invalid || group.controls.lastName.invalid || group.controls.email.invalid || group.controls.phone.invalid ) {
             return { custInfoInvalid : true };
         } else {
             return null;
         }
-
-
-    }
-
-    checkAddress( group: FormGroup ) {
-
-        console.log( group.controls.line1.invalid, group.controls.line2.invalid, group.controls.city.invalid, group.controls.state.invalid, group.controls.zip.invalid);
 
     }
 
@@ -105,25 +120,49 @@ export class SignupPage implements OnInit {
     }
 
     nextStep( step ) {
+
         console.log( step );
         switch ( step ) {
+
             case 'info':
                 this.custInfoComp = !this.custInfoComp;
             case 'passwords':
                 this.passwordComp = !this.passwordComp;
             default:
                 break;
+
         }
-        // if ( step === 'info' ) {
-
-
-
-        // }
 
     }
+
     save( customer ) {
 
-        console.log( customer );
+        let customerObj = {
+
+            "Customer": {
+
+                "CustomerId": null,
+                "EMail": this.email.value,
+                "FirstName": this.firstName.value,
+                "LastName": this.lastName.value,
+                "VoicePhone": this.phone.value.replace(/[^A-Z0-9]/ig, ""),
+                "FavoriteSiteIds": [1],
+                "Addresses": []
+
+            },
+            "Password": this.passwords['controls']['password'].value,
+            "SecurityQuestion": this.question.value,
+            "SecurityAnswer": this.answer.value
+
+        };
+        console.log(customerObj);
+
+        this.customerSubscription = this.customer.create( customerObj ).subscribe( response => {
+
+            console.log( response );
+
+        });
+
     }
 
 }

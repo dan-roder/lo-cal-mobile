@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-
+import { Http, Headers } from '@angular/http';
+import { Storage } from '@ionic/storage';
+import { CustomerProvider } from '../../providers/customer/customer';
 import { Config } from '../../app/app.config';
-
+import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
@@ -13,8 +14,10 @@ export class LoCalApiProvider {
 
     constructor(
 
-        public http: Http,
-        private config: Config
+        private http     : Http,
+        private storage  : Storage,
+        private customer : CustomerProvider,
+        private config   : Config
 
     ) {
 
@@ -25,12 +28,66 @@ export class LoCalApiProvider {
 
     login( credentials ) {
 
-        let url = this.apiUrl + "/settings";
+        console.log( credentials );
+        const url = `${ this.apiUrl }/authenticate`;
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        const options = {
 
-        return this.http.get(url).map(response => {
-            return response.json();
+            headers : headers
+
+        };
+        let request = JSON.stringify({
+
+            credentials : credentials
+
         });
+        console.log( request );
+        return this.http.post( url, request, options )
+            .map( res => {
 
+                console.log( res.json() );
+                if ( res.ok ) {
+
+                    this.save( res.json() );
+                    return res;
+
+                }
+
+
+            })
+            .catch( error => {
+
+                console.log( error );
+                return Observable.throw( error.json().error || "Server Error" );
+
+            });
+
+
+    }
+
+    logout() {
+
+            this.save( null );
+
+    }
+
+    save( customer ) {
+        console.log( customer );
+        // let customerId = customer.CustomerId;
+        this.storage.set( 'customerid', customer ).then( () => {
+
+            console.log( customer );
+            // Something we need to do?
+            // this.customer.currentCustomer = customer;
+            this.customer.currentCustomer = customer;
+
+        })
+        .catch(error => {
+
+            console.log(error);
+
+        });
 
     }
 

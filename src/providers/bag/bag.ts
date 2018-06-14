@@ -25,25 +25,20 @@ export class BagProvider {
 
         console.log('Hello BagProvider Provider');
 
-        this.platform.ready().then(() => {
+        this.storage.get('bag').then(bagItemsFromLocalStorage => {
 
-            this.storage.get('bag').then(bagItemsFromLocalStorage => {
+                if (bagItemsFromLocalStorage) {
 
-                    if (bagItemsFromLocalStorage) {
+                    this.itemsInBag = bagItemsFromLocalStorage;
+                    this.bagObserver.next( this.itemsInBag );
+                }
 
-                        this.itemsInBag = bagItemsFromLocalStorage;
-                        this.bagObserver.next( this.itemsInBag );
-                    }
+            })
+            .catch(error => {
 
-                })
-                .catch(error => {
+                console.log( error );
 
-                    console.log(error);
-
-                });
-
-        });
-
+            });
 
     }
 
@@ -120,11 +115,11 @@ export class BagProvider {
             this.bagObserver.next( this.itemsInBag );
 
         })
-            .catch(error => {
+        .catch(error => {
 
-                console.log(error);
+            console.log(error);
 
-            });
+        });
 
     }
 

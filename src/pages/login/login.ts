@@ -54,22 +54,29 @@ export class LoginPage {
 
         if( this.loginForm.valid ) {
 
-            let credentials = { "email": this.email.value, "password": this.password.value }
+            let credentials = { "Email": this.email.value, "Password": this.password.value }
             loader.present();
 
             this.localApi.login( credentials ).subscribe( ( response ) => {
-                console.log( response );
+
                 loader.dismiss();
+                this.navCtrl.pop();
+                console.log( response );
+
             }, error => {
+
                 loader.dismiss();
                 console.log( error );
                 let message = error;
                 let toast = this.toastController.create({
+
                     message: message,
                     duration: 6000,
                     position: 'bottom'
+
                 });
                 toast.present();
+
             });
 
             // console.log( this.loginForm.valid, this.email.value, this.password.value );

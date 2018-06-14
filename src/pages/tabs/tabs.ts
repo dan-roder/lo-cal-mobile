@@ -4,9 +4,11 @@ import { Storage } from "@ionic/storage";
 // import { SuperTabsController } from "ionic2-super-tabs";
 import { MenuProvider } from "../../providers/menu/menu";
 import { BagProvider } from '../../providers/bag/bag';
+import { CustomerProvider } from '../../providers/customer/customer';
 import { LineItem } from '../../models/LineItem';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from "rxjs/Subscription";
+import { InRegistration } from "../../models/customer";
 
 @IonicPage()
 @Component({
@@ -15,12 +17,14 @@ import { Subscription } from "rxjs/Subscription";
 })
 export class TabsComponent {
 
-    subMenus     : Observable<any>;
-    itemsInBag   : Array<LineItem> = [];
-    menuObserver : Subscription;
-    bagObserver  : Subscription;
-    tab0Root     : String = "MenuComponent";
-    tab4Root     : String = "BurgersPage";
+    subMenus         : Observable<any>;
+    itemsInBag       : Array<LineItem> = [];
+    menuObserver     : Subscription;
+    bagObserver      : Subscription;
+    customerObserver : Subscription;
+    currentCustomer;
+    tab0Root         : String = "MenuComponent";
+    tab4Root         : String = "BurgersPage";
 
     constructor(
         public  platform  : Platform,
@@ -29,11 +33,12 @@ export class TabsComponent {
         public  storage   : Storage,
         private menu      : MenuProvider,
         private bag       : BagProvider,
+        private customer  : CustomerProvider,
         private app       : App
     ) {
 
         this.platform.ready().then( () => {
-
+            console.log( this.currentCustomer );
             this.menuObserver = this.menu.getSubmenus().subscribe( data => {
 
                 console.log(data );
@@ -49,6 +54,22 @@ export class TabsComponent {
                     console.log( this.itemsInBag );
 
                 }
+            });
+
+            this.customerObserver = this.customer.customerId.subscribe( ( customer ) => {
+
+                console.log( customer );
+                if ( customer ) {
+
+                    this.currentCustomer = customer;
+
+                } else {
+
+                    console.log( "NO CUSTOMER" );
+                    this.currentCustomer = null;
+
+                }
+
             });
 
         });
@@ -68,12 +89,29 @@ export class TabsComponent {
         })
         .catch( error => console.log( error ) );
 
+        this.customerObserver = this.customer.customerId.subscribe( ( customer ) => {
+
+            console.log( customer );
+            if ( customer ) {
+
+                this.currentCustomer = customer;
+
+            } else {
+
+                console.log( "NO CUSTOMER" );
+                this.currentCustomer = null;
+
+            }
+
+        });
+
     }
 
     ionViewWillLeave() {
 
         this.bagObserver.unsubscribe();
         this.menuObserver.unsubscribe();
+        this.customerObserver.unsubscribe();
 
     }
 

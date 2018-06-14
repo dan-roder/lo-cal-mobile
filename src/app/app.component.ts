@@ -1,8 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
+import { CustomerProvider } from '../providers/customer/customer';
+import { LoCalApiProvider } from '../providers/lo-cal-api/lo-cal-api';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Subject } from 'rxjs';
+import { Subject, Subscription  } from 'rxjs';
+
 
 @Component({
     templateUrl: 'app.html'
@@ -12,14 +15,17 @@ export class MyApp {
 
     rootPage: string = 'TabsComponent';
     activePage = new Subject();
-
     pages: Array<{title: string, component: string, active: boolean}>;
+    customerObserver: Subscription;
+    currentCustomer: String;
 
     constructor(
 
-        public platform: Platform,
-        public statusBar: StatusBar,
-        public splashScreen: SplashScreen
+        public  platform     : Platform,
+        public  statusBar    : StatusBar,
+        public  splashScreen : SplashScreen,
+        private customer     : CustomerProvider,
+        private localApi        : LoCalApiProvider
 
     ){
 
@@ -54,6 +60,24 @@ export class MyApp {
             // Here you can do any higher level native things you might need.
             this.statusBar.styleDefault();
             this.splashScreen.hide();
+
+
+            this.customerObserver = this.customer.customerId.subscribe( ( customer ) => {
+
+                console.log( customer );
+                if ( customer ) {
+
+                    this.currentCustomer = customer;
+
+                } else {
+
+                    console.log( "NO CUSTOMER" );
+                    this.currentCustomer = null;
+
+                }
+
+            });
+
         });
 
     }
@@ -74,4 +98,9 @@ export class MyApp {
 
     }
 
+    logout() {
+
+        this.localApi.logout();
+
+    }
 }

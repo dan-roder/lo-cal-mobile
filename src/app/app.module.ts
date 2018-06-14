@@ -5,6 +5,7 @@ import { MyApp } from './app.component';
 
 import { MODULES, PROVIDERS, DIRECTIVES } from './app.imports';
 
+
 @NgModule({
     declarations: [
 
@@ -15,7 +16,9 @@ import { MODULES, PROVIDERS, DIRECTIVES } from './app.imports';
 
         MODULES,
         DIRECTIVES,
-        IonicModule.forRoot(MyApp)
+        IonicModule.forRoot(MyApp, {
+            autocomplete: 'on'
+        })
 
     ],
     bootstrap: [IonicApp],
@@ -28,7 +31,6 @@ import { MODULES, PROVIDERS, DIRECTIVES } from './app.imports';
 
         PROVIDERS,
         { provide: ErrorHandler, useClass: IonicErrorHandler },
-
 
     ]
 })

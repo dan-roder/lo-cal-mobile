@@ -13,7 +13,7 @@
     <p>
         Get past orders, save your payment methods and more.
     </p>
-    <form [formGroup]="signupForm" (ngSubmit)="save(signupForm)" novalidate>
+    <form [formGroup]="signupForm" (ngSubmit)="save( signupForm )" novalidate>
         <ion-list>
             <div formGroupName="custInfo" *ngIf="!custInfoComp">
                 <h4>
@@ -36,7 +36,7 @@
                     <ion-input type="text" phone name="phone" formControlName="phone"></ion-input>
                 </ion-item>
             </div>
-            <p class="form-control-feedback" *ngIf="signupForm.hasError('custInfoInvalid','custInfo')">All the above fields are required. </p>
+            <p class="form-control-feedback" *ngIf="signupForm.hasError('custInfoInvalid','custInfo')">All fields are required. </p>
             <ion-row *ngIf="!custInfoComp">
                 <ion-col no-padding>
                     <button type="button" ion-button block no-border [disabled]="!custInfo.valid" color="red" (tap)="nextStep('info')">
@@ -44,38 +44,86 @@
                     </button>
                 </ion-col>
             </ion-row>
-            <div formGroupName="passwords" *ngIf="custInfoComp">
-                <ion-item no-padding>
-                    <ion-label floating>Password</ion-label>
-                    <ion-input type="password" name="password" formControlName="password"></ion-input>
+            <!-- <div formGroupName="address" *ngIf="!addressComp && custInfoComp">
+                <h4>
+                    Now the address info ...
+                </h4>
+                <ion-item [ngClass]="{ 'has-error': line1.invalid && line1.dirty }" no-padding>
+                    <ion-label floating>Address</ion-label>
+                    <ion-input type="text" name="line1" formControlName="line1"></ion-input>
                 </ion-item>
-                <ion-item no-padding>
-                    <ion-label floating>Confirm your password</ion-label>
-                    <ion-input type="password" name="confirm" formControlName="confirm"></ion-input>
+                <ion-item [ngClass]="{ 'has-error': line2.invalid && line2.dirty }" no-padding>
+                    <ion-label floating>Address Line 2</ion-label>
+                    <ion-input type="text" name="line2" formControlName="line2"></ion-input>
                 </ion-item>
-                <p class="form-control-feedback" *ngIf="signupForm.hasError('notSame','passwords')">Please ensure your password matches the confirmation. </p>
-                <p class="help-text">Your password needs to be at least 8 characters long, and contain at least one lowercase, one uppercase letter and at least one number.</p>
-            </div>
-            <ion-row *ngIf="!passwordsComp && custInfoComp">
+                <ion-item [ngClass]="{ 'has-error': city.invalid && city.dirty }" no-padding>
+                    <ion-label floating>City</ion-label>
+                    <ion-input type="text" name="city" formControlName="city"></ion-input>
+                </ion-item>
+                <ion-item [ngClass]="{ 'has-error': state.invalid && state.dirty }" no-padding>
+                    <ion-label floating>State</ion-label>
+                    <ion-input type="text" name="state" formControlName="state"></ion-input>
+                </ion-item>
+                <ion-item [ngClass]="{ 'has-error': zip.invalid && zip.dirty }" no-padding no-lines no-border>
+                    <ion-label floating>Zip Code</ion-label>
+                    <ion-input type="number" name="zip" formControlName="zip"></ion-input>
+                </ion-item>
+            </div> -->
+            <!-- <ion-row *ngIf="!passwordsComp && custInfoComp && !addressComp">
                 <ion-col no-padding>
                     <button type="button" ion-button block no-border [disabled]="!custInfo.valid" color="red" (tap)="nextStep('info')">
                         Back
                     </button>
                 </ion-col>
                 <ion-col no-padding>
-                    <button type="button" ion-button block no-border [disabled]="!passwords.valid" color="red" (tap)="nextStep('passwords')">
+                    <button type="button" ion-button block no-border [disabled]="!address.valid" color="red" (tap)="nextStep('passwords')">
                         Next
+                    </button>
+                </ion-col>
+            </ion-row> -->
+            <div formGroupName="passwords" *ngIf="custInfoComp">
+                <h4>
+                    Set your password ...
+                </h4>
+                <p class="help-text">Your password needs to be at least 8 characters long, and contain at least one lowercase, one uppercase letter and at least one number.</p>
+                <ion-item no-padding>
+                    <ion-label floating>Password.</ion-label>
+                    <ion-input type="password" name="password" formControlName="password"></ion-input>
+                </ion-item>
+                <ion-item no-padding>
+                    <ion-label floating>Confirm your password.</ion-label>
+                    <ion-input type="password" name="confirm" formControlName="confirm"></ion-input>
+                </ion-item>
+                <p class="form-control-feedback" *ngIf="signupForm.hasError('notSame','passwords')">Please ensure your password matches the confirmation. </p>
+                <ion-item no-padding>
+                    <ion-label floating>Write a security question.</ion-label>
+                    <ion-input type="text" name="question" formControlName="question"></ion-input>
+                </ion-item>
+                <ion-item no-padding no-lines no-border>
+                    <ion-label floating>The answer.</ion-label>
+                    <ion-input type="text" name="answer" formControlName="answer"></ion-input>
+                </ion-item>
+            </div>
+            <ion-row *ngIf="!passwordsComp && custInfoComp">
+                <ion-col no-padding>
+                    <button type="button" ion-button clear no-border [disabled]="!custInfo.valid" (tap)="nextStep('info')">
+                        Back
+                    </button>
+                </ion-col>
+                <ion-col no-padding>
+                    <button type="submit" ion-button block no-border [disabled]="!signupForm.valid" color="red" class="login-button">
+                        Create Account
                     </button>
                 </ion-col>
             </ion-row>
 
-            <ion-row *ngIf="signupForm.valid">
+            <!-- <ion-row *ngIf="signupForm.valid">
                 <ion-col no-padding>
                     <button type="submit" ion-button block no-border [disabled]="!signupForm.valid" color="red" class="login-button">
                         Log In
                     </button>
                 </ion-col>
-            </ion-row>
+            </ion-row> -->
         </ion-list>
     </form>
 

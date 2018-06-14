@@ -10,9 +10,11 @@ import { WordPressProvider } from '../providers/word-press/word-press';
 import { LoCalApiProvider } from '../providers/lo-cal-api/lo-cal-api';
 import { MenuProvider } from "../providers/menu/menu";
 import { BagProvider } from '../providers/bag/bag';
+import { CustomerProvider } from '../providers/customer/customer';
 
 // Directives
 import { DirectivesModule } from '../directives/directives.module';
+
 // Pipes
 import { PipesModule } from '../pipes/pipes.module';
 
@@ -43,6 +45,7 @@ export const PROVIDERS = [
     LoCalApiProvider,
     MenuProvider,
     BagProvider,
+    CustomerProvider,
     // Ionic native specific providers
     InAppBrowser,
     StatusBar,
