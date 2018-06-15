@@ -21,14 +21,14 @@ export class OurstoryComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.getPage(2);
+        this.getCustomPostTypeById('landing_page', 80);
     }
 
-    getPage(id) {
+    getCustomPostTypeById( base, id ) {
         let loader = this.loadingController.create({ content: "Loading" });
 
         loader.present()
-        this.wordpressService.getPage(id)
+        this.wordpressService.getCustomPostTypeById( base, id )
             .subscribe(result => {
                 this.page = result;
                 loader.dismiss();

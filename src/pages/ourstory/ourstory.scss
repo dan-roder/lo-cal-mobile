@@ -1,3 +1,125 @@
 page-ourstory {
 
 }
+.page_content{
+
+    font-size: 15px;   
+    letter-spacing: 1px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.46;
+    text-align: center;
+    color: rgba(30, 30, 30, 0.99);
+
+    .promotion-text{
+
+        font-size: 18px;
+        font-weight: 600;  
+        letter-spacing: 1.4px;
+       
+     }
+    
+}
+
+.promotion-text{
+    font-size: 18px;
+    font-weight: 600;  
+    letter-spacing: 1.4px;
+}
+
+.extra_text_section{
+    font-size: 15px;
+    padding: 25px 0 25px 0;
+}
+.extra_text_section_description{
+    font-size: 15px;
+}
+.page_value{
+    padding-top: 18px;
+    font-size: 20px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 1.3px;
+    text-align: center;
+    color: #ff0f1b;
+
+}
+.clear{clear:both;}
+
+.page_value_content{
+    padding-bottom: 7px;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.5;
+    letter-spacing: 0.7px;
+    text-align: center;
+    color: rgba(30, 30, 30, 0.99);
+
+}
+
+.section_grey{
+    background: #ebebeb;
+    max-width: 100%;
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.image_section{
+
+    padding: 0 20px;
+}
+
+.img_title{
+    padding-top: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 1.3px;
+    text-align: center;
+    color: rgba(30, 30, 30, 0.99);
+}
+
+.img_descriptions{
+    padding:5px 0 10px 0;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.88;
+    letter-spacing: normal;
+    text-align: center;
+    color: rgba(30, 30, 30, 0.99);
+}
+
+.text{
+    clear: both;
+}
+
+@media screen and (min-width: 768px) {
+    .image_section {
+        padding-left: 15px;
+        padding-right: 15px;
+        width: 33.3333%;
+        float: left;
+        
+        
+    }
+    .extra_text_section_img{
+        width: 50%;
+        float: left;
+    }
+    .extra_text_section_description{
+        width: 45%;
+        float: left;
+        margin-left: 2.5%;
+        margin-top: 5%;
+    }
+  }
