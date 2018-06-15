@@ -38,7 +38,7 @@ export class MyApp {
             { title: 'Our Story', component: 'OurstoryComponent', active: false },
             { title: 'Our Food', component: 'OurfoodComponent', active: false},
             { title: 'Catering', component: 'ListComponent', active: false },
-            { title: 'Contact Us', component: 'ListComponent', active: false },
+            { title: 'Contact Us', component: 'ContactUsPage', active: false },
             { title: 'My Account', component: 'ListComponent', active: false }
 
         ];
