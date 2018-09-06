@@ -44,6 +44,7 @@ export class BurgersPage implements OnInit {
 
             console.log( data.menu[0].$id, this.subMenuMeta.$id );
             this.subMenu = data;
+            console.log(this.subMenu);
             loading.dismiss();
 
         });
@@ -109,7 +110,6 @@ export class BurgersPage implements OnInit {
             modObject['currentlySelected'] = [];
             modObject['modifiers'] = {};
             modObject['groupDetails'] = {};
-            console.log( modObject );
             modifierGroup.Mods.forEach( mod => {
 
                 console.log( defaultOptions, mod );

@@ -2,15 +2,13 @@
 
     <div class="menu" no-padding>
         <h2 class="menu-heading">Category</h2>
-        <!-- {{ categories | json }} -->
-        <!-- <button ion-button (click)="pushPage(1)">Push page</button> -->
         <ion-grid no-padding>
             <ion-row>
                 <ion-col col-4 *ngFor="let category of categories; let i = index" no-margin>
-                    <ion-card (click)="pushPage(i)" no-margin class="full-width no-shadow light-background menu-item">
-                        <img class="food-item" src="assets/images/menu-1.png" />
-                        <ion-card-content no-padding>
-                            <ion-card-title text-center>{{category.Name}}</ion-card-title>
+                    <ion-card (click)="pushPage(i)" no-margin class="full-width no-shadow light-background menu-item" *ngIf="menu_images">
+                        <img class="food-item" [src]=retrieveMenuImages(category.SubMenuId)/>
+                        <ion-card-content no-padding class="menu-item-content">
+                            <ion-card-title text-center class="menu-item-content-title">{{category.Name}}</ion-card-title>
                         </ion-card-content>
                     </ion-card>
                 </ion-col>

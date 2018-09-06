@@ -7,10 +7,8 @@ import 'rxjs/add/operator/map';
 export class WordPressProvider {
 
     constructor(
-
-        private http: Http, 
+        private http: Http,
         private config: Config
-
     ) {}
 
     login(data) {
@@ -37,16 +35,37 @@ export class WordPressProvider {
         });
     }
 
+    getOurStory() {
+        return this.http.get(this.config.localApi + `/marketing/our-story`)
+            .map(result => {
+                return result.json();
+            });
+    }
+
+    getOurFood() {
+        return this.http.get(this.config.localApi + `/marketing/our-food`)
+            .map(result => {
+                return result.json();
+            });
+    }
+
+    retrieveMenuImages() {
+        return this.http.get(this.config.localApi + `/marketing/menu-images`)
+            .map(result => {
+                // console.log( result.json() );
+                return result.json()
+            });
+    }
+
     getCustomPostTypeById( base, id ) {
         return this.http.get(this.config.wordpressApiUrl + `/wp/v2/${base}/${id}`)
             .map(result => {
             return result.json();
         });
-
     }
 
     getMedia(id) {
-        return this.http.get(this.config.wordpressApiUrl + `/wp/v2/media/${id}`)
+        return this.http.get(this.config.localApi + `/marketing/media/${id}`)
             .map(result => {
             return result.json();
         });
@@ -102,5 +121,5 @@ export class WordPressProvider {
         }
         return str.join('&');
     }
-      
+
 }

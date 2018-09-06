@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { App, IonicPage, NavController, NavParams } from "ionic-angular";
 import { Storage } from "@ionic/storage";
 import { SuperTabsController } from "ionic2-super-tabs";
-
+import { WordPressProvider } from '../../providers/word-press/word-press';
 // import { ListComponent } from '../list/list.component';
 // import { MenuProvider } from "../../providers/menu/menu";
 
@@ -16,6 +16,7 @@ export class MenuComponent {
     activePage: any;
     categories: any;
     rootNavCtrl: NavController;
+    menu_images;
 
     constructor(
         public  navCtrl       : NavController,
@@ -23,20 +24,29 @@ export class MenuComponent {
         public  storage       : Storage,
         private superTabsCtrl : SuperTabsController,
         private app           : App,
-        // private menu          : MenuProvider
+        private wp            : WordPressProvider
 
     ) {}
 
     ngOnInit() {
-
-        // console.log( this.navParams);
         this.categories = this.navParams.get('menu');
-        // this.rootNavCtrl = this.navParams.get("rootNavCtrl");
-
+        console.log(this.categories);
+        this.wp.retrieveMenuImages().subscribe( res => {
+            console.log( res );
+            this.menu_images = res;
+        });
     }
 
     ionViewDidLoad() {
 
+    }
+
+    retrieveMenuImages(submenuId) {
+        const imageUrl = this.menu_images.find( image => {
+            return parseInt(image.acf.submenuid) === parseInt(submenuId);
+        });
+        // console.log( imageUrl.acf.category_image.url );
+        return imageUrl.acf.category_image.url;
     }
 
     checkActivePage(page): boolean {

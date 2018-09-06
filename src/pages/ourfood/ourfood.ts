@@ -21,14 +21,14 @@ export class OurfoodComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.getCustomPostTypeById('landing_page', 98);
+        this.getOurFood();
     }
 
-    getCustomPostTypeById( base, id ) {
+    getOurFood() {
         let loader = this.loadingController.create({ content: "Loading" });
 
         loader.present()
-        this.wordpressService.getCustomPostTypeById( base, id )
+        this.wordpressService.getOurFood()
             .subscribe(result => {
                 this.page = result;
                 loader.dismiss();

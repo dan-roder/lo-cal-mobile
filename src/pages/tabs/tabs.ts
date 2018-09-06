@@ -38,7 +38,7 @@ export class TabsComponent {
     ) {
 
         this.platform.ready().then( () => {
-            console.log( this.currentCustomer );
+            // console.log( this.currentCustomer );
             this.menuObserver = this.menu.getSubmenus().subscribe( data => {
 
                 console.log(data );

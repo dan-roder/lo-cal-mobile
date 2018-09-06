@@ -19,6 +19,7 @@ page-menu {
             width      : auto;
             max-width  : 100%;
             margin     : 0 auto;
+            border-radius: 50%;
         }
     }
     .menu ion-card-title.card-title-md,
@@ -29,6 +30,14 @@ page-menu {
         margin         : 0;
         text-transform : uppercase;
     }
+
+    .menu ion-card-content.menu-item-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 60px;
+    }
+
     .featured {
         ion-card {
             border-bottom : 20px solid map-get($colors, light);

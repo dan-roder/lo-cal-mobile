@@ -1,6 +1,9 @@
 <ion-content no-padding>
     <div class="menu-items">
         <div  *ngFor="let menuItem of subMenu?.menuItems; let i = index" class="menu-item menu-item-{{ i }}"  no-padding>
+            <!-- <pre>
+                {{ menuItem | json }}
+            </pre> -->
             <ion-card no-margin class="full-width" no-shadow no-border>
                 <img class="food-item" src="http://via.placeholder.com/370x165" />
                 <ion-card-content no-padding (tap)="addItem( menuItem )">
@@ -26,9 +29,6 @@
                     <ion-col col-4 text-center>
                         <span class="allergen" *ngFor="let allergen of (menuItem.Description | allergens).allergens">
                             {{ allergen }}
-                            <!-- <ion-icon name="vegan"></ion-icon>
-                            <ion-icon name="paleo"></ion-icon>
-                            <ion-icon name="veget"></ion-icon> -->
                         </span>
                     </ion-col>
                     <ion-col col float-right text-right (tap)="quickAdd(menuItem)">
