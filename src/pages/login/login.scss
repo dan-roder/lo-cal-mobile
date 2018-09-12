@@ -6,7 +6,7 @@ page-login {
         height: 40px;
         font-weight: 600;
         letter-spacing: 1.4px;
-        
+
     }
 
     [ion-button][disabled] {
@@ -14,5 +14,28 @@ page-login {
         background: map-get( $colors, offWhite );
 
     }
+    // ion-item.item.has-error {
+
+    //     .item-inner {
+    //         border-color: $error;
+    //         ion-label, ion-icon {
+    //             color: $error;
+    //         }
+    //         ion-icon {
+    //             position: absolute;
+    //             bottom: 0;
+    //             right: 0;
+    //         }
+    //     }
+    //     input {
+    //         color: $error;
+    //     }
+    // }
+    // .form-control-feedback {
+    //     .error-help {
+    //         margin-top: 5px;
+    //         color: $error;
+    //     }
+    // }
 
 }

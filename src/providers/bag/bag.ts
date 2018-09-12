@@ -28,7 +28,6 @@ export class BagProvider {
         this.storage.get('bag').then(bagItemsFromLocalStorage => {
 
                 if (bagItemsFromLocalStorage) {
-
                     this.itemsInBag = bagItemsFromLocalStorage;
                     this.bagObserver.next( this.itemsInBag );
                 }
@@ -47,7 +46,7 @@ export class BagProvider {
         console.log(passedMenuItem);
         let lineItem: LineItem = {};
 
-        lineItem.SalesItemId = passedMenuItem.DefaultItemId; // Not sure if this should come from the SalesItem object instead of the DefaultItemId
+        lineItem.SalesItemId = passedMenuItem.SalesItemIds[0];
         lineItem.MenuItemId = passedMenuItem.MenuItemId;
         lineItem.Name = passedMenuItem.Name;
         lineItem.ShortDescription = passedMenuItem.Description;
@@ -55,9 +54,8 @@ export class BagProvider {
         lineItem.UnitPrice = passedMenuItem.UnitPrice;
         lineItem.Quantity = passedMenuItem.Quantity;
         lineItem.ExtendedPrice = lineItem.UnitPrice * lineItem.Quantity;
-
-        this.constructLineItemModifiers(passedMenuItem.Modifiers);
-
+        lineItem.Modifiers = this.constructLineItemModifiers(passedMenuItem.Modifiers);
+        lineItem.caloricValue = parseInt(passedMenuItem.CaloricServingUnit);
         // Push menuItem and lineItem into arrays
         this.itemsInBag.push(lineItem);
 
@@ -71,6 +69,7 @@ export class BagProvider {
         let formattedLineItemModifierArray: Array<LineItemModifier> = [];
 
         allModifiers.forEach((modGroup, key) => {
+            console.log( modGroup );
             let modifierGroupId = modGroup.groupDetails.ModifierGroupId;
 
             if (modGroup.currentlySelected.length > 0) {

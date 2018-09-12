@@ -92,4 +92,8 @@ export class BagPage {
         alert.present();
     }
 
+    checkout() {
+        console.log(this.bag.itemsInBag);
+    }
+
 }

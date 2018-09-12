@@ -29,7 +29,6 @@ export class LoginPage {
         private fb:                FormBuilder
 
     ) {
-
         this.loginForm = this.fb.group({
             'email': ['', Validators.compose([Validators.required, Validators.pattern(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)])],
             'password': ['', Validators.compose([Validators.required, Validators.minLength(1)])]
@@ -37,7 +36,7 @@ export class LoginPage {
 
         this.email = this.loginForm.controls['email'];
         this.password = this.loginForm.controls['password'];
-
+        console.log( this.email.invalid && this.email.dirty );
     }
 
     ionViewDidLoad() {
@@ -60,8 +59,9 @@ export class LoginPage {
             this.localApi.login( credentials ).subscribe( ( response ) => {
 
                 loader.dismiss();
-                this.navCtrl.pop();
                 console.log( response );
+                this.navCtrl.pop();
+
 
             }, error => {
 

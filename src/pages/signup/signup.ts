@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, IonicPage, ToastController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { CustomerProvider } from '../../providers/customer/customer';
 
@@ -21,6 +21,8 @@ export class SignupPage implements OnInit {
     email        : AbstractControl;
     phone        : AbstractControl;
     passwords    : AbstractControl;
+    password     : AbstractControl;
+    confirm      : AbstractControl;
     question     : AbstractControl;
     answer       : AbstractControl;
     error        : any;
@@ -32,40 +34,38 @@ export class SignupPage implements OnInit {
     // address      : AbstractControl;
 
     constructor(
-        public  navCtrl   : NavController,
-        public  navParams : NavParams,
-        private fb        : FormBuilder,
-        private customer  : CustomerProvider
+        public  navCtrl         : NavController,
+        public  navParams       : NavParams,
+        private fb              : FormBuilder,
+        private customer        : CustomerProvider,
+        private toastController : ToastController
     ) {}
 
     ngOnInit() {
 
         this.signupForm = this.fb.group({
+            'custInfo' : this.fb.group({
+                'firstName' : [ '', [Validators.required] ],
+                'lastName'  : [ '', [Validators.required] ],
+                'email'     : [ '', Validators.compose([Validators.required, Validators.pattern(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)])],
+                'phone' : [ '', [Validators.required, Validators.pattern(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/)] ]
+            }, { validator: this.checkCustInfo }),
+            // 'address' : this.fb.group({
+            //     'line1' : [ '', [Validators.required] ],
+            //     'line2' :[ '' ],
+            //     'city' : [ '', [Validators.required] ],
+            //     'state' : [ '', [Validators.required] ],
+            //     'zip' : [ '', [Validators.required] ],
+            //     'description' : [ '', [Validators.required] ],
+            // }, { validator: this.checkAddress }),
+            'passwords' : this.fb.group({
 
-                'custInfo' : this.fb.group({
-                    'firstName' : [ '', [Validators.required] ],
-                    'lastName'  : [ '', [Validators.required] ],
-                    'email'     : [ '', Validators.compose([Validators.required, Validators.pattern(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)])],
-                    'phone' : [ '', [Validators.required, Validators.pattern(/(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}/)] ]
-                }, { validator: this.checkCustInfo }),
-                // 'address' : this.fb.group({
-                //     'line1' : [ '', [Validators.required] ],
-                //     'line2' :[ '' ],
-                //     'city' : [ '', [Validators.required] ],
-                //     'state' : [ '', [Validators.required] ],
-                //     'zip' : [ '', [Validators.required] ],
-                //     'description' : [ '', [Validators.required] ],
-                // }, { validator: this.checkAddress }),
-                'passwords' : this.fb.group({
+                'password' : ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)])],
+                'confirm'  : ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)])],
+                'question' : [ '', [Validators.required] ],
+                'answer' : [ '', [Validators.required] ]
 
-                    'password' : ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)])],
-                    'confirm'  : ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)])],
-                    'question' : [ '', [Validators.required] ],
-                    'answer' : [ '', [Validators.required] ]
-
-                }, { validator: this.checkPasswords })
-
-
+            }, { validator: this.checkPasswords })
         });
 
         console.log( this.signupForm.controls );
@@ -81,22 +81,20 @@ export class SignupPage implements OnInit {
         // this.state     = this.signupForm.controls.address['controls']['state'];
         // this.zip       = this.signupForm.controls.address['controls']['zip'];
         this.passwords = this.signupForm.controls['passwords'];
+        this.password = this.signupForm.controls.passwords['controls']['password'];
+        this.confirm = this.signupForm.controls.passwords['controls']['confirm'];
         this.question = this.signupForm.controls.passwords['controls']['question'];
         this.answer = this.signupForm.controls.passwords['controls']['answer'];
-
-
     }
 
     ionViewDidLoad() {
-
         console.log('ionViewDidLoad SignupPage');
-
     }
 
     ionViewWillLeave() {
-
         if( this.customerSubscription ) this.customerSubscription.unsubscribe();
     }
+
     checkCustInfo( group: FormGroup ) {
 
         console.log( group.controls.phone.invalid );
@@ -136,7 +134,7 @@ export class SignupPage implements OnInit {
     }
 
     save( customer ) {
-
+        console.log( customer );
         let customerObj = {
 
             "Customer": {
@@ -157,11 +155,28 @@ export class SignupPage implements OnInit {
         };
         console.log(customerObj);
 
-        this.customerSubscription = this.customer.create( customerObj ).subscribe( response => {
+        this.customerSubscription = this.customer.create( customerObj ).subscribe(
+            response => {
 
-            console.log( response );
+                let toast = this.toastController.create({
+                    message: "YOU ARE IN!",
+                    duration: 6000,
+                    position: 'bottom'
+                });
+                toast.present();
+                console.log( response );
+            },
+            err => {
+                console.log(err.message);
+                let toast = this.toastController.create({
+                    message: "Email already exists. Did you forget your password?",
+                    duration: 6000,
+                    position: 'bottom'
+                });
+                toast.present();
 
-        });
+            }
+        );
 
     }
 

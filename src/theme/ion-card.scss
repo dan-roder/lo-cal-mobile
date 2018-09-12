@@ -1,0 +1,13 @@
+ion-card {
+    &.full-width {
+        width: 100% !important;
+    }
+
+    &.no-shadow {
+        box-shadow: none;
+    }
+
+    &.light-background {
+        background: map-get($colors, light);
+    }
+}

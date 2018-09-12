@@ -21,20 +21,36 @@
                 </h4>
                 <ion-item [ngClass]="{ 'has-error': firstName.invalid && firstName.dirty }" no-padding>
                     <ion-label floating>First Name</ion-label>
+                    <ion-icon *ngIf="firstName.invalid && firstName.dirty" name="alert" item-right class="has-error"></ion-icon>
                     <ion-input type="text" name="firstName" formControlName="firstName"></ion-input>
                 </ion-item>
+                <div class="form-control-feedback" *ngIf="firstName.invalid && firstName.dirty">
+                    <p class="error-help">This field is required.</p>
+                </div>
                 <ion-item [ngClass]="{ 'has-error': lastName.invalid && lastName.dirty }" no-padding>
                     <ion-label floating>Last Name</ion-label>
+                    <ion-icon *ngIf="lastName.invalid && lastName.dirty" name="alert" item-right class="has-error"></ion-icon>
                     <ion-input type="text" name="lastName" formControlName="lastName"></ion-input>
                 </ion-item>
+                <div class="form-control-feedback" *ngIf="lastName.invalid && lastName.dirty">
+                    <p class="error-help">This field is required.</p>
+                </div>
                 <ion-item [ngClass]="{ 'has-error': email.invalid && email.dirty }" no-padding>
                     <ion-label floating>Email</ion-label>
+                    <ion-icon *ngIf="email.invalid && email.dirty" name="alert" item-right class="has-error"></ion-icon>
                     <ion-input type="email" name="email" formControlName="email"></ion-input>
                 </ion-item>
+                <div class="form-control-feedback" *ngIf="email.invalid && email.dirty">
+                    <p class="error-help">Please enter a valid email address.</p>
+                </div>
                 <ion-item [ngClass]="{ 'has-error': phone.invalid && phone.dirty }" no-padding no-lines no-border>
                     <ion-label floating>Telephone</ion-label>
+                    <ion-icon *ngIf="phone.invalid && phone.dirty" name="alert" item-right class="has-error"></ion-icon>
                     <ion-input type="text" phone name="phone" formControlName="phone"></ion-input>
                 </ion-item>
+                <div class="form-control-feedback" *ngIf="phone.invalid && phone.dirty">
+                    <p class="error-help">Please enter a valid telephone number.</p>
+                </div>
             </div>
             <p class="form-control-feedback" *ngIf="signupForm.hasError('custInfoInvalid','custInfo')">All fields are required. </p>
             <ion-row *ngIf="!custInfoComp">
@@ -86,7 +102,7 @@
                     Set your password ...
                 </h4>
                 <p class="help-text">Your password needs to be at least 8 characters long, and contain at least one lowercase, one uppercase letter and at least one number.</p>
-                <ion-item no-padding>
+                <ion-item  [ngClass]="{ 'has-error': password.invalid && password.dirty }" no-padding>
                     <ion-label floating>Password.</ion-label>
                     <ion-input type="password" name="password" formControlName="password"></ion-input>
                 </ion-item>
@@ -95,11 +111,11 @@
                     <ion-input type="password" name="confirm" formControlName="confirm"></ion-input>
                 </ion-item>
                 <p class="form-control-feedback" *ngIf="signupForm.hasError('notSame','passwords')">Please ensure your password matches the confirmation. </p>
-                <ion-item no-padding>
+                <ion-item no-padding [ngClass]="{ 'has-error': question.invalid && question.dirty }">
                     <ion-label floating>Write a security question.</ion-label>
                     <ion-input type="text" name="question" formControlName="question"></ion-input>
                 </ion-item>
-                <ion-item no-padding no-lines no-border>
+                <ion-item no-padding no-lines no-border [ngClass]="{ 'has-error': answer.invalid && answer.dirty }">
                     <ion-label floating>The answer.</ion-label>
                     <ion-input type="text" name="answer" formControlName="answer"></ion-input>
                 </ion-item>

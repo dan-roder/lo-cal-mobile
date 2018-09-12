@@ -11,11 +11,13 @@
         <ion-list>
             <ion-item [ngClass]="{ 'has-error': email.invalid && email.dirty }" no-padding>
                 <ion-label floating>Email</ion-label>
+                <ion-icon *ngIf="email.invalid && email.dirty" name="alert" item-right class="has-error"></ion-icon>
                 <ion-input type="email" name="email" formControlName="email"></ion-input>
-                <div class="form-control-feedback" *ngIf="email.invalid && email.dirty">
-                    Please enter a valid email.
-                </div>
+
             </ion-item>
+            <div class="form-control-feedback" *ngIf="email.invalid && email.dirty">
+                <p class="error-help">Please enter a valid email address.</p>
+            </div>
             <ion-item [ngClass]="{ 'has-error': password.invalid && password.dirty }" no-padding>
                 <ion-label floating>Password</ion-label>
                 <ion-input type="password" name="password" formControlName="password"></ion-input>

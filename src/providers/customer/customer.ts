@@ -63,25 +63,21 @@ export class CustomerProvider {
         console.log( request );
         return this.http.put( url, request, options )
             .map( res => {
-
-                console.log( res );
-                if ( res.ok ) {
-
-                    console.log( res.json() );
-                    let customer = res.json();
+                const response = res.json();
+                console.log(response)
+                if ( !response.Errors ) {
+                    console.log( response );
+                    let customer = response;
                     return this.save( customer );
                     // return this.customer;
-
+                } else {
+                    throw new Error( response.Errors[0].Message );
                 }
-
-            })
-            .catch( error => {
-
-                console.log( error );
-                return Observable.throw( error.json().error || "Server Error" );
-
             });
-
+            // .catch( error => {
+            //     console.log( error );
+            //     return Observable.throw( error.json().error || "Server Error" );
+            // });
     }
 
     save( customer ) {

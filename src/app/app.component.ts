@@ -28,7 +28,7 @@ export class MyApp {
         private localApi        : LoCalApiProvider
 
     ){
-
+        console.log( process.env );
         this.initializeApp();
 
         // used for an example of ngFor and navigation

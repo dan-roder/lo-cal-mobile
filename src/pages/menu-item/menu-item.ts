@@ -27,7 +27,7 @@ export class MenuItemPage {
     order;
     itemPrice;
     calorieCount;
-
+    specialInstructions: String;
 
     constructor(
 
@@ -39,10 +39,8 @@ export class MenuItemPage {
         private bag       : BagProvider
 
     ) {
-
         this.menuItemId   = this.navParams.get('menuItem').MenuItemId;
         this.defaultPrice = this.navParams.get('menuItem').defaultPrice;
-
     }
 
     ionViewDidLoad() {
@@ -51,50 +49,45 @@ export class MenuItemPage {
         console.log( this.menuItemId );
         this.menu.getMenuItem( this.menuItemId )
             .subscribe( data => {
-
                 console.log( data );
                 this.arrangeMenuData( data );
-
             });
 
     }
 
     ionViewWillEnter() {
-
         document.body.classList.add("fullscreen");
-
     }
 
     ionViewWillLeave() {
-
         document.body.classList.remove("fullscreen");
-
     }
 
     private recalculateCost(){
-
         this.totalPrice = this.itemPrice * this.quantity;
+    }
+
+    switchDefault(group, modifier) {
+        let oldSelection = this.customData[group.$id]['currentlySelected'].pop();
+        this.customData[group.$id]['currentlySelected'].push(modifier);
+        let currentSelection = this.customData[group.$id]['currentlySelected']
+        console.log(group, modifier, oldSelection, currentSelection);
 
     }
 
     public buildModifiers( group, modifier, e ) {
-        console.log(group, modifier, e.value);
+        console.log(group, modifier, e);
         if( e.value ){
-
             this.addMod( group, modifier );
-
         } else {
-
             this.removeMod( group, modifier );
-
         }
     }
 
     private addMod( group, mod ) {
-
         let maxSelections = group.MaximumItems;
         let currentSelections = this.customData[group.$id]['currentlySelected'];
-        console.log( "ADDING: ", group.$id, mod );
+        console.log( "ADDING: ", group.$id, mod,"+++",mod );
         if ( currentSelections.length < maxSelections ) {
 
             this.customData[group.$id]['currentlySelected'].push( mod );
@@ -106,56 +99,43 @@ export class MenuItemPage {
                 this.itemPrice += mod.ItemModifiers[0].Price;
                 this.recalculateCost();
             }
-
         } else {
-
             console.log( 'selection maxed' );
-
         }
         console.log( this.customData );
         this.loadingMenu = false;
-
     }
 
     private removeMod( group, mod ) {
 
-        console.log("Removing: ", mod.$id);
+        console.log("Removing: ", mod);
         function findModId( selection ) {
-
             return selection.$id === mod.$id;
         }
 
         let currentSelections = this.customData[group.$id]['currentlySelected'];
         if ( currentSelections.length > 0 ) {
-
             let removeIndex = currentSelections.findIndex( findModId );
             let currentQuantity = this.customData[group.$id].modifiers[mod.$id].quantity;
             console.log(removeIndex, currentQuantity );
             if( removeIndex > -1 && currentQuantity > 0){
-
                 let newSelections = currentSelections.splice(removeIndex, 1);
                 currentSelections = newSelections;
                 this.customData[group.$id].modifiers[mod.$id]['quantity'] -= 1;
-
             }
 
             // Subract from calorie count if the modifier has calorie changes
             if (mod.ItemModifiers.length > 0) {
-
                 this.calorieCount -= mod.ItemModifiers[0].CaloricValue;
                 // If modifier includes additional price, remove from price
                 this.itemPrice -= mod.ItemModifiers[0].Price;
                 this.recalculateCost();
-
             }
 
         }   else {
-
             console.log( 'selection is empty' );
-
         }
         console.log( this.customData );
-
     }
 
     private arrangeMenuData( data ) {
@@ -198,7 +178,6 @@ export class MenuItemPage {
             modObject['groupDetails'] = {};
             console.log( modObject );
             modifierGroup.Mods.forEach( mod => {
-
                 console.log( defaultOptions, mod );
                 modObject['groupDetails'] = modifierGroup;
                 modObject['modifiers'][mod.$id] = {};
@@ -206,20 +185,14 @@ export class MenuItemPage {
                 let isModDefault = defaultOptions.find( option => {
                     console.log( option.ModifierId, mod.ModifierId);
                     return option['ModifierId'] === mod.ModifierId;
-
                 });
                 console.log( isModDefault );
                 if ( isModDefault ) {
-
                     modObject['modifiers'][mod.$id]['quantity'] = isModDefault.DefaultQuantity;
                     modObject['currentlySelected'].push(mod);
-
                 } else {
-
                     modObject['modifiers'][mod.$id]['quantity'] = 0;
-
                 }
-
             });
 
             tempObj[modifierGroup.$id] = {};
@@ -251,13 +224,9 @@ export class MenuItemPage {
         let maxItems = this.customData[groupId]['maximumItems'];
         let currentItem = selectedItems.find( item => item.ModifierId === mod.ModifierId );
         if (itemsLength >= maxItems && typeof currentItem === 'undefined') {
-
             return true;
-
         } else {
-
             return false;
-
         }
 
     }
@@ -272,6 +241,11 @@ export class MenuItemPage {
             this.quantity--;
             this.recalculateCost();
         }
+    }
+
+    updateSpecialInstructions(e) {
+        console.log(e.value);
+        this.specialInstructions = e.value;
     }
 
     addToBag() {
@@ -289,6 +263,7 @@ export class MenuItemPage {
         menuItem['TotalPrice'] = totalPrice;
         menuItem['Modifiers']  = Object.values( this.customData );
         menuItem['UnitPrice']  = this.salesItems.Price;
+        menuItem['SpecialInstructions'] = this.specialInstructions;
         console.log( menuItem );
 
         let message = `${ menuItem['DisplayName'] } has been added to you your bag.`
@@ -302,18 +277,14 @@ export class MenuItemPage {
                     text: "Go back?",
                     role: "cancel",
                     handler: () => {
-
                         console.log("Cancel clicked");
-
                     }
                 },
                 {
                     text: "Checkout?",
                     handler: () => {
-
                         console.log("Go to bag");
                         this.app.getRootNavs()[0].push('BagPage');
-
                     }
                 }
             ]

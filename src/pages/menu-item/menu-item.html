@@ -45,7 +45,7 @@
                         {{ allergen }}
                     </span>
                 </ion-label>
-                <ion-radio value="{{ mod.ModifierId }}" checked="{{ defaultItem( group, mod ) }}"></ion-radio>
+                <ion-radio (ionSelect)="switchDefault( group, mod )" checked="{{ defaultItem( group, mod ) }}"></ion-radio>
             </ion-item>
         </ion-list>
         <ion-list *ngIf="group.MaximumItems !== 1" class="sales-item sales-item-{{ i }}" no-margin>
@@ -67,7 +67,7 @@
 
     <div *ngIf="menuItem" class="special-instructions" padding>
         <p class="special-instructions-tag">Add Special Instruction (optional)</p>
-        <ion-textarea></ion-textarea>
+        <ion-textarea (ionChange)="updateSpecialInstructions($event)"></ion-textarea>
     </div>
 
     <ion-toolbar color="light" *ngIf="totalPrice">
