@@ -44,7 +44,7 @@
                     </button>
                 </ion-col>
             </ion-row>
-            <!-- <div formGroupName="address" *ngIf="!addressComp && custInfoComp">
+            <div formGroupName="address" *ngIf="!addressComp && custInfoComp">
                 <h4>
                     Now the address info ...
                 </h4>
@@ -68,8 +68,8 @@
                     <ion-label floating>Zip Code</ion-label>
                     <ion-input type="number" name="zip" formControlName="zip"></ion-input>
                 </ion-item>
-            </div> -->
-            <!-- <ion-row *ngIf="!passwordsComp && custInfoComp && !addressComp">
+            </div>
+            <ion-row *ngIf="!passwordsComp && custInfoComp && !addressComp">
                 <ion-col no-padding>
                     <button type="button" ion-button block no-border [disabled]="!custInfo.valid" color="red" (tap)="nextStep('info')">
                         Back
@@ -80,8 +80,8 @@
                         Next
                     </button>
                 </ion-col>
-            </ion-row> -->
-            <div formGroupName="passwords" *ngIf="custInfoComp">
+            </ion-row>
+            <div formGroupName="passwords" *ngIf="!passwordsComp && custInfoComp && addressComp">
                 <h4>
                     Set your password ...
                 </h4>
@@ -104,9 +104,9 @@
                     <ion-input type="text" name="answer" formControlName="answer"></ion-input>
                 </ion-item>
             </div>
-            <ion-row *ngIf="!passwordsComp && custInfoComp">
+            <ion-row *ngIf="!passwordsComp && custInfoComp && addressComp">
                 <ion-col no-padding>
-                    <button type="button" ion-button clear no-border [disabled]="!custInfo.valid" (tap)="nextStep('info')">
+                    <button type="button" ion-button block no-border [disabled]="!custInfo.valid" color="red" (tap)="nextStep('passwords')">
                         Back
                     </button>
                 </ion-col>

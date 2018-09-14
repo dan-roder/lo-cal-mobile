@@ -24,12 +24,12 @@ export class SignupPage implements OnInit {
     question     : AbstractControl;
     answer       : AbstractControl;
     error        : any;
-    // line1        : AbstractControl;
-    // line2        : AbstractControl;
-    // state        : AbstractControl;
-    // city         : AbstractControl;
-    // zip          : AbstractControl;
-    // address      : AbstractControl;
+    line1        : AbstractControl;
+    line2        : AbstractControl;
+    state        : AbstractControl;
+    city         : AbstractControl;
+    zip          : AbstractControl;
+    address      : AbstractControl;
 
     constructor(
         public  navCtrl   : NavController,
@@ -48,14 +48,14 @@ export class SignupPage implements OnInit {
                     'email'     : [ '', Validators.compose([Validators.required, Validators.pattern(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)])],
                     'phone' : [ '', [Validators.required, Validators.pattern(/(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}/)] ]
                 }, { validator: this.checkCustInfo }),
-                // 'address' : this.fb.group({
-                //     'line1' : [ '', [Validators.required] ],
-                //     'line2' :[ '' ],
-                //     'city' : [ '', [Validators.required] ],
-                //     'state' : [ '', [Validators.required] ],
-                //     'zip' : [ '', [Validators.required] ],
-                //     'description' : [ '', [Validators.required] ],
-                // }, { validator: this.checkAddress }),
+                'address' : this.fb.group({
+                    'line1' : [ '', [Validators.required] ],
+                    'line2' :[ '' ],
+                    'city' : [ '', [Validators.required] ],
+                    'state' : [ '', [Validators.required] ],
+                    'zip' : [ '', [Validators.required] ]
+                    // 'description' : [ '', [Validators.required] ],
+                }, { validator: this.checkAddress }),
                 'passwords' : this.fb.group({
 
                     'password' : ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)])],
@@ -68,25 +68,23 @@ export class SignupPage implements OnInit {
 
         });
 
-        console.log( this.signupForm.controls );
         this.custInfo  = this.signupForm.controls['custInfo'];
         this.firstName = this.signupForm.controls.custInfo['controls']['firstName'];
         this.lastName  = this.signupForm.controls.custInfo['controls']['lastName'];
         this.email     = this.signupForm.controls.custInfo['controls']['email'];
         this.phone     = this.signupForm.controls.custInfo['controls']['phone'];
-        // this.address   = this.signupForm.controls['address'];
-        // this.line1     = this.signupForm.controls.address['controls']['line1'];
-        // this.line2     = this.signupForm.controls.address['controls']['line2'];
-        // this.city      = this.signupForm.controls.address['controls']['city'];
-        // this.state     = this.signupForm.controls.address['controls']['state'];
-        // this.zip       = this.signupForm.controls.address['controls']['zip'];
+        this.address   = this.signupForm.controls['address'];
+        this.line1     = this.signupForm.controls.address['controls']['line1'];
+        this.line2     = this.signupForm.controls.address['controls']['line2'];
+        this.city      = this.signupForm.controls.address['controls']['city'];
+        this.state     = this.signupForm.controls.address['controls']['state'];
+        this.zip       = this.signupForm.controls.address['controls']['zip'];
         this.passwords = this.signupForm.controls['passwords'];
         this.question = this.signupForm.controls.passwords['controls']['question'];
         this.answer = this.signupForm.controls.passwords['controls']['answer'];
 
 
     }
-
     ionViewDidLoad() {
 
         console.log('ionViewDidLoad SignupPage');
@@ -99,9 +97,9 @@ export class SignupPage implements OnInit {
     }
     checkCustInfo( group: FormGroup ) {
 
-        console.log( group.controls.phone.invalid );
-        console.log( group.controls.firstName.invalid || group.controls.lastName.invalid || group.controls.email.invalid || group.controls.phone.invalid );
-
+        // console.log( group.controls.phone.invalid );
+        // console.log( group.controls.firstName.invalid || group.controls.lastName.invalid || group.controls.email.invalid || group.controls.phone.invalid );
+        // console.log(group);
         if ( group.controls.firstName.invalid || group.controls.lastName.invalid || group.controls.email.invalid || group.controls.phone.invalid ) {
             return { custInfoInvalid : true };
         } else {
@@ -109,12 +107,18 @@ export class SignupPage implements OnInit {
         }
 
     }
+    checkAddress ( group: FormGroup ) {
+    //     console.log( 'hey', group.controls.zip.invalid );
+    //    return { address : true }
+    // console.log(group);
 
+
+    }
     checkPasswords( group: FormGroup ) {
 
         let pass = group.controls.password.value;
         let confirm = group.controls.confirm.value;
-
+        console.log(group)
         return pass === confirm ? null : { notSame: true };
 
     }
@@ -122,16 +126,31 @@ export class SignupPage implements OnInit {
     nextStep( step ) {
 
         console.log( step );
-        switch ( step ) {
+        if (step === 'info') {
+            this.custInfoComp = !this.custInfoComp
+            console.log('cust info: ', this.custInfoComp)
+        } else if(step === 'passwords') {
+            // this.custInfoComp = !this.custInfoComp
 
-            case 'info':
-                this.custInfoComp = !this.custInfoComp;
-            case 'passwords':
-                this.passwordComp = !this.passwordComp;
-            default:
-                break;
+            this.addressComp = !this.addressComp
+            console.log('address: ', this.addressComp)
 
         }
+        // switch ( step ) {
+
+        //     case 'info':
+        //         // this.custInfoComp = !this.custInfoComp;
+        //         console.log('cust info: ', this.custInfoComp)
+        //     case 'passwords':
+        //         this.passwordComp = true
+        //         console.log('pass: ', this.passwordComp)
+        //         this.addressComp = !this.addressComp;
+        //         console.log('address: ', this.addressComp)
+
+        //     default:
+        //         break;
+
+        // }
 
     }
 
