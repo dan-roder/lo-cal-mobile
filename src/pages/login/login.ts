@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 
 import { LoCalApiProvider } from '../../providers/lo-cal-api/lo-cal-api';
+import { TabsComponent } from '../tabs/tabs'
 
 @IonicPage()
 @Component({
@@ -18,6 +19,7 @@ export class LoginPage {
     email:     AbstractControl;
     password:  AbstractControl;
     error:     any;
+    page: any;
 
     constructor(
 
@@ -60,7 +62,9 @@ export class LoginPage {
             this.localApi.login( credentials ).subscribe( ( response ) => {
 
                 loader.dismiss();
-                this.navCtrl.pop();
+
+                // this.navCtrl.push(TabsComponent)
+                this.navCtrl.popToRoot();
                 console.log( response );
 
             }, error => {

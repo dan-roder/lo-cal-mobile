@@ -69,7 +69,17 @@ export class CustomerProvider {
 
                     console.log( res.json() );
                     let customer = res.json();
-                    return this.save( customer );
+
+                    if(customer.Errors && customer.Errors[0].ErrorCode === 163) {
+
+                        return 163
+
+                    } else {
+
+                        this.save( customer );
+
+                        return 200
+                    }
                     // return this.customer;
 
                 }
