@@ -13,7 +13,16 @@
     <p>
         Get past orders, save your payment methods and more.
     </p>
-    <form [formGroup]="signupForm" (ngSubmit)="save( signupForm )" novalidate>
+    <div class="signup-loading" *ngIf="processing">
+        <p class="form-control-feedback" *ngIf="accountExists">It looks like an account with that email already exists. Log in <a href="#" (tap)="clearValues()">here</a></p>
+        <div class="account-sucess" *ngIf="accountCreated">
+            <h2>Success!</h2>
+            <p class="form-control-feedback">Your account has been created. Keep an eye out for an email from us with your login information. Please return to the <a href="#" [navPush]="'LoginPage'">login</a> page to proceed.</p>
+        </div>
+        <div *ngIf="processing" class="loading-gif"></div>
+    </div>
+
+    <form *ngIf="!processing" [formGroup]="signupForm" (ngSubmit)="save( signupForm )" novalidate>
         <ion-list>
             <div formGroupName="custInfo" *ngIf="!custInfoComp">
                 <h4>
@@ -33,7 +42,7 @@
                 </ion-item>
                 <ion-item [ngClass]="{ 'has-error': phone.invalid && phone.dirty }" no-padding no-lines no-border>
                     <ion-label floating>Telephone</ion-label>
-                    <ion-input type="text" phone name="phone" formControlName="phone"></ion-input>
+                    <ion-input type="text" phone name="phone" formControlName="phone" autocomplete="new-password"></ion-input>
                 </ion-item>
             </div>
             <p class="form-control-feedback" *ngIf="signupForm.hasError('custInfoInvalid','custInfo')">All fields are required. </p>
@@ -68,6 +77,8 @@
                     <ion-label floating>Zip Code</ion-label>
                     <ion-input type="number" name="zip" formControlName="zip"></ion-input>
                 </ion-item>
+                <p class="form-control-feedback" *ngIf="signupForm.hasError('notComplete','address')">Please fill out all required fields </p>
+
             </div>
             <ion-row *ngIf="!passwordsComp && custInfoComp && !addressComp">
                 <ion-col no-padding>
@@ -90,6 +101,8 @@
                     <ion-label floating>Password.</ion-label>
                     <ion-input type="password" name="password" formControlName="password"></ion-input>
                 </ion-item>
+                <p class="form-control-feedback" *ngIf="signupForm.hasError('notValid','passwords')">Password requirements not met </p>
+
                 <ion-item no-padding>
                     <ion-label floating>Confirm your password.</ion-label>
                     <ion-input type="password" name="confirm" formControlName="confirm"></ion-input>

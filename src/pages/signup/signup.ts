@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { CustomerProvider } from '../../providers/customer/customer';
+import { LoginPage } from '../login/login'
 
 @IonicPage()
 @Component({
@@ -14,9 +15,12 @@ export class SignupPage implements OnInit {
     custInfoComp : boolean = false;
     addressComp  : boolean = false;
     passwordComp : boolean = false;
+    accountExists : boolean = false;
+    accountCreated : boolean = false;
+    processing   : boolean = false;
     signupForm   : FormGroup;
     custInfo     : AbstractControl;
-    firstName    : AbstractControl;
+    firstName     : AbstractControl;
     lastName     : AbstractControl;
     email        : AbstractControl;
     phone        : AbstractControl;
@@ -46,14 +50,14 @@ export class SignupPage implements OnInit {
                     'firstName' : [ '', [Validators.required] ],
                     'lastName'  : [ '', [Validators.required] ],
                     'email'     : [ '', Validators.compose([Validators.required, Validators.pattern(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)])],
-                    'phone' : [ '', [Validators.required, Validators.pattern(/(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}/)] ]
+                    'phone' : [ '', Validators.compose([Validators.required, Validators.pattern(/(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}/)])]
                 }, { validator: this.checkCustInfo }),
                 'address' : this.fb.group({
                     'line1' : [ '', [Validators.required] ],
                     'line2' :[ '' ],
                     'city' : [ '', [Validators.required] ],
                     'state' : [ '', [Validators.required] ],
-                    'zip' : [ '', [Validators.required] ]
+                    'zip' : [ '', [Validators.required, Validators.pattern('^[0-9]{5}$')] ]
                     // 'description' : [ '', [Validators.required] ],
                 }, { validator: this.checkAddress }),
                 'passwords' : this.fb.group({
@@ -97,20 +101,26 @@ export class SignupPage implements OnInit {
     }
     checkCustInfo( group: FormGroup ) {
 
-        // console.log( group.controls.phone.invalid );
-        // console.log( group.controls.firstName.invalid || group.controls.lastName.invalid || group.controls.email.invalid || group.controls.phone.invalid );
-        // console.log(group);
         if ( group.controls.firstName.invalid || group.controls.lastName.invalid || group.controls.email.invalid || group.controls.phone.invalid ) {
+
+            // display helper message if any of the required fields don't pass validation
             return { custInfoInvalid : true };
+
         } else {
             return null;
         }
 
     }
     checkAddress ( group: FormGroup ) {
-    //     console.log( 'hey', group.controls.zip.invalid );
-    //    return { address : true }
-    // console.log(group);
+
+    if(group.controls.line1.invalid || group.controls.city.invalid || group.controls.state.invalid || group.controls.zip.invalid) {
+
+        // display helper message if any of the required fields don't pass validations
+        return { notComplete : true }
+
+    } else {
+        return null
+    }
 
 
     }
@@ -118,42 +128,40 @@ export class SignupPage implements OnInit {
 
         let pass = group.controls.password.value;
         let confirm = group.controls.confirm.value;
-        console.log(group)
-        return pass === confirm ? null : { notSame: true };
+
+        if (group.controls.password.invalid) {
+
+            // display helper message if password does not meet criteria
+            return { notValid : true }
+
+        } else if(pass !== confirm) {
+
+            // compare password with confirmation, display message if no match
+            return { notSame : true }
+        }
+
 
     }
 
     nextStep( step ) {
 
-        console.log( step );
+        // logic to switch between form steps
         if (step === 'info') {
+
             this.custInfoComp = !this.custInfoComp
-            console.log('cust info: ', this.custInfoComp)
+
         } else if(step === 'passwords') {
-            // this.custInfoComp = !this.custInfoComp
 
             this.addressComp = !this.addressComp
-            console.log('address: ', this.addressComp)
 
         }
-        // switch ( step ) {
 
-        //     case 'info':
-        //         // this.custInfoComp = !this.custInfoComp;
-        //         console.log('cust info: ', this.custInfoComp)
-        //     case 'passwords':
-        //         this.passwordComp = true
-        //         console.log('pass: ', this.passwordComp)
-        //         this.addressComp = !this.addressComp;
-        //         console.log('address: ', this.addressComp)
-
-        //     default:
-        //         break;
-
-        // }
 
     }
-
+    clearValues() {
+        this.processing = false
+        this.navCtrl.push(LoginPage)
+    }
     save( customer ) {
 
         let customerObj = {
@@ -166,8 +174,13 @@ export class SignupPage implements OnInit {
                 "LastName": this.lastName.value,
                 "VoicePhone": this.phone.value.replace(/[^A-Z0-9]/ig, ""),
                 "FavoriteSiteIds": [1],
-                "Addresses": []
-
+                "Addresses": [{
+                    AddressLine1: this.line1.value,
+                    AddressLine2: this.line2.value,
+                    City: this.city.value,
+                    State: this.state.value,
+                    Postal: this.zip.value
+                }]
             },
             "Password": this.passwords['controls']['password'].value,
             "SecurityQuestion": this.question.value,
@@ -176,9 +189,30 @@ export class SignupPage implements OnInit {
         };
         console.log(customerObj);
 
-        this.customerSubscription = this.customer.create( customerObj ).subscribe( response => {
+        this.customerSubscription = this.customer.create( customerObj ).subscribe( (res) => {
 
-            console.log( response );
+            console.log( res );
+            // if (res === 163) {
+            //     this.accountExists = true
+            //     this.processing = true
+            // }
+
+           this.processing = true
+
+            switch (res) {
+                case 163 :
+
+                  this.accountExists = true
+
+
+                  break;
+
+                case 200 :
+
+                  this.accountCreated = true
+
+                  break;
+            }
 
         });
 
