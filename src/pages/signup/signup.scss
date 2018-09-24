@@ -20,10 +20,17 @@ page-signup {
         height: 60px;
         margin: 0 auto;
     }
-    .account-success {
+    .account-success, .account-exists {
         padding-top: 90px;
         h2 {
             font-size: 35px;
+            text-align: center;
+        }
+    }
+    .account-exists {
+        padding-top: 137px;
+        h2 {
+            font-size: 27px;
             text-align: center;
         }
     }
@@ -33,4 +40,8 @@ page-signup {
     .spacing {
         margin-right: 5px;
     }
+
+}
+.alert-md .alert-radio-label {
+    white-space: pre-wrap !important;
 }
