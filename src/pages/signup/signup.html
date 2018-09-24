@@ -15,7 +15,7 @@
     </p>
     <div class="signup-loading" *ngIf="processing">
         <p class="form-control-feedback" *ngIf="accountExists">It looks like an account with that email already exists. Log in <a href="#" (tap)="clearValues()">here</a></p>
-        <div class="account-sucess" *ngIf="accountCreated">
+        <div class="account-success" *ngIf="accountCreated">
             <h2>Success!</h2>
             <p class="form-control-feedback">Your account has been created. Keep an eye out for an email from us with your login information. Please return to the <a href="#" [navPush]="'LoginPage'">login</a> page to proceed.</p>
         </div>
@@ -81,7 +81,7 @@
 
             </div>
             <ion-row *ngIf="!passwordsComp && custInfoComp && !addressComp">
-                <ion-col no-padding>
+                <ion-col class="spacing" no-padding>
                     <button type="button" ion-button block no-border [disabled]="!custInfo.valid" color="red" (tap)="nextStep('info')">
                         Back
                     </button>
@@ -118,7 +118,7 @@
                 </ion-item>
             </div>
             <ion-row *ngIf="!passwordsComp && custInfoComp && addressComp">
-                <ion-col no-padding>
+                <ion-col class="spacing" no-padding>
                     <button type="button" ion-button block no-border [disabled]="!custInfo.valid" color="red" (tap)="nextStep('passwords')">
                         Back
                     </button>
