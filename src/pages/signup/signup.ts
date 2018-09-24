@@ -34,6 +34,7 @@ export class SignupPage implements OnInit {
     zip          : AbstractControl;
     address      : AbstractControl;
 
+
     constructor(
         public  navCtrl   : NavController,
         public  navParams : NavParams,
@@ -190,10 +191,6 @@ export class SignupPage implements OnInit {
         this.customerSubscription = this.customer.create( customerObj ).subscribe( (res) => {
 
             console.log( res );
-            // if (res === 163) {
-            //     this.accountExists = true
-            //     this.processing = true
-            // }
 
            this.processing = true
 
