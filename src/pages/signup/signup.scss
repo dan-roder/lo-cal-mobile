@@ -13,4 +13,24 @@ page-signup {
             }
         }
     }
+    .loading-gif {
+        background: url("../assets/icon/loading-eclipse.svg");
+        background-size: 100%;
+        width: 60px;
+        height: 60px;
+        margin: 0 auto;
+    }
+    .account-success {
+        padding-top: 90px;
+        h2 {
+            font-size: 35px;
+            text-align: center;
+        }
+    }
+    .form-control-feedback {
+        color: #ff0f1b;
+    }
+    .spacing {
+        margin-right: 5px;
+    }
 }
