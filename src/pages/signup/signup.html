@@ -14,7 +14,7 @@
         Get past orders, save your payment methods and more.
     </p>
     <div class="signup-loading" *ngIf="processing">
-        <p class="form-control-feedback" *ngIf="accountExists">It looks like an account with that email already exists. Log in <a href="#" (tap)="clearValues()">here</a></p>
+        <p *ngIf="accountExists">It looks like an account with that email already exists. Log in <a href="#" [navPush]="'LoginPage'">here</a></p>
         <div class="account-success" *ngIf="accountCreated">
             <h2>Success!</h2>
             <p class="form-control-feedback">Your account has been created. Keep an eye out for an email from us with your login information. Please return to the <a href="#" [navPush]="'LoginPage'">login</a> page to proceed.</p>
