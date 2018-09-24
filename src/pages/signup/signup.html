@@ -9,15 +9,20 @@
 
 
 <ion-content padding>
-    <h2>Create an account.</h2>
-    <p>
-        Get past orders, save your payment methods and more.
-    </p>
+    <div *ngIf="!processing">
+        <h2>Create an account.</h2>
+        <p>
+            Get past orders, save your payment methods and more.
+        </p>
+    </div>
     <div class="signup-loading" *ngIf="processing">
-        <p *ngIf="accountExists">It looks like an account with that email already exists. Log in <a href="#" [navPush]="'LoginPage'">here</a></p>
+        <div class="account-exists" *ngIf="accountExists">
+            <h2>Account Already Exists</h2>
+            <p>It looks like an account with that email already exists. Log in <a href="#" [navPush]="'LoginPage'">here</a></p>
+        </div>
         <div class="account-success" *ngIf="accountCreated">
             <h2>Success!</h2>
-            <p class="form-control-feedback">Your account has been created. Keep an eye out for an email from us with your login information. Please return to the <a href="#" [navPush]="'LoginPage'">login</a> page to proceed.</p>
+            <p>Your account has been created. Keep an eye out for an email from us with your login information. Please return to the <a href="#" [navPush]="'LoginPage'">login</a> page to proceed.</p>
         </div>
         <div *ngIf="processing" class="loading-gif"></div>
     </div>
@@ -109,8 +114,21 @@
                 </ion-item>
                 <p class="form-control-feedback" *ngIf="signupForm.hasError('notSame','passwords')">Please ensure your password matches the confirmation. </p>
                 <ion-item no-padding>
-                    <ion-label floating>Write a security question.</ion-label>
-                    <ion-input type="text" name="question" formControlName="question"></ion-input>
+                    <ion-label floating>Choose a security question.</ion-label>
+                    <ion-select formControlName="question">
+                        <ion-option value="What was your childhood nickname?">What was your childhood nickname?</ion-option>
+                        <ion-option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</ion-option>
+                        <ion-option value="In what city or town did your mother and father meet?">In what city or town did your mother and father meet?</ion-option>
+                        <ion-option value="What is your favorite sports team?">What is your favorite sports team?</ion-option>
+                        <ion-option value="What is your favorite movie?">What is your favorite movie?</ion-option>
+                        <ion-option value="What was your favorite sport in high school?">What was your favorite sport in high school?</ion-option>
+                        <ion-option value="What was your favorite food as a child?">What was your favorite food as a child?</ion-option>
+                        <ion-option value="What was the make and model of your first car?">What was the make and model of your first car?</ion-option>
+                        <ion-option value="What was the name of the hospital where you were born?">What was the name of the hospital where you were born?</ion-option>
+                        <ion-option value="What school did you attend for sixth grade?">What school did you attend for sixth grade?</ion-option>
+                        <ion-option value="In what town was your first job?">In what town was your first job?</ion-option>
+                        <ion-option value="What was the name of the company where you had your first job?">What was the name of the company where you had your first job?</ion-option>
+                    </ion-select>
                 </ion-item>
                 <ion-item no-padding no-lines no-border>
                     <ion-label floating>The answer.</ion-label>
