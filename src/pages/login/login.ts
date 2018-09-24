@@ -64,7 +64,8 @@ export class LoginPage {
                 loader.dismiss();
 
                 // this.navCtrl.push(TabsComponent)
-                this.navCtrl.popToRoot();
+                // this.navCtrl.popToRoot();
+                this.navCtrl.setRoot(TabsComponent);
                 console.log( response );
 
             }, error => {
