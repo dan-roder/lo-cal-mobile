@@ -49,11 +49,11 @@
         <div class="slide-content bottom">
             <p></p>
         </div>
-      </div>      
+      </div>
     </ion-slide>
 
   </ion-slides>
-  
+
   <div class="bottom-buttons-wrap">
     <button ion-button block color="dark" (click)="navHome()" class="order-now">
       Order Now
@@ -64,7 +64,7 @@
           <a href="#" class="bottom-link" [navPush]="'LoginPage'">login</a>
         </ion-col>
         <ion-col class="bottom-links-col">
-          <a href="#" class="bottom-link">new account</a>
+          <a href="#" class="bottom-link" [navPush]="'SignupPage'">new account</a>
         </ion-col>
       </ion-row>
     </ion-grid>
