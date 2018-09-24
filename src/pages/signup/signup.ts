@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { CustomerProvider } from '../../providers/customer/customer';
-import { LoginPage } from '../login/login'
 
 @IonicPage()
 @Component({
@@ -97,6 +96,8 @@ export class SignupPage implements OnInit {
 
     ionViewWillLeave() {
 
+        this.processing = false
+
         if( this.customerSubscription ) this.customerSubscription.unsubscribe();
     }
     checkCustInfo( group: FormGroup ) {
@@ -158,10 +159,7 @@ export class SignupPage implements OnInit {
 
 
     }
-    clearValues() {
-        this.processing = false
-        this.navCtrl.push(LoginPage)
-    }
+
     save( customer ) {
 
         let customerObj = {
