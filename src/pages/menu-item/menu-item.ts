@@ -116,7 +116,7 @@ export class MenuItemPage {
             console.log( 'selection maxed' );
 
         }
-        console.log( 'hey-data', this.customData );
+        console.log( 'hey-data', this.customData[group.$id].modifiers[mod.$id].quantity );
         this.loadingMenu = false;
 
     }
@@ -130,7 +130,7 @@ export class MenuItemPage {
         }
 
         let currentSelections = this.customData[group.$id]['currentlySelected'];
-        if ( currentSelections.length > 0 ) {
+        if ( this.customData[group.$id].modifiers[mod.$id].quantity > 0 ) {
 
             let removeIndex = currentSelections.findIndex( findModId );
             let currentQuantity = this.customData[group.$id].modifiers[mod.$id].quantity;
