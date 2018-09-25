@@ -29,6 +29,7 @@ export class MenuItemPage {
     calorieCount;
 
 
+
     constructor(
 
         public  app       : App,
@@ -42,6 +43,7 @@ export class MenuItemPage {
 
         this.menuItemId   = this.navParams.get('menuItem').MenuItemId;
         this.defaultPrice = this.navParams.get('menuItem').defaultPrice;
+        console.log('hey-params', this.navParams)
 
     }
 
@@ -52,7 +54,7 @@ export class MenuItemPage {
         this.menu.getMenuItem( this.menuItemId )
             .subscribe( data => {
 
-                console.log( data );
+                // console.log( data );
                 this.arrangeMenuData( data );
 
             });
@@ -74,6 +76,8 @@ export class MenuItemPage {
     private recalculateCost(){
 
         this.totalPrice = this.itemPrice * this.quantity;
+
+
 
     }
 
@@ -112,7 +116,7 @@ export class MenuItemPage {
             console.log( 'selection maxed' );
 
         }
-        console.log( this.customData );
+        console.log( 'hey-data', this.customData );
         this.loadingMenu = false;
 
     }
@@ -164,7 +168,7 @@ export class MenuItemPage {
         this.menuItem         = data.item;
         this.salesItems       = data.salesItems[0];
         this.itemPrice        = data.salesItems[0].Price;
-        this.calorieCount     = data.salesItems[0].CaloricValue;
+        this.calorieCount     = parseInt(this.navParams.get('menuItem').CaloricServingUnit, 10);
         this.recalculateCost();
         // console.log(data, this.menuItem, data.salesItems, this.itemPrice, this.calorieCount );
 
