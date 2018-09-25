@@ -82,6 +82,48 @@ page-menu-item {
             margin: 0;
         }
     }
+    .disabled {
+        opacity: .4;
+    }
+    .enabled {
+        opacity: 1;
+    }
+    .calories {
+        padding-top: 10px;
+    }
+    .choice-controls {
+        .quantity-holder {
+            display: inline-block;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            padding: 5px;
+            background: #fff;
+            border: 1px solid #e1e1e1;
+            color: #666;
+            text-align: center;
+            font-size: 18px;
+            font-size: 1.125rem;
+            transition: all 200ms ease-in-out;
+          }
+          .populated {
+            color: #000;
+            border-color: #000;
+          }
+          ion-icon {
+              font-size: 13px;
+
+              padding: 13px 0 15px 0;
+
+              color: #ff0f1b;
+          }
+          ion-icon[name="minus"] {
+              padding-right: 13px;
+          }
+          ion-icon[name="plus"] {
+            padding-left: 13px;
+        }
+    }
 
     ion-navbar,
     ion-tabbar,
