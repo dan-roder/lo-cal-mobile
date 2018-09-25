@@ -293,7 +293,7 @@ export class MenuItemPage {
         menuItem['TotalPrice'] = totalPrice;
         menuItem['Modifiers']  = Object.values( this.customData );
         menuItem['UnitPrice']  = this.salesItems.Price;
-        console.log( menuItem );
+        console.log( 'hey menu-item', menuItem );
 
         let message = `${ menuItem['DisplayName'] } has been added to you your bag.`
         // Push full object to bag service
