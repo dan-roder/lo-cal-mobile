@@ -44,7 +44,7 @@ export class BagProvider {
 
     public createLineItem(passedMenuItem) {
 
-        console.log(passedMenuItem);
+        // console.log(passedMenuItem);
         let lineItem: LineItem = {};
 
         lineItem.SalesItemId = passedMenuItem.DefaultItemId; // Not sure if this should come from the SalesItem object instead of the DefaultItemId
@@ -55,6 +55,7 @@ export class BagProvider {
         lineItem.UnitPrice = passedMenuItem.UnitPrice;
         lineItem.Quantity = passedMenuItem.Quantity;
         lineItem.ExtendedPrice = lineItem.UnitPrice * lineItem.Quantity;
+        lineItem.CaloricServingUnit = passedMenuItem.CaloricServingUnit
 
         this.constructLineItemModifiers(passedMenuItem.Modifiers);
 
