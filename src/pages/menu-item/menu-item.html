@@ -16,10 +16,10 @@
             </p>
             <ion-row class="menu-item-meta">
                 <ion-col col-3 class="border">
-                    <span class="price">{{ defaultPrice | currency:'USD':'symbol' }}</span>
+                    <span class="price">{{ itemPrice | currency:'USD':'symbol' }}</span>
                 </ion-col>
                 <ion-col col-4 text-center class="border" *ngIf="menuItem?.CaloricServingUnit">
-                    <span class="calories">{{ menuItem.CaloricServingUnit }} cal</span>
+                    <span class="calories">{{ calorieCount }} cal</span>
                 </ion-col>
                 <ion-col text-center *ngIf="(menuItem?.Description | allergens)?.allergens">
                     <span class="allergen" *ngFor="let allergen of (menuItem?.Description | allergens)?.allergens">
@@ -35,7 +35,7 @@
     <div *ngFor="let group of salesItems?.ModGroups; let i = index">
         <ion-list *ngIf="group.MaximumItems === 1" radio-group class="sales-item sales-item-{{ i }}" no-margin>
             <ion-list-header no-margin>
-                <span class="title">{{ group.Name }}</span>
+                <span class="title">{{ group.DisplayName }}</span>
                 <div class="choices">Choose 1</div>
             </ion-list-header>
             <ion-item *ngFor="let mod of group.Mods, let i = index" no-margin no-padding>
@@ -44,13 +44,17 @@
                     <span class="allergen" *ngFor="let allergen of (mod.Name | allergens).allergens">
                         {{ allergen }}
                     </span>
+                    <div class="calories">{{ mod?.ItemModifiers[0]?.CaloricValue }}
+                        <span *ngIf="mod?.ItemModifiers[0]?.CaloricValue !== null">cal</span>
+                    </div>
                 </ion-label>
-                <ion-radio value="{{ mod.ModifierId }}" checked="{{ defaultItem( group, mod ) }}"></ion-radio>
+
+                <ion-checkbox (ionChange)="buildModifiers( group, mod, $event )" item-right [disabled]="modDisabled( group, mod )" checked="{{ defaultItem( group, mod ) }}"></ion-checkbox>
             </ion-item>
         </ion-list>
         <ion-list *ngIf="group.MaximumItems !== 1" class="sales-item sales-item-{{ i }}" no-margin>
             <ion-list-header no-margin>
-                <span class="title">{{ group.Name }}</span>
+                <span class="title">{{ group.DisplayName }}</span>
                 <div class="choices">Choose up to {{ group.MaximumItems }} ({{ customData[group.$id].currentlySelected.length }}/{{ group.MaximumItems }})</div>
             </ion-list-header>
             <ion-item *ngFor="let mod of group.Mods, let i = index" name="mod.Name" no-margin no-padding>
@@ -59,6 +63,9 @@
                     <span class="allergen" *ngFor="let allergen of (mod.Name | allergens).allergens">
                         {{ allergen }}
                     </span>
+                    <div class="calories">{{ mod?.ItemModifiers[0]?.CaloricValue }}
+                        <span *ngIf="mod?.ItemModifiers[0]?.CaloricValue !== null">cal</span>
+                    </div>
                 </ion-label>
                 <ion-checkbox (ionChange)="buildModifiers( group, mod, $event )" item-right [disabled]="modDisabled( group, mod )"></ion-checkbox>
             </ion-item>
