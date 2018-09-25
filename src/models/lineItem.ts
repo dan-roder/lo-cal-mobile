@@ -19,6 +19,7 @@ export interface LineItem {
     NextModifierSequenceNumber?: number; // (integer , optional) : The internal index for the modifiers for this line item ,
     PosItemId?: number; // (integer , optional) : The Id of the item at the site ,
     CompValue?: number; // (number , optional) = The comp value if there is a price
+    CaloricServingUnit?: string;
 }
 
 export interface LineItemModifier {
