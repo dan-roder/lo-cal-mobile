@@ -20,6 +20,7 @@ export interface LineItem {
     PosItemId?: number; // (integer , optional) : The Id of the item at the site ,
     CompValue?: number; // (number , optional) = The comp value if there is a price
     CaloricServingUnit?: string;
+    caloricValue?: number;
 }
 
 export interface LineItemModifier {
