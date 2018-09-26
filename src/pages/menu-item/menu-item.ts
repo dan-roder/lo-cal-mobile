@@ -43,6 +43,7 @@ export class MenuItemPage {
 
         this.menuItemId   = this.navParams.get('menuItem').MenuItemId;
         this.defaultPrice = this.navParams.get('menuItem').defaultPrice;
+
         console.log('hey-params', this.navParams)
 
     }
@@ -168,7 +169,7 @@ export class MenuItemPage {
         this.menuItem         = data.item;
         this.salesItems       = data.salesItems[0];
         this.itemPrice        = data.salesItems[0].Price;
-        this.calorieCount     = parseInt(this.navParams.get('menuItem').CaloricServingUnit, 10);
+        this.calorieCount     = (this.navParams.get('menuItem').CaloricServingUnit === null) ? 0 : parseInt(this.navParams.get('menuItem').CaloricServingUnit, 10);
         this.recalculateCost();
         // console.log(data, this.menuItem, data.salesItems, this.itemPrice, this.calorieCount );
 
@@ -293,7 +294,9 @@ export class MenuItemPage {
         menuItem['TotalPrice'] = totalPrice;
         menuItem['Modifiers']  = Object.values( this.customData );
         menuItem['UnitPrice']  = this.salesItems.Price;
-        console.log( 'hey menu-item', menuItem );
+        menuItem['caloricValue'] = this.calorieCount;
+
+        console.log( 'hey menu-item', this.calorieCount );
 
         let message = `${ menuItem['DisplayName'] } has been added to you your bag.`
         // Push full object to bag service
