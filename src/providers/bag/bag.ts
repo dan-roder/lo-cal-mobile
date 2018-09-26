@@ -46,16 +46,16 @@ export class BagProvider {
 
         // console.log(passedMenuItem);
         let lineItem: LineItem = {};
-
-        lineItem.SalesItemId = passedMenuItem.DefaultItemId; // Not sure if this should come from the SalesItem object instead of the DefaultItemId
+        console.log('passed item', passedMenuItem)
+        lineItem.SalesItemId = passedMenuItem.SalesItemId; // Not sure if this should come from the SalesItem object instead of the DefaultItemId
         lineItem.MenuItemId = passedMenuItem.MenuItemId;
         lineItem.Name = passedMenuItem.Name;
         lineItem.ShortDescription = passedMenuItem.Description;
         lineItem.SpecialInstructions = passedMenuItem.SpecialInstructions;
         lineItem.UnitPrice = passedMenuItem.UnitPrice;
         lineItem.Quantity = passedMenuItem.Quantity;
-        lineItem.ExtendedPrice = lineItem.UnitPrice * lineItem.Quantity;
-        lineItem.CaloricServingUnit = passedMenuItem.CaloricServingUnit
+        lineItem.ExtendedPrice = passedMenuItem.TotalPrice;
+        lineItem.caloricValue = passedMenuItem.caloricValue;
 
         this.constructLineItemModifiers(passedMenuItem.Modifiers);
 
