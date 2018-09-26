@@ -46,7 +46,7 @@ export class BagProvider {
 
         // console.log(passedMenuItem);
         let lineItem: LineItem = {};
-        console.log('passed item', passedMenuItem)
+        // console.log('passed item', passedMenuItem)
         lineItem.SalesItemId = passedMenuItem.SalesItemId; // Not sure if this should come from the SalesItem object instead of the DefaultItemId
         lineItem.MenuItemId = passedMenuItem.MenuItemId;
         lineItem.Name = passedMenuItem.Name;
@@ -56,9 +56,10 @@ export class BagProvider {
         lineItem.Quantity = passedMenuItem.Quantity;
         lineItem.ExtendedPrice = passedMenuItem.TotalPrice;
         lineItem.caloricValue = passedMenuItem.caloricValue;
+        lineItem.Modifiers = this.constructLineItemModifiers(passedMenuItem.Modifiers);
 
-        this.constructLineItemModifiers(passedMenuItem.Modifiers);
 
+        console.log('line item', lineItem)
         // Push menuItem and lineItem into arrays
         this.itemsInBag.push(lineItem);
 
