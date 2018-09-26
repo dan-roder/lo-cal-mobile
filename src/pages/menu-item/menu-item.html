@@ -18,8 +18,8 @@
                 <ion-col col-3 class="border">
                     <span class="price">{{ itemPrice | currency:'USD':'symbol' }}</span>
                 </ion-col>
-                <ion-col col-4 text-center class="border" *ngIf="menuItem?.CaloricServingUnit">
-                    <span class="calories">{{ calorieCount }} cal</span>
+                <ion-col col-4 text-center class="border">
+                    <span class="calories" *ngIf="calorieCount !== null">{{ calorieCount }} cal</span>
                 </ion-col>
                 <ion-col text-center *ngIf="(menuItem?.Description | allergens)?.allergens">
                     <span class="allergen" *ngFor="let allergen of (menuItem?.Description | allergens)?.allergens">
