@@ -69,6 +69,31 @@ export class BagProvider {
         lineItem = null;
     }
 
+    public quickAddLineItem( passedMenuItem ){
+        console.log('quick add passed item', passedMenuItem)
+        let lineItem: LineItem = {};
+
+        lineItem.SalesItemId = passedMenuItem.DefaultItemId;
+        lineItem.MenuItemId = passedMenuItem.MenuItemId;
+        lineItem.Name = passedMenuItem.Name;
+        lineItem.ShortDescription = passedMenuItem.Description;
+        lineItem.UnitPrice = passedMenuItem.UnitPrice;
+        lineItem.Quantity = 1;
+        lineItem.ExtendedPrice = passedMenuItem.UnitPrice;
+
+
+        this.itemsInBag.push(lineItem);
+        console.log('quick add line item', lineItem)
+        // Save to localStorage
+        this.saveToLocalStorage();
+
+        lineItem = null;
+
+
+
+
+    }
+
     private constructLineItemModifiers(allModifiers): Array<LineItemModifier> {
         let formattedLineItemModifierArray: Array<LineItemModifier> = [];
 
