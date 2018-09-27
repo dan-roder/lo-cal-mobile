@@ -186,7 +186,7 @@ export class BurgersPage implements OnInit {
         this.menuItemObserver = this.menu.getMenuItem( item.MenuItemId )
             .subscribe( data => {
 
-                console.log( data );
+                console.log( 'hey hey data', data );
 
                 let bagItem = this.arrangeMenuData( data );
                 console.log( bagItem );
@@ -200,14 +200,15 @@ export class BurgersPage implements OnInit {
                 // add quantity and totalPrice to object
 
                 menuItem['Quantity']   = quantity;
-                menuItem['TotalPrice'] = totalPrice;
+                menuItem['TotalPrice'] = salesItems.Price;
                 menuItem['Modifiers']  = Object.values( this.customData );
                 menuItem['UnitPrice']  = salesItems.Price;
+
                 console.log( menuItem );
 
                 // let message = `${ menuItem['DisplayName'] } has been added to you your bag.`
                 // Push full object to bag service
-                this.bag.createLineItem( menuItem );
+                this.bag.quickAddLineItem( menuItem );
 
 
                 // Wipe out local values
