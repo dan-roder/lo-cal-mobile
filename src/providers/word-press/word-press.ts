@@ -57,6 +57,17 @@ export class WordPressProvider {
             });
     }
 
+    getPostBySlug(_slug, _postType){
+        return this.http.get(this.config.wordpressApiUrl + `/wp/v2/${_postType}?slug=${_slug}&_embed`)
+            .map(result => {
+                return result.json();
+            })
+    }
+    getMenuMapObject(){
+        return this.http.get(this.config.wordpressApiUrl + `/local-menu/v1/menu_items`).map(result => {
+          return result.json();
+        })
+      }
     getCustomPostTypeById( base, id ) {
         return this.http.get(this.config.wordpressApiUrl + `/wp/v2/${base}/${id}`)
             .map(result => {
