@@ -5,7 +5,7 @@ import { Storage } from '@ionic/storage';
 import { LineItem, LineItemModifier } from '../../models/LineItem';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
-
+import * as _ from 'lodash';
 
 
 @Injectable()
@@ -98,15 +98,32 @@ export class BagProvider {
         let formattedLineItemModifierArray: Array<LineItemModifier> = [];
 
         allModifiers.forEach((modGroup, key) => {
+            console.log(modGroup)
             let modifierGroupId = modGroup.groupDetails.ModifierGroupId;
 
             if (modGroup.currentlySelected.length > 0) {
                 modGroup.currentlySelected.forEach((modifier, key) => {
-                    let lineItemModifierObject: LineItemModifier = {
-                        ItemOptionGroupId: modifierGroupId,
-                        SalesItemOptionId: modifier.ModifierId
-                    };
-                    formattedLineItemModifierArray.push(lineItemModifierObject);
+                    // Set initial quantity for the modifier being added
+                    let modifierQuantity : number = 1;
+
+                    // If the modifier ID we're iterating over exists
+                    let modExists = _.findIndex(formattedLineItemModifierArray, {SalesItemOptionId: modifier.ModifierId});
+
+                    // If it does, increase the quantity of that modifier
+          if(modExists !== -1){
+            formattedLineItemModifierArray[modExists].Quantity++;
+          }
+          // Else, construct the object and insert it
+          else{
+            let lineItemModifierObject : LineItemModifier = {
+              Name : modifier.Name,
+              ItemOptionGroupId : modifierGroupId,
+              SalesItemOptionId : modifier.ModifierId,
+              Quantity : modifierQuantity
+            };
+
+            formattedLineItemModifierArray.push(lineItemModifierObject);
+          }
                 });
             }
         });
