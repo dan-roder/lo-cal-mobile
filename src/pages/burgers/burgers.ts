@@ -6,19 +6,29 @@ import { SubMenu } from "../../models/subMenu";
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { DefaultOptions } from '../../models/DefaultOptions';
+import { WordPressProvider } from '../../providers/word-press/word-press';
+import * as _ from 'lodash';
+
 
 @IonicPage()
 @Component({
     selector: "page-burgers",
     templateUrl: "burgers.html"
 })
+
 export class BurgersPage implements OnInit {
 
     subMenuObserver  : Subscription;
     menuItemObserver : Subscription;
+    menuObserver     : Subscription;
+    testSubMenu      : Observable<Object>;
     subMenuMeta      : SubMenu;
     subMenu          : Observable<Object>;
     customData       : Object = {};
+    menuSlug         : any;
+    menuMap          : any;
+    wpSubMenuItems   : any;
+
 
     constructor(
         public  app       : App,
@@ -27,8 +37,10 @@ export class BurgersPage implements OnInit {
         public  loading   : LoadingController,
         private alertCtrl : AlertController,
         private menu      : MenuProvider,
-        private bag       : BagProvider
-    ) { }
+        private bag       : BagProvider,
+        private wpService : WordPressProvider,
+
+    ) {}
 
     ngOnInit() {
 
@@ -39,16 +51,53 @@ export class BurgersPage implements OnInit {
 
         });
         loading.present();
+
         this.subMenuMeta = this.navParams.get("menuItem");
+
+        this.wpService.getMenuMapObject().subscribe(menuMap => {
+
+            this.menuMap = menuMap;
+            console.log('menu-map', this.menuMap)
+            if(this.subMenuMeta['SubMenuId'] === 5) {
+                this.menuSlug = 'breakfast'
+            } else if(this.subMenuMeta['SubMenuId'] === 6) {
+                this.menuSlug = 'juice'
+            } else if (this.subMenuMeta['SubMenuId'] === 7) {
+                this.menuSlug = 'smoothies-and-smoothie-bowls'
+            } else if(this.subMenuMeta['SubMenuId'] === 8) {
+                this.menuSlug = 'salads'
+            } else if (this.subMenuMeta['SubMenuId'] === 9) {
+                this.menuSlug = 'quinoa-rice-bowls'
+            } else if (this.subMenuMeta['SubMenuId'] === 10) {
+                this.menuSlug = 'burgers-sandwiches'
+            } else if(this.subMenuMeta['SubMenuId'] === 13) {
+                this.menuSlug = 'soups'
+            } else if(this.subMenuMeta['SubMenuId'] === 16) {
+                this.menuSlug = 'oatmeal-beyond'
+            } else if (this.subMenuMeta['SubMenuId'] === 20) {
+                this.menuSlug = 'coffee'
+            } else if (this.subMenuMeta['SubMenuId'] === 23) {
+                this.menuSlug = 'prepared-foods'
+            }
+
+            this.wpSubMenuItems = _.filter(this.menuMap, {'submenu' : this.menuSlug})
+            // console.log('please work', this.wpSubMenuItems)
+        })
+
+        // console.log('params', this.navParams.get("menuItem").DisplayName)
         this.subMenuObserver = this.menu.getSubmenu( this.subMenuMeta['SubMenuId'] ).subscribe( data => {
 
-            console.log( data.menu[0].$id, this.subMenuMeta.$id );
+            // console.log( data.menu[0].$id, this.subMenuMeta.$id );
             this.subMenu = data;
-            console.log(this.subMenu);
+            // console.log('here', this.subMenu)
+            // console.log('menu-meta', this.subMenuMeta)
             loading.dismiss();
 
+
         });
-        console.log( typeof this.subMenuMeta, this.subMenuMeta );
+
+
+
 
     }
 
@@ -57,11 +106,21 @@ export class BurgersPage implements OnInit {
      */
     ionViewDidLoad() {
 
-    }
 
+
+    }
+    ionViewWillLoad () {
+         // console.log( typeof this.subMenuMeta, this.subMenuMeta );
+
+    }
+    ionViewDidEnter() {
+
+    }
     ionViewWillEnter() {
         // console.log( "ionViewDidLoad BurgersPage" );
         // console.log( this.navParams.get( 'menuItem' ) );
+
+
     }
 
     ionViewWillLeave() {
@@ -140,7 +199,7 @@ export class BurgersPage implements OnInit {
 
         });
 
-        console.log( this.customData );
+        // console.log( this.customData );
         return this.customData = tempObj;
 
     }
@@ -186,10 +245,10 @@ export class BurgersPage implements OnInit {
         this.menuItemObserver = this.menu.getMenuItem( item.MenuItemId )
             .subscribe( data => {
 
-                console.log( 'hey hey data', data );
+                // console.log( 'hey hey data', data );
 
                 let bagItem = this.arrangeMenuData( data );
-                console.log( bagItem );
+                // console.log( bagItem );
 
                 let menuItem   = data.item;
                 let salesItems = data.salesItems[0];
@@ -204,7 +263,7 @@ export class BurgersPage implements OnInit {
                 menuItem['Modifiers']  = Object.values( this.customData );
                 menuItem['UnitPrice']  = salesItems.Price;
 
-                console.log( menuItem );
+                // console.log( menuItem );
 
                 // let message = `${ menuItem['DisplayName'] } has been added to you your bag.`
                 // Push full object to bag service
@@ -218,4 +277,7 @@ export class BurgersPage implements OnInit {
             });
 
     }
+
+
+
 }
