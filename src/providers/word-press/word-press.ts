@@ -49,6 +49,13 @@ export class WordPressProvider {
             });
     }
 
+    getCatering() {
+        return this.http.get(this.config.localApi + `/marketing/catering`)
+            .map(result => {
+                return result.json();
+            });
+    }
+
     retrieveMenuImages() {
         return this.http.get(this.config.localApi + `/marketing/menu-images`)
             .map(result => {
