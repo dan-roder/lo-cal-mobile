@@ -25,6 +25,7 @@ export class BurgersPage implements OnInit {
     subMenuMeta      : SubMenu;
     subMenu          : Observable<Object>;
     customData       : Object = {};
+    cartImage        : string = '';
     menuSlug         : any;
     menuMap          : any;
     wpSubMenuItems   : any;
@@ -219,7 +220,24 @@ export class BurgersPage implements OnInit {
 
     addToBag( item ) {
 
-        console.log(item);
+        console.log('quick add', item);
+        let searchName = item.DisplayName.replace(/[^A-Z0-9]+/ig, "-").toLowerCase()
+
+        // make call to wordpress api using formatted slug to get item images
+        this.wpService.getPostBySlug(searchName, 'menu_item').subscribe(item => {
+
+            if(item.length !== 0) {
+
+                // get cart image, will need this when saving object to bag
+                this.cartImage = (item[0].acf !== undefined && item[0].acf.cart_image !== undefined) ? item[0].acf.cart_image.url : '//via.placeholder.com/160x240';
+
+            }
+            console.log(this.cartImage)
+
+        })
+
+
+
         this.menuItemObserver = this.menu.getMenuItem( item.MenuItemId )
             .subscribe( data => {
 
@@ -240,8 +258,9 @@ export class BurgersPage implements OnInit {
                 menuItem['TotalPrice'] = salesItems.Price;
                 menuItem['Modifiers']  = Object.values( this.customData );
                 menuItem['UnitPrice']  = salesItems.Price;
+                menuItem['CartImage'] = this.cartImage;
 
-                // console.log( menuItem );
+                console.log( 'quick add menu item', menuItem );
 
                 // let message = `${ menuItem['DisplayName'] } has been added to you your bag.`
                 // Push full object to bag service
