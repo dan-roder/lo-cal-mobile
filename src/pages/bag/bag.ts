@@ -3,7 +3,7 @@ import { Platform, AlertController, IonicPage, NavController, NavParams } from '
 
 import { BagProvider } from '../../providers/bag/bag';
 import { LineItem } from '../../models/LineItem';
-
+import { MenuItemPage } from '../../pages/menu-item/menu-item'
 @IonicPage()
 @Component({
     selector: 'page-bag',
@@ -26,7 +26,7 @@ export class BagPage {
 
         this.platform.ready().then( () => {
 
-            console.log( this.bag.itemsInBag );
+            console.log( 'hey bag', this.bag.itemsInBag );
             this.itemsInBag = this.bag.itemsInBag;
             this.subtotal = this.calculateSubtotal( this.itemsInBag );
             this.tax = 0.00;
@@ -90,6 +90,12 @@ export class BagPage {
             ]
         });
         alert.present();
+    }
+    goToItem(item, index) {
+        // console.log('edit item', item)
+
+        this.bag.removeFromBagAtIndex( index );
+        this.navCtrl.push(MenuItemPage, {menuItem: item})
     }
 
 }
