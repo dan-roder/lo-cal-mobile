@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content no-padding>
-    <div class="menu-item-header" *ngIf="menuItem">
+    <div class="menu-item-header" *ngIf="menuItem" [ngStyle]="{'background-image': 'url(' + featuredImage + ')'}">
         <div class="title-box">
             <h2 class="menu-item-title">{{ menuItem.Name }}</h2>
             <p class="menu-item-description" text-wrap>
