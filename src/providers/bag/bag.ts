@@ -88,6 +88,7 @@ export class BagProvider {
         lineItem.ExtendedPrice = passedMenuItem.UnitPrice;
         lineItem.CartImage = passedMenuItem.CartImage;
         lineItem.DisplayName = passedMenuItem.DisplayName;
+        lineItem.caloricValue = passedMenuItem.caloricValue;
         // add to items in bag
         this.itemsInBag.push(lineItem);
         // console.log('quick add line item', lineItem)
