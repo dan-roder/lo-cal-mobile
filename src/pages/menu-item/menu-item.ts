@@ -5,6 +5,7 @@ import { MenuProvider } from "../../providers/menu/menu";
 import { BagProvider } from '../../providers/bag/bag';
 // import { Observable } from "rxjs/Observable";
 import { DefaultOptions } from '../../models/DefaultOptions';
+import { WordPressProvider } from '../../providers/word-press/word-press';
 
 
 @IonicPage()
@@ -25,6 +26,8 @@ export class MenuItemPage {
     defaultPrice : any;
     totalPrice   : number;
     salesItemId  : number;
+    featuredImage : string = '';
+    featuredImageAlt : string = '';
     specialInstructions : String;
     order;
     itemPrice;
@@ -39,7 +42,8 @@ export class MenuItemPage {
         public  navParams : NavParams,
         private alertCtrl : AlertController,
         private menu      : MenuProvider,
-        private bag       : BagProvider
+        private bag       : BagProvider,
+        private wpService : WordPressProvider
 
     ) {
 
@@ -49,7 +53,25 @@ export class MenuItemPage {
         console.log('hey-params', this.navParams)
 
     }
+    ngOnInit() {
 
+        // take menu item from nav params and format replacing spaces with dashes
+        let slug = this.navParams.get('menuItem').DisplayName
+        let formattedSlug = slug.replace(/[^A-Z0-9]+/ig, "-").toLowerCase()
+
+        // make call to wordpress api using formatted slug to get item images
+        this.wpService.getPostBySlug(formattedSlug, 'menu_item').subscribe(item => {
+
+            // handle if no item is returned from wordpress
+            if(item.length !== 0) {
+
+            // set featured image
+            this.featuredImage = (item[0].featured_media !== 0) ? item[0]._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url : '//via.placeholder.com/1440x500';
+            // this.featuredImageAlt = (item[0].featured_media !== 0) ? item[0]._embedded['wp:featuredmedia'][0].alt_text : '';
+            }
+
+        })
+    }
     ionViewDidLoad() {
 
         console.log("ionViewDidLoad MenuItemPage");
@@ -85,7 +107,7 @@ export class MenuItemPage {
     }
 
     public buildModifiers( group, modifier, e ) {
-        console.log(group, modifier, e.value);
+        // console.log(group, modifier, e.value);
         if( e.value ){
 
             this.addMod( group, modifier );
@@ -119,7 +141,7 @@ export class MenuItemPage {
             console.log( 'selection maxed' );
 
         }
-        console.log( 'hey-data', this.customData[group.$id].modifiers[mod.$id].quantity );
+        // console.log( 'hey-data', this.customData[group.$id].modifiers[mod.$id].quantity );
         this.loadingMenu = false;
 
     }
@@ -193,7 +215,7 @@ export class MenuItemPage {
 
     private registerCustomizationVariables( allModifiers, defaultOptions: Array<DefaultOptions> = [] ) {
 
-        console.log( defaultOptions );
+        // console.log( defaultOptions );
         let tempObj      = {};
         // let defaultArray = [];
         allModifiers.forEach( modifierGroup => {
@@ -204,19 +226,19 @@ export class MenuItemPage {
             modObject['currentlySelected'] = [];
             modObject['modifiers'] = {};
             modObject['groupDetails'] = {};
-            console.log( modObject );
+            // console.log( modObject );
             modifierGroup.Mods.forEach( mod => {
 
-                console.log( defaultOptions, mod );
+                // console.log( defaultOptions, mod );
                 modObject['groupDetails'] = modifierGroup;
                 modObject['modifiers'][mod.$id] = {};
-                console.log(defaultOptions);
+                // console.log(defaultOptions);
                 let isModDefault = defaultOptions.find( option => {
                     console.log( option.ModifierId, mod.ModifierId);
                     return option['ModifierId'] === mod.ModifierId;
 
                 });
-                console.log( isModDefault );
+                // console.log( isModDefault );
                 if ( isModDefault ) {
 
                     modObject['modifiers'][mod.$id]['quantity'] = isModDefault.DefaultQuantity;
