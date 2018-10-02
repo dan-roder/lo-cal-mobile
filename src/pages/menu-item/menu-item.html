@@ -9,7 +9,7 @@
 <ion-content no-padding>
     <div class="menu-item-header" *ngIf="menuItem" [ngStyle]="{'background-image': 'url(' + featuredImage + ')'}">
         <div class="title-box">
-            <h2 class="menu-item-title">{{ menuItem.Name }}</h2>
+            <h2 class="menu-item-title">{{ menuItem.DisplayName }}</h2>
             <p class="menu-item-description" text-wrap>
                 <ion-icon name="star"></ion-icon>
                 {{ (menuItem.Description | allergens).description }}
