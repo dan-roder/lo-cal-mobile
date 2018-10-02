@@ -44,7 +44,7 @@ export class BagProvider {
 
     public createLineItem(passedMenuItem) {
 
-        // console.log(passedMenuItem);
+        console.log(passedMenuItem);
         let lineItem: LineItem = {};
         // console.log('passed item', passedMenuItem)
         lineItem.SalesItemId = passedMenuItem.SalesItemId; // Not sure if this should come from the SalesItem object instead of the DefaultItemId
@@ -57,6 +57,7 @@ export class BagProvider {
         lineItem.ExtendedPrice = passedMenuItem.TotalPrice;
         lineItem.caloricValue = passedMenuItem.caloricValue;
         lineItem.Modifiers = this.constructLineItemModifiers(passedMenuItem.Modifiers);
+        lineItem.CartImage = passedMenuItem.CartImage;
 
 
         console.log('line item', lineItem)
@@ -80,7 +81,6 @@ export class BagProvider {
         lineItem.UnitPrice = passedMenuItem.UnitPrice;
         lineItem.Quantity = 1;
         lineItem.ExtendedPrice = passedMenuItem.UnitPrice;
-
 
         this.itemsInBag.push(lineItem);
         console.log('quick add line item', lineItem)
