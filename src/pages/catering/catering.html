@@ -1,0 +1,73 @@
+<ion-header no-border>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
+    </button>
+    <ion-title>Catering</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="page" padding>
+
+
+        <div class="section section-white">
+          <div class="content center">
+            <div class="body center-960" [innerHtml]="pageContent?.content?.rendered | safeHtml"></div>
+          </div>
+        </div>
+
+        <div class="section section-grey catering-columns" *ngIf="acf?.catering_column">
+          <div class="content center">
+            <h3 class="title" *ngIf="acf?.title" [innerHtml]="acf?.title"></h3>
+            <div class="columns">
+              <div class="column" *ngFor="let column of acf?.catering_column">
+                <div class="body" [innerHtml]="column?.catering_column_body | safeHtml"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="section section-white">
+          <div class="content center">
+            <h3>Contact Us for Catering Requests</h3>
+            <form action="" [formGroup]="cateringForm" class="lo-cal-form catering-form">
+              <div class="form-section half-and-half">
+                <div class="form-component form-component-text">
+                  <label for="full-name" class="visuallyhidden">Full Name *</label>
+                  <input type="text" name="full-name" id="full-name" placeholder="Full Name *" formControlName="full-name" [ngClass]="{'has-error':!cateringForm.controls['full-name'].valid && submittedOnce}">
+                  <div class="error-message" *ngIf="!cateringForm.controls['full-name'].valid && submittedOnce">This field is required.</div>
+                </div>
+                <div class="form-component form-component-text">
+                  <label for="phone" class="visuallyhidden">Phone Number *</label>
+                  <input type="text" name="phone" id="phone" placeholder="Phone Number *" formControlName="phone" [ngClass]="{'has-error':!cateringForm.controls['phone'].valid && submittedOnce}">
+                  <div class="error-message" *ngIf="!cateringForm.controls['phone'].valid && submittedOnce">This field is required.</div>
+                </div>
+              </div>
+              <div class="form-section half-and-half">
+                <div class="form-component form-component-email">
+                  <label for="email" class="visuallyhidden">Email *</label>
+                  <input type="email" name="email" id="email" placeholder="Email *" formControlName="email" [ngClass]="{'has-error':!cateringForm.controls['email'].valid && submittedOnce}">
+                  <div class="error-message" *ngIf="!cateringForm.controls['email'].valid && submittedOnce">This field is required.</div>
+                </div>
+                <div class="form-component form-component-text">
+                  <label for="service-date" class="visuallyhidden">Service Date *</label>
+                  <input type="text" name="service-date" id="service-date" placeholder="Service Date *" formControlName="service-date" [ngClass]="{'has-error':!cateringForm.controls['service-date'].valid && submittedOnce}">
+                  <div class="error-message" *ngIf="!cateringForm.controls['service-date'].valid && submittedOnce">This field is required.</div>
+                </div>
+              </div>
+              <div class="form-section">
+                <div class="form-component form-component-textarea">
+                  <label for="notes">Notes</label>
+                  <textarea name="notes" id="notes" rows="4" formControlName="notes"></textarea>
+                </div>
+              </div>
+              <div class="form-actions">
+                <div class="form-submit red-button submit">
+                  <input type="submit" value="Send" (click)="submitForm(cateringForm)">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div> -->
+
+</ion-content>
