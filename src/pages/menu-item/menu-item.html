@@ -33,6 +33,9 @@
         <p>Start your modification:</p>
     </div>
     <div *ngFor="let group of salesItems?.ModGroups; let i = index">
+            <div class="required-message" *ngIf="group.MinimumItems > 0 && isGroupRequired(group.$id) && submitAttempted">
+                    <p>A selection from this group is required.</p>
+                  </div>
         <ion-list radio-group class="sales-item sales-item-{{ i }}" no-margin>
             <ion-list-header no-margin>
                 <span class="title">{{ group?.DisplayName }}</span>
@@ -84,6 +87,8 @@
                 </ion-grid>
             </ion-row>
         </div>
+        <p class="customization-errors text-center" *ngIf="requiredModifierGroups.length && submitAttempted">Please select an item from the required modifier groups.</p>
+
         <div class="button-bag-wrap">
             <button ion-button block color="red" (tap)="addToBag()" class="button-bag-view">
                     (+{{ totalPrice | currency:'USD':'symbol' }}) Add to Bag
