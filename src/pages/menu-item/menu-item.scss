@@ -235,4 +235,15 @@ page-menu-item {
             min-height: 150px;
         }
     }
+    .customization-errors {
+        font-size: 15px;
+        color: #ff0f1b;
+        text-align: center;
+    }
+    .required-message {
+        font-size: 15px;
+        // padding-left: 17px;
+        text-align: center;
+        color: #ff0f1b;
+    }
 }
