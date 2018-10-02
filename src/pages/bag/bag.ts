@@ -8,6 +8,9 @@ import { MenuItemPage } from '../../pages/menu-item/menu-item'
 @Component({
     selector: 'page-bag',
     templateUrl: 'bag.html',
+
+
+
 })
 export class BagPage {
 
@@ -92,10 +95,10 @@ export class BagPage {
         alert.present();
     }
     goToItem(item, index) {
-        // console.log('edit item', item)
+        console.log('edit item', item)
 
         this.bag.removeFromBagAtIndex( index );
-        this.navCtrl.push(MenuItemPage, {menuItem: item})
+        this.navCtrl.push('MenuItemPage', {menuItem: item})
     }
 
 }
