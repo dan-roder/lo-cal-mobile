@@ -20,7 +20,7 @@ export class BurgersPage implements OnInit {
 
     subMenuObserver  : Subscription;
     menuItemObserver : Subscription;
-    menuObserver     : Subscription;
+    // menuObserver     : Subscription;
     testSubMenu      : Observable<Object>;
     subMenuMeta      : SubMenu;
     subMenu          : Observable<Object>;
@@ -235,8 +235,7 @@ export class BurgersPage implements OnInit {
             console.log(this.cartImage)
 
         })
-
-
+        console.log('hey item', item)
 
         this.menuItemObserver = this.menu.getMenuItem( item.MenuItemId )
             .subscribe( data => {
@@ -259,7 +258,7 @@ export class BurgersPage implements OnInit {
                 menuItem['Modifiers']  = Object.values( this.customData );
                 menuItem['UnitPrice']  = salesItems.Price;
                 menuItem['CartImage'] = this.cartImage;
-
+                menuItem['caloricValue'] = (item.CaloricServingUnit === null) ? 0 : parseInt(item.CaloricServingUnit, 10);;
                 console.log( 'quick add menu item', menuItem );
 
                 // let message = `${ menuItem['DisplayName'] } has been added to you your bag.`
