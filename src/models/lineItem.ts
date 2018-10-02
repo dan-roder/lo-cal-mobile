@@ -19,8 +19,9 @@ export interface LineItem {
     NextModifierSequenceNumber?: number; // (integer , optional) : The internal index for the modifiers for this line item ,
     PosItemId?: number; // (integer , optional) : The Id of the item at the site ,
     CompValue?: number; // (number , optional) = The comp value if there is a price
-    CaloricServingUnit?: string;
-    caloricValue?: number;
+    CaloricServingUnit?: string; // (string , optional) : The amount of calories,
+    caloricValue?: number; // (integer , optional) : The number of calories,
+    CartImage?: string; // (string, optional) : link to cart image
 }
 
 export interface LineItemModifier {
