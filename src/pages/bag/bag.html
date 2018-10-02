@@ -25,7 +25,7 @@
                                 {{ item.Name }}
                                 <span class="bag-item-quantity">x{{ item.Quantity }}</span>
                             </ion-col>
-                            <ion-col class="bag-item-edit" text-center>
+                            <ion-col class="bag-item-edit" text-center (tap)="goToItem(item, i)">
                                 Edit
                             </ion-col>
                         </ion-row>
