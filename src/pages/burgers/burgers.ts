@@ -56,49 +56,27 @@ export class BurgersPage implements OnInit {
 
         this.wpService.getMenuMapObject().subscribe(menuMap => {
 
+            let navItemName = this.navParams.get('menuItem').Name
+            let navItemFormatted = navItemName.replace(/[^A-Z0-9]+/ig, "-").toLowerCase();
+
             this.menuMap = menuMap;
-            console.log('menu-map', this.menuMap)
-            if(this.subMenuMeta['SubMenuId'] === 5) {
-                this.menuSlug = 'breakfast'
-            } else if(this.subMenuMeta['SubMenuId'] === 6) {
-                this.menuSlug = 'juice'
-            } else if (this.subMenuMeta['SubMenuId'] === 7) {
+
+            if (this.subMenuMeta['SubMenuId'] === 7) {
                 this.menuSlug = 'smoothies-and-smoothie-bowls'
-            } else if(this.subMenuMeta['SubMenuId'] === 8) {
-                this.menuSlug = 'salads'
-            } else if (this.subMenuMeta['SubMenuId'] === 9) {
-                this.menuSlug = 'quinoa-rice-bowls'
-            } else if (this.subMenuMeta['SubMenuId'] === 10) {
-                this.menuSlug = 'burgers-sandwiches'
-            } else if(this.subMenuMeta['SubMenuId'] === 13) {
-                this.menuSlug = 'soups'
-            } else if(this.subMenuMeta['SubMenuId'] === 16) {
-                this.menuSlug = 'oatmeal-beyond'
-            } else if (this.subMenuMeta['SubMenuId'] === 20) {
-                this.menuSlug = 'coffee'
-            } else if (this.subMenuMeta['SubMenuId'] === 23) {
-                this.menuSlug = 'prepared-foods'
+            } else {
+                this.menuSlug = navItemFormatted;
             }
 
             this.wpSubMenuItems = _.filter(this.menuMap, {'submenu' : this.menuSlug})
-            // console.log('please work', this.wpSubMenuItems)
         })
 
-        // console.log('params', this.navParams.get("menuItem").DisplayName)
         this.subMenuObserver = this.menu.getSubmenu( this.subMenuMeta['SubMenuId'] ).subscribe( data => {
 
-            // console.log( data.menu[0].$id, this.subMenuMeta.$id );
             this.subMenu = data;
-            // console.log('here', this.subMenu)
-            // console.log('menu-meta', this.subMenuMeta)
+
             loading.dismiss();
 
-
         });
-
-
-
-
     }
 
     /**
@@ -269,15 +247,10 @@ export class BurgersPage implements OnInit {
                 // Push full object to bag service
                 this.bag.quickAddLineItem( menuItem );
 
-
                 // Wipe out local values
                 menuItem   = null;
                 // quantity   = null;
                 // totalPrice = null;
             });
-
     }
-
-
-
 }
