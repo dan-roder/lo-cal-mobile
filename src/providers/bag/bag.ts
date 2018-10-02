@@ -60,7 +60,7 @@ export class BagProvider {
         lineItem.caloricValue = passedMenuItem.caloricValue;
         lineItem.Modifiers = this.constructLineItemModifiers(passedMenuItem.Modifiers);
         lineItem.CartImage = passedMenuItem.CartImage;
-
+        lineItem.DisplayName = passedMenuItem.DisplayName;
 
         // console.log('line item', lineItem)
 
@@ -87,7 +87,7 @@ export class BagProvider {
         lineItem.Quantity = 1;
         lineItem.ExtendedPrice = passedMenuItem.UnitPrice;
         lineItem.CartImage = passedMenuItem.CartImage;
-
+        lineItem.DisplayName = passedMenuItem.DisplayName;
         // add to items in bag
         this.itemsInBag.push(lineItem);
         // console.log('quick add line item', lineItem)
