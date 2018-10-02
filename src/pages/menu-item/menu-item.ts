@@ -33,6 +33,7 @@ export class MenuItemPage {
     requiredModifierGroups : Array<any> = [];
     currentModifierArray : Array<any> = [];
     specialInstructions : String;
+    submitAttempted : boolean = false;
     order;
     itemPrice;
     calorieCount;
@@ -405,6 +406,11 @@ export class MenuItemPage {
 
     addToBag() {
 
+        if(this.requiredModifierGroups.length > 0){
+            this.submitAttempted = true; // triggers showing of error messages
+            return; // disallow adding to bag
+        }
+
         console.log( this.customData );
         // Adding to bag needs to have all details of modifications
         //  Start simple. Add just the item itself
@@ -458,5 +464,10 @@ export class MenuItemPage {
         quantity   = null;
         totalPrice = null;
     }
+
+    public isGroupRequired(groupId): boolean{
+        let isRequired = _.find(this.requiredModifierGroups, {'$id': groupId});
+        return (isRequired !== undefined) ? true : false;
+      }
 
 }
