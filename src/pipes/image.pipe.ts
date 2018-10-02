@@ -8,25 +8,28 @@ import { Observable } from 'rxjs';
 })
 export class CardImagePipe implements PipeTransform {
 
-    constructor(private wp: WordPressProvider) { }
+    constructor(private wpService: WordPressProvider) { }
 
     transform(alohaMenuId: any, menuItemMap?: any) {
-        if(alohaMenuId) {
-            let postObj = _.find(menuItemMap, {'menuid' : String(alohaMenuId)});
-
-            if(postObj !== undefined){
-                return this.wp.getCustomPostTypeById('menu_item', postObj.id).map(post => {
-                if(post.acf.submenu_image !== undefined){
-                    return post.acf.submenu_image.url;
-                }
-                else{
-                    return "//via.placeholder.com/265x115";
-                }
-                });
+        // console.log(alohaMenuId)
+      if(alohaMenuId) {
+        let postObj = _.find(menuItemMap, {'menuid' : String(alohaMenuId)});
+        // console.log('post-obj', postObj)
+        if(postObj !== undefined){
+          return this.wpService.getCustomPostTypeById('menu_item', postObj.id).map(post => {
+            //   console.log(post)
+            if(post.acf.submenu_image !== undefined){
+              return post.acf.submenu_image.url;
             }
             else{
-                return Observable.of("//via.placeholder.com/265x115");
+              return "";
             }
+          });
         }
+        else{
+          return Observable.of('');
+        }
+      }
     }
-}
+
+  }
