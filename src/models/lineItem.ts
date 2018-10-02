@@ -22,6 +22,7 @@ export interface LineItem {
     CaloricServingUnit?: string; // (string , optional) : The amount of calories,
     caloricValue?: number; // (integer , optional) : The number of calories,
     CartImage?: string; // (string, optional) : link to cart image
+    DisplayName?: string; // (string, optional) : similar to name but slightly different, used for queries
 }
 
 export interface LineItemModifier {
