@@ -28,6 +28,8 @@ export class MenuItemPage {
     salesItemId  : number;
     featuredImage : string = '';
     featuredImageAlt : string = '';
+    cartImage : string = '';
+    formattedSlug : string = '';
     specialInstructions : String;
     order;
     itemPrice;
@@ -50,32 +52,26 @@ export class MenuItemPage {
         this.menuItemId   = this.navParams.get('menuItem').MenuItemId;
         this.defaultPrice = this.navParams.get('menuItem').defaultPrice;
 
-        console.log('hey-params', this.navParams)
-
-    }
-    ngOnInit() {
-
         // take menu item from nav params and format replacing spaces with dashes
         let slug = this.navParams.get('menuItem').DisplayName
-        let formattedSlug = slug.replace(/[^A-Z0-9]+/ig, "-").toLowerCase()
+        this.formattedSlug = slug.replace(/[^A-Z0-9]+/ig, "-").toLowerCase()
 
+        // console.log('hey-params', this.navParams)
+
+    }
+    ionViewWillLoad () {
         // make call to wordpress api using formatted slug to get item images
-        this.wpService.getPostBySlug(formattedSlug, 'menu_item').subscribe(item => {
+        this.wpService.getPostBySlug(this.formattedSlug, 'menu_item').subscribe(item => {
 
-            // handle if no item is returned from wordpress
-            if(item.length !== 0) {
-
-            // set featured image
-            this.featuredImage = (item[0].featured_media !== 0) ? item[0]._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url : '//via.placeholder.com/1440x500';
-            // this.featuredImageAlt = (item[0].featured_media !== 0) ? item[0]._embedded['wp:featuredmedia'][0].alt_text : '';
-            }
+            // call function to manipulate returned item
+            this.getItemImages(item)
 
         })
     }
     ionViewDidLoad() {
 
-        console.log("ionViewDidLoad MenuItemPage");
-        console.log( this.menuItemId );
+        // console.log("ionViewDidLoad MenuItemPage");
+        // console.log( this.menuItemId );
         this.menu.getMenuItem( this.menuItemId )
             .subscribe( data => {
 
@@ -101,8 +97,6 @@ export class MenuItemPage {
     private recalculateCost(){
 
         this.totalPrice = this.itemPrice * this.quantity;
-
-
 
     }
 
@@ -186,7 +180,20 @@ export class MenuItemPage {
         console.log( this.customData );
 
     }
+    private getItemImages ( item ) {
+        // handle if no item is returned from wordpress
+        if(item.length !== 0) {
 
+            // set featured image
+            this.featuredImage = (item[0].featured_media !== 0) ? item[0]._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url : '//via.placeholder.com/1440x500';
+
+            // also pull cart image, will need this when saving object to bag
+            this.cartImage = (item[0].acf !== undefined && item[0].acf.cart_image !== undefined) ? item[0].acf.cart_image.url : '//via.placeholder.com/160x240';
+            // this.featuredImageAlt = (item[0].featured_media !== 0) ? item[0]._embedded['wp:featuredmedia'][0].alt_text : '';
+
+        }
+            console.log('cart image', this.cartImage)
+    }
     private arrangeMenuData( data ) {
 
         let defaults          = [];
@@ -322,6 +329,7 @@ export class MenuItemPage {
         menuItem['caloricValue'] = this.calorieCount;
         menuItem['SalesItemId'] = this.salesItemId;
         menuItem['SpecialInstructions'] = this.specialInstructions;
+        menuItem['CartImage'] = this.cartImage
         console.log( 'hey menu-item', this.menuItem );
 
         let message = `${ menuItem['DisplayName'] } has been added to you your bag.`
