@@ -44,7 +44,9 @@ export class BagProvider {
 
     public createLineItem(passedMenuItem) {
 
-        console.log(passedMenuItem);
+        // console.log(passedMenuItem);
+
+        // construct object to save in bag
         let lineItem: LineItem = {};
         // console.log('passed item', passedMenuItem)
         lineItem.SalesItemId = passedMenuItem.SalesItemId; // Not sure if this should come from the SalesItem object instead of the DefaultItemId
@@ -60,7 +62,8 @@ export class BagProvider {
         lineItem.CartImage = passedMenuItem.CartImage;
 
 
-        console.log('line item', lineItem)
+        // console.log('line item', lineItem)
+
         // Push menuItem and lineItem into arrays
         this.itemsInBag.push(lineItem);
 
@@ -71,7 +74,9 @@ export class BagProvider {
     }
 
     public quickAddLineItem( passedMenuItem ){
-        console.log('quick add passed item', passedMenuItem)
+        // console.log('quick add passed item', passedMenuItem)
+
+        // construct object to save in bag
         let lineItem: LineItem = {};
 
         lineItem.SalesItemId = passedMenuItem.DefaultItemId;
@@ -81,16 +86,18 @@ export class BagProvider {
         lineItem.UnitPrice = passedMenuItem.UnitPrice;
         lineItem.Quantity = 1;
         lineItem.ExtendedPrice = passedMenuItem.UnitPrice;
+        lineItem.CartImage = passedMenuItem.CartImage;
 
+        // add to items in bag
         this.itemsInBag.push(lineItem);
-        console.log('quick add line item', lineItem)
+        // console.log('quick add line item', lineItem)
+
+
         // Save to localStorage
         this.saveToLocalStorage();
 
+        // reset line item
         lineItem = null;
-
-
-
 
     }
 
@@ -98,7 +105,7 @@ export class BagProvider {
         let formattedLineItemModifierArray: Array<LineItemModifier> = [];
 
         allModifiers.forEach((modGroup, key) => {
-            console.log(modGroup)
+            // console.log(modGroup)
             let modifierGroupId = modGroup.groupDetails.ModifierGroupId;
 
             if (modGroup.currentlySelected.length > 0) {
@@ -110,31 +117,32 @@ export class BagProvider {
                     let modExists = _.findIndex(formattedLineItemModifierArray, {SalesItemOptionId: modifier.ModifierId});
 
                     // If it does, increase the quantity of that modifier
-          if(modExists !== -1){
-            formattedLineItemModifierArray[modExists].Quantity++;
-          }
-          // Else, construct the object and insert it
-          else{
-            let lineItemModifierObject : LineItemModifier = {
-              Name : modifier.Name,
-              ItemOptionGroupId : modifierGroupId,
-              SalesItemOptionId : modifier.ModifierId,
-              Quantity : modifierQuantity
-            };
+                    if(modExists !== -1){
+                        formattedLineItemModifierArray[modExists].Quantity++;
+                    }
+                    // Else, construct the object and insert it
+                    else{
+                        let lineItemModifierObject : LineItemModifier = {
+                            Name : modifier.Name,
+                            ItemOptionGroupId : modifierGroupId,
+                            SalesItemOptionId : modifier.ModifierId,
+                            Quantity : modifierQuantity
+                        };
 
-            formattedLineItemModifierArray.push(lineItemModifierObject);
-          }
+                        formattedLineItemModifierArray.push(lineItemModifierObject);
+                    }
                 });
             }
         });
-
-        console.log('returned modifier array', formattedLineItemModifierArray)
+        // console.log('returned modifier array', formattedLineItemModifierArray)
         return formattedLineItemModifierArray;
     }
 
     public removeFromBagAtIndex(index) {
+
         // Remove item from both arrays
         this._itemsInBag.splice(index, 1);
+
         // Bag was modified, overwrite localStorage object with saved object
         this.saveToLocalStorage();
     }
