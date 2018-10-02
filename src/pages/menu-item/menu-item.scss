@@ -3,7 +3,8 @@ page-menu-item {
     background-color: #f4f4f4;
 
     .menu-item-header {
-        background: url('http://via.placeholder.com/750x600') no-repeat center center;
+        background-repeat: no-repeat;
+        background-position: bottom;
         height: 300px;
         position: relative;
         .title-box {
