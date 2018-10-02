@@ -13,7 +13,7 @@
         <div class="bag-item" *ngFor="let item of itemsInBag; let i = index">
             <ion-row>
                 <ion-col col-4 no-padding>
-                    <img src="http://via.placeholder.com/200x300" alt="bag item" class="bag-item-image" />
+                    <img *ngIf="item.CartImage" [src]="item.CartImage" alt="bag item" class="bag-item-image" />
                     <div tappable class="remove" (tap)="removeItem( item, i )">
                         <ion-icon name="close" class="remove-icon"></ion-icon>
                     </div>
