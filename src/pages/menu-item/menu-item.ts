@@ -6,7 +6,7 @@ import { BagProvider } from '../../providers/bag/bag';
 // import { Observable } from "rxjs/Observable";
 import { DefaultOptions } from '../../models/DefaultOptions';
 import { WordPressProvider } from '../../providers/word-press/word-press';
-
+import * as _ from 'lodash';
 
 @IonicPage()
 @Component({
@@ -30,6 +30,8 @@ export class MenuItemPage {
     featuredImageAlt : string = '';
     cartImage : string = '';
     formattedSlug : string = '';
+    requiredModifierGroups : Array<any> = [];
+    currentModifierArray : Array<any> = [];
     specialInstructions : String;
     order;
     itemPrice;
@@ -51,12 +53,12 @@ export class MenuItemPage {
 
         this.menuItemId   = this.navParams.get('menuItem').MenuItemId;
         this.defaultPrice = this.navParams.get('menuItem').defaultPrice;
+        console.log('hey-params', this.navParams)
 
         // take menu item from nav params and format replacing spaces with dashes
         let slug = this.navParams.get('menuItem').DisplayName
         this.formattedSlug = slug.replace(/[^A-Z0-9]+/ig, "-").toLowerCase()
 
-        // console.log('hey-params', this.navParams)
 
     }
     ionViewWillLoad () {
@@ -114,70 +116,154 @@ export class MenuItemPage {
     }
 
     private addMod( group, mod ) {
+      // Retrieve maxSelections for Modifier Group and if any are currently selected
+    let maxSelectionsForGroup = group.MaximumItems;
+    let currentSelectionsArray = this.customData[group.$id]['currentlySelected'];
 
-        let maxSelections = group.MaximumItems;
-        let currentSelections = this.customData[group.$id]['currentlySelected'];
-        console.log( "ADDING: ", group.$id, mod );
-        if ( currentSelections.length < maxSelections ) {
+    // Check required mods array for any required modGroups
+    if(this.requiredModifierGroups.length > 0){
+      // Check to see if modGroup added is in the requireds
+      let indexToFind = _.findIndex(this.requiredModifierGroups, {'$id' : group.$id});
+      if(indexToFind > -1){
+        this.requiredModifierGroups.splice(indexToFind, 1);
+      }
+    }
 
-            this.customData[group.$id]['currentlySelected'].push( mod );
-            this.customData[group.$id].modifiers[mod.$id]['quantity']++;
+    if(currentSelectionsArray.length < maxSelectionsForGroup || maxSelectionsForGroup === 0){
 
-            if ( mod.ItemModifiers.length > 0 ) {
+      // If maxSelectionsForGroup is 0. only allow 1 of anything
+      if(maxSelectionsForGroup === 0){
+        let isItemAlreadySelected = _.findIndex(this.currentModifierArray, {'$id': mod.$id});
 
-                this.calorieCount += mod.ItemModifiers[0].CaloricValue;
-                this.itemPrice += mod.ItemModifiers[0].Price;
-                this.recalculateCost();
-            }
-
-        } else {
-
-            console.log( 'selection maxed' );
-
+        // Only allowing 1 to be selected
+        if(isItemAlreadySelected !== -1){
+          return;
         }
-        // console.log( 'hey-data', this.customData[group.$id].modifiers[mod.$id].quantity );
-        this.loadingMenu = false;
+      }
+
+      this.customData[group.$id]['currentlySelected'].push(mod);
+      this.customData[group.$id].modifiers[mod.$id]['quantity'] += 1;
+      // Add to basic array for displaying near item description
+      this.currentModifierArray.push(mod);
+
+      // If modifier item has modifier values with it
+      if(mod.ItemModifiers.length > 0){
+        // Add to total calorie count
+        this.calorieCount += (+mod.ItemModifiers[0].CaloricValue);
+
+        // If there are FreeModifiers allowed in the modGroup &&
+        //    If modGroup's currently selected items exceed the amount of free modifiers, add to price
+        if(this.customData[group.$id]['currentlySelected'].length > group.FreeModifiers){
+          // If modifier includes additional price, add to itemPrice
+          this.itemPrice += mod.ItemModifiers[0].Price;
+          this.recalculateCost();
+        }
+      }
+    }
+        // let maxSelections = group.MaximumItems;
+        // let currentSelections = this.customData[group.$id]['currentlySelected'];
+        // console.log( "ADDING: ", group.$id, mod );
+        // if ( currentSelections.length < maxSelections ) {
+
+        //     this.customData[group.$id]['currentlySelected'].push( mod );
+        //     this.customData[group.$id].modifiers[mod.$id]['quantity']++;
+
+        //     if ( mod.ItemModifiers.length > 0 ) {
+
+        //         this.calorieCount += mod.ItemModifiers[0].CaloricValue;
+        //         this.itemPrice += mod.ItemModifiers[0].Price;
+        //         this.recalculateCost();
+        //     }
+
+        // } else {
+
+        //     console.log( 'selection maxed' );
+
+        // }
+        // // console.log( 'hey-data', this.customData[group.$id].modifiers[mod.$id].quantity );
+        // this.loadingMenu = false;
 
     }
 
     private removeMod( group, mod ) {
+        let currentSelectionsArray = this.customData[group.$id]['currentlySelected'];
 
-        console.log("Removing: ", mod.$id);
-        function findModId( selection ) {
+    // If the modGroup clicked has a minimum requirement
+    if(group.MinimumItems > 0){
+      // Look for group id in the required mods array
+      let indexOfModGroup = _.findIndex(this.requiredModifierGroups, {'$id': group.$id});
+      if(indexOfModGroup === -1){
+        // Re-add index to requirements, display error
+        this.requiredModifierGroups.push({'$id': group.$id});
+      }
+    }
 
-            return selection.$id === mod.$id;
+    // If max selections for the current group is not reached
+    if(currentSelectionsArray.length > 0){
+      let indexToRemove = _.findIndex(currentSelectionsArray, {'$id' : mod.$id});
+      let indexInDisplayArray = _.findIndex(this.currentModifierArray, {'$id' : mod.$id});
+
+      let currentQuantity = this.customData[group.$id].modifiers[mod.$id]['quantity'];
+
+      if(indexToRemove > -1 && currentQuantity > 0){
+        let newSelectionsArray = currentSelectionsArray.splice(indexToRemove, 1);
+        this.currentModifierArray.splice(indexInDisplayArray, 1);
+
+        currentSelectionsArray = newSelectionsArray;
+
+        this.customData[group.$id].modifiers[mod.$id]['quantity'] -= 1;
+      }
+
+      // Subract from calorie count if the modifier has calorie changes and it's a modifier already in the array
+      if(mod.ItemModifiers.length > 0 && indexToRemove !== -1){
+
+        this.calorieCount -= mod.ItemModifiers[0].CaloricValue;
+
+        // If there are FreeModifiers allowed in the modGroup &&
+        //    If modGroup's currently selected items exceed the amount of free modifiers, add to price
+        if(this.customData[group.$id]['currentlySelected'].length >= group.FreeModifiers){
+          // If modifier includes additional price, remove from price
+          this.itemPrice -= mod.ItemModifiers[0].Price;
+          this.recalculateCost();
         }
+      }
+    }
+        // console.log("Removing: ", mod.$id);
+        // function findModId( selection ) {
 
-        let currentSelections = this.customData[group.$id]['currentlySelected'];
-        if ( this.customData[group.$id].modifiers[mod.$id].quantity > 0 ) {
+        //     return selection.$id === mod.$id;
+        // }
 
-            let removeIndex = currentSelections.findIndex( findModId );
-            let currentQuantity = this.customData[group.$id].modifiers[mod.$id].quantity;
-            console.log(removeIndex, currentQuantity );
-            if( removeIndex > -1 && currentQuantity > 0){
+        // let currentSelections = this.customData[group.$id]['currentlySelected'];
+        // if ( this.customData[group.$id].modifiers[mod.$id].quantity > 0 ) {
 
-                let newSelections = currentSelections.splice(removeIndex, 1);
-                currentSelections = newSelections;
-                this.customData[group.$id].modifiers[mod.$id]['quantity'] -= 1;
+        //     let removeIndex = currentSelections.findIndex( findModId );
+        //     let currentQuantity = this.customData[group.$id].modifiers[mod.$id].quantity;
+        //     console.log(removeIndex, currentQuantity );
+        //     if( removeIndex > -1 && currentQuantity > 0){
 
-            }
+        //         let newSelections = currentSelections.splice(removeIndex, 1);
+        //         currentSelections = newSelections;
+        //         this.customData[group.$id].modifiers[mod.$id]['quantity'] -= 1;
 
-            // Subract from calorie count if the modifier has calorie changes
-            if (mod.ItemModifiers.length > 0) {
+        //     }
 
-                this.calorieCount -= mod.ItemModifiers[0].CaloricValue;
-                // If modifier includes additional price, remove from price
-                this.itemPrice -= mod.ItemModifiers[0].Price;
-                this.recalculateCost();
+        //     // Subract from calorie count if the modifier has calorie changes
+        //     if (mod.ItemModifiers.length > 0) {
 
-            }
+        //         this.calorieCount -= mod.ItemModifiers[0].CaloricValue;
+        //         // If modifier includes additional price, remove from price
+        //         this.itemPrice -= mod.ItemModifiers[0].Price;
+        //         this.recalculateCost();
 
-        }   else {
+        //     }
 
-            console.log( 'selection is empty' );
+        // }   else {
 
-        }
-        console.log( this.customData );
+        //     console.log( 'selection is empty' );
+
+        // }
+        // console.log( this.customData );
 
     }
     private getItemImages ( item ) {
@@ -202,6 +288,7 @@ export class MenuItemPage {
         this.itemPrice        = data.salesItems[0].Price;
         this.calorieCount     = (this.navParams.get('menuItem').CaloricServingUnit === null) ? 0 : parseInt(this.navParams.get('menuItem').CaloricServingUnit, 10);
         this.salesItemId      = data.salesItems[0].SalesItemId;
+
         this.recalculateCost();
         // console.log(data, this.menuItem, data.salesItems, this.itemPrice, this.calorieCount );
 
@@ -224,6 +311,7 @@ export class MenuItemPage {
 
         // console.log( defaultOptions );
         let tempObj      = {};
+        let reqMods = new Array;
         // let defaultArray = [];
         allModifiers.forEach( modifierGroup => {
             console.log( modifierGroup );
@@ -258,6 +346,9 @@ export class MenuItemPage {
                 }
 
             });
+            if(modifierGroup.MinimumItems > 0 && modObject['currentlySelected'].length <= 0){
+                reqMods.push({'$id' : modifierGroup.$id});
+              }
 
             tempObj[modifierGroup.$id] = {};
             tempObj[modifierGroup.$id] = modObject;
@@ -265,6 +356,7 @@ export class MenuItemPage {
         });
 
         this.customData = tempObj;
+        this.requiredModifierGroups = reqMods;
         console.log( this.customData );
     }
 
@@ -329,7 +421,8 @@ export class MenuItemPage {
         menuItem['caloricValue'] = this.calorieCount;
         menuItem['SalesItemId'] = this.salesItemId;
         menuItem['SpecialInstructions'] = this.specialInstructions;
-        menuItem['CartImage'] = this.cartImage
+        menuItem['CartImage'] = this.cartImage;
+
         console.log( 'hey menu-item', this.menuItem );
 
         let message = `${ menuItem['DisplayName'] } has been added to you your bag.`
