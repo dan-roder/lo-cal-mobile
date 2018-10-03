@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, IonicPage, ToastController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { CustomerProvider } from '../../providers/customer/customer';
 
@@ -24,6 +24,8 @@ export class SignupPage implements OnInit {
     email        : AbstractControl;
     phone        : AbstractControl;
     passwords    : AbstractControl;
+    password     : AbstractControl;
+    confirm      : AbstractControl;
     question     : AbstractControl;
     answer       : AbstractControl;
     error        : any;
@@ -36,10 +38,11 @@ export class SignupPage implements OnInit {
 
 
     constructor(
-        public  navCtrl   : NavController,
-        public  navParams : NavParams,
-        private fb        : FormBuilder,
-        private customer  : CustomerProvider
+        public  navCtrl         : NavController,
+        public  navParams       : NavParams,
+        private fb              : FormBuilder,
+        private customer        : CustomerProvider,
+        private toastController : ToastController
     ) {}
 
     ngOnInit() {
@@ -84,15 +87,13 @@ export class SignupPage implements OnInit {
         this.state     = this.signupForm.controls.address['controls']['state'];
         this.zip       = this.signupForm.controls.address['controls']['zip'];
         this.passwords = this.signupForm.controls['passwords'];
+        this.password = this.signupForm.controls.passwords['controls']['password'];
+        this.confirm = this.signupForm.controls.passwords['controls']['confirm'];
         this.question = this.signupForm.controls.passwords['controls']['question'];
         this.answer = this.signupForm.controls.passwords['controls']['answer'];
-
-
     }
     ionViewDidLoad() {
-
         console.log('ionViewDidLoad SignupPage');
-
     }
 
     ionViewWillLeave() {
@@ -101,6 +102,7 @@ export class SignupPage implements OnInit {
 
         if( this.customerSubscription ) this.customerSubscription.unsubscribe();
     }
+
     checkCustInfo( group: FormGroup ) {
 
         if ( group.controls.firstName.invalid || group.controls.lastName.invalid || group.controls.email.invalid || group.controls.phone.invalid ) {
@@ -162,7 +164,7 @@ export class SignupPage implements OnInit {
     }
 
     save( customer ) {
-
+        console.log( customer );
         let customerObj = {
 
             "Customer": {

@@ -101,4 +101,8 @@ export class BagPage {
         this.navCtrl.push('MenuItemPage', {menuItem: item})
     }
 
+    checkout() {
+        console.log(this.bag.itemsInBag);
+    }
+
 }

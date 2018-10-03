@@ -28,7 +28,6 @@ export class BagProvider {
         this.storage.get('bag').then(bagItemsFromLocalStorage => {
 
                 if (bagItemsFromLocalStorage) {
-
                     this.itemsInBag = bagItemsFromLocalStorage;
                     this.bagObserver.next( this.itemsInBag );
                 }
@@ -108,7 +107,8 @@ export class BagProvider {
         let formattedLineItemModifierArray: Array<LineItemModifier> = [];
 
         allModifiers.forEach((modGroup, key) => {
-            // console.log(modGroup)
+
+            console.log( modGroup );
             let modifierGroupId = modGroup.groupDetails.ModifierGroupId;
 
             if (modGroup.currentlySelected.length > 0) {

@@ -26,6 +26,7 @@ $black: #1e1e1e;
 
 $gray-brown: #585858;
 $local-red: #ff3b30;
+$error: $local-red;
 $white: #fff;
 $off-white: #e1e1e1;
 $dark-gray: #555;
@@ -47,19 +48,18 @@ $list-border-color: $black;
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 
-$colors: (
-    primary    : #488aff,
-    secondary  : #32db64,
-    danger     : #f53d3d,
-    light      : #f4f4f4,
-    dark       : #333,
-    black      : $black,
-    gray-brown : $gray-brown,
-    red        : $local-red,
-    white      : $white,
-    offWhite   : $off-white,
-    dark-gray  : $dark-gray,
-    light-gray : $light-gray,
+$colors: (primary : #488aff,
+secondary : #32db64,
+danger : #f53d3d,
+light : #f4f4f4,
+dark : #333,
+black : $black,
+gray-brown : $gray-brown,
+red : $local-red,
+white : $white,
+offWhite : $off-white,
+dark-gray : $dark-gray,
+light-gray : $light-gray,
 );
 
 
@@ -73,7 +73,7 @@ $tabs-ios-tab-text-color-active: map-get($colors, red);
 $tabs-ios-tab-icon-color: map-get($colors, text);
 $tabs-ios-tab-icon-color-active: map-get($colors, red);
 $text-input-ios-show-focus-highlight: false;
-$item-ios-divider-color:  map-get($colors, light);
+$item-ios-divider-color: map-get($colors, light);
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
@@ -126,20 +126,11 @@ $text-input-wp-show-focus-highlight: false;
 @import "noto-sans";
 
 h1 {
-  font-size: 16px !important;
-  font-weight: 500 !important;
-  letter-spacing: 1.8px !important;;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    letter-spacing: 1.8px !important;
 }
 
-ion-card {
-  &.full-width {
-    width: 100% !important;
-  }
-  &.no-shadow {
-    box-shadow: none;
-  }
-  &.light-background {
-    background: map-get($colors, light);
-  }
-}
-
+// Custom Defaults
+@import 'ion-card';
+@import 'form-error';

@@ -81,17 +81,14 @@ export class CustomerProvider {
                         return 200
                     }
                     // return this.customer;
-
+                } else {
+                    // throw new Error( res.Errors[0].Message );
                 }
-
-            })
-            .catch( error => {
-
-                console.log( error );
-                return Observable.throw( error.json().error || "Server Error" );
-
             });
-
+            // .catch( error => {
+            //     console.log( error );
+            //     return Observable.throw( error.json().error || "Server Error" );
+            // });
     }
 
     save( customer ) {

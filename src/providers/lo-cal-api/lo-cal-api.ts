@@ -28,7 +28,7 @@ export class LoCalApiProvider {
 
     login( credentials ) {
 
-        console.log( credentials );
+        console.log( credentials, `${ this.apiUrl }/authenticate` );
         const url = `${ this.apiUrl }/authenticate`;
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');

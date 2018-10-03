@@ -51,7 +51,6 @@ export class MenuItemPage {
         private wpService : WordPressProvider
 
     ) {
-
         this.menuItemId   = this.navParams.get('menuItem').MenuItemId;
         this.defaultPrice = this.navParams.get('menuItem').defaultPrice;
         console.log('hey-params', this.navParams)
@@ -80,39 +79,36 @@ export class MenuItemPage {
 
                 console.log( 'hey data', data );
                 this.arrangeMenuData( data );
-
             });
 
     }
 
     ionViewWillEnter() {
-
         document.body.classList.add("fullscreen");
-
     }
 
     ionViewWillLeave() {
-
         document.body.classList.remove("fullscreen");
-
     }
 
     private recalculateCost(){
-
         this.totalPrice = this.itemPrice * this.quantity;
+    }
+
+    switchDefault(group, modifier) {
+        let oldSelection = this.customData[group.$id]['currentlySelected'].pop();
+        this.customData[group.$id]['currentlySelected'].push(modifier);
+        let currentSelection = this.customData[group.$id]['currentlySelected']
+        console.log(group, modifier, oldSelection, currentSelection);
 
     }
 
     public buildModifiers( group, modifier, e ) {
         // console.log(group, modifier, e.value);
         if( e.value ){
-
             this.addMod( group, modifier );
-
         } else {
-
             this.removeMod( group, modifier );
-
         }
     }
 
@@ -332,20 +328,14 @@ export class MenuItemPage {
                 let isModDefault = defaultOptions.find( option => {
                     console.log( option.ModifierId, mod.ModifierId);
                     return option['ModifierId'] === mod.ModifierId;
-
                 });
                 // console.log( isModDefault );
                 if ( isModDefault ) {
-
                     modObject['modifiers'][mod.$id]['quantity'] = isModDefault.DefaultQuantity;
                     modObject['currentlySelected'].push(mod);
-
                 } else {
-
                     modObject['modifiers'][mod.$id]['quantity'] = 0;
-
                 }
-
             });
             if(modifierGroup.MinimumItems > 0 && modObject['currentlySelected'].length <= 0){
                 reqMods.push({'$id' : modifierGroup.$id});
@@ -381,13 +371,9 @@ export class MenuItemPage {
         let maxItems = this.customData[groupId]['maximumItems'];
         let currentItem = selectedItems.find( item => item.ModifierId === mod.ModifierId );
         if (itemsLength >= maxItems && typeof currentItem === 'undefined') {
-
             return true;
-
         } else {
-
             return false;
-
         }
 
     }
@@ -402,6 +388,11 @@ export class MenuItemPage {
             this.quantity--;
             this.recalculateCost();
         }
+    }
+
+    updateSpecialInstructions(e) {
+        console.log(e.value);
+        this.specialInstructions = e.value;
     }
 
     addToBag() {
@@ -442,18 +433,14 @@ export class MenuItemPage {
                     text: "Go back?",
                     role: "cancel",
                     handler: () => {
-
                         console.log("Cancel clicked");
-
                     }
                 },
                 {
                     text: "Checkout?",
                     handler: () => {
-
                         console.log("Go to bag");
                         this.app.getRootNavs()[0].push('BagPage');
-
                     }
                 }
             ]

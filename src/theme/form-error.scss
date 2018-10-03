@@ -1,0 +1,28 @@
+ion-item.item.has-error {
+
+    .item-inner {
+        border-color: $error;
+
+        ion-label,
+        ion-icon {
+            color: $error;
+        }
+
+        ion-icon {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+    }
+
+    input {
+        color: $error;
+    }
+}
+
+.form-control-feedback {
+    .error-help {
+        margin-top: 5px;
+        color: $error;
+    }
+}
