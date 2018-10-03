@@ -17,6 +17,8 @@ export class CateringPage implements OnInit {
     acf : any;
     featuredImage : any;
     submittedOnce : boolean = false;
+    loadingImage  : string;
+    mapImage      : string;
 
     constructor(
 
@@ -24,7 +26,11 @@ export class CateringPage implements OnInit {
         private loadingController: LoadingController,
         public fb: FormBuilder
 
-    ) { }
+    ) {
+
+        this.loadingImage = '../../assets/icon/loading-eclipse.svg'
+
+    }
 
     ngOnInit() {
         this.getCateringPage();
@@ -37,12 +43,12 @@ export class CateringPage implements OnInit {
         this.wordpressService.getCustomPostTypeById('landing_page', 126).subscribe(page => {
             this.pageContent = page;
             this.acf = page.acf;
-
+            this.mapImage = this.acf.left_image.sizes.large
             if(page.featured_media != 0){
                 this.wordpressService.getMedia(page.featured_media).subscribe(media => {
 
-                    this.featuredImage = media
-                    // console.log('hey media', this.featuredImage)
+                    this.featuredImage = media.source_url
+                    console.log('hey media', this.acf)
                 });
             }
             // console.log(this.acf )
