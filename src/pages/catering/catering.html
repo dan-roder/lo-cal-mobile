@@ -8,7 +8,9 @@
 </ion-header>
 
 <ion-content class="page" padding>
-
+    <div *ngIf="pageContent" class="catering-hero" [ngStyle]="{'background-image': 'url(' + featuredImage + ')'}">
+        <h2>{{pageContent?.title.rendered}}</h2>
+    </div>
 
         <div class="section section-white">
           <div class="content center">
@@ -69,5 +71,7 @@
             </form>
           </div>
         </div> -->
+        <div class="contact-info" [innerHtml]="acf?.right_details | safeHtml"></div>
+        <div *ngIf="mapImage" class="map-image" [ngStyle]="{'background-image': 'url(' + mapImage + ')'}"></div>
 
 </ion-content>
