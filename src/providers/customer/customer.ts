@@ -82,7 +82,7 @@ export class CustomerProvider {
                     }
                     // return this.customer;
                 } else {
-                    // throw new Error( res.Errors[0].Message );
+                   return Observable.throw( "Issue processing request, please try again." );
                 }
             });
             // .catch( error => {
