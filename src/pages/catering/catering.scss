@@ -1,0 +1,28 @@
+page-catering {
+
+    .catering-hero {
+        background-size: cover;
+        // background-image: url('../../assets/icon/loading-eclipse.svg');
+        background-position: center;
+        position: relative;
+        height: 265px;
+        h2 {
+            letter-spacing: 2.7px;
+            margin-top: 0;
+            text-transform: uppercase;
+            text-shadow: 0 1px 10px rgba(0, 0, 0, 0.23);
+            color: #fff;
+            text-align: center;
+            font-size: 42px;
+            font-weight: 600px;
+            padding-top: 115px;
+        }
+    }
+    .map-image {
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        height: 265px;
+    }
+
+}
