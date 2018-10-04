@@ -6,16 +6,15 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Subject, Subscription  } from 'rxjs';
 
-
 @Component({
     templateUrl: 'app.html'
 })
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
-
     rootPage: string = 'TabsComponent';
     activePage = new Subject();
     pages: Array<{title: string, component: string, active: boolean}>;
+    subPages: Array<{title: string, component: string, active: boolean}>;
     customerObserver: Subscription;
     currentCustomer: String;
 
@@ -39,14 +38,19 @@ export class MyApp {
             { title: 'Our Food', component: 'OurfoodComponent', active: false},
             { title: 'Catering', component: 'CateringPage', active: false },
             { title: 'Contact Us', component: 'ContactUsPage', active: false },
-            { title: 'My Account', component: 'ListComponent', active: false }
+            { title: 'My Account', component: 'ListComponent', active: false },
 
         ];
-
+        this.subPages = [
+            { title: 'Terms & Conditions', component: 'TermsPage', active: false },
+        ];
         this.activePage.subscribe( ( selectedPage: any ) => {
 
             this.pages.map( page => {
                 page.active = page.title === selectedPage.title;
+            });
+            this.subPages.map( subPage => {
+                subPage.active = subPage.title === selectedPage.title;
             });
 
         });
@@ -97,7 +101,12 @@ export class MyApp {
         this.nav.push( page );
 
     }
+    goToSubPage (page) {
 
+        this.nav.setRoot(page.component);
+        this.activePage.next(page);
+
+    }
     logout() {
 
         this.localApi.logout();
