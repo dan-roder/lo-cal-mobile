@@ -90,4 +90,14 @@ page-contact-us {
         font-size: 16px;
         margin: 10px 0 20px;
       }
+      .visuallyhidden {
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
 }
