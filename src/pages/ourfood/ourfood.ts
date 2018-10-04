@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, LoadingController } from 'ionic-angular';
-
 import { WordPressProvider } from '../../providers/word-press/word-press';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+
+@AutoUnsubscribe()
 
 @IonicPage()
+
 @Component({
     selector: 'page-ourfood',
     templateUrl: 'ourfood.html',
@@ -23,7 +26,10 @@ export class OurfoodComponent implements OnInit {
     ngOnInit() {
         this.getOurFood();
     }
-
+    // must be present with auto-unsubscribe even if empty
+    ngOnDestroy() {
+        // You can also do whatever you need here
+    }
     getOurFood() {
         let loader = this.loadingController.create({ content: "Loading" });
 

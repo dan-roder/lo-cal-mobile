@@ -2,8 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, LoadingController } from 'ionic-angular';
 import { WordPressProvider } from '../../providers/word-press/word-press';
 import { IPost } from '../../models/post';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+
+@AutoUnsubscribe()
 
 @IonicPage()
+
 @Component({
     selector: 'page-terms',
     templateUrl: 'terms.html',
@@ -25,6 +29,10 @@ export class TermsPage implements OnInit {
         console.log('terms')
         this.getTermsAndPolicy();
 
+    }
+    // must be present with auto-unsubscribe even if empty
+    ngOnDestroy() {
+        // You can also do whatever you need here
     }
     getTermsAndPolicy () {
         let loader = this.loadingController.create({ content: "Loading" });

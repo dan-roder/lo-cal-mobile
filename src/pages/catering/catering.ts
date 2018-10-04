@@ -3,7 +3,12 @@ import { IonicPage, LoadingController } from 'ionic-angular';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WordPressProvider } from '../../providers/word-press/word-press';
 import { IPost } from '../../models/post';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+
+@AutoUnsubscribe()
+
 @IonicPage()
+
 @Component({
     selector: 'page-catering',
     templateUrl: 'catering.html',
@@ -34,6 +39,11 @@ export class CateringPage implements OnInit {
 
     ngOnInit() {
         this.getCateringPage();
+    }
+
+    // must be present with auto-unsubscribe even if empty
+    ngOnDestroy() {
+        // You can also do whatever you need here
     }
 
     getCateringPage() {

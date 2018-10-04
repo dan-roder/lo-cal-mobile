@@ -2,8 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, IonicPage, ToastController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { CustomerProvider } from '../../providers/customer/customer';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+
+@AutoUnsubscribe()
 
 @IonicPage()
+
 @Component({
     selector    : 'page-signup',
     templateUrl : 'signup.html'
@@ -95,12 +99,14 @@ export class SignupPage implements OnInit {
     ionViewDidLoad() {
         console.log('ionViewDidLoad SignupPage');
     }
-
+    // must be present with auto-unsubscribe even if empty
+    ngOnDestroy() {
+        // You can also do whatever you need here
+    }
     ionViewWillLeave() {
 
         this.processing = false
 
-        if( this.customerSubscription ) this.customerSubscription.unsubscribe();
     }
 
     checkCustInfo( group: FormGroup ) {

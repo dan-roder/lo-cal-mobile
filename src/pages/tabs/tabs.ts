@@ -9,8 +9,12 @@ import { LineItem } from '../../models/LineItem';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from "rxjs/Subscription";
 import { InRegistration } from "../../models/customer";
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+
+@AutoUnsubscribe()
 
 @IonicPage()
+
 @Component({
     selector: "page-tabs",
     templateUrl: "tabs.html"
@@ -106,12 +110,11 @@ export class TabsComponent {
         });
 
     }
-
+    // must be present with auto-unsubscribe even if empty
+    ngOnDestroy() {
+        // You can also do whatever you need here
+    }
     ionViewWillLeave() {
-
-        this.bagObserver.unsubscribe();
-        this.menuObserver.unsubscribe();
-        this.customerObserver.unsubscribe();
 
     }
 

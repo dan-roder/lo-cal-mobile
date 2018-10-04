@@ -3,8 +3,12 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { WordPressProvider } from '../../providers/word-press/word-press';
 import { IPost } from '../../models/post';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+
+@AutoUnsubscribe()
 
 @IonicPage()
+
 @Component({
     selector: 'page-contact-us',
     templateUrl: 'contact-us.html',

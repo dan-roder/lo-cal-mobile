@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
-
 import { LoCalApiProvider } from '../../providers/lo-cal-api/lo-cal-api';
 import { TabsComponent } from '../tabs/tabs'
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+
+@AutoUnsubscribe()
 
 @IonicPage()
+
 @Component({
 
     selector: 'page-login',
@@ -43,9 +46,12 @@ export class LoginPage {
     }
 
     ionViewDidLoad() {
-
         console.log('ionViewDidLoad LoginPage');
+    }
 
+    // must be present with auto-unsubscribe even if empty
+    ngOnDestroy() {
+        // You can also do whatever you need here
     }
 
     login() {

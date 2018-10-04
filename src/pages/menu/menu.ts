@@ -3,10 +3,12 @@ import { App, IonicPage, NavController, NavParams } from "ionic-angular";
 import { Storage } from "@ionic/storage";
 import { SuperTabsController } from "ionic2-super-tabs";
 import { WordPressProvider } from '../../providers/word-press/word-press';
-// import { ListComponent } from '../list/list.component';
-// import { MenuProvider } from "../../providers/menu/menu";
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+
+@AutoUnsubscribe()
 
 @IonicPage()
+
 @Component({
     selector: "page-menu",
     templateUrl: "menu.html",
@@ -40,7 +42,10 @@ export class MenuComponent {
     ionViewDidLoad() {
 
     }
-
+    // must be present with auto-unsubscribe even if empty
+    ngOnDestroy() {
+        // You can also do whatever you need here
+    }
     retrieveMenuImages(submenuId) {
         const imageUrl = this.menu_images.find( image => {
             return parseInt(image.acf.submenuid) === parseInt(submenuId);

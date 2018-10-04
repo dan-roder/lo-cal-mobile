@@ -70,6 +70,10 @@ export class PasswordResetPage {
     console.log(this.passwordResetForm.controls['email'].valid)
 
   }
+  // must be present with auto-unsubscribe even if empty
+  ngOnDestroy() {
+    // You can also do whatever you need here
+  }
 
   checkPasswords( group: FormGroup ) {
 
