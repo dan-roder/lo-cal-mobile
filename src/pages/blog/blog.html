@@ -9,6 +9,16 @@
 
 <ion-content class="page" padding>
 
-    <h1>Blog goes here :)</h1>
+    <div *ngFor="let post of allBlogPosts">
+            <div class="left" *ngIf="post?.featured_media">
+                    <a href="#">
+                      <img src="{{ post?._embedded | featuredImage: 'medium' }}" alt="{{ post?._embedded | featuredImage: 'alt' }}">
+                    </a>
+                  </div>
+        <h1>{{post?.title?.rendered}}</h1>
+        <span>{{ post?.date | date:'MMMM d, yyyy' }} </span>
+        <div class="excerpt" *ngIf="post?.excerpt" [innerHtml]="post?.excerpt?.rendered | safeHtml"></div>
+        <a>Read More</a>
+    </div>
 
 </ion-content>
