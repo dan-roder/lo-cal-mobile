@@ -1,18 +1,76 @@
-<!--
-  Generated template for the ContactUsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>ContactUs</ion-title>
-  </ion-navbar>
-
-</ion-header>
 
 
-<ion-content padding>
+<ion-header no-border>
+        <ion-navbar>
+          <button ion-button menuToggle>
+            <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
+          </button>
+          <ion-title *ngIf="pageContent?.title.rendered" [innerHtml]="pageContent?.title.rendered | safeHtml"></ion-title>
+        </ion-navbar>
+      </ion-header>
 
-</ion-content>
+          <ion-content class="page" padding>
+              <div *ngIf="featuredImage" class="contact-hero" [ngStyle]="{'background-image': 'url(' + featuredImage + ')'}">
+                  <h2>{{pageContent?.title.rendered}}</h2>
+              </div>
+
+                  <div class="section section-white">
+                    <div class="content center">
+                      <div class="body center-960" *ngIf="pageContent?.content?.rendered" [innerHtml]="pageContent?.content?.rendered | safeHtml"></div>
+                    </div>
+                  </div>
+
+                  <div class="section section-white">
+                        <div class="content center">
+                          <form action="" [formGroup]="contactForm" class="lo-cal-form contact-form" *ngIf="!formSuccess">
+                            <div class="form-errors" *ngIf="formError"><p>{{ formError }}</p></div>
+                            <div class="form-section">
+                              <div class="form-component form-component-text">
+                                <label for="contact-reason" class="visuallyhidden">What are you interested in sharing/asking?</label>
+                                <input type="text" name="contact-reason" id="contact-reason" formControlName="contact-reason" placeholder="What are you interested in sharing/asking?" [ngClass]="{'has-error':!contactForm.controls['contact-reason'].valid && submittedOnce}">
+                                <div class="error-message" *ngIf="!contactForm.controls['contact-reason'].valid && submittedOnce">This field is required.</div>
+                              </div>
+                            </div>
+                            <div class="form-section thirds">
+                              <div class="form-component form-component-text">
+                                <label for="first-name" class="visuallyhidden">First Name *</label>
+                                <input type="text" name="first-name" id="first-name" placeholder="First Name *" formControlName="first-name" [ngClass]="{'has-error':!contactForm.controls['first-name'].valid && submittedOnce}">
+                                <div class="error-message" *ngIf="!contactForm.controls['first-name'].valid && submittedOnce">This field is required.</div>
+                              </div>
+                              <div class="form-component form-component-text">
+                                <label for="last-name" class="visuallyhidden">Last Name *</label>
+                                <input type="text" name="last-name" id="last-name" placeholder="Last Name *" formControlName="last-name" [ngClass]="{'has-error':!contactForm.controls['last-name'].valid && submittedOnce}">
+                                <div class="error-message" *ngIf="!contactForm.controls['last-name'].valid && submittedOnce">This field is required.</div>
+                              </div>
+                              <div class="form-component form-component-email">
+                                <label for="email" class="visuallyhidden">Email *</label>
+                                <input type="email" name="email" id="email" placeholder="Email *" formControlName="email" [ngClass]="{'has-error':!contactForm.controls['email'].valid && submittedOnce}">
+                                <div class="error-message" *ngIf="!contactForm.controls['email'].valid && submittedOnce">This field is required.</div>
+                              </div>
+                            </div>
+                            <div class="form-section">
+                              <div class="form-component form-component-textarea">
+                                <label for="comments">Comments</label>
+                                <textarea name="comments" id="comments" rows="4" formControlName="comments"></textarea>
+                              </div>
+                            </div>
+                            <div class="form-section captcha">
+                              <!-- <re-captcha formControlName="recaptchaReactive"></re-captcha> -->
+                              <div class="error-message" *ngIf="!contactForm.controls['recaptchaReactive'].valid && submittedOnce">This field is required.</div>
+                            </div>
+                            <div class="form-actions">
+                              <div class="loading-gif button-size non-full-width" *ngIf="processing"></div>
+                              <div class="form-submit red-button submit" *ngIf="!processing && !formSuccess">
+                                <input type="submit" value="Send" (click)="submitForm(contactForm)">
+                              </div>
+                            </div>
+                          </form>
+                          <div class="success-message" *ngIf="formSuccess" [innerHtml]="acf?.contact_message | safeHtml"></div>
+                        </div>
+                      </div>
+
+
+                  <div class="contact-info" *ngIf="acf?.right_details" [innerHtml]="acf?.right_details | safeHtml"></div>
+                  <div *ngIf="mapImage" class="map-image" [ngStyle]="{'background-image': 'url(' + mapImage + ')'}"></div>
+
+          </ion-content>
