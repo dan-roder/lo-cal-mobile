@@ -1,3 +1,93 @@
 page-contact-us {
+    .contact-hero {
+        background-size: cover;
+        // background-image: url('../../assets/icon/loading-eclipse.svg');
+        background-position: center;
+        position: relative;
+        height: 265px;
+        h2 {
+            letter-spacing: 2.7px;
+            margin-top: 0;
+            text-transform: uppercase;
+            text-shadow: 0 1px 10px rgba(0, 0, 0, 0.23);
+            color: #fff;
+            text-align: center;
+            font-size: 42px;
+            font-weight: 600px;
+            padding-top: 115px;
+        }
+    }
+    .map-image {
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        height: 265px;
+    }
+    .form-component-text,
+  .form-component-email{
+    margin: 15px 0;
+    input {
+        border: none;
+      border-bottom: 1px solid #000000;
+      padding: 8px 4px;
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      background: #f4f4f4;
+      &:focus{
+        outline: 0;
+      }
 
+      &::placeholder{
+        opacity: .5;
+      }
+
+      &.has-error{
+        border-bottom: 1px solid orangered;
+      }
+    }
+}
+    .form-component-textarea{
+        margin: 15px 0;
+
+
+        label{
+          opacity: .5;
+          padding: 8px 4px;
+        }
+
+        textarea{
+          display: block;
+          width: 100%;
+          box-sizing: border-box;
+          resize: none;
+          padding: 8px;
+
+          &:focus{
+            outline: 0;
+          }
+        }
+      }
+      .form-actions{
+        input[type=submit]{
+          font-size: 15px;
+
+          padding: 8px 150px;
+        }
+      }
+
+      .submit{
+        margin: 40px 0 15px;
+      }
+
+      fieldset{
+        border: none;
+        margin: 30px 0;
+        padding: 0;
+      }
+
+      legend{
+        font-size: 16px;
+        margin: 10px 0 20px;
+      }
 }
