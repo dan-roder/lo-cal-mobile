@@ -139,5 +139,17 @@ export class WordPressProvider {
         }
         return str.join('&');
     }
+    public logError(data: any){
+        return this.http.post(this.config.wordpressApiUrl + `/error_message/v2/log`, data).map(result => {
+          return result;
+        })
+      }
+
+      public submitContactForm(data: any){
+        let finalData = JSON.stringify(data);
+        return this.http.post(this.config.wordpressApiUrl + `/contact_form/v2/submit`, finalData).map(result => {
+          return result;
+        })
+      }
 
 }
