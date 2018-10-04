@@ -46,6 +46,7 @@ page-bag {
         }
         &-meta {
             // padding: 10px 0 20px;
+            display: flex;
             ion-col.border {
                 border-right: 1px solid $light-gray;
             }
@@ -67,14 +68,14 @@ page-bag {
                     letter-spacing: 0.8px;
                 }
                 .allergen {
-                    ion-icon {
-                        color:         $gray;
-                        padding-right: 5px;
-                        vertical-align: middle;
-                        font-size: 18px;
-                        &:last-child {
-                            padding-right: 0;
-                        }
+                    span {
+                        background: #e1e1e1;
+                        border-radius: 50%;
+                        width: 23px;
+                        height: 20px;
+                        display: inline-block;
+                        text-align: center;
+                        font-size: 14px;
                     }
                 }
             }
