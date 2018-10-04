@@ -52,18 +52,30 @@ export interface InLoginUpdate {
     NewAnswer?: string; // (string , optional)
 }
 
-export interface OrderCustomer {
+export interface InPasswordReset{
+    Email: string;
+    SecurityAnswer: string;
+    NewPassword: string;
+  }
 
-}
+export interface InPasswordEmailReset{
+    Email: string;
+    SecurityAnswer: string;
+  }
 
-export interface RailsUpdate {
-    customer_info: Customer;
-}
+  export interface RailsUpdate{
+    customer_info : Customer;
+  }
 
-export interface RailsCustomer {
-    customer_info: InRegistration;
-}
+  export interface RailsCustomer{
+    customer_info : InRegistration;
+  }
 
-export interface RailsLogin {
-    credentials: InLogin;
-}
+  export interface RailsLogin{
+    credentials : InLogin;
+  }
+
+  export interface MailchimpSignup{
+    email_address : string;
+    status : string;
+  }
