@@ -12,7 +12,7 @@
     <ion-list class="bag-items" no-margin *ngIf="itemsInBag.length">
         <div class="bag-item" *ngFor="let item of itemsInBag; let i = index">
             <ion-row>
-                <ion-col col-4 no-padding>
+                <ion-col col-3 no-padding>
                     <img *ngIf="item.CartImage" [src]="item.CartImage" alt="bag item" class="bag-item-image" />
                     <div tappable class="remove" (tap)="removeItem( item, i )">
                         <ion-icon name="close" class="remove-icon"></ion-icon>
@@ -21,13 +21,13 @@
                 <ion-col>
                     <div class="bag-item-title">
                         <ion-row>
-                            <ion-col col-8>
+                            <ion-col>
                                 {{ item.Name }}
                                 <span class="bag-item-quantity">x{{ item.Quantity }}</span>
                             </ion-col>
-                            <ion-col class="bag-item-edit" text-center (tap)="goToItem(item, i)">
+                            <!-- <ion-col class="bag-item-edit" text-center (tap)="goToItem(item, i)">
                                 Edit
-                            </ion-col>
+                            </ion-col> -->
                         </ion-row>
 
                     </div>
