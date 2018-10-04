@@ -6,6 +6,9 @@ import "rxjs/add/operator/map";
 import 'rxjs/add/operator/catch';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from "rxjs/Observable";
+import { RailsSavePayment } from '../../models/Payment';
+import { RailsCustomer, RailsLogin, Customer, RailsUpdate, InLoginUpdate, InPasswordReset } from '../../models/customer';
+
 
 @Injectable()
 export class CustomerProvider {
@@ -121,5 +124,21 @@ export class CustomerProvider {
         this.customerObserver.next( customerId);
 
     }
+    public getSecurityQuestion(email: string): Observable<any>{
+        return this.http.get(this.config.railsCustomerEndpoint + `/securityquestions?Email=${email}`).map((question) => {
+          return question;
+        })
+      }
+      public forcePasswordReset(email: any): Observable<any>{
+        return this.http.post(this.config.railsCustomerEndpoint + `/passwordreset/email`, email).map((result) => {
+          return result;
+        })
+      }
+
+      public passwordResetWithAnswer(data: InPasswordReset): Observable<any>{
+        return this.http.post(this.config.railsCustomerEndpoint + `/passwordreset`, data).map(result => {
+          return result;
+        })
+      }
 
 }
