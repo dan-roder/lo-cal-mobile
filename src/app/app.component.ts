@@ -38,11 +38,13 @@ export class MyApp {
             { title: 'Our Food', component: 'OurfoodComponent', active: false},
             { title: 'Catering', component: 'CateringPage', active: false },
             { title: 'Contact Us', component: 'ContactUsPage', active: false },
-            { title: 'My Account', component: 'ListComponent', active: false },
+            { title: 'My Account', component: 'AccountPage', active: false }
+
 
         ];
         this.subPages = [
-            { title: 'Terms & Conditions', component: 'TermsPage', active: false },
+            { title: 'Blog', component: 'BlogPage', active: false },
+            { title: 'Terms & Conditions', component: 'TermsPage', active: false }
         ];
         this.activePage.subscribe( ( selectedPage: any ) => {
 
