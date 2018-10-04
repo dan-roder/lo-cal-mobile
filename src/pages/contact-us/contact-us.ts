@@ -1,30 +1,98 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { InAppBrowser, InAppBrowserOptions } from "@ionic-native/in-app-browser";
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { WordPressProvider } from '../../providers/word-press/word-press';
+import { IPost } from '../../models/post';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 @IonicPage()
 @Component({
     selector: 'page-contact-us',
     templateUrl: 'contact-us.html',
+    providers: [WordPressProvider]
 })
 export class ContactUsPage {
 
-    url: string = "http://dev-lo-cal.pantheonsite.io/contact";
+    pageContent : IPost;
+    acf : any;
+    featuredImage : any;
+    mapImage      : string;
+    contactForm : FormGroup;
+    submittedOnce : boolean = false;
+    processing : boolean = false;
+    formSuccess : boolean = false;
+    formError : string = '';
+
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
-        public inAppBrowser : InAppBrowser
-    ) {}
+        private loadingController: LoadingController,
+        private wordpressService: WordPressProvider,
+        private fb: FormBuilder
 
+    ) {
+
+        this.contactForm = fb.group({
+            'contact-reason' : [null, Validators.required],
+            'first-name' : [null, Validators.required],
+            'last-name' : [null, Validators.required],
+            'email' : [null, [Validators.required, Validators.email]],
+            'comments' : null,
+            'recaptchaReactive' : [null, Validators.required]
+          })
+
+    }
+
+    ngOnInit() {
+        this.getContactUsPage()
+    }
     ionViewDidLoad() {
         console.log('ionViewDidLoad ContactUsPage');
 
-        const options: InAppBrowserOptions = {
-            zoom: 'no',
-            toolbar: 'no',
-            fullscreen: 'yes'
-        }
-        const browser = this.inAppBrowser.create( this.url, '_self', options);
+
     }
+    getContactUsPage () {
+
+            let loader = this.loadingController.create({ content: "Loading" });
+
+            loader.present()
+            this.wordpressService.getPage(132).subscribe(page => {
+                this.pageContent = page;
+                this.acf = page.acf;
+                this.mapImage = this.acf.left_image.sizes.large
+
+                if(page.featured_media != 0){
+                    this.wordpressService.getMedia(page.featured_media).subscribe(media => {
+
+                        this.featuredImage = media.source_url
+                        console.log('hey media', this.pageContent)
+                    });
+                }
+                loader.dismiss();
+            })
+
+    }
+    submitForm(formData){
+        this.submittedOnce = true;
+
+        if(formData.valid){
+          this.processing = true;
+          let data = {
+            'contactReason' : formData.get('contact-reason').value,
+            'firstName' : formData.get('first-name').value,
+            'lastName' : formData.get('last-name').value,
+            'email' : formData.get('email').value,
+            'comments' : formData.get('comments').value
+          }
+
+          this.wordpressService.submitContactForm(data).subscribe(() => {
+            this.processing = false;
+            this.formSuccess = true;
+          }, (error) => {
+            this.formError = "We're sorry. There was a problem processing your submission. Please try again.";
+            this.wordpressService.logError('Contact Form Error: ' + JSON.stringify(error)).subscribe(() => {})
+            this.processing = false;
+          });
+        }
+      }
 
 }
