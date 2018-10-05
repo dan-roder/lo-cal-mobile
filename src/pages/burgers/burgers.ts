@@ -13,7 +13,6 @@ import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 @AutoUnsubscribe()
 
 @IonicPage()
-
 @Component({
     selector: "page-burgers",
     templateUrl: "burgers.html"
@@ -91,10 +90,6 @@ export class BurgersPage implements OnInit {
 
 
     }
-    // must be present with auto-unsubscribe even if empty
-    ngOnDestroy() {
-        // You can also do whatever you need here
-    }
     ionViewWillLoad () {
          // console.log( typeof this.subMenuMeta, this.subMenuMeta );
 
@@ -108,11 +103,14 @@ export class BurgersPage implements OnInit {
 
 
     }
-
-    ionViewWillLeave() {
-
-
+    ngOnDestroy() {
+        // You can also do whatever you need here
     }
+    // ionViewWillLeave() {
+    //     if ( this.subMenuObserver ) this.subMenuObserver.unsubscribe();
+    //     if ( this.menuItemObserver ) this.menuItemObserver.unsubscribe();
+
+    // }
 
     addItem( item ) {
 
