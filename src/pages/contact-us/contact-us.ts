@@ -51,8 +51,10 @@ export class ContactUsPage {
     }
     ionViewDidLoad() {
         console.log('ionViewDidLoad ContactUsPage');
-
-
+    }
+    // must be present with auto-unsubscribe even if empty
+    ngOnDestroy() {
+        // You can also do whatever you need here
     }
     getContactUsPage () {
 
