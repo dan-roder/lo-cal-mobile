@@ -1,0 +1,18 @@
+<ion-header no-border>
+        <ion-navbar>
+          <button ion-button menuToggle>
+            <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
+          </button>
+          <ion-title *ngIf="pageContent?.title.rendered" [innerHtml]="pageContent?.title.rendered | safeHtml"></ion-title>
+        </ion-navbar>
+      </ion-header>
+
+
+<ion-content padding>
+    <h2 *ngIf="pageContent?.title.rendered">{{pageContent?.title.rendered}}</h2>
+    <span *ngIf="pageContent?.date">{{ pageContent?.date | date:'MMMM d, yyyy' }} </span>
+    <img src="{{featuredImage}}" alt="{{pageContent?.title.rendered}}">
+    <div class="post-body" *ngIf="pageContent?.content.rendered">
+        <p [innerHtml]="pageContent?.content.rendered | safeHtml"></p>
+    </div>
+</ion-content>
