@@ -50,10 +50,13 @@ export class CateringPage implements OnInit {
         let loader = this.loadingController.create({ content: "Loading" });
 
         loader.present()
+
         this.wordpressService.getCustomPostTypeById('landing_page', 126).subscribe(page => {
+
             this.pageContent = page;
             this.acf = page.acf;
             this.mapImage = this.acf.left_image.sizes.large
+
             if(page.featured_media != 0){
                 this.wordpressService.getMedia(page.featured_media).subscribe(media => {
 
@@ -61,7 +64,6 @@ export class CateringPage implements OnInit {
                     console.log('hey media', this.acf)
                 });
             }
-            // console.log(this.acf )
             loader.dismiss();
         })
     }
