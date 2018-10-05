@@ -5,13 +5,15 @@ import { TrimHtmlPipe } from './trim-html.pipe';
 import { AllergensPipe } from './allergens.pipe';
 import { CardImagePipe } from './image.pipe';
 import { SafeHtml } from './safe-html.pipe'
+import { FeaturedImagePipe } from './featured-image.pipe'
 @NgModule({
     declarations: [
         TruncatePipe,
         TrimHtmlPipe,
         AllergensPipe,
         CardImagePipe,
-        SafeHtml
+        SafeHtml,
+        FeaturedImagePipe
     ],
     imports: [CommonModule],
     exports: [
@@ -19,7 +21,8 @@ import { SafeHtml } from './safe-html.pipe'
         TrimHtmlPipe,
         AllergensPipe,
         CardImagePipe,
-        SafeHtml
+        SafeHtml,
+        FeaturedImagePipe
     ]
 })
 export class PipesModule { }
