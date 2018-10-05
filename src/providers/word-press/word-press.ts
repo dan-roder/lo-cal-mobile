@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Config } from '../../app/app.config';
 import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class WordPressProvider {
@@ -150,6 +151,10 @@ export class WordPressProvider {
         return this.http.post(this.config.wordpressApiUrl + `/contact_form/v2/submit`, finalData).map(result => {
           return result;
         })
+      }
+      getCustomPostType( postType, _perPage : number = null ): Observable<any>{
+        let perPage = (_perPage !== null) ? `&per_page=${_perPage}` : '';
+        return this.http.get(this.config.wordpressApiUrl + `/wp/v2/${postType}?_embed${perPage}`);
       }
 
 }
