@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { CheckoutReviewPage } from './checkout-review';
+import { PipesModule } from '../../pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { CheckoutReviewPage } from './checkout-review';
   ],
   imports: [
     IonicPageModule.forChild(CheckoutReviewPage),
+    PipesModule
   ],
   exports: [
     CheckoutReviewPage
