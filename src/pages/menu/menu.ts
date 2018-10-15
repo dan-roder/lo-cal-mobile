@@ -32,9 +32,9 @@ export class MenuComponent {
 
     ngOnInit() {
         this.categories = this.navParams.get('menu');
-        console.log(this.categories);
+        // console.log(this.categories);
         this.wp.retrieveMenuImages().subscribe( res => {
-            console.log( res );
+            // console.log( res );
             this.menu_images = res;
         });
     }
@@ -47,7 +47,9 @@ export class MenuComponent {
         // You can also do whatever you need here
     }
     retrieveMenuImages(submenuId) {
+
         const imageUrl = this.menu_images.find( image => {
+
             return parseInt(image.acf.submenuid) === parseInt(submenuId);
         });
         // console.log( imageUrl.acf.category_image.url );
@@ -55,6 +57,7 @@ export class MenuComponent {
     }
 
     checkActivePage(page): boolean {
+        
         return page === this.activePage;
     }
 

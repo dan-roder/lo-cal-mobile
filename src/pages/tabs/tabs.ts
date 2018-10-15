@@ -45,20 +45,11 @@ export class TabsComponent {
             // console.log( this.currentCustomer );
             this.menuObserver = this.menu.getSubmenus().subscribe( data => {
 
-                console.log(data );
+                // console.log(data );
                 this.subMenus = data;
 
             });
 
-            this.bagObserver = this.bag.bagItems.subscribe( ( items: Array<LineItem> ) => {
-
-                if( items ) {
-
-                    this.itemsInBag = items;
-                    console.log( this.itemsInBag );
-
-                }
-            });
 
             this.customerObserver = this.customer.customerId.subscribe( ( customer ) => {
 
@@ -79,8 +70,23 @@ export class TabsComponent {
         });
     }
 
-    // ngOnInit() {}
+    ngOnInit() {
+        this.storage.get('bag').then(bagItemsFromLocalStorage => {
 
+            if (bagItemsFromLocalStorage) {
+                this.itemsInBag = bagItemsFromLocalStorage;
+            }
+
+        })
+        .catch(error => {
+
+            console.log( error );
+        });
+
+    }
+    ionViewWillLoad() {
+    
+    }
     ionViewDidLoad() {
 
         this.storage.get("intro-done").then( done => {
@@ -132,7 +138,7 @@ export class TabsComponent {
 
     setParams(category) {
 
-        console.log( category );
+        // console.log( category );
         let params = {
 
             menuCategory: category
