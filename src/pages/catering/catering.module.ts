@@ -11,6 +11,9 @@ import { PipesModule } from '../../pipes/pipes.module';
   imports: [
     IonicPageModule.forChild(CateringPage),
     PipesModule
+  ],
+  exports: [
+    CateringPage
   ]
 })
 export class CateringPageModule {}
