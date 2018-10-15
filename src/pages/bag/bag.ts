@@ -105,6 +105,7 @@ export class BagPage {
     }
 
     checkout() {
-        console.log(this.bag.itemsInBag);
+        // console.log(this.bag.itemsInBag);
+        this.navCtrl.push("CheckoutReviewPage");
     }
 }
