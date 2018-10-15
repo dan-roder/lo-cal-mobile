@@ -29,7 +29,6 @@
                                 Edit
                             </ion-col> -->
                         </ion-row>
-
                     </div>
                     <p class="bag-item-description">
                         {{ (item.ShortDescription | allergens).description }}
@@ -39,7 +38,8 @@
                             <span class="price">{{ item.ExtendedPrice | currency:'USD':'symbol' }}</span>
                         </ion-col>
                         <ion-col col-4 text-center class="border">
-                            <span class="calories" *ngIf="item.caloricValue !== null && item.caloricValue !== 0">{{ item.caloricValue }} cal</span>
+                            <span class="calories" *ngIf="item.caloricValue !== null && item.caloricValue !== 0">{{
+                                item.caloricValue }} cal</span>
                         </ion-col>
                         <ion-col col-5 text-center>
                             <span class="allergen">
@@ -98,7 +98,7 @@
         </div>
     </div>
 </ion-content>
-<ion-footer no-border class="bag-footer">
+<ion-footer no-border class="bag-footer" *ngIf="!isLoggedIn">
     <ion-toolbar color="light" no-padding>
         <div class="bottom-buttons-wrap">
             <div class="checkout-button-wrap" *ngIf="itemsInBag.length">
@@ -106,16 +106,26 @@
                     Checkout as Guest
                 </button>
             </div>
-            <ion-grid no-padding>
+            <ion-grid no-padding *ngIf="!isLoggedIn">
                 <ion-row>
                     <ion-col class="bottom-links-col">
                         <a href="#" class="bottom-link" [navPush]="'LoginPage'">log in</a>
                     </ion-col>
                     <ion-col class="bottom-links-col">
-                        <a href="#" class="bottom-link"[navPush]="'SignupPage'">sign up</a>
+                        <a href="#" class="bottom-link" [navPush]="'SignupPage'">sign up</a>
                     </ion-col>
                 </ion-row>
             </ion-grid>
+        </div>
+    </ion-toolbar>
+</ion-footer>
+
+<ion-footer no-border *ngIf="isLoggedIn">
+    <ion-toolbar color="light" no-padding>
+        <div class="checkout-button-wrap" *ngIf="itemsInBag.length">
+            <button ion-button block color="red" class="order-now" no-padding (tap)="checkout()">
+                Checkout
+            </button>
         </div>
     </ion-toolbar>
 </ion-footer>
