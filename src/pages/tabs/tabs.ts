@@ -84,8 +84,10 @@ export class TabsComponent {
         });
 
     }
-    ionViewWillLoad() {
-    
+    ionViewWillEnter() {
+
+        // prevents view my bag from showing when items are removed and user navigates back to menu
+        this.itemsInBag = this.bag.itemsInBag;
     }
     ionViewDidLoad() {
 
