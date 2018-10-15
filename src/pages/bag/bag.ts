@@ -1,47 +1,55 @@
-import { Component } from '@angular/core';
-import { Platform, AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import {
+    Platform,
+    AlertController,
+    IonicPage,
+    NavController,
+    NavParams
+} from "ionic-angular";
 
-import { BagProvider } from '../../providers/bag/bag';
-import { LineItem } from '../../models/LineItem';
-import { MenuItemPage } from '../../pages/menu-item/menu-item'
+import { BagProvider } from "../../providers/bag/bag";
+import { LineItem } from "../../models/LineItem";
+import { MenuItemPage } from "../../pages/menu-item/menu-item";
+import { CustomerProvider } from "../../providers/customer/customer";
+import { Storage } from "@ionic/storage";
+
 @IonicPage()
 @Component({
-    selector: 'page-bag',
-    templateUrl: 'bag.html',
-
-
-
+    selector: "page-bag",
+    templateUrl: "bag.html"
 })
 export class BagPage {
-
-    itemsInBag : Array<LineItem>;
-    subtotal   : number;
-    tax        : number;
-    total      : number;
+    itemsInBag: Array<LineItem>;
+    subtotal: number;
+    tax: number;
+    total: number;
+    isLoggedIn: string;
 
     constructor(
-        public  platform  : Platform,
-        public  navCtrl   : NavController,
-        public  navParams : NavParams,
-        private alertCtrl : AlertController,
-        private bag       : BagProvider
+        public platform: Platform,
+        public navCtrl: NavController,
+        public navParams: NavParams,
+        private alertCtrl: AlertController,
+        private bag: BagProvider,
+        private customer: CustomerProvider,
+        private storage: Storage
     ) {
-
-        this.platform.ready().then( () => {
-
-            console.log( 'hey bag', this.bag.itemsInBag );
+        this.platform.ready().then(() => {
+            console.log("hey bag", this.bag.itemsInBag);
             this.itemsInBag = this.bag.itemsInBag;
-            this.subtotal = this.calculateSubtotal( this.itemsInBag );
-            this.tax = 0.00;
+            this.subtotal = this.calculateSubtotal(this.itemsInBag);
+            this.tax = 0.0;
             this.total = this.subtotal + this.tax;
-
         });
-
     }
+    ngOnInit() {
 
-    ionViewDidLoad() {
-
+        // check if customer is logged in by pulling customer id from ionic storage
+        this.storage.get("customerid").then(customer => {
+            this.isLoggedIn = customer;
+        });
     }
+    ionViewDidLoad() {}
 
     ionViewCanLeave() {
         // this.navCtrl.popToRoot();
@@ -51,19 +59,15 @@ export class BagPage {
         this.navCtrl.popToRoot();
     }
 
-    calculateSubtotal( bagItems ):number {
-
-        let total = 0.00;
-        bagItems.forEach( item => {
-
-            total += parseFloat( item.ExtendedPrice );
-
+    calculateSubtotal(bagItems): number {
+        let total = 0.0;
+        bagItems.forEach(item => {
+            total += parseFloat(item.ExtendedPrice);
         });
         return total;
-
     }
 
-    removeItem( item, index ) {
+    removeItem(item, index) {
         console.log("Item Removed");
         let alert = this.alertCtrl.create({
             title: "Confirm",
@@ -82,12 +86,11 @@ export class BagPage {
                     cssClass: "button-accept",
                     handler: () => {
                         console.log("Removed clicked");
-                        this.bag.removeFromBagAtIndex( index );
+                        this.bag.removeFromBagAtIndex(index);
 
-                        this.subtotal = this.calculateSubtotal( this.itemsInBag );
-                        this.tax = 0.00;
+                        this.subtotal = this.calculateSubtotal(this.itemsInBag);
+                        this.tax = 0.0;
                         this.total = this.subtotal + this.tax;
-
                     }
                 }
             ]
@@ -95,14 +98,13 @@ export class BagPage {
         alert.present();
     }
     goToItem(item, index) {
-        console.log('edit item', item)
+        console.log("edit item", item);
 
-        this.bag.removeFromBagAtIndex( index );
-        this.navCtrl.push('MenuItemPage', {menuItem: item})
+        this.bag.removeFromBagAtIndex(index);
+        this.navCtrl.push("MenuItemPage", { menuItem: item });
     }
 
     checkout() {
         console.log(this.bag.itemsInBag);
     }
-
 }
