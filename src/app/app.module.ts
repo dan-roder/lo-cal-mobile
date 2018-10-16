@@ -5,8 +5,6 @@ import { MyApp } from './app.component';
 
 import { MODULES, PROVIDERS, DIRECTIVES } from './app.imports';
 
-import { LOCALE_ID } from '@angular/core';
-
 
 @NgModule({
     declarations: [
