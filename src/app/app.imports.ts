@@ -11,6 +11,7 @@ import { LoCalApiProvider } from '../providers/lo-cal-api/lo-cal-api';
 import { MenuProvider } from "../providers/menu/menu";
 import { BagProvider } from '../providers/bag/bag';
 import { CustomerProvider } from '../providers/customer/customer';
+import { OrderService } from './../providers/order/order-provider';
 
 // Directives
 import { DirectivesModule } from '../directives/directives.module';
@@ -46,6 +47,7 @@ export const PROVIDERS = [
     MenuProvider,
     BagProvider,
     CustomerProvider,
+    OrderService,
     // Ionic native specific providers
     InAppBrowser,
     StatusBar,
