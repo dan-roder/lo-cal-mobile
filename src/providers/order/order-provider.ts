@@ -32,10 +32,12 @@ export class OrderService {
       ) { }
 
       public putOrder(bagItems: Array<LineItem>): Observable<any>{
+          console.log('yooo', bagItems)
         let orderEndpoint = this.config.railsOrderEndpoint + '/' + this.config.siteId;
         let order = this.constructOrderObject(bagItems);
-
+        console.log('order object', order)
         return this.httpClient.put(orderEndpoint, order).map(apiResponse => {
+
           return apiResponse;
         });
       }
@@ -86,7 +88,8 @@ export class OrderService {
 
       public getNextAvailableTime(){
         return this.httpClient.get(this.config.railsTimeEndpoint + '/1').map(time => {
-          this._promiseDateTime = time;
+          this._promiseDateTime = time.json();
+
           return time.json();
         })
       }
