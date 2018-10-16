@@ -54,15 +54,17 @@
                 </ion-col>
             </ion-row>
         </div>
-
     </ion-list>
+
     <form action="" [formGroup]="timeForm">
-        <ion-label for="pickup-time">Select a time to pickup your order?</ion-label>
+     <ion-label>Select a time to pickup your order?</ion-label>
+      <ion-item no-padding>
         <ion-select large name="pickup-time" id="pickup-time" formControlName="pickup-time" [(ngModel)]="timeSelectBox"
-            (ngModelChange)="timeSelectChanged()" placeholder="--Select--">
+            (ngModelChange)="timeSelectChanged()">
             <ion-option value="next">Next Available</ion-option>
             <ion-option [value]="time?.Time" *ngFor="let time of times">{{ time?.Time | date:"h:mma" }}</ion-option>
         </ion-select>
+      </ion-item>
     </form>
 
     <!-- ADD Location to show next-available time before submission -->
@@ -71,8 +73,7 @@
     </div>
 
     <div class="red-button full-width-button small-text">
-        <div class="loading-gif button-size" *ngIf="processing"></div>
-        <button ion-button block color="red" (click)="putOrder()" [disabled]="!timeForm.valid || !selectedTime" *ngIf="!processing">Proceed
+        <button ion-button block color="red" (click)="putOrder()" [disabled]="!timeForm.valid || !selectedTime">Proceed
             to Checkout</button>
         <div class="required-message" *ngIf="submitAttempted && !selectedTime">
             <p>Please select a pickup time.</p>
