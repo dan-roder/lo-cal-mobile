@@ -1,11 +1,11 @@
 <ion-header no-border>
     <ion-navbar>
-      <button ion-button menuToggle>
-        <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
-      </button>
-      <ion-title>Review Your Order</ion-title>
+        <button ion-button menuToggle>
+            <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
+        </button>
+        <ion-title>Review Your Order</ion-title>
     </ion-navbar>
-  </ion-header>
+</ion-header>
 
 <ion-content padding>
     <ion-list class="bag-items" no-margin *ngIf="itemsInBag.length">
@@ -54,5 +54,31 @@
                 </ion-col>
             </ion-row>
         </div>
+
     </ion-list>
+    <form action="" [formGroup]="timeForm">
+        <ion-label for="pickup-time">Select a time to pickup your order?</ion-label>
+        <ion-select large name="pickup-time" id="pickup-time" formControlName="pickup-time" [(ngModel)]="timeSelectBox"
+            (ngModelChange)="timeSelectChanged()" placeholder="--Select--">
+            <ion-option value="next">Next Available</ion-option>
+            <ion-option [value]="time?.Time" *ngFor="let time of times">{{ time?.Time | date:"h:mma" }}</ion-option>
+        </ion-select>
+    </form>
+
+    <!-- ADD Location to show next-available time before submission -->
+    <div class="next-available-time" *ngIf="selectedTime">
+        <p><strong>Pickup at: </strong>{{ selectedTime | date:"EEE MMM dd, h:mma" }}</p>
+    </div>
+
+    <div class="red-button full-width-button small-text">
+        <div class="loading-gif button-size" *ngIf="processing"></div>
+        <button ion-button block color="red" (click)="putOrder()" [disabled]="!timeForm.valid || !selectedTime" *ngIf="!processing">Proceed
+            to Checkout</button>
+        <div class="required-message" *ngIf="submitAttempted && !selectedTime">
+            <p>Please select a pickup time.</p>
+        </div>
+    </div>
+    <div class="location-details" [innerHtml]="addressData?.content?.rendered | safeHtml">
+
+    </div>
 </ion-content>
