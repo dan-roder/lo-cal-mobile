@@ -4,6 +4,8 @@ import { IonicPage, NavController, NavParams, ToastController, LoadingController
 import { LoCalApiProvider } from '../../providers/lo-cal-api/lo-cal-api';
 import { TabsComponent } from '../tabs/tabs'
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import {CustomerProvider} from '../../providers/customer/customer';
+import { Storage } from "@ionic/storage";
 
 @AutoUnsubscribe()
 
@@ -31,7 +33,9 @@ export class LoginPage {
         private localApi:          LoCalApiProvider,
         private loadingController: LoadingController,
         private toastController:   ToastController,
-        private fb:                FormBuilder
+        private fb:                FormBuilder,
+        private customer:          CustomerProvider,
+        private storage:           Storage
 
     ) {
 
@@ -69,10 +73,17 @@ export class LoginPage {
 
                 loader.dismiss();
 
-                // this.navCtrl.push(TabsComponent)
-                // this.navCtrl.popToRoot();
-                this.navCtrl.setRoot(TabsComponent);
-                console.log( response );
+                let customerId = response.json();
+
+                this.customer.getCustomerInfo(customerId).subscribe(customerInfo => {
+
+                    let customerInfoJson = customerInfo.json();
+
+                    this.storage.set('user', customerInfoJson).then(() => {
+                          this.navCtrl.setRoot(TabsComponent);
+                    })
+                })
+
 
             }, error => {
 
