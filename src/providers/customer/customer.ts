@@ -29,7 +29,7 @@ export class CustomerProvider {
 
             if ( customerFromLocalStorage ) {
 
-                // this.customer = customerFromLocalStorage;
+                this.customer = customerFromLocalStorage;
                 this.customerObserver.next( customerFromLocalStorage );
             }
 
@@ -124,11 +124,15 @@ export class CustomerProvider {
         this.customerObserver.next( customerId);
 
     }
+
+
+
     public getSecurityQuestion(email: string): Observable<any>{
         return this.http.get(this.config.railsCustomerEndpoint + `/securityquestions?Email=${email}`).map((question) => {
           return question;
         })
       }
+
       public forcePasswordReset(email: any): Observable<any>{
         return this.http.post(this.config.railsCustomerEndpoint + `/passwordreset/email`, email).map((result) => {
           return result;
@@ -147,10 +151,10 @@ export class CustomerProvider {
         })
       }
 
-  public logOut(){
+      public logOut() {
 
-    this.storage.remove('user')
-    this.storage.remove('customerid')
+        this.storage.remove('user')
+        this.storage.remove('customerid')
 
-  }
+      }
 }
