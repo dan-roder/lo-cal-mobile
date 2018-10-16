@@ -141,4 +141,16 @@ export class CustomerProvider {
         })
       }
 
+      public getCustomerInfo(customerId: string): Observable<any>{
+        return this.http.get(this.config.railsCustomerEndpoint + `/${customerId}`).map(userData => {
+          return userData;
+        })
+      }
+
+  public logOut(){
+
+    this.storage.remove('user')
+    this.storage.remove('customerid')
+
+  }
 }
