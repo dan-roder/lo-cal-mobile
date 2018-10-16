@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, LoadingController } from 'ionic-angular';
 import { CustomerProvider } from '../providers/customer/customer';
 import { LoCalApiProvider } from '../providers/lo-cal-api/lo-cal-api';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -24,7 +24,8 @@ export class MyApp {
         public  statusBar    : StatusBar,
         public  splashScreen : SplashScreen,
         private customer     : CustomerProvider,
-        private localApi        : LoCalApiProvider
+        private localApi        : LoCalApiProvider,
+        public  loadingController : LoadingController
 
     ){
         console.log( process.env );
@@ -70,7 +71,7 @@ export class MyApp {
 
             this.customerObserver = this.customer.customerId.subscribe( ( customer ) => {
 
-                console.log( customer );
+                // console.log( 'her her', customer );
                 if ( customer ) {
 
                     this.currentCustomer = customer;
@@ -111,7 +112,10 @@ export class MyApp {
     }
     logout() {
 
-        this.localApi.logout();
+        this.customer.logOut()
+        this.currentCustomer = null;
+
+        this.nav.setRoot('TabsComponent')
 
     }
 }
