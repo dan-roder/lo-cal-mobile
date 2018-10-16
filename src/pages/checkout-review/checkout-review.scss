@@ -4,4 +4,7 @@ page-checkout-review {
             background: map-get($colors, light);
         }
     }
+    .required-message {
+        color: red;
+    }
 }
