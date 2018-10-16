@@ -5,6 +5,8 @@ import { MyApp } from './app.component';
 
 import { MODULES, PROVIDERS, DIRECTIVES } from './app.imports';
 
+import { LOCALE_ID } from '@angular/core';
+
 
 @NgModule({
     declarations: [
@@ -25,7 +27,7 @@ import { MODULES, PROVIDERS, DIRECTIVES } from './app.imports';
     ],
     providers: [
         PROVIDERS,
-        { provide: ErrorHandler, useClass: IonicErrorHandler },
+        { provide: ErrorHandler, useClass: IonicErrorHandler }
     ]
 })
 export class AppModule { }
