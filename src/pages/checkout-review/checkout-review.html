@@ -71,14 +71,28 @@
           <ion-input type="text" formControlName="guest-email"></ion-input>
         </ion-item>
         <ion-row>
-                <ion-col no-padding>
+                <ion-col no-padding class="spacing">
                     <button type="submit" ion-button block no-border [disabled]="!guestCheckoutForm.valid" color="red" class="login-button">
-                        Log In As Guest
+                        Continue As Guest
                     </button>
                 </ion-col>
+                <ion-col no-padding>
+                        <button ion-button block no-border color="red" class="login-button" [navPush]="'LoginPage'">
+                            Go To Log In
+                        </button>
+                    </ion-col>
             </ion-row>
+
       </ion-list>
     </form>
+
+    <ion-row *ngIf="!hideReEnterDetails">
+            <ion-col no-padding>
+                <button ion-button block no-border color="red" class="login-button" (tap)="reEnterDetails()">
+                    Re-enter Details
+                </button>
+            </ion-col>
+        </ion-row>
 
     <form action="" [formGroup]="timeForm">
      <ion-label>Select a time to pickup your order?</ion-label>
@@ -97,7 +111,7 @@
     </div>
 
     <div class="red-button full-width-button small-text">
-        <button ion-button block color="red" (click)="putOrder()" [disabled]="!timeForm.valid || !selectedTime || !userLoggedIn">Proceed
+        <button ion-button block color="red" (click)="putOrder()" [disabled]="!timeForm.valid || !selectedTime || !userLoggedIn || !hideGuestForm">Proceed
             to Checkout</button>
         <div class="required-message" *ngIf="submitAttempted && !selectedTime">
             <p>Please select a pickup time.</p>
