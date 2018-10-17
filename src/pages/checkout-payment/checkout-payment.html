@@ -1,19 +1,115 @@
 <ion-header no-border>
-        <ion-navbar>
-            <button ion-button menuToggle>
-                <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
-            </button>
-            <ion-title>Payment</ion-title>
-        </ion-navbar>
-    </ion-header>
-
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
+        </button>
+        <ion-title>Payment</ion-title>
+    </ion-navbar>
+</ion-header>
 
 <ion-content padding>
-    <h1>Complete Your Order</h1>
-    <ion-item padding>
-        <h1>1. Pickup</h1>
-        <div class="step-wrapper" [hidden]="sectionOpen !== 1">
+    <ion-title>
+        <h1>Complete Your Order</h1>
+    </ion-title>
+    <ion-card>
+        <ion-card-content>
 
-        </div>
-    </ion-item>
+            <ion-item (tap)="editSection(1, $event.type)">
+                <h1>1. Pickup</h1>
+            </ion-item>
+
+            <div class="step-wrapper" [hidden]="sectionOpen !== 1">
+                <form action="" [formGroup]="pickupForm">
+
+                    <ion-row radio-group formControlName="pickup-selection">
+                        <ion-item>
+                            <ion-label for="in-store">In Store Pickup</ion-label>
+                            <ion-radio name="in-store" id="in-store" value="1"></ion-radio>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label for="curbside">Curbside Pickup</ion-label>
+                            <ion-radio name="curbside" id="curbside" value="4"></ion-radio>
+                        </ion-item>
+                    </ion-row>
+
+                    <ion-row *ngIf="pickupForm.controls['pickup-selection'].value === '4'">
+
+                        <ion-item>
+                            <ion-label for="vehicle-make" floating>Vehicle Make</ion-label>
+                            <ion-input name="vehicle-make" id="vehicle-make" formControlName="vehicle-make" type="text"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label for="vehicle-model" floating>Vehicle Model</ion-label>
+                            <ion-input name="vehicle-model" id="vehicle-model" formControlName="vehicle-model" type="text"></ion-input>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label for="vehicle-color" floating>Vehicle Color</ion-label>
+                            <ion-input name="vehicle-color" id="vehicle-color" formControlName="vehicle-color" type="text"></ion-input>
+                        </ion-item>
+
+                    </ion-row>
+                    <ion-item>
+                    <button [disabled]="!pickupForm.valid" (tap)="nextStep()" ion-button color="black">Next Step</button>
+                </ion-item>
+                </form>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-content>
+            <ion-item (tap)="editSection(2, $event.type)">
+                <h1>2. Contact Information</h1>
+            </ion-item>
+            <div class="step-wrapper" [hidden]="sectionOpen !== 2">
+                <form action="" [formGroup]="contactInfoForm">
+                    <ion-row>
+                        <ion-item>
+                            <ion-label floating>First Name*</ion-label>
+                            <ion-input type="text" name="first-name" formControlName="first-name"></ion-input>
+                        </ion-item>
+                        <div class="form-control-feedback" *ngIf="!contactInfoForm.controls['first-name'].valid && contactInfoForm.controls['first-name'].dirty">
+                            This field is required.</div>
+                        <ion-item>
+                            <ion-label floating>Last Name*</ion-label>
+                            <ion-input type="text" name="last-name" formControlName="last-name"></ion-input>
+                        </ion-item>
+                        <div class="form-control-feedback" *ngIf="!contactInfoForm.controls['last-name'].valid && contactInfoForm.controls['last-name'].dirty">
+                            This field is required.</div>
+                        <ion-item>
+                            <ion-label floating>Email*</ion-label>
+                            <ion-input type="text" name="email" formControlName="email"></ion-input>
+                        </ion-item>
+                        <div class="form-control-feedback" *ngIf="!contactInfoForm.controls['email'].valid && contactInfoForm.controls['email'].dirty">
+                            Please enter valid email address.</div>
+                        <ion-item>
+                            <ion-label floating>Phone</ion-label>
+                            <ion-input type="text" phone name="phone" formControlName="phone"></ion-input>
+                        </ion-item>
+                        <!-- <div class="form-control-feedback" *ngIf="!contactInfoForm.controls['phone'].valid && contactInfoForm.controls['phone'].dirty">
+                                Please enter a valid telephone number.</div> -->
+                    </ion-row>
+                    <ion-item>
+                        <button [disabled]="!contactInfoForm.valid" (tap)="nextStep()" ion-button color="black">Next Step</button>
+                    </ion-item>
+                </form>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+            <ion-card-content>
+                <ion-item (tap)="editSection(3, $event.type)">
+                    <h1>3. Payment Information</h1>
+                </ion-item>
+                <div class="step-wrapper" [hidden]="sectionOpen !== 3">
+                <h1>test</h1>
+                <form action="">
+
+                </form>
+            </div>
+    </ion-card-content>
+    </ion-card>
+
 </ion-content>
