@@ -153,7 +153,7 @@ export class CustomerProvider {
 
       public logOut() {
 
-        let itemsToRemove = ['user', 'customerid', 'bag', 'order']
+        let itemsToRemove = ['user', 'customerid', 'order']
 
         itemsToRemove.forEach(element => {
             this.storage.remove(element)
