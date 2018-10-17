@@ -56,6 +56,30 @@
         </div>
     </ion-list>
 
+    <form (ngSubmit)="checkoutAsGuest()" [formGroup]="guestCheckoutForm" *ngIf="!hideGuestForm">
+      <ion-list>
+        <ion-item no-padding>
+          <ion-label floating >Guest First Name</ion-label>
+          <ion-input type="text" formControlName="guest-first-name"></ion-input>
+        </ion-item>
+        <ion-item no-padding>
+          <ion-label floating >Guest Last Name</ion-label>
+          <ion-input type="text" formControlName="guest-last-name"></ion-input>
+        </ion-item>
+        <ion-item no-padding>
+          <ion-label floating >Guest Email</ion-label>
+          <ion-input type="text" formControlName="guest-email"></ion-input>
+        </ion-item>
+        <ion-row>
+                <ion-col no-padding>
+                    <button type="submit" ion-button block no-border [disabled]="!guestCheckoutForm.valid" color="red" class="login-button">
+                        Log In As Guest
+                    </button>
+                </ion-col>
+            </ion-row>
+      </ion-list>
+    </form>
+
     <form action="" [formGroup]="timeForm">
      <ion-label>Select a time to pickup your order?</ion-label>
       <ion-item no-padding>
@@ -73,7 +97,7 @@
     </div>
 
     <div class="red-button full-width-button small-text">
-        <button ion-button block color="red" (click)="putOrder()" [disabled]="!timeForm.valid || !selectedTime">Proceed
+        <button ion-button block color="red" (click)="putOrder()" [disabled]="!timeForm.valid || !selectedTime || !userLoggedIn">Proceed
             to Checkout</button>
         <div class="required-message" *ngIf="submitAttempted && !selectedTime">
             <p>Please select a pickup time.</p>
