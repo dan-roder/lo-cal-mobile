@@ -54,6 +54,7 @@ export class CheckoutReviewPage {
     public submitAttempted : boolean = false;
     public hideGuestForm   : boolean = false;
     public userLoggedIn    : boolean = false;
+    public hideReEnterDetails: boolean = true;
 
   constructor(
 
@@ -82,6 +83,8 @@ export class CheckoutReviewPage {
 
     if(!this.navParams.get('guest')) {
         this.hideGuestForm = true;
+        this.hideReEnterDetails = true;
+        console.log(this.hideGuestForm, this.hideReEnterDetails)
     }
     // let loader = this.loadingController.create({ content: "Loading" });
 
@@ -127,6 +130,7 @@ export class CheckoutReviewPage {
                 this.userLoggedIn = true;
                 loader.dismiss();
           });
+          this.hideReEnterDetails = false;
         }
       }
     getCustomer() {
@@ -184,7 +188,10 @@ export class CheckoutReviewPage {
         });
         alert.present();
     }
-
+    reEnterDetails() {
+        this.hideReEnterDetails = true;
+        this.hideGuestForm = false;
+    }
     public putOrder() {
         // Ensure time was selected
         if (!this.selectedTime) {
