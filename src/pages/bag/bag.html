@@ -102,7 +102,7 @@
     <ion-toolbar color="light" no-padding>
         <div class="bottom-buttons-wrap">
             <div class="checkout-button-wrap" *ngIf="itemsInBag.length">
-                <button ion-button block color="red" class="order-now" no-padding (tap)="checkout()">
+                <button ion-button block color="red" class="order-now" no-padding (tap)="checkout(true)">
                     Checkout as Guest
                 </button>
             </div>
@@ -123,7 +123,7 @@
 <ion-footer no-border *ngIf="isLoggedIn">
     <ion-toolbar color="light" no-padding>
         <div class="checkout-button-wrap" *ngIf="itemsInBag.length">
-            <button ion-button block color="red" class="order-now" no-padding (tap)="checkout()">
+            <button ion-button block color="red" class="order-now" no-padding (tap)="checkout(false)">
                 Checkout
             </button>
         </div>
