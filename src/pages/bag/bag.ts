@@ -104,8 +104,13 @@ export class BagPage {
         this.navCtrl.push("MenuItemPage", { menuItem: item });
     }
 
-    checkout() {
+    checkout(isGuest) {
         // console.log(this.bag.itemsInBag);
-        this.navCtrl.push("CheckoutReviewPage");
+        console.log(isGuest)
+        if(isGuest) {
+          this.navCtrl.push("CheckoutReviewPage", {guest: true});
+        } else {
+          this.navCtrl.push("CheckoutReviewPage");
+        }
     }
 }
