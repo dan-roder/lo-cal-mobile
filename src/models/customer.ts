@@ -1,4 +1,4 @@
-export interface Customer {
+export interface Customer{
     CustomerId?: string; //  (Guid , optional) : Nullable The unique identifier for a customer. PUT - CustomerId will be ignored ,
     EMail: string; //  (integer , Required) : The customer's email address ,
     FirstName: string; //  (integer , Required) : The customer's first name ,
@@ -12,15 +12,16 @@ export interface Customer {
     FavoriteSiteId?: number; //  (integer , optional) : The site id that the customer likes the most ,
     LoyaltyCardNumber?: string; //  (string , optional) : The customer's loyalty number ,
     SecondaryEmailAddress?: string; //  (string , optional) : The customer's second email address ,
-    Addresses: Array<CustomerAddress>; // (array[CustomerAddress] Required) : A collection of addresses for this customer ,
+    Addresses?: Array<CustomerAddress>; // (array[CustomerAddress] Required) : A collection of addresses for this customer ,
     Birthday?: string; //  (string , optional) : Get or set the Birthday property ,
     LoyaltyZipCode?: string; //  (string , optional) : Get or set the LoyaltyZipCode property ,
     FacebookId?: number; //  (integer , optional) : Get or sets facebookid property
-}
+    IsGuest?: boolean;
+  }
 
-export interface CustomerAddress {
+  export interface CustomerAddress{
     AddressId?: number; //  (integer , optional) : Nullable The Id of the address ,
-    AddressType?: string; // (enum , optional) = ['Billing' or 'NonBilling'] : Nullable Get or set the AddressType property ,
+    AddressType?: number; // (enum , optional) = ['Billing' or 'NonBilling'] : Nullable Get or set the AddressType property ,
     IsDefault?: boolean; // (boolean , optional) : True if this is the default address for a customer ,
     Description?: string; //  (string , optional) : A descriptive name for the address (e.g. Home, Office, Girl Friends House) ,
     DepartmentName?: string; //  (string , optional) : The department name if the address is a business ,
@@ -30,35 +31,35 @@ export interface CustomerAddress {
     State: string; // (string Max length: 3 Min length: 2, optional) : Required for adresss validation The customer's state of residence ,
     Postal: string; //  (string , optional) : Required for adresss validation The customer's postal code of residence ,
     ExtraData?: Array<any>; // (array[KeyValuePair[String,String]] , optional) : Extra address data valid for company culture
-}
+  }
 
-export interface InRegistration {
+  export interface InRegistration{
     Customer: Customer;
     Password: string;
     SecurityQuestion: string;
     SecurityAnswer: string;
-}
+  }
 
-export interface InLogin {
+  export interface InLogin{
+    Email : string;
+    Password : string;
+  }
+
+  export interface InLoginUpdate{
     Email: string;
-    Password: string;
-}
+    OldPassword: string;
+    NewPassword?: string;
+    NewSecurityQuestion?: string;
+    NewAnswer?: string;
+  }
 
-export interface InLoginUpdate {
-    Email: string; // (string Required) ,
-    OldPassword: string; // (string Required) ,
-    NewPassword: string; // (string , optional) ,
-    NewSecurityQuestion?: string; // (string , optional) ,
-    NewAnswer?: string; // (string , optional)
-}
-
-export interface InPasswordReset{
+  export interface InPasswordReset{
     Email: string;
     SecurityAnswer: string;
     NewPassword: string;
   }
 
-export interface InPasswordEmailReset{
+  export interface InPasswordEmailReset{
     Email: string;
     SecurityAnswer: string;
   }
