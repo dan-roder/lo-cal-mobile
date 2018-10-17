@@ -114,7 +114,7 @@ export class BurgersPage implements OnInit {
 
     addItem( item ) {
 
-        console.log( item );
+        // console.log( item );
         this.app.getRootNavs()[0].push( 'MenuItemPage', { menuItem: item }, { animate: true } );
 
     }
@@ -141,11 +141,11 @@ export class BurgersPage implements OnInit {
     }
     private registerCustomizationVariables( allModifiers, defaultOptions: Array<DefaultOptions> = [] ) {
 
-        console.log( defaultOptions );
+        // console.log( defaultOptions );
         let tempObj      = {};
         // let defaultArray = [];
         allModifiers.forEach( modifierGroup => {
-            console.log( modifierGroup );
+            // console.log( modifierGroup );
             let modObject = {};
             modObject['maximumItems'] = modifierGroup.MaximumItems;
             modObject['minimumItems'] = modifierGroup.MinimumItems;
@@ -154,16 +154,16 @@ export class BurgersPage implements OnInit {
             modObject['groupDetails'] = {};
             modifierGroup.Mods.forEach( mod => {
 
-                console.log( defaultOptions, mod );
+                // console.log( defaultOptions, mod );
                 modObject['groupDetails'] = modifierGroup;
                 modObject['modifiers'][mod.$id] = {};
-                console.log(defaultOptions);
+                // console.log(defaultOptions);
                 let isModDefault = defaultOptions.find( option => {
-                    console.log( option.ModifierId, mod.ModifierId);
+                    // console.log( option.ModifierId, mod.ModifierId);
                     return option['ModifierId'] === mod.ModifierId;
 
                 });
-                console.log( isModDefault );
+                // console.log( isModDefault );
                 if ( isModDefault ) {
 
                     modObject['modifiers'][mod.$id]['quantity'] = isModDefault.DefaultQuantity;
@@ -224,7 +224,7 @@ export class BurgersPage implements OnInit {
 
     addToBag( item ) {
 
-        console.log('quick add', item);
+        // console.log('quick add', item);
         let searchName = item.DisplayName.replace(/[^A-Z0-9]+/ig, "-").toLowerCase()
 
         // make call to wordpress api using formatted slug to get item images
@@ -236,10 +236,10 @@ export class BurgersPage implements OnInit {
                 this.cartImage = (item[0].acf !== undefined && item[0].acf.cart_image !== undefined) ? item[0].acf.cart_image.url : '//via.placeholder.com/160x240';
 
             }
-            console.log(this.cartImage)
+            // console.log(this.cartImage)
 
         })
-        console.log('hey item', item)
+        // console.log('hey item', item)
 
         this.menuItemObserver = this.menu.getMenuItem( item.MenuItemId )
             .subscribe( data => {
@@ -263,7 +263,7 @@ export class BurgersPage implements OnInit {
                 menuItem['UnitPrice']  = salesItems.Price;
                 menuItem['CartImage'] = this.cartImage;
                 menuItem['caloricValue'] = (item.CaloricServingUnit === null) ? 0 : parseInt(item.CaloricServingUnit, 10);;
-                console.log( 'quick add menu item', menuItem );
+                // console.log( 'quick add menu item', menuItem );
 
                 // let message = `${ menuItem['DisplayName'] } has been added to you your bag.`
                 // Push full object to bag service
