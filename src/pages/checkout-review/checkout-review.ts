@@ -192,6 +192,9 @@ export class CheckoutReviewPage {
         this.hideReEnterDetails = true;
         this.hideGuestForm = false;
     }
+    backToMenu() {
+        this.navCtrl.popToRoot();
+    }
     public putOrder() {
         // Ensure time was selected
         if (!this.selectedTime) {
