@@ -26,7 +26,6 @@ import { BagProvider } from "../../providers/bag/bag";
 import { CustomerProvider } from "../../providers/customer/customer";
 import { WordPressProvider } from './../../providers/word-press/word-press';
 import { OrderService } from './../../providers/order/order-provider';
-import { userInfo } from 'os';
 
 @AutoUnsubscribe()
 
@@ -204,6 +203,8 @@ export class CheckoutReviewPage {
 
         this.processing = true;
 
+        let loader = this.loadingController.create({ content: "Processing Order" });
+        loader.present()
 
         this.orderService.putOrder(this.itemsInBag).subscribe(response => {
             console.log('here response', response.json())
@@ -213,10 +214,11 @@ export class CheckoutReviewPage {
                 this.orderService.saveOrderToLocalStorage(jsonResponse).then(result => {
                   if(result){
                     // this.router.navigate(['/checkout/payment']);
-                    console.log('go to payment page')
+                    this.navCtrl.push('CheckoutPaymentPage')
+                    loader.dismiss()
                   }
                 });
-                console.log('TRUEEE')
+
               }
               else{
                 this.processing = false;
