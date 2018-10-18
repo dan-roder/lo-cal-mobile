@@ -19,12 +19,12 @@ import { Storage } from "@ionic/storage";
 })
 export class LoginPage {
 
-    loading:   boolean;
-    loginForm: FormGroup;
-    email:     AbstractControl;
-    password:  AbstractControl;
-    error:     any;
-    page: any;
+        public loading:   boolean;
+        public loginForm: FormGroup;
+        public email:     AbstractControl;
+        private password:  AbstractControl;
+        public error:     any;
+        public page: any;
 
     constructor(
 
@@ -46,7 +46,6 @@ export class LoginPage {
 
         this.email = this.loginForm.controls['email'];
         this.password = this.loginForm.controls['password'];
-
     }
 
     ionViewDidLoad() {
@@ -58,7 +57,7 @@ export class LoginPage {
         // You can also do whatever you need here
     }
 
-    login() {
+    public login() {
 
         let loader = this.loadingController.create({
             content: "Please Wait"

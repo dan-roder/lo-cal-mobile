@@ -29,11 +29,11 @@ export class PasswordResetPage {
     public processing: boolean = false;
     public securityQuestionError: string = '';
     public forcePasswordError: string = '';
-    email        : AbstractControl;
-    securityAnswer : AbstractControl;
-    password : AbstractControl;
-    confirmPassword : AbstractControl;
-    forceEmail    : AbstractControl;
+    public email        : AbstractControl;
+    public securityAnswer : AbstractControl;
+    public password : AbstractControl;
+    public confirmPassword : AbstractControl;
+    public forceEmail    : AbstractControl;
 
     constructor(
 
@@ -42,44 +42,43 @@ export class PasswordResetPage {
         private fb: FormBuilder,
         private customerService: CustomerProvider
 
-    ) {
+    ) { }
 
-    }
-    ngOnInit() {
-        this.passwordResetForm = this.fb.group({
-            'email' : ['', Validators.compose([Validators.required, Validators.pattern(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)])],
-            'securityAnswer' : [null, Validators.required],
-            'password' : ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)])],
-            'confirmPassword' : ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)])]
-          }, {
-            validator : this.checkPasswords
-          });
+  ngOnInit() {
 
-          this.forcePasswordResetForm = this.fb.group({
-            'forceEmail' : [null, Validators.compose([Validators.required, Validators.pattern(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)])]
-          });
+    this.passwordResetForm = this.fb.group({
+        'email' : ['', Validators.compose([Validators.required, Validators.pattern(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)])],
+        'securityAnswer' : [null, Validators.required],
+        'password' : ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)])],
+        'confirmPassword' : ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)])]
+    }, {
+      validator : this.checkPasswords
+    });
 
-          this.email     = this.passwordResetForm.controls['email'];
-          this.securityAnswer = this.passwordResetForm.controls['securityAnswer'];
-          this.password = this.passwordResetForm.controls['password'];
-          this.confirmPassword = this.passwordResetForm.controls['confirmPassword'];
-          this.forceEmail = this.forcePasswordResetForm.controls['forceEmail'];
-    }
+    this.forcePasswordResetForm = this.fb.group({
+      'forceEmail' : [null, Validators.compose([Validators.required, Validators.pattern(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)])]
+    });
+
+    this.email     = this.passwordResetForm.controls['email'];
+    this.securityAnswer = this.passwordResetForm.controls['securityAnswer'];
+    this.password = this.passwordResetForm.controls['password'];
+    this.confirmPassword = this.passwordResetForm.controls['confirmPassword'];
+    this.forceEmail = this.forcePasswordResetForm.controls['forceEmail'];
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad PasswordResetPage');
-    console.log(this.passwordResetForm.controls['email'].valid)
-
   }
+
   // must be present with auto-unsubscribe even if empty
   ngOnDestroy() {
     // You can also do whatever you need here
   }
 
-  checkPasswords( group: FormGroup ) {
+  private checkPasswords( group: FormGroup ) {
 
     let pass = group.get('password').value
     let confirm = group.get('confirmPassword').value
-    console.log(group)
+
     if (group.controls.password.invalid) {
 
         // display helper message if password does not meet criteria
@@ -90,17 +89,16 @@ export class PasswordResetPage {
         // compare password with confirmation, display message if no match
         return { notSame : true }
     }
+  }
 
+  public retrieveSecurityQuestion(email){
 
-}
-public retrieveSecurityQuestion(email){
     // Start spinner
     this.processing = true;
     this.securityQuestionError = '';
 
     // Call API to get security question for user's email
     this.customerService.getSecurityQuestion(email).subscribe(question => {
-        console.log(question._body)
       this.processing = false;
       this.foundSecurityQuestion = true;
       this.securityQuestion = question._body;
@@ -138,6 +136,7 @@ public retrieveSecurityQuestion(email){
   }
 
   public forcePasswordReset(formData){
+
     this.forceProcessing = true;
     this.forcePasswordError = '';
 

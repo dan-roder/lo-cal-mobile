@@ -15,12 +15,14 @@ import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
     // providers: [MenuProvider]
 })
 export class MenuComponent {
-    activePage: any;
-    categories: any;
-    rootNavCtrl: NavController;
-    menu_images;
+
+    public activePage: any;
+    public categories: any;
+    public rootNavCtrl: NavController;
+    public menu_images;
 
     constructor(
+
         public  navCtrl       : NavController,
         public  navParams     : NavParams,
         public  storage       : Storage,
@@ -32,43 +34,37 @@ export class MenuComponent {
 
     ngOnInit() {
         this.categories = this.navParams.get('menu');
-        // console.log(this.categories);
         this.wp.retrieveMenuImages().subscribe( res => {
-            // console.log( res );
             this.menu_images = res;
         });
     }
 
-    ionViewDidLoad() {
-
-    }
     // must be present with auto-unsubscribe even if empty
     ngOnDestroy() {
         // You can also do whatever you need here
     }
-    retrieveMenuImages(submenuId) {
+
+    public retrieveMenuImages(submenuId) {
 
         const imageUrl = this.menu_images.find( image => {
 
             return parseInt(image.acf.submenuid) === parseInt(submenuId);
         });
-        // console.log( imageUrl.acf.category_image.url );
         return imageUrl.acf.category_image.url;
     }
 
-    checkActivePage(page): boolean {
-        
+    public checkActivePage(page): boolean {
+
         return page === this.activePage;
     }
 
-    pushPage(index) {
+    public pushPage(index) {
         // adjust for menu
         index = index + 1;
         this.superTabsCtrl.slideTo(index);
     }
 
-    openMenuItem() {
-        console.log("OPENING MENU ITEM");
+    public openMenuItem() {
         this.app.getRootNavs()[0].push("MenuItemPage");
     }
 }

@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
-
 import { Observable } from 'rxjs/Observable';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Config } from '../../app/app.config';
-
 import { LineItem } from '../../models/LineItem';
-import { RailsInSubmitOrder } from '../../models/Payment';
+// import { RailsInSubmitOrder } from '../../models/Payment';
 import { RailsOrder, Order, OrderResults } from '../../models/Order';
 import { CustomerProvider } from './../customer/customer';
 import { Customer } from '../../models/Customer';
-
 import * as _ from 'lodash';
 
 @AutoUnsubscribe()
@@ -32,12 +29,11 @@ export class OrderService {
       ) { }
 
       public putOrder(bagItems: Array<LineItem>): Observable<any>{
-          console.log('yooo', bagItems)
+
         let orderEndpoint = this.config.railsOrderEndpoint + '/' + this.config.siteId;
         let order = this.constructOrderObject(bagItems);
-        console.log('order object', order)
-        return this.httpClient.put(orderEndpoint, order).map(apiResponse => {
 
+        return this.httpClient.put(orderEndpoint, order).map(apiResponse => {
           return apiResponse;
         });
       }
@@ -60,7 +56,6 @@ export class OrderService {
             PaymentMode : 'Unknown'
           }
         }
-
         return order;
       }
 

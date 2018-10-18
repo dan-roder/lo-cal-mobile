@@ -52,25 +52,22 @@ export class CustomerProvider {
 
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
+
         const options = {
-
             headers : headers
-
         };
+
         const url = `${this.config.localApi}/customers`;
         let request = JSON.stringify({
 
             customer_info : customer
 
         });
-        console.log( request );
         return this.http.put( url, request, options )
             .map( res => {
 
-                console.log( res );
                 if ( res.ok ) {
 
-                    console.log( res.json() );
                     let customer = res.json();
 
                     if(customer.Errors && customer.Errors[0].ErrorCode === 163) {
@@ -96,7 +93,6 @@ export class CustomerProvider {
 
     save( customer ) {
 
-        console.log(customer );
         let customerId = customer.CustomerId;
         this.storage.set( 'customerid', customerId ).then( () => {
 
@@ -109,23 +105,16 @@ export class CustomerProvider {
             console.log(error);
 
         });
-
     }
 
     get currentCustomer() {
-
         return this.customer;
-
     }
 
     set currentCustomer( customerId ) {
-
         this.customer = customerId;
         this.customerObserver.next( customerId);
-
     }
-
-
 
     public getSecurityQuestion(email: string): Observable<any>{
         return this.http.get(this.config.railsCustomerEndpoint + `/securityquestions?Email=${email}`).map((question) => {

@@ -1,19 +1,8 @@
 import { Component } from '@angular/core';
 
-import {
-    NavController,
-    NavParams,
-    IonicPage,
-    LoadingController,
-    AlertController
-} from 'ionic-angular';
+import { NavController, NavParams, IonicPage, LoadingController, AlertController } from 'ionic-angular';
 
-import {
-    FormBuilder,
-    Validators,
-    FormGroup,
-    AbstractControl
-} from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 
 import{ Customer } from "../../models/customer"
 import { LineItem } from "../../models/LineItem";
@@ -23,7 +12,7 @@ import { Storage } from "@ionic/storage";
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 
 import { BagProvider } from "../../providers/bag/bag";
-import { CustomerProvider } from "../../providers/customer/customer";
+// import { CustomerProvider } from "../../providers/customer/customer";
 import { WordPressProvider } from './../../providers/word-press/word-press';
 import { OrderService } from './../../providers/order/order-provider';
 
@@ -81,14 +70,13 @@ export class CheckoutReviewPage {
 
 
     if(!this.navParams.get('guest')) {
+
         this.hideGuestForm = true;
         this.hideReEnterDetails = true;
-        console.log(this.hideGuestForm, this.hideReEnterDetails)
     }
     // let loader = this.loadingController.create({ content: "Loading" });
 
     // loader.present()
-
 
     // loader.dismiss();
     }
@@ -153,7 +141,6 @@ export class CheckoutReviewPage {
         }
     }
     ionViewDidLoad() {
-
         console.log('ionViewDidLoad CheckoutReviewPage');
     }
 
@@ -163,7 +150,7 @@ export class CheckoutReviewPage {
     }
 
     removeItem(item, index) {
-        console.log("Item Removed");
+        // console.log("Item Removed");
         let alert = this.alertCtrl.create({
             title: "Confirm",
             message: "Are you sure you want to remove this item from your bag?",
@@ -207,7 +194,7 @@ export class CheckoutReviewPage {
         loader.present()
 
         this.orderService.putOrder(this.itemsInBag).subscribe(response => {
-            console.log('here response', response.json())
+
             let jsonResponse = response.json()
               if(jsonResponse.ResultCode === 0 || jsonResponse.ResultCode === 4){
                 // Save to LocalStorage and route to checkout
@@ -243,9 +230,7 @@ export class CheckoutReviewPage {
 
     private getNextAvailableTime() {
         this.orderService.getNextAvailableTime().subscribe(nextTime => {
-
             this.selectedTime = nextTime;
-
         })
     }
 
@@ -261,5 +246,4 @@ export class CheckoutReviewPage {
                 break;
         }
     }
-
 }
