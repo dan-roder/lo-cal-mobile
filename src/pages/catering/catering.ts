@@ -16,14 +16,14 @@ import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 })
 export class CateringPage implements OnInit {
 
-    page: any;
-    cateringForm : FormGroup;
-    pageContent : IPost;
-    acf : any;
-    featuredImage : any;
-    submittedOnce : boolean = false;
-    loadingImage  : string;
-    mapImage      : string;
+    public page: any;
+    public cateringForm : FormGroup;
+    public pageContent : IPost;
+    public acf : any;
+    public featuredImage : any;
+    public submittedOnce : boolean = false;
+    public loadingImage  : string;
+    public mapImage      : string;
 
     constructor(
 
@@ -48,7 +48,6 @@ export class CateringPage implements OnInit {
 
     getCateringPage() {
         let loader = this.loadingController.create({ content: "Loading" });
-
         loader.present()
 
         this.wordpressService.getCustomPostTypeById('landing_page', 126).subscribe(page => {
@@ -61,11 +60,9 @@ export class CateringPage implements OnInit {
                 this.wordpressService.getMedia(page.featured_media).subscribe(media => {
 
                     this.featuredImage = media.source_url
-                    console.log('hey media', this.acf)
                 });
             }
             loader.dismiss();
         })
     }
-
 }

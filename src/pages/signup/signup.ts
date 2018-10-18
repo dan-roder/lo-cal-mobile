@@ -14,31 +14,31 @@ import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 })
 export class SignupPage implements OnInit {
 
-    customerSubscription;
-    custInfoComp : boolean = false;
-    addressComp  : boolean = false;
-    passwordComp : boolean = false;
-    accountExists : boolean = false;
-    accountCreated : boolean = false;
-    processing   : boolean = false;
-    signupForm   : FormGroup;
-    custInfo     : AbstractControl;
-    firstName     : AbstractControl;
-    lastName     : AbstractControl;
-    email        : AbstractControl;
-    phone        : AbstractControl;
-    passwords    : AbstractControl;
-    password     : AbstractControl;
-    confirm      : AbstractControl;
-    question     : AbstractControl;
-    answer       : AbstractControl;
-    error        : any;
-    line1        : AbstractControl;
-    line2        : AbstractControl;
-    state        : AbstractControl;
-    city         : AbstractControl;
-    zip          : AbstractControl;
-    address      : AbstractControl;
+    public customerSubscription;
+    public custInfoComp : boolean = false;
+    public addressComp  : boolean = false;
+    public passwordComp : boolean = false;
+    public accountExists : boolean = false;
+    public accountCreated : boolean = false;
+    public processing   : boolean = false;
+    public signupForm   : FormGroup;
+    public custInfo     : AbstractControl;
+    public firstName     : AbstractControl;
+    public lastName     : AbstractControl;
+    public email        : AbstractControl;
+    public phone        : AbstractControl;
+    public passwords    : AbstractControl;
+    public password     : AbstractControl;
+    public confirm      : AbstractControl;
+    public question     : AbstractControl;
+    public answer       : AbstractControl;
+    public error        : any;
+    public line1        : AbstractControl;
+    public line2        : AbstractControl;
+    public state        : AbstractControl;
+    public city         : AbstractControl;
+    public zip          : AbstractControl;
+    public address      : AbstractControl;
 
 
     constructor(
@@ -109,7 +109,7 @@ export class SignupPage implements OnInit {
 
     }
 
-    checkCustInfo( group: FormGroup ) {
+    public checkCustInfo( group: FormGroup ) {
 
         if ( group.controls.firstName.invalid || group.controls.lastName.invalid || group.controls.email.invalid || group.controls.phone.invalid ) {
 
@@ -119,22 +119,21 @@ export class SignupPage implements OnInit {
         } else {
             return null;
         }
-
-    }
-    checkAddress ( group: FormGroup ) {
-
-    if(group.controls.line1.invalid || group.controls.city.invalid || group.controls.state.invalid || group.controls.zip.invalid) {
-
-        // display helper message if any of the required fields don't pass validations
-        return { notComplete : true }
-
-    } else {
-        return null
     }
 
+    public checkAddress ( group: FormGroup ) {
 
+        if(group.controls.line1.invalid || group.controls.city.invalid || group.controls.state.invalid || group.controls.zip.invalid) {
+
+            // display helper message if any of the required fields don't pass validations
+            return { notComplete : true }
+
+        } else {
+            return null
+        }
     }
-    checkPasswords( group: FormGroup ) {
+
+    public checkPasswords( group: FormGroup ) {
 
         let pass = group.controls.password.value;
         let confirm = group.controls.confirm.value;
@@ -149,11 +148,9 @@ export class SignupPage implements OnInit {
             // compare password with confirmation, display message if no match
             return { notSame : true }
         }
-
-
     }
 
-    nextStep( step ) {
+    public nextStep( step ) {
 
         // logic to switch between form steps
         if (step === 'info') {
@@ -165,11 +162,9 @@ export class SignupPage implements OnInit {
             this.addressComp = !this.addressComp
 
         }
-
-
     }
 
-    save( customer ) {
+    public save( customer ) {
         console.log( customer );
         let customerObj = {
 
@@ -194,31 +189,20 @@ export class SignupPage implements OnInit {
             "SecurityAnswer": this.answer.value
 
         };
-        console.log(customerObj);
 
         this.customerSubscription = this.customer.create( customerObj ).subscribe( (res) => {
-
-            console.log( res );
 
            this.processing = true
 
             switch (res) {
                 case 163 :
-
                   this.accountExists = true
-
-
                   break;
-
                 case 200 :
-
                   this.accountCreated = true
-
                   break;
             }
 
         });
-
     }
-
 }

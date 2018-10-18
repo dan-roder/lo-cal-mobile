@@ -20,20 +20,20 @@ import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 
 export class BurgersPage implements OnInit {
 
-    subMenuObserver  : Subscription;
-    menuItemObserver : Subscription;
+    public subMenuObserver  : Subscription;
+    public menuItemObserver : Subscription;
     // menuObserver     : Subscription;
-    testSubMenu      : Observable<Object>;
-    subMenuMeta      : SubMenu;
-    subMenu          : Observable<Object>;
-    customData       : Object = {};
-    cartImage        : string = '';
-    menuSlug         : any;
-    menuMap          : any;
-    wpSubMenuItems   : any;
-
+    public testSubMenu      : Observable<Object>;
+    public subMenuMeta      : SubMenu;
+    public subMenu          : Observable<Object>;
+    public customData       : Object = {};
+    public cartImage        : string = '';
+    public menuSlug         : any;
+    public menuMap          : any;
+    public wpSubMenuItems   : any;
 
     constructor(
+
         public  app       : App,
         public  navCtrl   : NavController,
         public  navParams : NavParams,
@@ -48,11 +48,10 @@ export class BurgersPage implements OnInit {
     ngOnInit() {
 
         let loading = this.loading.create({
-
             content: "Loading Menu ... ",
             spinner: "circles"
-
         });
+
         loading.present();
 
         this.subMenuMeta = this.navParams.get("menuItem");
@@ -87,65 +86,38 @@ export class BurgersPage implements OnInit {
      */
     ionViewDidLoad() {
 
-
-
     }
-    ionViewWillLoad () {
-         // console.log( typeof this.subMenuMeta, this.subMenuMeta );
 
-    }
-    ionViewDidEnter() {
-
-    }
-    ionViewWillEnter() {
-        // console.log( "ionViewDidLoad BurgersPage" );
-        // console.log( this.navParams.get( 'menuItem' ) );
-
-
-    }
     ngOnDestroy() {
         // You can also do whatever you need here
     }
-    // ionViewWillLeave() {
-    //     if ( this.subMenuObserver ) this.subMenuObserver.unsubscribe();
-    //     if ( this.menuItemObserver ) this.menuItemObserver.unsubscribe();
 
-    // }
+    public addItem( item ) {
 
-    addItem( item ) {
-
-        // console.log( item );
         this.app.getRootNavs()[0].push( 'MenuItemPage', { menuItem: item }, { animate: true } );
-
     }
 
-    arrangeMenuData( data ) {
+    private arrangeMenuData( data ) {
 
         let defaults     = [];
         let menuItem     = data.item;
         let salesItems   = data.salesItems[0];
-        // let itemPrice    = data.salesItems[0].Price;
-        // let calorieCount = data.salesItems[0].CaloricValue;
+
         if ( salesItems.ModGroups.length > 0 &&  salesItems.DefaultOptions.length > 0 ) {
 
-            // console.log(this.salesItems.ModGroups.length);
             defaults = salesItems.DefaultOptions;
             return this.registerCustomizationVariables( salesItems.ModGroups, defaults );
 
         } else {
 
-            // console.log("No Default Options", this.salesItems.ModGroups.length);
             return this.registerCustomizationVariables( salesItems.ModGroups );
-
         }
     }
     private registerCustomizationVariables( allModifiers, defaultOptions: Array<DefaultOptions> = [] ) {
 
-        // console.log( defaultOptions );
         let tempObj      = {};
-        // let defaultArray = [];
         allModifiers.forEach( modifierGroup => {
-            // console.log( modifierGroup );
+
             let modObject = {};
             modObject['maximumItems'] = modifierGroup.MaximumItems;
             modObject['minimumItems'] = modifierGroup.MinimumItems;
@@ -154,27 +126,21 @@ export class BurgersPage implements OnInit {
             modObject['groupDetails'] = {};
             modifierGroup.Mods.forEach( mod => {
 
-                // console.log( defaultOptions, mod );
                 modObject['groupDetails'] = modifierGroup;
                 modObject['modifiers'][mod.$id] = {};
-                // console.log(defaultOptions);
-                let isModDefault = defaultOptions.find( option => {
-                    // console.log( option.ModifierId, mod.ModifierId);
-                    return option['ModifierId'] === mod.ModifierId;
 
+                let isModDefault = defaultOptions.find( option => {
+                    return option['ModifierId'] === mod.ModifierId;
                 });
-                // console.log( isModDefault );
+
                 if ( isModDefault ) {
 
                     modObject['modifiers'][mod.$id]['quantity'] = isModDefault.DefaultQuantity;
                     modObject['currentlySelected'].push(mod);
 
                 } else {
-
                     modObject['modifiers'][mod.$id]['quantity'] = 0;
-
                 }
-
             });
 
             tempObj[modifierGroup.$id] = {};
@@ -182,11 +148,10 @@ export class BurgersPage implements OnInit {
 
         });
 
-        // console.log( this.customData );
         return this.customData = tempObj;
 
     }
-    quickAdd( item ) {
+    private quickAdd( item ) {
 
         let message = `Add ${ item['DisplayName'] } to your bag?`
         let alert = this.alertCtrl.create({
@@ -199,9 +164,7 @@ export class BurgersPage implements OnInit {
                             role: "cancel",
                             cssClass: "alert-button-reject",
                             handler: () => {
-
                                 console.log("Cancel clicked");
-
                             }
                         },
                         {
@@ -210,21 +173,15 @@ export class BurgersPage implements OnInit {
                             handler: () => {
 
                                 this.addToBag( item );
-
                             }
                         }
                     ]
         });
-
         alert.present();
-
-
-
     }
 
-    addToBag( item ) {
+    private addToBag( item ) {
 
-        // console.log('quick add', item);
         let searchName = item.DisplayName.replace(/[^A-Z0-9]+/ig, "-").toLowerCase()
 
         // make call to wordpress api using formatted slug to get item images
@@ -236,36 +193,26 @@ export class BurgersPage implements OnInit {
                 this.cartImage = (item[0].acf !== undefined && item[0].acf.cart_image !== undefined) ? item[0].acf.cart_image.url : '//via.placeholder.com/160x240';
 
             }
-            // console.log(this.cartImage)
-
         })
-        // console.log('hey item', item)
 
         this.menuItemObserver = this.menu.getMenuItem( item.MenuItemId )
+
             .subscribe( data => {
 
-                // console.log( 'hey hey data', data );
-
                 let bagItem = this.arrangeMenuData( data );
-                // console.log( bagItem );
-
                 let menuItem   = data.item;
                 let salesItems = data.salesItems[0];
                 let quantity   = 1;
                 let totalPrice = 0;
-                // loading.dismiss();
 
                 // add quantity and totalPrice to object
-
                 menuItem['Quantity']   = quantity;
                 menuItem['TotalPrice'] = salesItems.Price;
                 menuItem['Modifiers']  = Object.values( this.customData );
                 menuItem['UnitPrice']  = salesItems.Price;
                 menuItem['CartImage'] = this.cartImage;
                 menuItem['caloricValue'] = (item.CaloricServingUnit === null) ? 0 : parseInt(item.CaloricServingUnit, 10);;
-                // console.log( 'quick add menu item', menuItem );
 
-                // let message = `${ menuItem['DisplayName'] } has been added to you your bag.`
                 // Push full object to bag service
                 this.bag.quickAddLineItem( menuItem );
 

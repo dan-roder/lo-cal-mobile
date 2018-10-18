@@ -16,15 +16,15 @@ import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 })
 export class ContactUsPage {
 
-    pageContent : IPost;
-    acf : any;
-    featuredImage : any;
-    mapImage      : string;
-    contactForm : FormGroup;
-    submittedOnce : boolean = false;
-    processing : boolean = false;
-    formSuccess : boolean = false;
-    formError : string = '';
+    public pageContent : IPost;
+    public acf : any;
+    public featuredImage : any;
+    public mapImage      : string;
+    public contactForm : FormGroup;
+    public submittedOnce : boolean = false;
+    public processing : boolean = false;
+    public formSuccess : boolean = false;
+    public formError : string = '';
 
     constructor(
         public navCtrl: NavController,
@@ -49,18 +49,21 @@ export class ContactUsPage {
     ngOnInit() {
         this.getContactUsPage()
     }
+
     ionViewDidLoad() {
         console.log('ionViewDidLoad ContactUsPage');
     }
+
     // must be present with auto-unsubscribe even if empty
     ngOnDestroy() {
         // You can also do whatever you need here
     }
-    getContactUsPage () {
+
+    public getContactUsPage () {
 
             let loader = this.loadingController.create({ content: "Loading" });
-
             loader.present()
+
             this.wordpressService.getPage(132).subscribe(page => {
                 this.pageContent = page;
                 this.acf = page.acf;
@@ -70,18 +73,18 @@ export class ContactUsPage {
                     this.wordpressService.getMedia(page.featured_media).subscribe(media => {
 
                         this.featuredImage = media.source_url
-                        console.log('hey media', this.pageContent)
                     });
                 }
                 loader.dismiss();
             })
 
     }
-    submitForm(formData){
+    public submitForm(formData){
         this.submittedOnce = true;
 
         if(formData.valid){
           this.processing = true;
+
           let data = {
             'contactReason' : formData.get('contact-reason').value,
             'firstName' : formData.get('first-name').value,
@@ -100,5 +103,4 @@ export class ContactUsPage {
           });
         }
       }
-
 }

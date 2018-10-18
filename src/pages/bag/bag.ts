@@ -19,11 +19,12 @@ import { Storage } from "@ionic/storage";
     templateUrl: "bag.html"
 })
 export class BagPage {
-    itemsInBag: Array<LineItem>;
-    subtotal: number;
-    tax: number;
-    total: number;
-    isLoggedIn: string;
+
+    public itemsInBag: Array<LineItem>;
+    public subtotal: number;
+    public tax: number;
+    public total: number;
+    public isLoggedIn: string;
 
     constructor(
         public platform: Platform,
@@ -35,7 +36,6 @@ export class BagPage {
         private storage: Storage
     ) {
         this.platform.ready().then(() => {
-            console.log("hey bag", this.bag.itemsInBag);
             this.itemsInBag = this.bag.itemsInBag;
             this.subtotal = this.calculateSubtotal(this.itemsInBag);
             this.tax = 0.0;
@@ -43,16 +43,10 @@ export class BagPage {
         });
     }
     ngOnInit() {
-
         // check if customer is logged in by pulling customer id from ionic storage
         this.storage.get("customerid").then(customer => {
             this.isLoggedIn = customer;
         });
-    }
-    ionViewDidLoad() {}
-
-    ionViewCanLeave() {
-        // this.navCtrl.popToRoot();
     }
 
     backToMenu() {
@@ -68,7 +62,6 @@ export class BagPage {
     }
 
     removeItem(item, index) {
-        console.log("Item Removed");
         let alert = this.alertCtrl.create({
             title: "Confirm",
             message: "Are you sure you want to remove this item from your bag?",
@@ -85,9 +78,8 @@ export class BagPage {
                     text: "Yes.",
                     cssClass: "button-accept",
                     handler: () => {
-                        console.log("Removed clicked");
+                        // console.log("Removed clicked");
                         this.bag.removeFromBagAtIndex(index);
-
                         this.subtotal = this.calculateSubtotal(this.itemsInBag);
                         this.tax = 0.0;
                         this.total = this.subtotal + this.tax;
@@ -97,16 +89,15 @@ export class BagPage {
         });
         alert.present();
     }
-    goToItem(item, index) {
-        console.log("edit item", item);
+    // goToItem(item, index) {
+    //     console.log("edit item", item);
 
-        this.bag.removeFromBagAtIndex(index);
-        this.navCtrl.push("MenuItemPage", { menuItem: item });
-    }
+    //     this.bag.removeFromBagAtIndex(index);
+    //     this.navCtrl.push("MenuItemPage", { menuItem: item });
+    // }
 
     checkout(isGuest) {
-        // console.log(this.bag.itemsInBag);
-        console.log(isGuest)
+
         if(isGuest) {
           this.navCtrl.push("CheckoutReviewPage", {guest: true});
         } else {

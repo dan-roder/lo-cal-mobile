@@ -8,7 +8,7 @@ import { CustomerProvider } from '../../providers/customer/customer';
 import { LineItem } from '../../models/LineItem';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from "rxjs/Subscription";
-import { InRegistration } from "../../models/customer";
+// import { InRegistration } from "../../models/customer";
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 
 @AutoUnsubscribe()
@@ -21,14 +21,14 @@ import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 })
 export class TabsComponent {
 
-    subMenus         : Observable<any>;
-    itemsInBag       : Array<LineItem> = [];
-    menuObserver     : Subscription;
-    bagObserver      : Subscription;
-    customerObserver : Subscription;
-    currentCustomer;
-    tab0Root         : String = "MenuComponent";
-    tab4Root         : String = "BurgersPage";
+    public subMenus         : Observable<any>;
+    public itemsInBag       : Array<LineItem> = [];
+    public menuObserver     : Subscription;
+    public bagObserver      : Subscription;
+    public customerObserver : Subscription;
+    public currentCustomer;
+    public tab0Root         : String = "MenuComponent";
+    public tab4Root         : String = "BurgersPage";
 
     constructor(
         public  platform  : Platform,
@@ -42,12 +42,10 @@ export class TabsComponent {
     ) {
 
         this.platform.ready().then( () => {
-            // console.log( this.currentCustomer );
+
             this.menuObserver = this.menu.getSubmenus().subscribe( data => {
 
-                // console.log(data );
                 this.subMenus = data;
-
             });
 
 
@@ -84,11 +82,12 @@ export class TabsComponent {
         });
 
     }
-    ionViewWillEnter() {
 
+    ionViewWillEnter() {
         // prevents view my bag from showing when items are removed and user navigates back to menu
         this.itemsInBag = this.bag.itemsInBag;
     }
+
     ionViewDidLoad() {
 
         this.storage.get("intro-done").then( done => {
@@ -116,37 +115,30 @@ export class TabsComponent {
             }
 
         });
-
     }
+
     // must be present with auto-unsubscribe even if empty
     ngOnDestroy() {
         // You can also do whatever you need here
     }
-    ionViewWillLeave() {
 
-    }
-
-    onTabSelect(tab: { index: number; id: string }) {
+    public onTabSelect(tab: { index: number; id: string }) {
 
         let index = tab.index-1;
 
     }
 
-    openBag(page) {
+    public openBag(page) {
 
         this.app.getRootNavs()[0].push(page);
 
     }
 
-    setParams(category) {
+    public setParams(category) {
 
-        // console.log( category );
         let params = {
-
             menuCategory: category
-
         };
         return params;
-
     }
 }

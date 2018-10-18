@@ -15,8 +15,8 @@ import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 })
 export class TermsPage implements OnInit {
 
-    page: any;
-    pageContent : IPost;
+    public page: any;
+    public pageContent : IPost;
 
     constructor(
 
@@ -26,22 +26,20 @@ export class TermsPage implements OnInit {
     ) { }
 
     ngOnInit() {
-        console.log('terms')
         this.getTermsAndPolicy();
-
     }
+
     // must be present with auto-unsubscribe even if empty
     ngOnDestroy() {
         // You can also do whatever you need here
     }
-    getTermsAndPolicy () {
-        let loader = this.loadingController.create({ content: "Loading" });
 
+    public getTermsAndPolicy () {
+        let loader = this.loadingController.create({ content: "Loading" });
         loader.present()
+
         this.wordpressService.getPost(124).subscribe(page => {
             this.pageContent = page;
-
-            console.log(this.pageContent )
             loader.dismiss();
         })
     }

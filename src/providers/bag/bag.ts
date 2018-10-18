@@ -43,11 +43,9 @@ export class BagProvider {
 
     public createLineItem(passedMenuItem) {
 
-        // console.log(passedMenuItem);
 
         // construct object to save in bag
         let lineItem: LineItem = {};
-        // console.log('passed item', passedMenuItem)
         lineItem.SalesItemId = passedMenuItem.SalesItemId; // Not sure if this should come from the SalesItem object instead of the DefaultItemId
         lineItem.MenuItemId = passedMenuItem.MenuItemId;
         lineItem.Name = passedMenuItem.Name;
@@ -61,7 +59,6 @@ export class BagProvider {
         lineItem.CartImage = passedMenuItem.CartImage;
         lineItem.DisplayName = passedMenuItem.DisplayName;
         lineItem.CaloricServingUnit = passedMenuItem.CaloricServingUnit
-        // console.log('line item', lineItem)
 
         // Push menuItem and lineItem into arrays
         this.itemsInBag.push(lineItem);
@@ -73,7 +70,6 @@ export class BagProvider {
     }
 
     public quickAddLineItem( passedMenuItem ){
-        // console.log('quick add passed item', passedMenuItem)
 
         // construct object to save in bag
         let lineItem: LineItem = {};
@@ -92,8 +88,6 @@ export class BagProvider {
 
         // add to items in bag
         this.itemsInBag.push(lineItem);
-        // console.log('quick add line item', lineItem)
-
 
         // Save to localStorage
         this.saveToLocalStorage();
@@ -108,7 +102,6 @@ export class BagProvider {
 
         allModifiers.forEach((modGroup, key) => {
 
-            console.log( modGroup );
             let modifierGroupId = modGroup.groupDetails.ModifierGroupId;
 
             if (modGroup.currentlySelected.length > 0) {
@@ -137,7 +130,6 @@ export class BagProvider {
                 });
             }
         });
-        // console.log('returned modifier array', formattedLineItemModifierArray)
         return formattedLineItemModifierArray;
     }
 
@@ -155,7 +147,6 @@ export class BagProvider {
     }
 
     get itemsInBag() {
-        // console.log('service bag items getter', JSON.stringify(this._itemsInBag));
         return this._itemsInBag;
     }
 

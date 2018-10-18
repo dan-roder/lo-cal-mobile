@@ -14,7 +14,7 @@ import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 })
 export class OurstoryComponent implements OnInit {
 
-    page: any;
+    public page: any;
 
     constructor(
 
@@ -26,18 +26,20 @@ export class OurstoryComponent implements OnInit {
     ngOnInit() {
         this.getOurStory();
     }
+
     // must be present with auto-unsubscribe even if empty
     ngOnDestroy() {
         // You can also do whatever you need here
     }
-    getOurStory() {
+
+    public getOurStory() {
         let loader = this.loadingController.create({ content: "Loading" });
         loader.present()
+
         this.wordpressService.getOurStory()
             .subscribe(result => {
                 this.page = result;
                 loader.dismiss();
             });
     }
-
 }
