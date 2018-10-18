@@ -1,4 +1,7 @@
 page-contact-us {
+    ion-item.item-md {
+        padding-left: 0;
+    }
     .contact-hero {
         background-size: cover;
         // background-image: url('../../assets/icon/loading-eclipse.svg');
@@ -23,81 +26,5 @@ page-contact-us {
         position: relative;
         height: 265px;
     }
-    .form-component-text,
-  .form-component-email{
-    margin: 15px 0;
-    input {
-        border: none;
-      border-bottom: 1px solid #000000;
-      padding: 8px 4px;
-      display: block;
-      width: 100%;
-      box-sizing: border-box;
-      background: #f4f4f4;
-      &:focus{
-        outline: 0;
-      }
 
-      &::placeholder{
-        opacity: .5;
-      }
-
-      &.has-error{
-        border-bottom: 1px solid orangered;
-      }
-    }
-}
-    .form-component-textarea{
-        margin: 15px 0;
-
-
-        label{
-          opacity: .5;
-          padding: 8px 4px;
-        }
-
-        textarea{
-          display: block;
-          width: 100%;
-          box-sizing: border-box;
-          resize: none;
-          padding: 8px;
-
-          &:focus{
-            outline: 0;
-          }
-        }
-      }
-      .form-actions{
-        input[type=submit]{
-          font-size: 15px;
-
-          padding: 8px 150px;
-        }
-      }
-
-      .submit{
-        margin: 40px 0 15px;
-      }
-
-      fieldset{
-        border: none;
-        margin: 30px 0;
-        padding: 0;
-      }
-
-      legend{
-        font-size: 16px;
-        margin: 10px 0 20px;
-      }
-      .visuallyhidden {
-        border: 0;
-        clip: rect(0 0 0 0);
-        height: 1px;
-        margin: -1px;
-        overflow: hidden;
-        padding: 0;
-        position: absolute;
-        width: 1px;
-    }
 }
