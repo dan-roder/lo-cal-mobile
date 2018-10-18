@@ -1,26 +1,10 @@
 import { Component } from '@angular/core';
-import {
-    NavController,
-    NavParams,
-    IonicPage,
-    LoadingController,
-    AlertController
-} from 'ionic-angular';
-import {
-    FormBuilder,
-    Validators,
-    FormGroup
-} from '@angular/forms';
-// import { CreditCardValidator, CreditCard } from 'angular-cc-library';
+import { NavController, NavParams, IonicPage, LoadingController, AlertController } from 'ionic-angular';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { CreditCardValidator, CreditCard } from 'angular-cc-library';
 
 import { Order } from '../../models/order';
-import {
-    RailsSavePayment,
-    InSubmitOrderInformation,
-    RailsInSubmitOrder,
-    SavedPayment,
-    Vehicle
-} from '../../models/payment';
+import { RailsSavePayment, InSubmitOrderInformation, RailsInSubmitOrder, SavedPayment,Vehicle } from '../../models/payment';
 
 import{ Customer } from "../../models/customer"
 
@@ -89,13 +73,13 @@ export class CheckoutPaymentPage {
         'phone' : [null]
       });
 
-    //   this.paymentForm = fb.group({
-    //     'payment-choice' : [this.paymentChoice, Validators.required],
-    //     'card-number' : [null, [Validators.required, <any>CreditCardValidator.validateCCNumber]],
-    //     'expiration-date' : ['', [Validators.required, <any>CreditCardValidator.validateExpDate]],
-    //     'cvv' : [null, [Validators.required, Validators.pattern('^[0-9]{3,4}$')]],
-    //     'save-payment' : [null]
-    //   });
+      this.paymentForm = fb.group({
+        'payment-choice' : [this.paymentChoice, Validators.required],
+        'card-number' : [null, [Validators.required, <any>CreditCardValidator.validateCCNumber]],
+        'expiration-date' : ['', [Validators.required, <any>CreditCardValidator.validateExpDate]],
+        'cvv' : [null, [Validators.required, Validators.pattern('^[0-9]{3,4}$')]],
+        'save-payment' : [null]
+      });
 
   }
 
