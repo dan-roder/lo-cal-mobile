@@ -1,24 +1,22 @@
-
-
 <ion-header no-border>
     <ion-navbar>
-      <button ion-button menuToggle>
-        <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
-      </button>
-      <ion-title [innerHtml]="pageContent?.title.rendered | safeHtml"></ion-title>
+        <button ion-button menuToggle>
+            <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
+        </button>
+        <ion-title [innerHtml]="pageContent?.title.rendered | safeHtml"></ion-title>
     </ion-navbar>
-  </ion-header>
+</ion-header>
 
-  <ion-content class="page" padding>
+<ion-content class="page" padding>
 
     <div *ngIf="pageContent" class="terms-page">
         <h2 [innerHtml]="pageContent?.title.rendered | safeHtml"></h2>
     </div>
 
     <div class="section section-white">
-     <div class="content center">
-       <div class="body center-960" [innerHtml]="pageContent?.content?.rendered | safeHtml"></div>
-     </div>
+        <div class="content center">
+            <div class="body center-960" [innerHtml]="pageContent?.content?.rendered | safeHtml"></div>
+        </div>
     </div>
 
-  </ion-content>
+</ion-content>

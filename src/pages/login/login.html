@@ -13,7 +13,6 @@
                 <ion-label floating>Email</ion-label>
                 <ion-icon *ngIf="email.invalid && email.dirty" name="alert" item-right class="has-error"></ion-icon>
                 <ion-input type="email" name="email" formControlName="email"></ion-input>
-
             </ion-item>
             <div class="form-control-feedback" *ngIf="email.invalid && email.dirty">
                 <p class="error-help">Please enter a valid email address.</p>

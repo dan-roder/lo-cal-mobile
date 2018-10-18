@@ -11,7 +11,6 @@
     <div class="checkout-holder" *ngIf="itemsInBag.length">
         <ion-list class="bag-items" no-margin>
             <div class="bag-item" *ngFor="let item of itemsInBag; let i = index">
-
                 <ion-row>
                     <ion-col col-3 no-padding>
                         <img *ngIf="item.CartImage" [src]="item.CartImage" alt="bag item" class="bag-item-image" />
@@ -93,7 +92,6 @@
                         </button>
                     </ion-col>
                 </ion-row>
-
             </ion-list>
         </form>
 

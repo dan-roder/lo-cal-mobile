@@ -10,17 +10,13 @@
 <ion-content class="page" padding>
   <div *ngIf="page">
     <featured-media *ngIf="page.featured_media" [id]="page.featured_media"></featured-media>
-  
-
     <div [innerHtml]="page.content.rendered"></div>
     <div [innerHtml]="page.acf.tbi_title"></div>
     <div [innerHtml]="page.acf.tbi_body"></div>
-
     <div  *ngFor ="let data of page.acf.tbi_images" >
         <div>
             <img src= {{data.image.url}} >
-           
-          </div>
+        </div>
       <div>
         {{data.title}}
       </div>
@@ -28,7 +24,5 @@
         {{data.description}}
       </div>
     </div>
-
   </div>
-
 </ion-content>

@@ -1,41 +1,31 @@
 <ion-header no-border>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
-    </button>
-    <ion-title *ngIf="page">{{page.title.rendered}}</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
+        </button>
+        <ion-title *ngIf="page">{{page.title.rendered}}</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content class="page" padding>
-  <div *ngIf="page">
-
-    <featured-media *ngIf="page.featured_media" [id]="page.featured_media"></featured-media>
-    <div class="page_content" [innerHtml]="page.acf.body"></div>
-
-    <div class="section_grey">
-   
-    <div class="page_value" [innerHtml]="page.acf.tbi_title"></div>
-
-    <div class="page_value_content" [innerHtml]="page.acf.tbi_body"></div>
-    
-  
-    <div  *ngFor ="let data of page.acf.tbi_images" >
-      
-     <div class="image_section">
-        <div>  <img src= {{data.image.url}} >  </div>
-        <div class="img_title"> {{data.title}} </div>
-        <div class="img_descriptions"> {{data.description}} </div>
-    
+    <div *ngIf="page">
+        <featured-media *ngIf="page.featured_media" [id]="page.featured_media"></featured-media>
+        <div class="page_content" [innerHtml]="page.acf.body"></div>
+        <div class="section_grey">
+            <div class="page_value" [innerHtml]="page.acf.tbi_title"></div>
+            <div class="page_value_content" [innerHtml]="page.acf.tbi_body"></div>
+            <div *ngFor="let data of page.acf.tbi_images">
+                <div class="image_section">
+                    <div> <img src={{data.image.url}}> </div>
+                    <div class="img_title"> {{data.title}} </div>
+                    <div class="img_descriptions"> {{data.description}} </div>
+                </div>
+            </div>
+            <div class="clear"></div>
         </div>
-       
-      </div> 
-
-      <div class="clear"></div>
+        <div class="extra_text_section" [innerHtml]="page.acf.text"></div>
+        <img class="extra_text_section_img" src={{page.acf.left_image.url}}>
+        <div class="extra_text_section_description" [innerHtml]="page.acf.right_details"></div>
+        <div class="clear"></div>
     </div>
-    <div class="extra_text_section"  [innerHtml]="page.acf.text"></div>
-    <img class="extra_text_section_img" src= {{page.acf.left_image.url}} >
-    <div class="extra_text_section_description" [innerHtml]="page.acf.right_details"></div>
-    <div class="clear"></div>
-  </div>
 </ion-content>
