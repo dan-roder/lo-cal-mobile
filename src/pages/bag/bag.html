@@ -25,9 +25,6 @@
                                 {{ item.Name }}
                                 <span class="bag-item-quantity">x{{ item.Quantity }}</span>
                             </ion-col>
-                            <!-- <ion-col class="bag-item-edit" text-center (tap)="goToItem(item, i)">
-                                Edit
-                            </ion-col> -->
                         </ion-row>
                     </div>
                     <p class="bag-item-description">
@@ -66,7 +63,6 @@
                 {{ subtotal | currency:'USD':'symbol' }}
             </ion-col>
         </ion-row>
-
         <ion-row class="taxes">
             <ion-col col-3>
                 Tax
