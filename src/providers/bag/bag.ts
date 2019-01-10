@@ -16,6 +16,7 @@ export class BagProvider {
     public _itemCountInBag: number = 0;
     private bagObserver = new Subject();
     bagItems = this.bagObserver.asObservable();
+    public totalPrice : number;
 
     constructor(
         public platform: Platform,
