@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+//import { WindowRef } from './windowref';
 
 @Injectable()
 export class Config {
@@ -7,10 +8,16 @@ export class Config {
     public localApi = "http://localhost:3000";
     public railsCustomerEndpoint : string = 'http://localhost:3000/customers';
     public railsOrderEndpoint : string = 'https://api.lo-calkitchen.com/orders';
-    public railsTimeEndpoint : string = 'https://api.lo-calkitchen.com/times/1';
-
+    public railsMenuApi : string = `https://api.lo-calkitchen.com/menus/${this.siteId}`;
+    public authenticateEndpoint : string = 'https://api.lo-calkitchen.com/authenticate';
+    public railsTimeEndpoint : string = `https://api.lo-calkitchen.com/times/${this.siteId}`;
+    public allTimesEndpoint : string = `https://api.lo-calkitchen.com/times/${this.siteId}/1/0/1001`;
+    public securityQuestionEndpoint : string = 'https://api.lo-calkitchen.com/securityquestions?Email='
+    public mailchimpEndpoint : string = 'https://us14.api.mailchimp.com/3.0/lists/1ab7655e84/members';
+   
     public siteId : number = 1;
     public menuId : number = 1001;
+
 
     public paymentTypeMap = {
         "amex" : 0,
@@ -68,4 +75,20 @@ export class Config {
         '2' : 'Delivery',
         '4' : 'Curbside'
       }
+
+      /* constructor(private winRef: WindowRef){
+        // Setting API URL based on current environment
+        switch(winRef.nativeWindow.location.hostname){
+          case 'localhost':
+            this.wordpressApiUrl = "https://local.lndo.site/wp-json";
+          break;
+          case 'live-lo-cal.pantheonsite.io':
+            this.wordpressApiUrl = "https://www.lo-calkitchen.com/wp-json";
+          break;
+          default:
+            this.wordpressApiUrl = "https://" + winRef.nativeWindow.location.hostname + "/wp-json";
+          break;
+        }
+    
+      } */
 }

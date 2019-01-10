@@ -81,6 +81,36 @@ export class OrderService {
         })
       }
 
+      public calculateTotalWithModifiers(fullOrder: Order): Array<any>{
+        let orderArray = Array();
+    
+        _.forEach(fullOrder.LineItems, (value) => {
+          let initialPrice = value.UnitPrice;
+          let addOnPrice = 0;
+          let modArray = Array();
+          let specialInstructions = value.SpecialInstructions;
+    
+          _.forEach(value.Modifiers, (value) => {
+            addOnPrice += (value.UnitPrice > 0 && value.FreeQuantity === 0) ? value.UnitPrice : 0;
+            let modOject = {
+              'name' : value.Name
+            }
+            modArray.push(modOject);
+          });
+          let finalPrice = (initialPrice + addOnPrice) * value.Quantity;
+          let obj = {
+            'name' : value.Name,
+            'fullPrice' : finalPrice,
+            'quantity' : value.Quantity,
+            'modifiers' : modArray,
+            'specialInstructions' : specialInstructions
+          }
+          orderArray.push(obj);
+        });
+    
+        return orderArray;
+      }
+
       public getNextAvailableTime(){
         return this.httpClient.get(this.config.railsTimeEndpoint + '/1').map(time => {
           this._promiseDateTime = time.json();
@@ -88,6 +118,8 @@ export class OrderService {
           return time.json();
         })
       }
+
+    
 
       get customerInfo(): Customer{
         return this._customerInfo;

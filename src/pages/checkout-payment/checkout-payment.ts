@@ -16,7 +16,7 @@ import { CustomerProvider } from "../../providers/customer/customer";
 import { WordPressProvider } from './../../providers/word-press/word-press';
 import { OrderService } from './../../providers/order/order-provider';
 
-import * as _ from 'lodash';
+import * as _ from 'lodash'; 
 import * as moment from 'moment';
 
 @AutoUnsubscribe()

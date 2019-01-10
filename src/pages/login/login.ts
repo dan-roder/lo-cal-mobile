@@ -18,7 +18,7 @@ import { Storage } from "@ionic/storage";
     providers: [ LoCalApiProvider ]
 })
 export class LoginPage {
-
+        
         public loading:   boolean;
         public loginForm: FormGroup;
         public email:     AbstractControl;
@@ -116,4 +116,5 @@ export class LoginPage {
 
     }
 
+   
 }
