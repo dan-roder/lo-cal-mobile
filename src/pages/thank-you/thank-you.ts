@@ -44,13 +44,10 @@ export class ThankYouPage {
     this.localStorage.remove('order').then(() => {});
     this.localStorage.remove('bag').then(() => {});
     this.localStorage.remove('vehicle').then(() => {});
+
+    this.getCustomer();
     // Get current customer to check if they were a guest customer
-    this.customerService.getCurrentCustomer().subscribe((customer: Customer) => {
-      if(customer.IsGuest){
-        // If they were a guest customer, remove the user from localStorage
-        this.localStorage.remove('user').then(() => {});
-      }
-    })
+   
 
     this.bagService.itemsInBag = [];
     this.bagService.totalPrice = 0;
@@ -66,6 +63,17 @@ export class ThankYouPage {
       this.paidWithCardType = this.config.cardTypeMap[result.Order.Payments[0].CardType];
     });
   }
+
+  getCustomer() {
+    // get customer so order PUT doesn't fail
+    this.localStorage.get('user').then(customerData => {
+      if(customerData.IsGuest){
+        // If they were a guest customer, remove the user from localStorage
+        this.localStorage.remove('user').then(() => {});
+      }
+    })
+}
+
   
   ionViewDidLoad() {
     console.log('ionViewDidLoad ThankYouPage');
