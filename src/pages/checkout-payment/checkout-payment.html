@@ -115,6 +115,44 @@
                             <ion-radio name="saved-cc" id="saved-cc" value="3"></ion-radio>
                         </ion-item>
                     </ion-row>
+
+                    <div class="new-card-section" *ngIf="paymentForm.controls['payment-choice'].value === '1'">
+                            <div class="form-section half-and-half">
+                              <div class="form-component form-component-text">
+                                <label for="card-number" class="visuallyhidden">Credit Card Number</label>
+                                <input id="card-number" type="tel" autocomplete="cc-number" formControlName="card-number" placeholder="Credit Card Number*" [ngClass]="{'has-error':!paymentForm.controls['card-number'].valid && submittedOnce}" ccNumber #ccNumber (ngModelChange)="detectCardType(ccNumber.value)" [(ngModel)]="cardNumber">
+                                <div class="card-sprite-wrapper">
+                                  <div class="card visa" title="Visa"></div>
+                                  <div class="card mastercard" title="MasterCard"></div>
+                                  <div class="card american-express" title="American Express"></div>
+                                  <div class="card discover" title="Discover"></div>
+                                  <div class="card diners-club" title="Diners Club"></div>
+                                </div>
+                                <div class="error-message" *ngIf="!paymentForm.controls['card-number'].valid && submittedOnce">This field is required.</div>
+                              </div>
+                              <div class="form-component form-component-text">
+                                <label for="last-name" class="visuallyhidden">Expiration Date</label>
+                                <input id="cc-exp-date" name="expiration-date" id="expiration-date" formControlName="expiration-date" placeholder="Expiration Date (mm/yyyy)*" [ngClass]="{'has-error':!paymentForm.controls['expiration-date'].valid && submittedOnce}" type="tel" autocomplete="cc-exp" ccExp>
+                                <div class="error-message" *ngIf="!paymentForm.controls['expiration-date'].valid && submittedOnce">This field is required.</div>
+                              </div>
+                            </div>
+                            <div class="form-section half-and-half">
+                              <div class="form-component form-component-email">
+                                <label for="email" class="visuallyhidden">CVV</label>
+                                <input type="text" name="cvv" id="cvv" formControlName="cvv" placeholder="CVV*" [ngClass]="{'has-error':!paymentForm.controls['cvv'].valid && submittedOnce}">
+                                <div class="error-message" *ngIf="!paymentForm.controls['cvv'].valid && submittedOnce">This field is required.</div>
+                              </div>
+                              <div class="form-component form-component-text radio-options" *ngIf="currentCustomer?.CustomerId">
+                                <div class="option">
+                                  <label for="save-payment">
+                                    <input type="checkbox" name="save-payment" id="save-payment" value="save" formControlName="save-payment">
+                                    <span class="semi-bold">Save payment for future use?</span>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
                 </form>
             </div>
         </ion-card-content>

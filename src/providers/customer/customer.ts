@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { Config } from '../../app/app.config';
-import "rxjs/add/operator/map";
+import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from "rxjs/Observable";
@@ -139,6 +139,30 @@ export class CustomerProvider {
           return userData;
         })
       }
+
+      public isLoggedIn(){
+        return this.storage.get('user').then(userInfo => {
+          return userInfo;
+        });
+      }
+
+      public getSavedPayments(customerId: string): Observable<any>{
+        return this.http.get(this.config.railsCustomerEndpoint + `/${customerId}` + '/payments').map(data => {
+          return data;
+        })
+      }
+
+      /**
+   *
+   * @param payment RailsSavePayment: payment data
+   * @param customerId string: Aloha customer ID
+   */
+  public savePaymentMethod(payment: RailsSavePayment, customerId: string): Observable<any>{
+    return this.http.post(this.config.railsCustomerEndpoint + `/${customerId}` + '/payments', payment).map(data => {
+      return data;
+    })
+  }
+
 
       public logOut() {
 

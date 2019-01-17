@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Config } from '../../app/app.config';
 import { LineItem } from '../../models/LineItem';
-// import { RailsInSubmitOrder } from '../../models/Payment';
+import { RailsSavePayment, InSubmitOrderInformation, RailsInSubmitOrder, SavedPayment } from '../../models/Payment';
 import { RailsOrder, Order, OrderResults } from '../../models/Order';
 import { CustomerProvider } from './../customer/customer';
 import { Customer } from '../../models/Customer';
@@ -15,10 +16,10 @@ import * as _ from 'lodash';
 
 @Injectable()
 export class OrderService {
-
+ 
     private userId : string;
     private _customerInfo : Customer;
-    public _currentOrder : Order;
+    public _currentOrder : any;
     private _promiseDateTime : any;
 
     constructor(
@@ -65,9 +66,23 @@ export class OrderService {
         });
       }
 
-      public getPreSavedOrder(): Promise<any>{
+      public getPreSavedOrder(){
         return this.localStorage.get('order').then(orderDetails => {
           return orderDetails;
+        })
+      }
+
+      public getFullOrderDetails(orderId: number): Observable<any>{
+        let orderEndpoint = this.config.railsOrderEndpoint + `/${this.config.siteId}/${orderId}`;
+        return this.httpClient.get(orderEndpoint).map(fullOrder => {
+          this.currentOrder = fullOrder;
+          return fullOrder;
+        })
+      }
+
+      public submitOrder(order: RailsInSubmitOrder, orderId: number): Observable<any>{
+        return this.httpClient.post(this.config.railsOrderEndpoint + `/${this.config.siteId}/${orderId}`, order).map(orderResponse => {
+          return orderResponse;
         })
       }
 
