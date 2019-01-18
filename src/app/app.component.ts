@@ -10,112 +10,91 @@ import { Subject, Subscription  } from 'rxjs';
     templateUrl: 'app.html'
 })
 export class MyApp {
-    @ViewChild(Nav) nav: Nav;
-    rootPage: string = 'TabsComponent';
-    activePage = new Subject();
-    pages: Array<{title: string, component: string, active: boolean}>;
-    subPages: Array<{title: string, component: string, active: boolean}>;
-    customerObserver: Subscription;
-    currentCustomer: String;
+  @ViewChild(Nav) nav: Nav;
+  rootPage: string = 'TabsComponent';
+  activePage = new Subject();
+  pages: Array<{title: string, component: string, active: boolean}>;
+  subPages: Array<{title: string, component: string, active: boolean}>;
+  customerObserver: Subscription;
+  currentCustomer: String;
 
-    constructor(
+  constructor(
+    public  platform: Platform,
+    public  statusBar: StatusBar,
+    public  splashScreen: SplashScreen,
+    private customerService: CustomerProvider,
+    private localApi: LoCalApiProvider,
+    public  loadingController : LoadingController
+  ){
+    console.log( process.env );
+    this.initializeApp();
 
-        public  platform     : Platform,
-        public  statusBar    : StatusBar,
-        public  splashScreen : SplashScreen,
-        private customer     : CustomerProvider,
-        private localApi        : LoCalApiProvider,
-        public  loadingController : LoadingController
+    // used for an example of ngFor and navigation
+    this.pages = [
+      { title: 'Menu', component: 'TabsComponent', active: true },
+      { title: 'Our Story', component: 'OurstoryComponent', active: false },
+      { title: 'Our Food', component: 'OurfoodComponent', active: false},
+      { title: 'Catering', component: 'CateringPage', active: false },
+      { title: 'Contact Us', component: 'ContactUsPage', active: false },
+      { title: 'My Account', component: 'AccountPage', active: false }
+    ];
+    this.subPages = [
+      { title: 'Blog', component: 'BlogPage', active: false },
+      { title: 'Terms & Conditions', component: 'TermsPage', active: false }
+    ];
+    this.activePage.subscribe( ( selectedPage: any ) => {
 
-    ){
-        console.log( process.env );
-        this.initializeApp();
+      this.pages.map( page => {
+          page.active = page.title === selectedPage.title;
+      });
+      this.subPages.map( subPage => {
+          subPage.active = subPage.title === selectedPage.title;
+      });
 
-        // used for an example of ngFor and navigation
-        this.pages = [
+    });
+  }
 
-            { title: 'Menu', component: 'TabsComponent', active: true },
-            { title: 'Our Story', component: 'OurstoryComponent', active: false },
-            { title: 'Our Food', component: 'OurfoodComponent', active: false},
-            { title: 'Catering', component: 'CateringPage', active: false },
-            { title: 'Contact Us', component: 'ContactUsPage', active: false },
-            { title: 'My Account', component: 'AccountPage', active: false }
+  initializeApp() {
+    this.platform.ready().then(() => {
+      // Okay, so the platform is ready and our plugins are available.
+      // Here you can do any higher level native things you might need.
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
 
-
-        ];
-        this.subPages = [
-            { title: 'Blog', component: 'BlogPage', active: false },
-            { title: 'Terms & Conditions', component: 'TermsPage', active: false }
-        ];
-        this.activePage.subscribe( ( selectedPage: any ) => {
-
-            this.pages.map( page => {
-                page.active = page.title === selectedPage.title;
-            });
-            this.subPages.map( subPage => {
-                subPage.active = subPage.title === selectedPage.title;
-            });
-
-        });
-
-    }
-
-    initializeApp() {
-
-        this.platform.ready().then(() => {
-            // Okay, so the platform is ready and our plugins are available.
-            // Here you can do any higher level native things you might need.
-            this.statusBar.styleDefault();
-            this.splashScreen.hide();
-
-
-            this.customerObserver = this.customer.customerId.subscribe( ( customer ) => {
-
-                // console.log( 'her her', customer );
-                if ( customer ) {
-
-                    this.currentCustomer = customer;
-
-                } else {
-
-                    console.log( "NO CUSTOMER" );
-                    this.currentCustomer = null;
-
-                }
-
-            });
-
-        });
-
-    }
+      this.customerObserver = this.customerService.customerId.subscribe( ( customer ) => {
+        // console.log( 'her her', customer );
+        if ( customer ) {
+          console.log(customer);
+          this.currentCustomer = customer;
+        } else {
+          console.log( "NO CUSTOMER" );
+          this.currentCustomer = null;
+        }
+      });
+    });
+  }
 
     openPage( page ) {
-
-        console.log("THE PAGE: ", page);
-        // Reset the content nav to have just this page
-        // we wouldn't want the back button to show in this scenario
-        this.nav.setRoot(page.component);
-        this.activePage.next(page);
-
+      console.log("THE PAGE: ", page);
+      // Reset the content nav to have just this page
+      // we wouldn't want the back button to show in this scenario
+      this.nav.setRoot(page.component);
+      this.activePage.next(page);
     }
 
     pushPage( page ) {
-
-        this.nav.push( page );
-
+      this.nav.push( page );
     }
+
     goToSubPage (page) {
-
-        this.nav.setRoot(page.component);
-        this.activePage.next(page);
-
+      this.nav.setRoot(page.component);
+      this.activePage.next(page);
     }
+
     logout() {
+      this.customerService.logOut()
+      this.currentCustomer = null;
 
-        this.customer.logOut()
-        this.currentCustomer = null;
-
-        this.nav.setRoot('TabsComponent')
-
+      this.nav.setRoot('TabsComponent')
     }
 }
