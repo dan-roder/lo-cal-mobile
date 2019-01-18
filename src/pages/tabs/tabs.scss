@@ -1,42 +1,43 @@
 page-tabs {
-    #mainTabs {
-        // margin-top: -10px;
-    }
-    super-tabs-toolbar .toolbar {
-        // border-bottom: 1px solid map-get($colors, dark)
-    }
-    super-tab-button {
-        border-bottom: 1px solid map-get($colors, light);
-        .title {
-            font-size: 12.5px;
-            font-weight: 600;
-            letter-spacing: 1.7px;
-            color: map-get($colors, dark);
-            opacity: 0.4;
-        }
-        &.selected {
-            .title {
-                opacity: 1;
-                color: map-get($colors, red);
-            }
-        }
+  #mainTabs {
+    // margin-top: -10px;
+  }
+  super-tabs-toolbar .toolbar {
+    // border-bottom: 1px solid map-get($colors, dark)
+  }
+  super-tab-button {
+    border-bottom: 1px solid map-get($colors, light);
+    .title {
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: 1.7px;
+      color: map-get($colors, dark);
+      opacity: 0.4;
     }
 
-    super-tabs-toolbar > ion-toolbar.toolbar.scroll-tabs .tab-buttons-container .tab-buttons {
-        max-height: 35px;
+    &.selected {
+      .title {
+        opacity: 1;
+        color: map-get($colors, red);
+      }
     }
+  }
 
-    super-tabs-toolbar > ion-toolbar.toolbar .tab-buttons-container .tab-buttons super-tab-button {
-        padding: 0 15px;
+  super-tabs-toolbar > ion-toolbar.toolbar.scroll-tabs .tab-buttons-container .tab-buttons {
+    max-height: 35px;
+  }
+
+  super-tabs-toolbar > ion-toolbar.toolbar .tab-buttons-container .tab-buttons super-tab-button {
+    padding: 0 15px;
+  }
+
+
+  .button-bag-wrap {
+    padding: 10px 10px;
+    button.button-bag-view {
+        // min-height: 40px;
+        margin: 0;
+        padding: 0;
     }
-
-
-    .button-bag-wrap {
-        padding: 10px 10px;
-        button.button-bag-view {
-            // min-height: 40px;
-            margin: 0;
-            padding: 0;
-        }
-    }
+  }
 }
