@@ -8,8 +8,8 @@ export class Config {
 
   public wordpressApiUrl = "http://test-lo-cal.pantheonsite.io/wp-json";
   // public localApi = process.env.IONIC_ENV === 'dev' ? "http://localhost:3000" : "http://api.lo-calkitchen.com";
-  public localApi = "http://localhost:3000";
-  public railsCustomerEndpoint : string = 'http://localhost:3000/customers';
+  public localApi = "https://api.lo-calkitchen.com";
+  public railsCustomerEndpoint : string = 'https://api.lo-calkitchen.com/customers';
   public railsOrderEndpoint : string = 'https://api.lo-calkitchen.com/orders';
   public railsMenuApi : string = `https://api.lo-calkitchen.com/menus/${this.siteId}`;
   public authenticateEndpoint : string = 'https://api.lo-calkitchen.com/authenticate';
