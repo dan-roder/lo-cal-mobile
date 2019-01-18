@@ -13,82 +13,54 @@ export class LoCalApiProvider {
     apiUrl:string;
 
     constructor(
-
-        private http     : Http,
-        private storage  : Storage,
-        private customer : CustomerProvider,
-        private config   : Config
-
+      private http     : Http,
+      private storage  : Storage,
+      private customer : CustomerProvider,
+      private config   : Config
     ) {
-
-        console.log( 'Hello LoCalApiProvider Provider' );
-        this.apiUrl = this.config.localApi;
-
+      this.apiUrl = this.config.localApi;
     }
 
     login( credentials ) {
+      const url = `${ this.apiUrl }/authenticate`;
 
-        console.log( credentials, `${ this.apiUrl }/authenticate` );
-        const url = `${ this.apiUrl }/authenticate`;
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        const options = {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
 
-            headers : headers
+      const options = {
+        headers : headers
+      };
 
-        };
-        let request = JSON.stringify({
+      let request = JSON.stringify({
+        credentials : credentials
+      });
 
-            credentials : credentials
-
+      return this.http.post( url, request, options )
+        .map( res => {
+          if ( res.ok ) {
+            return res;
+          }
+        })
+        .catch( error => {
+          console.log( error );
+          return Observable.throw( error.json().error || "Server Error" );
         });
-        console.log( request );
-        return this.http.post( url, request, options )
-            .map( res => {
-
-                console.log( res.json() );
-                if ( res.ok ) {
-
-                    this.save( res.json() );
-                    return res;
-
-                }
-
-
-            })
-            .catch( error => {
-
-                console.log( error );
-                return Observable.throw( error.json().error || "Server Error" );
-
-            });
-
-
     }
 
     logout() {
-
-            this.save( null );
-
+      this.save( null );
     }
 
     save( customer ) {
-        console.log( customer );
-        // let customerId = customer.CustomerId;
-        this.storage.set( 'customerid', customer ).then( () => {
-
-            console.log( customer );
-            // Something we need to do?
-            // this.customer.currentCustomer = customer;
-            this.customer.currentCustomer = customer;
-
-        })
-        .catch(error => {
-
-            console.log(error);
-
-        });
-
+      // let customerId = customer.CustomerId;
+      this.storage.set('customerid', customer ).then( () => {
+        // Something we need to do?
+        // this.customer.currentCustomer = customer;
+        this.customer.currentCustomer = customer;
+      })
+      .catch(error => {
+        console.log(error);
+      });
     }
 
 }
