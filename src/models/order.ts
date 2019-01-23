@@ -6,7 +6,7 @@ export interface Order{
   OrderId?: number; //  (integer , optional) : Get or set the OrderId property ,
   MenuId?: number; //  (integer , optional) : Get or set the MenuId property ,
   DesignId?: number; //  (integer , optional) : Get or set the DesignId property ,
-  OrderMode?: string; //  (enum , optional) = ['Pickup' or 'Delivery' or 'CurbSide'] : Get or set the OrderMode property ,
+  OrderMode?: number; //  (enum , optional) = ['Pickup' or 'Delivery' or 'CurbSide'] : Get or set the OrderMode property ,
   LastModifiedTimestamp?: string; //  (string , optional) : Get or set the LastModifiedTimestamp property ,
   Status?: string; //  (enum , optional) = ['Unordered' or 'Validated' or 'Submitted' or 'PendingOperation' or 'Deleted' or 'CreditProcessed' or 'SubmittedAndCanceled' or 'SubmittedWithDepositFailure'] : Get or set the Status property ,
   PromiseDateTime?: string; //  (string , optional) : Get or set the PromiseDateTime property ,

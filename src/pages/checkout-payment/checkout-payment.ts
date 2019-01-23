@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+
 import { NavController, NavParams, IonicPage, LoadingController, AlertController } from 'ionic-angular';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+
+import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { CreditCardValidator, CreditCard } from 'angular-cc-library';
 
 import { Order } from '../../models/order';
@@ -30,7 +32,7 @@ import * as moment from 'moment';
 
 export class CheckoutPaymentPage {
 
-    public currentOrder : Order;
+    public currentOrder : any;
     public contactInfoForm : FormGroup;
     public submittedOnce : boolean = false;
     public paymentForm : FormGroup;
@@ -131,7 +133,9 @@ export class CheckoutPaymentPage {
               });
             }
             this.orderForDisplay = this.orderService.calculateTotalWithModifiers(fullOrder);
-            this.currentOrder = fullOrder;
+            this.currentOrder = fullOrder; 
+            console.log(this.currentOrder);        
+            
           })
         });
       }
@@ -158,6 +162,7 @@ export class CheckoutPaymentPage {
           // Retrieve order again to ensure local storage order wasn't manipulated
           this.orderService.getFullOrderDetails(orderId).subscribe(fullOrder => {
             this.currentOrder = fullOrder;
+           
             // 3. Construct order with all form details
             this.constructOrder(fullOrder);
           })
@@ -165,7 +170,7 @@ export class CheckoutPaymentPage {
     
       }
 
-      protected constructOrder(order: Order){
+      protected constructOrder(order: any){
         let orderForApi : InSubmitOrderInformation;
     
         // If saved card checked

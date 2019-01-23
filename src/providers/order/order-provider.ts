@@ -21,7 +21,8 @@ export class OrderService {
     private _customerInfo : Customer;
     public _currentOrder : any;
     private _promiseDateTime : any;
-
+    private _orderMode : number;
+  
     constructor(
         private httpClient: Http,
         private localStorage: Storage,
@@ -30,7 +31,7 @@ export class OrderService {
       ) { }
 
       public putOrder(bagItems: Array<LineItem>): Observable<any>{
-
+       
         let orderEndpoint = this.config.railsOrderEndpoint + '/' + this.config.siteId;
         let order = this.constructOrderObject(bagItems);
 
@@ -53,7 +54,7 @@ export class OrderService {
             PromiseDateTime : this._promiseDateTime,
             LineItems : bagItems,
             Customer : this._customerInfo,
-            OrderMode : 'Pickup',
+            OrderMode : this._orderMode,
             PaymentMode : 'Unknown'
           }
         }
@@ -72,16 +73,10 @@ export class OrderService {
         })
       }
 
-      public getFullOrderDetails(orderId: number): Observable<any>{
-        let orderEndpoint = this.config.railsOrderEndpoint + `/${this.config.siteId}/${orderId}`;
-        return this.httpClient.get(orderEndpoint).map(fullOrder => {
-          this.currentOrder = fullOrder;
-          return fullOrder;
-        })
-      }
 
       public submitOrder(order: RailsInSubmitOrder, orderId: number): Observable<any>{
         return this.httpClient.post(this.config.railsOrderEndpoint + `/${this.config.siteId}/${orderId}`, order).map(orderResponse => {
+          console.log(orderResponse);
           return orderResponse;
         })
       }
@@ -144,11 +139,11 @@ export class OrderService {
         this._customerInfo = customer;
       }
 
-      get currentOrder(): Order{
+      get currentOrder(): any{
         return this._currentOrder;
       }
 
-      set currentOrder(order: Order){
+      set currentOrder(order: any){
         this._currentOrder = order;
       }
 
@@ -158,5 +153,22 @@ export class OrderService {
 
       set promiseDateTime(time: any){
         this._promiseDateTime = time;
+      }
+
+      get orderMode(): number{
+        return this._orderMode;
+      }
+    
+      set orderMode(mode: number){
+        this._orderMode = mode;
+      }
+
+      public getFullOrderDetails(orderId: number): Observable<any>{
+        let orderEndpoint = this.config.railsOrderEndpoint + `/${this.config.siteId}/${orderId}`;
+        return this.httpClient.get(orderEndpoint).map(fullOrder => {
+          this.currentOrder = fullOrder;
+          
+          return fullOrder;
+        })
       }
 }
