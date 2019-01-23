@@ -12,147 +12,120 @@ import { RailsCustomer, RailsLogin, Customer, RailsUpdate, InLoginUpdate, InPass
 
 @Injectable()
 export class CustomerProvider {
-    // customer: InRegistration;
-    customer: String;
-    private    customerObserver = new Subject();
-    customerId: Observable<any> = this.customerObserver.asObservable();
+  // customer: InRegistration;
+  customer: any;
+  private    customerObserver = new Subject();
+  customerId: Observable<any> = this.customerObserver.asObservable();
 
-    constructor(
-
-        private http    : Http,
-        private storage : Storage,
-        private config  : Config
-
-    ) {
-
-        this.storage.get('customerid').then( customerFromLocalStorage => {
-
-            if ( customerFromLocalStorage ) {
-
-                this.customer = customerFromLocalStorage;
-                this.customerObserver.next( customerFromLocalStorage );
-            }
-
-        })
-        .catch(error => {
-
-            console.log( error );
-
-        });
-
-    }
-
-    login( credentials ) {
-
-        console.log( credentials );
-
-    }
-
-    create( customer ) {
-
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-
-        const options = {
-            headers : headers
-        };
-
-        const url = `${this.config.localApi}/customers`;
-        let request = JSON.stringify({
-
-            customer_info : customer
-
-        });
-        return this.http.put( url, request, options )
-            .map( res => {
-
-                if ( res.ok ) {
-
-                    let customer = res.json();
-
-                    if(customer.Errors && customer.Errors[0].ErrorCode === 163) {
-
-                        return 163
-
-                    } else {
-
-                        this.save( customer );
-
-                        return 200
-                    }
-                    // return this.customer;
-                } else {
-                   return Observable.throw( "Issue processing request, please try again." );
-                }
-            });
-            // .catch( error => {
-            //     console.log( error );
-            //     return Observable.throw( error.json().error || "Server Error" );
-            // });
-    }
-
-    save( customer ) {
-
-        let customerId = customer.CustomerId;
-        this.storage.set( 'customerid', customerId ).then( () => {
-
-            this.customerObserver.next( customerId );
-            return customerId
-
-        })
-        .catch(error => {
-
-            console.log(error);
-
-        });
-    }
-
-    get currentCustomer() {
-        return this.customer;
-    }
-
-    set currentCustomer( customerId ) {
-        this.customer = customerId;
-        this.customerObserver.next( customerId);
-    }
-
-    public getSecurityQuestion(email: string): Observable<any>{
-        return this.http.get(this.config.railsCustomerEndpoint + `/securityquestions?Email=${email}`).map((question) => {
-          return question;
-        })
+  constructor(
+    private http: Http,
+    private storage: Storage,
+    private config: Config
+  ) {
+    this.storage.get('user').then( customerFromLocalStorage => {
+      if ( customerFromLocalStorage ) {
+        this.customer = customerFromLocalStorage;
+        this.customerObserver.next( customerFromLocalStorage );
       }
+    })
+    .catch(error => {
+      console.log( error );
+    });
+  }
 
-      public forcePasswordReset(email: any): Observable<any>{
-        return this.http.post(this.config.railsCustomerEndpoint + `/passwordreset/email`, email).map((result) => {
-          return result;
-        })
-      }
+  login( credentials ) {
+    console.log( credentials );
+  }
 
-      public passwordResetWithAnswer(data: InPasswordReset): Observable<any>{
-        return this.http.post(this.config.railsCustomerEndpoint + `/passwordreset`, data).map(result => {
-          return result;
-        })
-      }
+  create( customer ) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
 
-      public getCustomerInfo(customerId: string): Observable<any>{
-        return this.http.get(this.config.railsCustomerEndpoint + `/${customerId}`).map(userData => {
-          return userData;
-        })
-      }
+    const options = {
+      headers : headers
+    };
 
-      public isLoggedIn(){
-        return this.storage.get('user').then(userInfo => {
-          return userInfo;
-        });
-      }
+    const url = `${this.config.localApi}/customers`;
 
-      public getSavedPayments(customerId: string): Observable<any>{
-        return this.http.get(this.config.railsCustomerEndpoint + `/${customerId}` + '/payments').map(data => {
-          return data;
-        })
-      }
+    let request = JSON.stringify({
+      customer_info : customer
+    });
 
-      /**
+    return this.http.put( url, request, options )
+      .map( res => {
+        if ( res.ok ) {
+          let customer = res.json();
+
+          if(customer.Errors && customer.Errors[0].ErrorCode === 163) {
+            return 163;
+          } else {
+            this.save( customer );
+            return 200;
+          }
+        } else {
+          return Observable.throw( "Issue processing request, please try again." );
+        }
+      });
+  }
+
+  save( customer ) {
+    let customerId = customer.CustomerId;
+
+    this.storage.set( 'customerid', customerId ).then( () => {
+      this.customerObserver.next( customerId );
+      return customerId;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
+  get currentCustomer() {
+      return this.customer;
+  }
+
+  set currentCustomer( customer ) {
+    this.customer = customer;
+    this.customerObserver.next( customer );
+  }
+
+  public getSecurityQuestion(email: string): Observable<any>{
+    return this.http.get(this.config.railsCustomerEndpoint + `/securityquestions?Email=${email}`).map((question) => {
+      return question;
+    })
+  }
+
+  public forcePasswordReset(email: any): Observable<any>{
+    return this.http.post(this.config.railsCustomerEndpoint + `/passwordreset/email`, email).map((result) => {
+      return result;
+    })
+  }
+
+  public passwordResetWithAnswer(data: InPasswordReset): Observable<any>{
+    return this.http.post(this.config.railsCustomerEndpoint + `/passwordreset`, data).map(result => {
+      return result;
+    })
+  }
+
+  public getCustomerInfo(customerId: string): Observable<any>{
+    return this.http.get(this.config.railsCustomerEndpoint + `/${customerId}`).map(userData => {
+      return userData;
+    })
+  }
+
+  public isLoggedIn(){
+    return this.storage.get('user').then(userInfo => {
+      return userInfo;
+    });
+  }
+
+  public getSavedPayments(customerId: string): Observable<any>{
+    return this.http.get(this.config.railsCustomerEndpoint + `/${customerId}` + '/payments').map(data => {
+      return data;
+    })
+  }
+
+  /**
    *
    * @param payment RailsSavePayment: payment data
    * @param customerId string: Aloha customer ID
@@ -164,13 +137,11 @@ export class CustomerProvider {
   }
 
 
-      public logOut() {
+  public logOut() {
+    let itemsToRemove = ['user', 'customerid', 'order']
 
-        let itemsToRemove = ['user', 'customerid', 'order']
-
-        itemsToRemove.forEach(element => {
-            this.storage.remove(element)
-        });
-
-      }
+    itemsToRemove.forEach(element => {
+        this.storage.remove(element)
+    });
+  }
 }
