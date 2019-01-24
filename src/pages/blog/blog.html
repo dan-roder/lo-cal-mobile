@@ -3,21 +3,22 @@
         <button ion-button menuToggle>
             <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
         </button>
-        <ion-title>Blog</ion-title>
+        <ion-title>Blogs</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content class="page" padding>
-    <div *ngFor="let post of allBlogPosts">
+    <h2>Blogs</h2>
+    <div class="blog-post" *ngFor="let post of allBlogPosts">
         <div class="left" *ngIf="post?.featured_media">
-          <a href="#">
+          <a (click)="setParams(post)">
             <img src="{{ post?._embedded | featuredImage: 'medium' }}" alt="{{ post?._embedded | featuredImage: 'alt' }}">
           </a>
         </div>
 
-        <h1>{{post?.title?.rendered}}</h1>
+        <h3>{{post?.title?.rendered}}</h3>
         <span>{{ post?.date | date:'MMMM d, yyyy' }} </span>
         <div class="excerpt" *ngIf="post?.excerpt" [innerHtml]="post?.excerpt?.rendered | safeHtml"></div>
-        <a (click)="setParams(post)">Read More</a>
+        <a class="read-more-link" (click)="setParams(post)">Read More</a>
     </div>
 </ion-content>
