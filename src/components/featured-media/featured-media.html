@@ -1,1 +1,1 @@
-<img *ngIf="media && media.media_type == 'image' " src="{{media.source_url}}" />
+<div class="featured-media-holder" *ngIf="media && media.media_type == 'image' " [ngStyle]="{'background-image': 'url(' + media.source_url + ')'}"></div>
