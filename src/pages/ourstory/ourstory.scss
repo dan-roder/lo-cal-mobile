@@ -1,23 +1,49 @@
 page-ourstory {
-
+    .scroll-content {
+      padding: 0 !important;
+    }
+    .extra_text_section, .extra_text_section_description {
+      padding: 16px;
+    }
+    .center-title {
+      position: absolute;
+      top: 25%;
+      left: 0;
+      right: 0;
+      margin: auto;
+      text-align: center;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-shadow: 0 1px 10px rgba(0, 0, 0, 0.23);
+      color: #fff;
+      font-weight: 700;
+      font-size: 38px;
+    }
+    p {
+      line-height: 30px;
+    }
+    .image-holder {
+      padding: 0 14px;
+    }
 }
 .page_content{
-
+    padding: 16px;
     font-size: 15px;   
     letter-spacing: 1px;
     font-style: normal;
     font-stretch: normal;
     line-height: 1.46;
-    text-align: center;
     color: rgba(30, 30, 30, 0.99);
 
     .promotion-text{
-
-        font-size: 18px;
-        font-weight: 600;  
-        letter-spacing: 1.4px;
-       
-     }
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;  
+      letter-spacing: 1.4px;
+      line-height: 30px;
+      margin-top: 40px;
+      margin-bottom: 25px;   
+    }
     
 }
 
@@ -35,25 +61,17 @@ page-ourstory {
     font-size: 15px;
 }
 .page_value{
-    padding-top: 18px;
-    font-size: 20px;
-    font-weight: 600;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: 1.3px;
-    text-align: center;
-    color: #ff0f1b;
-
+  letter-spacing: 1.3px;
+  text-align: center;
+  color: #ff0f1b;
+  font-size: 31px;
+  font-weight: 700;
 }
 .clear{clear:both;}
 
 .page_value_content{
     padding-bottom: 7px;
     font-size: 16px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
     line-height: 1.5;
     letter-spacing: 0.7px;
     text-align: center;
@@ -62,12 +80,14 @@ page-ourstory {
 }
 
 .section_grey{
-    background: #ebebeb;
-    max-width: 100%;
+  max-width: 100%;
+  background-color: #ddd;
+  padding: 50px 0;
 }
 img {
     max-width: 100%;
     height: auto;
+    display: block;
 }
 
 .image_section{
@@ -76,9 +96,11 @@ img {
 }
 
 .img_title{
-    padding-top: 15px;
-    font-size: 16px;
-    font-weight: 600;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    font-size: 21px;
+    font-weight: 700;
+    text-transform: uppercase;
     font-style: normal;
     font-stretch: normal;
     line-height: normal;
@@ -88,15 +110,14 @@ img {
 }
 
 .img_descriptions{
-    padding:5px 0 10px 0;
-    font-size: 14px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.88;
-    letter-spacing: normal;
+    padding: 3px 0 20px 0;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
     text-align: center;
     color: rgba(30, 30, 30, 0.99);
+    max-width: 90%;
+    margin: 0 auto;
 }
 
 .text{
