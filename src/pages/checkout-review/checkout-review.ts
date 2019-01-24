@@ -10,6 +10,7 @@ import { Order } from '../../models/order';
 
 import { Storage } from "@ionic/storage";
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { Vehicle } from "../../models/Payment";
 
 import { BagProvider } from "../../providers/bag/bag";
 // import { CustomerProvider } from "../../providers/customer/customer";
@@ -40,6 +41,7 @@ export class CheckoutReviewPage {
     public addressData : any;
     public bagTotalPrice : number;
     public submitAttempted : boolean = false;
+    public pickupForm : FormGroup;
     public hideGuestForm   : boolean = false;
     public userLoggedIn    : boolean = false;
     public hideReEnterDetails: boolean = true;
@@ -58,6 +60,15 @@ export class CheckoutReviewPage {
       private orderService: OrderService
 
   ) {
+
+    this.pickupForm = fb.group({
+          'pickup-selection' : [null, Validators.required],
+          'vehicle-make' : [null],
+          'vehicle-model' : [null],
+          'vehicle-color' : [null]
+        });
+     
+
     this.timeForm = fb.group({
         'pickup-time': ['', Validators.required]
     })
@@ -90,7 +101,7 @@ export class CheckoutReviewPage {
         this.getAddress();
 
         // get customer info
-        this.getCustomer()
+        this.getCustomer();
 
         // get bag items from local storage
         this.itemsInBag = this.bag.itemsInBag
@@ -189,17 +200,25 @@ export class CheckoutReviewPage {
         }
 
         this.processing = true;
+        this.orderService.orderMode = this.pickupForm.get('pickup-selection').value;
+        let vehicle : Vehicle = {};
+         if(this.pickupForm.get('pickup-selection').value === '4'){
+         vehicle = this.constructVehicleObject();
+         this.storage.set('vehicle', vehicle).then(() => {});
+          }
+
 
         let loader = this.loadingController.create({ content: "Processing Order" });
         loader.present()
 
-        this.orderService.putOrder(this.itemsInBag).subscribe(response => {
+        this.orderService.putOrder(this.bagItems).subscribe(response => {
 
             let jsonResponse = response.json()
               if(jsonResponse.ResultCode === 0 || jsonResponse.ResultCode === 4){
                 // Save to LocalStorage and route to checkout
                 this.orderService.saveOrderToLocalStorage(jsonResponse).then(result => {
                   if(result){
+                     
                     // this.router.navigate(['/checkout/payment']);
                     this.navCtrl.push('CheckoutPaymentPage')
                     loader.dismiss()
@@ -208,11 +227,14 @@ export class CheckoutReviewPage {
 
               }
               else{
+               
                 this.processing = false;
                 this.errorData.error = "We're sorry. There was an error placing your order. Please try again."
                 this.wpService.logError('Put Order Error: ' + JSON.stringify(response)).subscribe(() => {});
               }
         }, error => {
+            console.log('error');
+            console.log(error);
            this.processing = false;
            this.errorData.error = "We're sorry. There was an error placing your order. Please try again."
            this.wpService.logError('Put Order Error: ' + JSON.stringify(error)).subscribe(() => {});
@@ -246,4 +268,22 @@ export class CheckoutReviewPage {
                 break;
         }
     }
+
+    protected constructVehicleObject(): Vehicle{
+        let vehicleInfo: Vehicle = {
+          Make: this.pickupForm.get('vehicle-make').value,
+          Model: this.pickupForm.get('vehicle-model').value,
+          Color: this.pickupForm.get('vehicle-color').value
+        }
+    
+        return vehicleInfo;
+      }
+
+    get totalBagPrice(){
+        return this.bag.totalPrice;
+      }
+    
+      get bagItems(){
+        return this.bag.itemsInBag;
+      }
 }

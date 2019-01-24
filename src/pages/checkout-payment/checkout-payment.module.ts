@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { CheckoutPaymentPage } from './checkout-payment';
+import { PipesModule } from '../../pipes/pipes.module';
 import { DirectivesModule } from '../../directives/directives.module';
 
 @NgModule({
@@ -9,6 +10,7 @@ import { DirectivesModule } from '../../directives/directives.module';
   ],
   imports: [
     DirectivesModule,
+    PipesModule,
     IonicPageModule.forChild(CheckoutPaymentPage),
   ],
   exports: [

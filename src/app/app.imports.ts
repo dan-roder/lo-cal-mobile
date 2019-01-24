@@ -12,6 +12,7 @@ import { MenuProvider } from "../providers/menu/menu";
 import { BagProvider } from '../providers/bag/bag';
 import { CustomerProvider } from '../providers/customer/customer';
 import { OrderService } from './../providers/order/order-provider';
+import { AuthProvider } from '../providers/auth/auth';
 
 // Directives
 import { DirectivesModule } from '../directives/directives.module';
@@ -25,39 +26,38 @@ import { HttpModule } from '@angular/http';
 import { ComponentsModule } from "../components/components.module";
 import { SuperTabsModule } from 'ionic2-super-tabs';
 
+
 // Exports
 
 export const MODULES = [
-
-    BrowserModule,
-    HttpModule,
-    IonicStorageModule.forRoot({
-        name: 'lo_cal_kitchen_bag'
-    }),
-    ComponentsModule,
-    PipesModule,
-    SuperTabsModule.forRoot()
-
+  BrowserModule,
+  HttpModule,
+  IonicStorageModule.forRoot({
+      name: 'lo_cal_kitchen_bag'
+  }),
+  ComponentsModule,
+  PipesModule,
+  SuperTabsModule.forRoot()
 ];
 
 export const PROVIDERS = [
-    Config,
-    WordPressProvider,
-    LoCalApiProvider,
-    MenuProvider,
-    BagProvider,
-    CustomerProvider,
-    OrderService,
-    // Ionic native specific providers
-    InAppBrowser,
-    StatusBar,
-    SplashScreen
-
+  Config,
+  WordPressProvider,
+  LoCalApiProvider,
+  MenuProvider,
+  BagProvider,
+  CustomerProvider,
+  OrderService,
+  // Ionic native specific providers
+  InAppBrowser,
+  StatusBar,
+  SplashScreen,
+  AuthProvider
 ];
 
 // Components Exported as module
 // export const COMPONENTS = [];
 
 export const DIRECTIVES = [
-    DirectivesModule
+  DirectivesModule
 ];
