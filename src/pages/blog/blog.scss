@@ -1,13 +1,22 @@
 page-blog {
+  h3, p {
+    line-height: 1.5;
+  }
+  h3, p, span, .read-more-link {
+    color: rgba(30, 30, 30, 0.99);
+  }
+  a, span, p {
+    letter-spacing: 0.6px;
+  }
+  a, .read-more-link {
+    font-weight: 400;
+  }
   .scroll-content {
     background: #f4f4f4;
   }
   .blog-post {
     border-top: 1px solid;
     padding: 30px 0 50px;
-  }
-  h3, p, span, .read-more {
-    color: rgba(30, 30, 30, 0.99);
   }
   h2 {
     text-align: center;
@@ -18,7 +27,6 @@ page-blog {
   h3 {
     font-size: 2rem;
     letter-spacing: 1.2px;
-    line-height: 1.5;
   }
   .left {
     text-align: center;
@@ -29,22 +37,17 @@ page-blog {
   }
   a {
     color: #ff0f1b;
-    font-weight: 400;
-    letter-spacing: 0.6px;
   }
   span, p {
     font-weight: 300;
-    letter-spacing: 0.6px;
     font-size: 13px;
   }
   p {
-    line-height: 1.5;
     margin-bottom: 35px;
   }
   .read-more-link {
     color: #000;
     font-size: 16px;
-    font-weight: 400;
     float: right;
     &:after {
       font-family: 'icomoon';
