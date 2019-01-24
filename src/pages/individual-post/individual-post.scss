@@ -6,6 +6,9 @@ page-individual-post {
     display: block;
     margin: 0 auto;
   }
+  h2, p, span {
+    color: rgba(30, 30, 30, 0.99);
+  }
   h2, p {
     line-height: 1.5;
   }
