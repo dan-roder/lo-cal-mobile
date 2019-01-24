@@ -1,3 +1,35 @@
 page-individual-post {
-
+  .content-md {
+    background-color: #f4f4f4;
+  }
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+  h2, p {
+    line-height: 1.5;
+  }
+  p, span {
+    letter-spacing: 0.6px;
+    font-size: 15px;
+  }
+  h2 {
+    font-size: 37px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding-top: 60px;
+    margin-bottom: 15px;
+  }
+  span {
+    display: inline-block;
+    padding-bottom: 15px;
+    font-weight: 400;
+  }
+  p {
+    font-weight: 300;
+    margin-top: 17px;
+  }
+  a {
+    color: #ff0f1b;
+  }
 }
