@@ -18,6 +18,9 @@ page-individual-post {
   p, span {
     letter-spacing: 0.6px;
     font-size: 15px;
+    @include breakpoint(575px) {
+      font-size: 17px;
+    }
   }
   h2 {
     font-size: 37px;
@@ -25,6 +28,9 @@ page-individual-post {
     letter-spacing: 1px;
     padding-top: 60px;
     margin-bottom: 15px;
+    @include breakpoint(575px) {
+      font-size: 45px;
+    }
   }
   span {
     display: inline-block;
@@ -61,11 +67,14 @@ page-individual-post {
     display: block;
     text-align: center;
     padding-left: 0;
-        margin-top: 40px;
+    margin-top: 40px;
+    @include breakpoint(575px) {
+      text-align: right;
+    }
     .share-text {
       opacity: .7;
       padding-bottom: 25px;
-    vertical-align: middle;
+      vertical-align: middle;
     }
     li {
       display: inline-block;
