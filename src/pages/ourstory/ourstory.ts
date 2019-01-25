@@ -50,7 +50,6 @@ export class OurstoryComponent implements OnInit {
                 if(page.featured_media != 0){
                     this.wordpressService.getMedia(page.featured_media).subscribe(media => this.featuredImage = media);
                 }
-                console.log(page)
                 loader.dismiss();
             });
     }
