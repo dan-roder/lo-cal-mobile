@@ -17,6 +17,15 @@ page-blog {
   .blog-post {
     border-top: 1px solid;
     padding: 30px 0 50px;
+    @include breakpoint(575px) {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  .right {
+    @include breakpoint(575px) {
+      width: 65%;
+    }
   }
   h2 {
     text-align: center;
@@ -30,6 +39,9 @@ page-blog {
   }
   .left {
     text-align: center;
+    @include breakpoint(575px) {
+      width: 30%;
+    }
   }
   span {
     display: inline-block;
