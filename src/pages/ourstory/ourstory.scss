@@ -9,6 +9,10 @@ page-ourstory {
       font-size: 15px;
       padding: 10px 40px;
       text-align: center;
+      @include breakpoint(768px) {
+           width: 45%;
+        float: right;
+      }
       a {
         color: #ff0f1b;
         font-weight: 700;
@@ -22,7 +26,7 @@ page-ourstory {
     }
     .center-title {
       position: absolute;
-      top: 25%;
+      top: 131px;
       left: 0;
       right: 0;
       margin: auto;
@@ -33,6 +37,10 @@ page-ourstory {
       color: #fff;
       font-weight: 700;
       font-size: 38px;
+      @include breakpoint(768px) {
+        font-size: 55px;
+        top: 120px;
+      }
     }
     p {
       line-height: 30px;
@@ -56,6 +64,9 @@ page-ourstory {
         left: 0;
         background: rgba(0, 0, 0, 0.4);
         z-index: 0;
+        @include breakpoint(768px) {
+            background: rgba(0, 0, 0, 0.1);
+        }
       }
       .content {
         color: #ffffff;
@@ -66,12 +77,19 @@ page-ourstory {
       }
       .body {
         max-width: 80%;
+        @include breakpoint(768px) {
+            width: 50%;
+        }
       }
       p {
         line-height: 22px;
         font-size: 16px;
         letter-spacing: 0.8px;
         text-shadow: 0 1px 10px rgba(0, 0, 0, 0.23);
+        @include breakpoint(768px) {
+            color: #000;
+            text-shadow: none;
+        }
       }
       .promotion-text {
           font-size: 20px;
@@ -91,7 +109,7 @@ page-ourstory {
 
     .promotion-text{
       text-align: center;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;  
       letter-spacing: 1.4px;
       line-height: 30px;
@@ -136,16 +154,28 @@ page-ourstory {
   max-width: 100%;
   background-color: #ddd;
   padding: 50px 0;
+  @include breakpoint(768px) {
+    background: url('../assets/images/light-grey-pattern-bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
 }
 img {
     max-width: 100%;
     height: auto;
     display: block;
+    margin: 0 auto;
 }
 
 .image_section{
-
     padding: 0 20px;
+    @include breakpoint(768px) {
+      padding-left: 15px;
+      padding-right: 15px;
+      width: 33.3333%;
+      float: left;
+    }
 }
 
 .img_title{
@@ -172,28 +202,13 @@ img {
     max-width: 90%;
     margin: 0 auto;
 }
-
+.extra_text_section_img{
+  @include breakpoint(768px) {
+    width: 55%;
+    float: left;
+  }  
+}
 .text{
     clear: both;
 }
 
-@media screen and (min-width: 768px) {
-    .image_section {
-        padding-left: 15px;
-        padding-right: 15px;
-        width: 33.3333%;
-        float: left;
-        
-        
-    }
-    .extra_text_section_img{
-        width: 50%;
-        float: left;
-    }
-    .extra_text_section_description{
-        width: 45%;
-        float: left;
-        margin-left: 2.5%;
-        margin-top: 5%;
-    }
-  }
