@@ -15,10 +15,11 @@
             <img src="{{ post?._embedded | featuredImage: 'medium' }}" alt="{{ post?._embedded | featuredImage: 'alt' }}">
           </a>
         </div>
-
-        <h3>{{post?.title?.rendered}}</h3>
-        <span>{{ post?.date | date:'MMMM d, yyyy' }} </span>
-        <div class="excerpt" *ngIf="post?.excerpt" [innerHtml]="post?.excerpt?.rendered | safeHtml"></div>
-        <a class="read-more-link" (click)="setParams(post)">Read More</a>
+        <div class="right">
+          <h3>{{post?.title?.rendered}}</h3>
+          <span>{{ post?.date | date:'MMMM d, yyyy' }} </span>
+          <div class="excerpt" *ngIf="post?.excerpt" [innerHtml]="post?.excerpt?.rendered | safeHtml"></div>
+          <a class="read-more-link" (click)="setParams(post)">Read More</a>
+        </div>
     </div>
 </ion-content>
