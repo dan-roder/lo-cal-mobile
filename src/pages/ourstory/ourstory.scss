@@ -2,8 +2,23 @@ page-ourstory {
     .scroll-content {
       padding: 0 !important;
     }
-    .extra_text_section, .extra_text_section_description {
+    .extra_text_section {
       padding: 16px;
+    }
+    .extra_text_section_description{
+      font-size: 15px;
+      padding: 10px 40px;
+      text-align: center;
+      a {
+        color: #ff0f1b;
+        font-weight: 700;
+      }
+      .promotion-text {
+        letter-spacing: 0.8px;
+      }
+      .p1 {
+        line-height: 25px;
+      }
     }
     .center-title {
       position: absolute;
@@ -42,7 +57,28 @@ page-ourstory {
         background: rgba(0, 0, 0, 0.4);
         z-index: 0;
       }
+      .content {
+        color: #ffffff;
+        position: relative;
+        padding-left: 15px;
+        padding-right: 15px;
+        font-weight: 700;
+      }
+      .body {
+        max-width: 80%;
+      }
+      p {
+        line-height: 22px;
+        font-size: 16px;
+        letter-spacing: 0.8px;
+        text-shadow: 0 1px 10px rgba(0, 0, 0, 0.23);
+      }
+      .promotion-text {
+          font-size: 20px;
+          line-height: 28px;
+      }
     }
+    
 }
 .page_content{
     padding: 16px;
@@ -74,10 +110,9 @@ page-ourstory {
 .extra_text_section{
     font-size: 15px;
     padding: 25px 0 25px 0;
+    
 }
-.extra_text_section_description{
-    font-size: 15px;
-}
+
 .page_value{
   letter-spacing: 1.3px;
   text-align: center;
