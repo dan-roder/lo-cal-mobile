@@ -75,10 +75,8 @@ export class OrderService {
 
 
       public submitOrder(order: RailsInSubmitOrder, orderId: number): Observable<any>{
-        console.log("order body"+  order); 
-        return this.httpClient.post(this.config.railsOrderEndpoint + `/${this.config.siteId}/${orderId}`, order).map(orderResponse => {    
-          console.log("order api response"+orderResponse);    
-          return orderResponse;
+        return this.httpClient.post(this.config.railsOrderEndpoint + `/${this.config.siteId}/${orderId}`, order).map(orderResponse => {
+          return orderResponse.json();
         })
       }
 
