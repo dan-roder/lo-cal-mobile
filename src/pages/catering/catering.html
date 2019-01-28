@@ -71,7 +71,8 @@
             </form>
           </div>
         </div> -->
-        <div class="contact-info" [innerHtml]="acf?.right_details | safeHtml"></div>
-        <div *ngIf="mapImage" class="map-image" [ngStyle]="{'background-image': 'url(' + mapImage + ')'}"></div>
-
+        <div class="image-and-text">
+          <div class="contact-info" [innerHtml]="acf?.right_details | safeHtml"></div>
+          <div *ngIf="mapImage" class="map-image" [ngStyle]="{'background-image': 'url(' + mapImage + ')'}"></div>
+        </div>
 </ion-content>
