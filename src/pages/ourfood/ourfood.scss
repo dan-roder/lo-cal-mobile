@@ -17,6 +17,7 @@ page-ourfood {
     p {
       font-size: 16px;
       line-height: 25px;
+      font-weight: 400;
     }
     a {
       color: #ff0f1b;
@@ -26,23 +27,29 @@ page-ourfood {
   .food-details {
     background-color: #ddd;
     text-align: center;
+    @include breakpoint(768px) {
+      background: url(../assets/images/light-grey-pattern-bg.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
     p {
-      font-size: 16px;
       line-height: 23px;
       margin-top: 10px;
     }
   }
-  .section-title {
-    margin-top: 0;
+  .section-title, .center-title {
     text-align: center;
     text-transform: uppercase;
-    color: #ff0f1b;
     font-weight: 700;
+  }
+  .section-title {
+    margin-top: 0;
+    color: #ff0f1b;
     font-size: 33px;
     letter-spacing: 1.2px;
-    padding-top: 40px;
-    padding-bottom: 5px;
-     line-height: 40px;
+    padding: 40px 0 5px;
+    line-height: 40px;
   }
   .center-title {
     position: absolute;
@@ -50,12 +57,9 @@ page-ourfood {
     left: 0;
     right: 0;
     margin: auto;
-    text-align: center;
     letter-spacing: 1.5px;
-    text-transform: uppercase;
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.23);
     color: #fff;
-    font-weight: 700;
     font-size: 38px;
     @include breakpoint(768px) {
       font-size: 55px;
@@ -66,10 +70,6 @@ page-ourfood {
     font-size: 21px;
     letter-spacing: 0.8px;
     text-align: center;
-    font-weight: 400;
-    p {
-      
-    }
   }
   .content-wrapper {
     padding: 0 20px;
@@ -78,7 +78,6 @@ page-ourfood {
       width: 33.33%;
     }
     h3 {
-      
       font-size: 21px;
       line-height: 30px;
       letter-spacing: 1px;
