@@ -75,8 +75,9 @@ export class OrderService {
 
 
       public submitOrder(order: RailsInSubmitOrder, orderId: number): Observable<any>{
-        return this.httpClient.post(this.config.railsOrderEndpoint + `/${this.config.siteId}/${orderId}`, order).map(orderResponse => {
-          console.log(orderResponse);
+        console.log("order body"+  order); 
+        return this.httpClient.post(this.config.railsOrderEndpoint + `/${this.config.siteId}/${orderId}`, order).map(orderResponse => {    
+          console.log("order api response"+orderResponse);    
           return orderResponse;
         })
       }
@@ -164,11 +165,11 @@ export class OrderService {
       }
 
       public getFullOrderDetails(orderId: number): Observable<any>{
-        let orderEndpoint = this.config.railsOrderEndpoint + `/${this.config.siteId}/${orderId}`;
-        return this.httpClient.get(orderEndpoint).map(fullOrder => {
-          this.currentOrder = fullOrder;
-          
-          return fullOrder;
+        return this.httpClient.get(this.config.railsOrderEndpoint + `/${this.config.siteId}/${orderId}`).map((fullOrder) => {
+          this.currentOrder =  fullOrder.json();
+          return fullOrder.json();
         })
       }
+
+    
 }
