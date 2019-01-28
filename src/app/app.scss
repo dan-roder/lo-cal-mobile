@@ -16,7 +16,7 @@
 //   background: linear-gradient(151deg, #fbfbfb, #eeeeee);
 // }
 @import "theme/mixins";
-
+@import "theme/extendables";
 @font-face{
     font-family:  'Muli';
     src: url('../assets/fonts/muli300.woff2');
