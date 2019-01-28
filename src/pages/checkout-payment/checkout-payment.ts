@@ -133,7 +133,7 @@ export class CheckoutPaymentPage {
               });
             }
             this.orderForDisplay = this.orderService.calculateTotalWithModifiers(fullOrder);
-               
+            console.log("current order", fullOrder);
             this.currentOrder = fullOrder; 
               
             
@@ -191,15 +191,14 @@ export class CheckoutPaymentPage {
           order_submission : orderForApi
         }
 
-        let jsonFinalOrderFOrSubmission = JSON.stringify(finalOrderForSubmission);
-       
-        console.log("my final order submission" + JSON.stringify(finalOrderForSubmission));
         // Order object with payment has been created, submit to API
-        this.orderService.submitOrder(jsonFinalOrderFOrSubmission, this.currentOrder.OrderId).subscribe(orderResults => {
+        this.orderService.submitOrder(finalOrderForSubmission, this.currentOrder.OrderId).subscribe(orderResults => {
           this.orderResultForTesting = orderResults.ResultCode;
-    
+          
+        
           // TODO: At the current point in time this is only reached if we get a successful API response
           if(orderResults.ResultCode == 0 || orderResults.ResultCode == 4){
+           
             this.saveOrderAndRedirect(orderResults);
           }
           else{
@@ -208,7 +207,7 @@ export class CheckoutPaymentPage {
           }
         }, error => {
           this.processing = false;
-          console.log("Error message:" + error.error);
+        
           switch(+error.error.error_code){
             case 150:
               this.pickupTimeError = true;
@@ -316,12 +315,12 @@ export class CheckoutPaymentPage {
     
             // Save payment method, then navigate to confirmation
             this.customerService.savePaymentMethod(paymentInfoForSaving, this.currentCustomer.CustomerId).subscribe(() => {
-              console.log('navigation1');
+           
               this.navigateToConfirmation();
             });
           }
           else{
-            console.log('navigation2');
+            
             this.navigateToConfirmation();
           }
         });
