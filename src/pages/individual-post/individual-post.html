@@ -15,4 +15,22 @@
     <div class="post-body" *ngIf="pageContent?.content.rendered">
         <p [innerHtml]="pageContent?.content.rendered | safeHtml"></p>
     </div>
+    <ul class="social-menu">
+        <li class="share-text">Share:</li>
+        <li>
+            <a class="facebook-share" href="http://www.facebook.com" target="_blank">
+                <span class="visuallyhidden">Share on Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a class="twitter-share" href="http://www.twitter.com" target="_blank">
+                <span class="visuallyhidden">Share on Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a class="instagram-share" href="http://www.instagram.com" target="_blank">
+                <span class="visuallyhidden">Share on Instagram</span>
+            </a>
+        </li>
+    </ul>
 </ion-content>

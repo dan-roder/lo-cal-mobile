@@ -162,7 +162,7 @@ export class WordPressProvider {
             return result;
         })
     }
-    getCustomPostType(postType, _perPage: number = null): Observable < any > {
+    public getCustomPostType(postType, _perPage: number = null): Observable < any > {
         let perPage = (_perPage !== null) ? `&per_page=${_perPage}` : '';
         return this.http.get(this.config.wordpressApiUrl + `/wp/v2/${postType}?_embed${perPage}`);
     }
