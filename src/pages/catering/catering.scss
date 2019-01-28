@@ -16,6 +16,9 @@ page-catering {
         text-transform: uppercase;
         margin-top: 25px;
         margin-bottom: 20px;
+        @include breakpoint(525px) {
+          text-align: left;
+        }
       }
     }
     .image-and-text {
@@ -47,7 +50,6 @@ page-catering {
       color: #ff0f1b;
     }
     h3 {
-    
       text-align: center;
       text-transform: uppercase;
       color: #ff0f1b;
@@ -88,5 +90,18 @@ page-catering {
       background-position: center;
       position: relative;
       height: 180px;
+    }
+    .columns {
+      @include breakpoint(525px) {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+    .column {
+      @include breakpoint(525px) {
+        width: 28%;
+        margin: 0 1%;
+        text-align: left;
+      }
     }
 }
