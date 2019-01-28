@@ -11,8 +11,7 @@ page-ourfood {
   .section-white {
     padding: 30px;
     .promotion-text {
-      font-size: 21px;
-      line-height: 28px;
+      @extend %promotion-text;
     }
     p {
       font-size: 16px;
