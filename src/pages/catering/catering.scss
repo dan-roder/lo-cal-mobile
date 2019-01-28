@@ -1,21 +1,35 @@
 page-catering {
-
+    .scroll-content {
+        padding: 0 !important;
+    }
+    .center-960, .content {
+        padding: 15px;
+    }
+    .promotion-text {
+        font-weight: 400;
+        font-size: 19px;
+        line-height: 27px;
+        letter-spacing: .8px;
+        margin-top: 35px;
+    }
     .catering-hero {
         background-size: cover;
-        // background-image: url('../../assets/icon/loading-eclipse.svg');
         background-position: center;
         position: relative;
-        height: 265px;
+        height: 310px;
+        &:before {
+           @extend %overlay;
+        }
         h2 {
-            letter-spacing: 2.7px;
-            margin-top: 0;
+            letter-spacing: 1px;
             text-transform: uppercase;
             text-shadow: 0 1px 10px rgba(0, 0, 0, 0.23);
             color: #fff;
+            position: relative;
             text-align: center;
             font-size: 42px;
-            font-weight: 600px;
-            padding-top: 115px;
+            font-weight: 700;
+            padding-top: 135px;
         }
     }
     .map-image {
