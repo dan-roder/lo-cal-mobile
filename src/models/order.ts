@@ -60,7 +60,7 @@ export interface OrderWebSalesGroup{
 export interface OrderResults{
   ResultCode: string; // (enum , optional) = ['Success|0' or 'GeneralFailure|1' or 'SiteCommunicationFailure|2' or 'ItemFailures|3' or 'PromiseTimeChanged|4' or 'OrderMinimumNotMet|5' or 'FailedToStartOrder|6' or 'FailedToUpdateOrder|7' or 'InvalidSiteOrOrder|11' or 'SiteNotAcceptingOrders|12' or 'CapacityExceeded|13' or 'InvalidPaymentInformation|14' or 'FailedToSubmitOrder|15' or 'UnsupportedOrderMode|16'] : Gets or sets the ResultCode ,
   OrderId: number; // (integer , optional) : ID of newly created order. ,
-  Order: Order; // (ExternalOrder , optional) : Gets or sets the modified Order to be returned ,
+  Order: any; // (ExternalOrder , optional) : Gets or sets the modified Order to be returned ,
   HasFailedItems: boolean; // (boolean , optional) : Indiciates whether or not any of the items in the order failed ,
   FailedItems: Array<LineItem>; // (array[ExternalLineItem] , optional) : List of all the Items that either failed or have modifiers that failed ,
   FailedModifiers: Array<LineItemModifier>; // (array[ExternalLineItemModifier] , optional) : List of all the Modifiers that either failed or have modifiers that failed ,
@@ -111,5 +111,5 @@ export interface ComboItem{
 }
 
 export interface RailsOrder{
-  order : Order;
+  order : any;
 }
