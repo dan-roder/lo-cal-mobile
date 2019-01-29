@@ -77,7 +77,6 @@ page-catering {
       background-size: cover;
       background-position: center;
       position: relative;
-      height: 310px;
       &:before {
         @extend %overlay;
       }
@@ -90,7 +89,11 @@ page-catering {
         text-align: center;
         font-size: 40px;
         font-weight: 700;
-        padding-top: 135px;
+        padding: 150px 0 160px;
+        @include breakpoint(768px) {
+            padding: 225px 0 200px;
+            font-size: 60px;
+        }
       }
     }
     .map-image {
