@@ -6,6 +6,9 @@ featured-media {
     background-position: center;
     position: relative;
     padding: 164px;
+    @include breakpoint(768px) {
+      padding: 280px;
+    }
     &:before {
       @extend %overlay;
     }
