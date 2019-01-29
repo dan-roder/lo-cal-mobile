@@ -40,7 +40,7 @@ export class MyApp {
     ];
     this.subPages = [
       { title: 'Blog', component: 'BlogPage', active: false },
-      { title: 'Terms & Conditions', component: 'TermsPage', active: false }
+      { title: 'Terms', component: 'TermsPage', active: false }
     ];
     this.activePage.subscribe( ( selectedPage: any ) => {
 
