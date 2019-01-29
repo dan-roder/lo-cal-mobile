@@ -1,3 +1,94 @@
 page-ourfood {
-
+  .scroll-content {
+      padding: 0 !important;
+  }
+  p {
+    color: #1e1e1e;
+  }
+  .section {
+    padding: 15px;
+  }  
+  .section-white {
+    padding: 30px;
+    .promotion-text {
+      @extend %promotion-text;
+    }
+    p {
+      font-size: 16px;
+      line-height: 25px;
+      font-weight: 400;
+    }
+    a {
+      color: #ff0f1b;
+      font-size: 16px;
+    }
+  }
+  .food-details {
+    background-color: #ddd;
+    text-align: center;
+    @include breakpoint(768px) {
+      background: url(../assets/images/light-grey-pattern-bg.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+    p {
+      line-height: 23px;
+      margin-top: 10px;
+    }
+  }
+  .section-title, .center-title {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .section-title {
+    margin-top: 0;
+    color: #ff0f1b;
+    font-size: 33px;
+    letter-spacing: 1.2px;
+    padding: 40px 0 5px;
+    line-height: 40px;
+  }
+  .center-title {
+    position: absolute;
+    top: 131px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    letter-spacing: 1.5px;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.23);
+    color: #fff;
+    font-size: 38px;
+    @include breakpoint(768px) {
+      font-size: 55px;
+      top: 230px;
+    }
+  }
+  .promotion-text {
+    font-size: 21px;
+    letter-spacing: 0.8px;
+    text-align: center;
+  }
+  .content-wrapper {
+    padding: 0 20px;
+    margin: 30px auto 0;
+    @include breakpoint(768px) {
+      width: 33.33%;
+    }
+    h3 {
+      font-size: 21px;
+      line-height: 30px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+  }
+  .three-column-data {
+    margin: 25px 0 0;
+    @include breakpoint(768px) {
+      display: flex;
+      margin: 50px auto 0;
+    }
+  }
 }

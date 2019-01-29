@@ -1,28 +1,120 @@
 page-catering {
-
-    .catering-hero {
-        background-size: cover;
-        // background-image: url('../../assets/icon/loading-eclipse.svg');
-        background-position: center;
-        position: relative;
-        height: 265px;
-        h2 {
-            letter-spacing: 2.7px;
-            margin-top: 0;
-            text-transform: uppercase;
-            text-shadow: 0 1px 10px rgba(0, 0, 0, 0.23);
-            color: #fff;
-            text-align: center;
-            font-size: 42px;
-            font-weight: 600px;
-            padding-top: 115px;
+    .scroll-content {
+      padding: 0 !important;
+    }
+    .center-960, .content {
+      padding: 15px;
+    }
+    .content {
+        padding-bottom: 40px;
+    }
+    .section-grey {
+      background-color: #f4f4f4;
+      padding: 35px 0;
+      text-align: center;
+      .promotion-text {
+        text-transform: uppercase;
+        margin-top: 25px;
+        margin-bottom: 20px;
+        @include breakpoint(525px) {
+          text-align: left;
         }
+      }
+    }
+    .image-and-text {
+      background-color: #f4f4f4;
+      @include breakpoint(768px) {
+          display: flex;
+          flex-direction: row-reverse;
+      }
+    }
+    .contact-info {
+      padding: 10px 40px;
+      text-align: center;
+      @include breakpoint(768px) {
+          padding: 0 30px;
+          text-align: left;
+      }
+      h4 {
+        font-weight: 700;
+        font-size: 22px;
+        letter-spacing: 0.6px;
+        margin-bottom: 15px;
+      }
+      a {
+        font-weight: 400;
+      }
+    }
+    p {
+      font-size: 16px;
+      margin: 0 0 15px;
+      line-height: 23px;
+      font-weight: 300;
+    }
+    strong {
+      font-weight: 700;
+    }
+    a {
+      color: #ff0f1b;
+    }
+    h3 {
+      text-align: center;
+      text-transform: uppercase;
+      color: #ff0f1b;
+      font-size: 33px;
+      font-weight: 700;
+      letter-spacing: 1.3px;
+    }
+    .red-button {
+      a {
+        @extend %red-button;
+      }
+    }
+    .promotion-text {
+      @extend %promotion-text;
+    }
+    .catering-hero {
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      &:before {
+        @extend %overlay;
+      }
+      h2 {
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        text-shadow: 0 1px 10px rgba(0, 0, 0, 0.23);
+        color: #fff;
+        position: relative;
+        text-align: center;
+        font-size: 40px;
+        font-weight: 700;
+        padding: 150px 0 160px;
+        @include breakpoint(768px) {
+            padding: 225px 0 200px;
+            font-size: 60px;
+        }
+      }
     }
     .map-image {
-        background-size: cover;
-        background-position: center;
-        position: relative;
-        height: 265px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      @include breakpoint(768px) {
+        width: 60%;
+      }
     }
-
+    .columns {
+      @include breakpoint(525px) {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+    .column {
+      @include breakpoint(525px) {
+        width: 28%;
+        margin: 0 1%;
+        text-align: left;
+      }
+    }
 }
