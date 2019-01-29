@@ -23,10 +23,18 @@ page-catering {
     }
     .image-and-text {
       background-color: #f4f4f4;
+      @include breakpoint(768px) {
+          display: flex;
+          flex-direction: row-reverse;
+      }
     }
     .contact-info {
       padding: 10px 40px;
       text-align: center;
+      @include breakpoint(768px) {
+          padding: 0 30px;
+          text-align: left;
+      }
       h4 {
         font-weight: 700;
         font-size: 22px;
@@ -89,7 +97,9 @@ page-catering {
       background-size: cover;
       background-position: center;
       position: relative;
-      height: 180px;
+      @include breakpoint(768px) {
+        width: 60%;
+      }
     }
     .columns {
       @include breakpoint(525px) {
