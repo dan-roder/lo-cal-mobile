@@ -1,0 +1,31 @@
+page-privacy {
+  .scroll-content {
+    background: #f4f4f4;
+    padding-bottom: 70px;
+  }
+  p, li {
+    line-height: 24px;
+    font-size: 15px;
+  }
+  a {
+    color: #ff0f1b;
+  }
+  h2 {
+    margin: 25px 0;
+    font-size: 32px;
+    line-height: 45px;
+    font-weight: 700;
+  }
+  .terms-page {
+    h2 {
+      margin-bottom: 32px;
+      padding-top: 40px;
+      font-size: 43px;
+      font-weight: 700;
+      text-align: center;
+      @include breakpoint(525px) {
+        font-size: 55px;
+      }
+    }
+  }
+}
