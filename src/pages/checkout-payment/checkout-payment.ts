@@ -193,6 +193,7 @@ export class CheckoutPaymentPage {
 
         // Order object with payment has been created, submit to API
         this.orderService.submitOrder(finalOrderForSubmission, this.currentOrder.OrderId).subscribe(orderResults => {
+          console.log(orderResults.ResultCode);
           this.orderResultForTesting = orderResults.ResultCode;
           
         
@@ -349,7 +350,7 @@ export class CheckoutPaymentPage {
     
       protected navigateToConfirmation(){
         
-        this.navCtrl.push('/checkout/thank-you');
+        this.navCtrl.push('ThankYouPage');
       }
     
       // Currently not in use as API doesn't seem to allow for multiple saved payments

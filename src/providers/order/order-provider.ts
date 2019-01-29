@@ -73,11 +73,17 @@ export class OrderService {
         })
       }
 
+     
+
 
       public submitOrder(order: RailsInSubmitOrder, orderId: number): Observable<any>{
         return this.httpClient.post(this.config.railsOrderEndpoint + `/${this.config.siteId}/${orderId}`, order).map(orderResponse => {
           return orderResponse.json();
         })
+      }
+
+      public getOrderResult(){
+        return this.localStorage.get('orderResult').then(orderResult => {return orderResult});
       }
 
       public retrieveTimes(orderMode: string, orderSource: string = '0'): Observable<any>{

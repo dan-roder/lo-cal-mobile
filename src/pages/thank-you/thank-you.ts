@@ -3,7 +3,7 @@ import { NavController, NavParams, IonicPage, LoadingController } from 'ionic-an
 import { Storage } from "@ionic/storage";
 import { BagProvider } from "../../providers/bag/bag";
 import { OrderService } from './../../providers/order/order-provider';
-import { Order } from '../../models/order';
+import { OrderResults } from '../../models/order';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Config } from '../../app/app.config';
 import { WordPressProvider } from './../../providers/word-press/word-press';
@@ -23,7 +23,7 @@ import{ Customer } from "../../models/customer"
 })
 export class ThankYouPage {
 
-  public orderResult : Order;
+  public orderResult : OrderResults;
   public activeCardClass : string = '';
   public paidWithCardType : string = '';
   public confirmationContent : any;
@@ -56,12 +56,13 @@ export class ThankYouPage {
       this.confirmationContent = content;
     })
 
-    this.orderService.hasOrderBeenCreated().then(result => {
+    this.orderService.getOrderResult().then(result => {
       this.orderItemsForDisplay = this.orderService.calculateTotalWithModifiers(result.Order);
       this.orderResult = result;
       this.activeCardClass = this.config.cardClassMap[result.Order.Payments[0].CardType];
       this.paidWithCardType = this.config.cardTypeMap[result.Order.Payments[0].CardType];
     });
+
   }
 
   getCustomer() {
@@ -69,7 +70,7 @@ export class ThankYouPage {
     this.localStorage.get('user').then(customerData => {
       if(customerData.IsGuest){
         // If they were a guest customer, remove the user from localStorage
-        this.localStorage.remove('user').then(() => {});
+        //this.localStorage.remove('user').then(() => {});
       }
     })
 }
