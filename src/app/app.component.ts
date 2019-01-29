@@ -40,7 +40,8 @@ export class MyApp {
     ];
     this.subPages = [
       { title: 'Blog', component: 'BlogPage', active: false },
-      { title: 'Terms', component: 'TermsPage', active: false }
+      { title: 'Terms', component: 'TermsPage', active: false },
+      { title: 'Privacy', component: 'PrivacyPage', active: false }
     ];
     this.activePage.subscribe( ( selectedPage: any ) => {
 
