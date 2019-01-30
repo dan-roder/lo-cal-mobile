@@ -24,33 +24,27 @@
                 <div class="form-errors" *ngIf="formError">
                     <p>{{ formError }}</p>
                 </div>
-                <ion-item>
-                    <ion-label for="contact-reason" floating>What are you interested in sharing/asking?</ion-label>
-                    <ion-input type="text" name="contact-reason" id="contact-reason" formControlName="contact-reason"
-                        [ngClass]="{'has-error':!contactForm.controls['contact-reason'].valid && submittedOnce}"></ion-input>
-                    <div class="error-message" *ngIf="!contactForm.controls['contact-reason'].valid && submittedOnce">This
-                        field is required.</div>
-                </ion-item>
-
-                <ion-item>
-                    <ion-label for="first-name" floating>First Name *</ion-label>
-                    <ion-input type="text" name="first-name" id="first-name" formControlName="first-name" [ngClass]="{'has-error':!contactForm.controls['first-name'].valid && submittedOnce}"></ion-input>
-                    <div class="error-message" *ngIf="!contactForm.controls['first-name'].valid && submittedOnce">This
-                        field is required.</div>
-                </ion-item>
-                <ion-item>
-                    <ion-label for="last-name" floating>Last Name *</ion-label>
-                    <ion-input type="text" name="last-name" id="last-name" formControlName="last-name" [ngClass]="{'has-error':!contactForm.controls['last-name'].valid && submittedOnce}"></ion-input>
-                    <div class="error-message" *ngIf="!contactForm.controls['last-name'].valid && submittedOnce">This
-                        field is required.</div>
-                </ion-item>
-                <ion-item>
-                    <ion-label for="email" floating>Email *</ion-label>
-                    <ion-input type="email" name="email" id="email" formControlName="email" [ngClass]="{'has-error':!contactForm.controls['email'].valid && submittedOnce}"></ion-input>
-                    <div class="error-message" *ngIf="!contactForm.controls['email'].valid && submittedOnce">This
-                        field is required.</div>
-                </ion-item>
-
+               
+                <div class="thirds">
+                    <ion-item class="border">
+                        <ion-label for="first-name" floating>First Name *</ion-label>
+                        <ion-input type="text" name="first-name" id="first-name" formControlName="first-name" [ngClass]="{'has-error':!contactForm.controls['first-name'].valid && submittedOnce}"></ion-input>
+                        <div class="error-message" *ngIf="!contactForm.controls['first-name'].valid && submittedOnce">This
+                            field is required.</div>
+                    </ion-item>
+                    <ion-item class="border">
+                        <ion-label for="last-name" floating>Last Name *</ion-label>
+                        <ion-input type="text" name="last-name" id="last-name" formControlName="last-name" [ngClass]="{'has-error':!contactForm.controls['last-name'].valid && submittedOnce}"></ion-input>
+                        <div class="error-message" *ngIf="!contactForm.controls['last-name'].valid && submittedOnce">This
+                            field is required.</div>
+                    </ion-item>
+                    <ion-item class="border">
+                        <ion-label for="email" floating>Email *</ion-label>
+                        <ion-input type="email" name="email" id="email" formControlName="email" [ngClass]="{'has-error':!contactForm.controls['email'].valid && submittedOnce}"></ion-input>
+                        <div class="error-message" *ngIf="!contactForm.controls['email'].valid && submittedOnce">This
+                            field is required.</div>
+                    </ion-item>
+                </div>
 
                 <ion-item>
                     <ion-label floating for="comments">Comments</ion-label>
@@ -63,7 +57,7 @@
         field is required.</div> -->
                 </div>
                <div class="loading-gif button-size non-full-width" *ngIf="processing"></div>
-                <ion-item>
+                <ion-item class="submit-button">
                     <button ion-button block color="red" value="Send" (tap)="submitForm(contactForm)">Send</button>
                 </ion-item>
 
@@ -71,7 +65,11 @@
             <div class="success-message" *ngIf="formSuccess" [innerHtml]="acf?.contact_message | safeHtml"></div>
         </div>
     </div>
-
-    <div class="contact-info" *ngIf="acf?.right_details" [innerHtml]="acf?.right_details | safeHtml"></div>
-    <div *ngIf="mapImage" class="map-image" [ngStyle]="{'background-image': 'url(' + mapImage + ')'}"></div>
+    
+    <div class="image-and-text">
+        <div class="right">
+          <div class="contact-info" *ngIf="acf?.right_details" [innerHtml]="acf?.right_details | safeHtml"></div>
+        </div>
+        <div *ngIf="mapImage" class="map-image" [ngStyle]="{'background-image': 'url(' + mapImage + ')'}"></div>
+    </div>
 </ion-content>
