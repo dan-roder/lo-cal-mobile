@@ -29,21 +29,23 @@
                     <ion-item class="border">
                         <ion-label for="first-name" floating>First Name *</ion-label>
                         <ion-input type="text" name="first-name" id="first-name" formControlName="first-name" [ngClass]="{'has-error':!contactForm.controls['first-name'].valid && submittedOnce}"></ion-input>
-                        <div class="error-message" *ngIf="!contactForm.controls['first-name'].valid && submittedOnce">This
-                            field is required.</div>
+                        
                     </ion-item>
+                    <div class="error-message" *ngIf="!contactForm.controls['first-name'].valid && submittedOnce">This
+                            field is required.</div>
                     <ion-item class="border">
                         <ion-label for="last-name" floating>Last Name *</ion-label>
                         <ion-input type="text" name="last-name" id="last-name" formControlName="last-name" [ngClass]="{'has-error':!contactForm.controls['last-name'].valid && submittedOnce}"></ion-input>
-                        <div class="error-message" *ngIf="!contactForm.controls['last-name'].valid && submittedOnce">This
-                            field is required.</div>
+                        
                     </ion-item>
+                    <div class="error-message" *ngIf="!contactForm.controls['last-name'].valid && submittedOnce">This
+                            field is required.</div>
                     <ion-item class="border">
                         <ion-label for="email" floating>Email *</ion-label>
                         <ion-input type="email" name="email" id="email" formControlName="email" [ngClass]="{'has-error':!contactForm.controls['email'].valid && submittedOnce}"></ion-input>
-                        <div class="error-message" *ngIf="!contactForm.controls['email'].valid && submittedOnce">This
-                            field is required.</div>
+                        
                     </ion-item>
+                    <div class="error-message" *ngIf="!contactForm.controls['email'].valid && submittedOnce">This field is required.</div>
                 </div>
 
                 <ion-item>
@@ -53,8 +55,7 @@
 
                 <div class="form-section captcha">
                      <re-captcha formControlName="recaptchaReactive"></re-captcha> 
-                     <div class="error-message" *ngIf="!contactForm.controls['recaptchaReactive'].valid && submittedOnce">This
-        field is required.</div>
+                     <div class="error-message" *ngIf="!contactForm.controls['recaptchaReactive'].valid && submittedOnce">This field is required.</div>
                 </div>
                <div class="loading-gif button-size non-full-width" *ngIf="processing"></div>
                 <ion-item class="submit-button">
