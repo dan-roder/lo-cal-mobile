@@ -1,10 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, LoadingController } from 'ionic-angular';
+import { Nav, Platform, LoadingController, Events } from 'ionic-angular';
 import { CustomerProvider } from '../providers/customer/customer';
 import { LoCalApiProvider } from '../providers/lo-cal-api/lo-cal-api';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Subject, Subscription  } from 'rxjs';
+import { Storage } from "@ionic/storage";
 
 @Component({
     templateUrl: 'app.html'
@@ -24,8 +25,14 @@ export class MyApp {
     public  splashScreen: SplashScreen,
     private customerService: CustomerProvider,
     private localApi: LoCalApiProvider,
-    public  loadingController : LoadingController
+    public  loadingController : LoadingController,
+    public events : Events,
+    private storage: Storage
   ){
+
+
+    
+
     console.log( process.env );
     this.initializeApp();
 
@@ -53,6 +60,13 @@ export class MyApp {
       });
 
     });
+
+    this.events.subscribe('loggedin', ()=>{
+      this.storage.get("user").then(customer => {
+        this.currentCustomer = customer;
+      });
+    });
+  
   }
 
   initializeApp() {
@@ -65,7 +79,6 @@ export class MyApp {
       this.customerObserver = this.customerService.customerId.subscribe( ( customer ) => {
         // console.log( 'her her', customer );
         if ( customer ) {
-          console.log(customer);
           this.currentCustomer = customer;
         } else {
           console.log( "NO CUSTOMER" );
