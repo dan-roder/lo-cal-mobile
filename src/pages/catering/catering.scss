@@ -45,6 +45,13 @@ page-catering {
         font-weight: 400;
       }
     }
+    .right {
+      @include breakpoint(768px) {
+        width: 40%;
+        display: flex;
+        align-self: center;
+      }
+    }
     p {
       font-size: 16px;
       margin: 0 0 15px;
@@ -105,6 +112,8 @@ page-catering {
       }
     }
     .columns {
+      max-width: 1107px;
+      margin: 0 auto;
       @include breakpoint(525px) {
         display: flex;
         justify-content: space-between;
