@@ -314,6 +314,11 @@ ion-scroll[scrollX] {
 .form-control-feedback {
     color: #ff0f1b;
 }
+.form-errors {
+    p {
+      color: #ff3b30;
+    }
+}
 .visuallyhidden {
     border: 0;
     clip: rect(0 0 0 0);
