@@ -111,6 +111,7 @@ page-contact-us {
         color: #bababa !important;
     }
     .submit-button {
+        padding-top: 15px;
         @include breakpoint(575px) {
             max-width: 300px;
         }
@@ -130,6 +131,10 @@ page-contact-us {
             display: flex;
             justify-content: space-between;
         }
+    }
+    .error-message {
+        color: #ff3b30;
+        padding-top: 4px;
     }
 
 }
