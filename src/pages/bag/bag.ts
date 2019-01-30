@@ -43,10 +43,14 @@ export class BagPage {
         });
     }
     ngOnInit() {
+
+     
         // check if customer is logged in by pulling customer id from ionic storage
         this.storage.get("user").then(customer => {
-            this.isLoggedIn = customer.CustomerId;
-            console.log("isloggedin:", this.isLoggedIn);
+            if(customer){
+             this.isLoggedIn = customer.CustomerId;
+                console.log("isloggedin:", this.isLoggedIn);
+            }
         });
     }
 
