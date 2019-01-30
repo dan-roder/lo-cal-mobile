@@ -70,7 +70,7 @@ export class ThankYouPage {
     this.localStorage.get('user').then(customerData => {
       if(customerData.IsGuest){
         // If they were a guest customer, remove the user from localStorage
-        //this.localStorage.remove('user').then(() => {});
+        this.localStorage.remove('user').then(() => {});
       }
     })
 }
