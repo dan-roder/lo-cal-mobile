@@ -1,14 +1,127 @@
 <ion-header no-border>
-    <ion-navbar>
-        <button ion-button menuToggle>
-            <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
-        </button>
-        <ion-title>My Account</ion-title>
-    </ion-navbar>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
+    </button>
+    <ion-title>My Account</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content class="page" padding>
 
-    <h1>Account page goes here :)</h1>
+  <form action="" [formGroup]="accountForm" class="lo-cal-form" [ngClass]="editing ? 'editing' : 'static'" (submit)="saveAccountDetails(accountForm)">
+    <div class="error-message" *ngIf="errorOccurred && accountError">
+      <p>
+        {{ accountError }}
+      </p>
+    </div>
+    <ion-item class="form-component form-component-text">
+      <ion-label class="visuallyhidden">First Name</ion-label>
+      <ion-input type="text" [readonly]="!editing" name="first-name" id="first-name" formControlName="first-name" placeholder="First Name*" [ngClass]="{'has-error':!accountForm.controls['first-name'].valid}"></ion-input>
+      <div class="error-message" *ngIf="!accountForm.controls['first-name'].valid">This field is required.</div>
+    </ion-item>
+    <ion-item class="form-component form-component-text">
+      <ion-label class="visuallyhidden">Last Name</ion-label>
+      <ion-input type="text" [readonly]="!editing" name="last-name" id="last-name" formControlName="last-name" placeholder="Last Name*" [ngClass]="{'has-error':!accountForm.controls['last-name'].valid}"></ion-input>
+      <div class="error-message" *ngIf="!accountForm.controls['last-name'].valid">This field is required.</div>
+    </ion-item>
+    <ion-item class="form-component form-component-email">
+      <ion-label class="visuallyhidden">Email</ion-label>
+      <ion-input type="text" [readonly]="!editing" name="email" id="email" formControlName="email" placeholder="Email*" [ngClass]="{'has-error':!accountForm.controls['email'].valid}"></ion-input>
+      <div class="error-message" *ngIf="!accountForm.controls['email'].valid">This field is required.</div>
+    </ion-item>
+    <ion-item class="form-component form-component-text">
+      <ion-label class="visuallyhidden">Phone Number</ion-label>
+      <ion-input type="text" [readonly]="!editing" name="phone" id="phone" formControlName="phone" placeholder="Phone Number*" [ngClass]="{'has-error':!accountForm.controls['phone'].valid && submittedOnce}"></ion-input>
+      <div class="error-message" *ngIf="!accountForm.controls['phone'].valid && submittedOnce">This field is required.</div>
+      <div class="error-message" *ngIf="accountForm.controls['phone'].errors?.pattern">Phone number must be 10 digits with no spaces or special characters.</div>
+    </ion-item>
+    <div class="control-wrapper" formGroupName="full-address">
+      <ion-item class="form-component form-component-text">
+        <ion-label class="visuallyhidden">Address</ion-label>
+        <ion-input type="text" [readonly]="!editing" name="address" id="address" formControlName="address" placeholder="Address*" [ngClass]="{'has-error':!accountForm.controls['full-address']['controls']['address'].valid && submittedOnce}"></ion-input>
+        <div class="error-message" *ngIf="!accountForm.controls['full-address']['controls']['address'].valid && submittedOnce">This field is required.</div>
+      </ion-item>
+      <ion-item class="form-component form-component-text">
+        <ion-label class="visuallyhidden">Address 2</ion-label>
+        <ion-input type="text" [readonly]="!editing" name="address2" id="address2" formControlName="address2" placeholder="Apartment/Suite/Unit/Building"></ion-input>
+      </ion-item>
+      <div class="form-section thirds">
+        <ion-item class="form-component form-component-text">
+          <ion-label class="visuallyhidden">City</ion-label>
+          <ion-input type="text" [readonly]="!editing" name="city" id="city" formControlName="city" placeholder="City*" [ngClass]="{'has-error':!accountForm.controls['full-address']['controls']['city'].valid && submittedOnce}"></ion-input>
+          <div class="error-message" *ngIf="!accountForm.controls['full-address']['controls']['city'].valid && submittedOnce">This field is required.</div>
+        </ion-item>
+        <div class="form-component form-component-select">
+          <ion-label class="visuallyhidden">State</ion-label>
+          <ion-select name="state" id="state" formControlName="state" [ngClass]="{'has-error':!accountForm.controls['full-address']['controls']['state'].valid && submittedOnce}">
+            <ion-option value="">-- Select --</ion-option>
+            <ion-option value="AL">Alabama</ion-option>
+            <ion-option value="AK">Alaska</ion-option>
+            <ion-option value="AZ">Arizona</ion-option>
+            <ion-option value="AR">Arkansas</ion-option>
+            <ion-option value="CA">California</ion-option>
+            <ion-option value="CO">Colorado</ion-option>
+            <ion-option value="CT">Connecticut</ion-option>
+            <ion-option value="DE">Delaware</ion-option>
+            <ion-option value="DC">District Of Columbia</ion-option>
+            <ion-option value="FL">Florida</ion-option>
+            <ion-option value="GA">Georgia</ion-option>
+            <ion-option value="HI">Hawaii</ion-option>
+            <ion-option value="ID">Idaho</ion-option>
+            <ion-option value="IL">Illinois</ion-option>
+            <ion-option value="IN">Indiana</ion-option>
+            <ion-option value="IA">Iowa</ion-option>
+            <ion-option value="KS">Kansas</ion-option>
+            <ion-option value="KY">Kentucky</ion-option>
+            <ion-option value="LA">Louisiana</ion-option>
+            <ion-option value="ME">Maine</ion-option>
+            <ion-option value="MD">Maryland</ion-option>
+            <ion-option value="MA">Massachusetts</ion-option>
+            <ion-option value="MI">Michigan</ion-option>
+            <ion-option value="MN">Minnesota</ion-option>
+            <ion-option value="MS">Mississippi</ion-option>
+            <ion-option value="MO">Missouri</ion-option>
+            <ion-option value="MT">Montana</ion-option>
+            <ion-option value="NE">Nebraska</ion-option>
+            <ion-option value="NV">Nevada</ion-option>
+            <ion-option value="NH">New Hampshire</ion-option>
+            <ion-option value="NJ">New Jersey</ion-option>
+            <ion-option value="NM">New Mexico</ion-option>
+            <ion-option value="NY">New York</ion-option>
+            <ion-option value="NC">North Carolina</ion-option>
+            <ion-option value="ND">North Dakota</ion-option>
+            <ion-option value="OH">Ohio</ion-option>
+            <ion-option value="OK">Oklahoma</ion-option>
+            <ion-option value="OR">Oregon</ion-option>
+            <ion-option value="PA">Pennsylvania</ion-option>
+            <ion-option value="RI">Rhode Island</ion-option>
+            <ion-option value="SC">South Carolina</ion-option>
+            <ion-option value="SD">South Dakota</ion-option>
+            <ion-option value="TN">Tennessee</ion-option>
+            <ion-option value="TX">Texas</ion-option>
+            <ion-option value="UT">Utah</ion-option>
+            <ion-option value="VT">Vermont</ion-option>
+            <ion-option value="VA">Virginia</ion-option>
+            <ion-option value="WA">Washington</ion-option>
+            <ion-option value="WV">West Virginia</ion-option>
+            <ion-option value="WI">Wisconsin</ion-option>
+            <ion-option value="WY">Wyoming</ion-option>
+          </ion-select>
+        </div>
+        <ion-item class="form-component form-component-text">
+          <ion-label class="visuallyhidden">Zip Code</ion-label>
+          <ion-input type="text" [readonly]="!editing" name="zip" id="zip" formControlName="zip" placeholder="Zip*" [ngClass]="{'has-error':!accountForm.controls['full-address']['controls']['zip'].valid && submittedOnce}"></ion-input>
+          <div class="error-message" *ngIf="!accountForm.controls['full-address']['controls']['zip'].valid && submittedOnce">This field is required.</div>
+          <div class="error-message" *ngIf="accountForm.controls['full-address']['controls']['zip'].errors?.pattern && accountForm.controls['full-address']['controls']['zip'].value.length > 5">Zip code must be only 5 digits.</div>
+        </ion-item>
+      </div>
+    </div>
+
+    <div class="loading-gif button-size" *ngIf="accountProcessing"></div>
+    <div class="submit red-button full-width-button submit">
+      <button ion-button type="submit" *ngIf="editing && !accountProcessing" [disabled]="!accountForm.valid">Submit</button>
+    </div>
+  </form>
 
 </ion-content>
