@@ -2,29 +2,134 @@ page-contact-us {
     ion-item.item-md {
         padding-left: 0;
     }
+    .scroll-content {
+        padding: 0 !important;
+    }
     .contact-hero {
         background-size: cover;
         // background-image: url('../../assets/icon/loading-eclipse.svg');
         background-position: center;
         position: relative;
-        height: 265px;
+        &:before {
+            @extend %overlay;
+        }
         h2 {
-            letter-spacing: 2.7px;
-            margin-top: 0;
+            letter-spacing: 1px;
             text-transform: uppercase;
             text-shadow: 0 1px 10px rgba(0, 0, 0, 0.23);
             color: #fff;
+            position: relative;
             text-align: center;
-            font-size: 42px;
-            font-weight: 600px;
-            padding-top: 115px;
+            font-size: 40px;
+            font-weight: 700;
+            padding: 150px 0 160px;
         }
+    }
+    .content {
+      .body {
+        padding: 16px;
+        h4 {
+            @extend %promotion-text;
+            font-size: 20px;
+            line-height: 30px;
+            letter-spacing: 1.3px;
+            font-weight: 700;
+            margin-bottom: 26px;
+        }
+      }
+      .promotion-text {
+          font-weight: 400;
+          font-size: 19px;
+          line-height: 26px;
+      }
+    }
+    .section {
+        padding: 16px;
+    }
+    .image-and-text {
+        background: #f4f4f4;
+        @include breakpoint(768px) {
+          display: flex;
+          flex-direction: row-reverse;
+      }
+    }
+    // .contact-info {
+    //     padding: 16px;
+    // }
+    .contact-info {
+      padding: 34px 58px 18px;
+      text-align: center;
+      @include breakpoint(768px) {
+          padding: 49px 35px 37px;
+          text-align: left;
+      }
+      h4 {
+        font-weight: 700;
+        font-size: 22px;
+        letter-spacing: 0.6px;
+        margin-bottom: 15px;
+      }
+      a {
+        font-weight: 400;
+        color: #ff3b30;
+      }
     }
     .map-image {
         background-size: cover;
         background-position: center;
         position: relative;
         height: 265px;
+        @include breakpoint(768px) {
+          width: 60%;
+          display: flex;
+          align-self: center;
+        }
+        @include breakpoint(800px) {
+                height: 320px;
+        }
+    }
+    .right {
+      @include breakpoint(768px) {
+        width: 40%;
+        display: flex;
+        align-self: center;
+      }
+    }
+    .item-md.item-block .item-inner {
+        border: none;
+    }
+    .border {
+        border-bottom: 1px solid #1e1e1e;
+        @include breakpoint(575px) {
+            width: 32%;
+        }
+    }
+    .label-md[floating] {
+        margin-top: 5px;
+    }
+    .label {
+        color: #bababa !important;
+    }
+    .submit-button {
+        @include breakpoint(575px) {
+            max-width: 300px;
+        }
+        .item-inner {
+            padding: 0 !important;
+        }
+        .label-md {
+            margin: 0;
+        
+        }
+    }
+    .section-white {
+        padding-bottom: 35px;
+    }
+    .thirds {
+        @include breakpoint(575px) {
+            display: flex;
+            justify-content: space-between;
+        }
     }
 
 }
