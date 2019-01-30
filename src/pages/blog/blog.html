@@ -12,7 +12,7 @@
     <div class="blog-post" *ngFor="let post of allBlogPosts">
         <div class="left" *ngIf="post?.featured_media">
           <a (click)="setParams(post)">
-            <img src="{{ post?._embedded | featuredImage: 'medium' }}" alt="{{ post?._embedded | featuredImage: 'alt' }}">
+            <img src="{{ post?._embedded | featuredImage: 'blog-preview' }}" alt="{{ post?._embedded | featuredImage: 'alt' }}">
           </a>
         </div>
         <div class="right">
