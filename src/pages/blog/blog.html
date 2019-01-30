@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content class="page" padding>
+  <div class="max-960">
     <h2>Blogs</h2>
     <div class="blog-post" *ngFor="let post of allBlogPosts">
         <div class="left" *ngIf="post?.featured_media">
@@ -22,4 +23,5 @@
           <a class="read-more-link" (click)="setParams(post)">Read More</a>
         </div>
     </div>
+  </div>
 </ion-content>
