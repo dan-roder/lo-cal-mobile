@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, IonicPage, LoadingController, Loading } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { Storage } from "@ionic/storage";
@@ -33,7 +33,8 @@ export class AccountPage {
     private fb: FormBuilder,
     private localStorage: Storage,
     private customerService: CustomerProvider,
-    private wpService: WordPressProvider
+    private wpService: WordPressProvider,
+    private loading: LoadingController
   ) {
     this.accountForm = this.fb.group({
       'first-name' : [null, Validators.required],
@@ -118,7 +119,9 @@ export class AccountPage {
 
   public saveAccountDetails(formData){
     if(formData.valid){
-      this.accountProcessing = true;
+      let loading = this.loading.create({content: "Saving Account Details"});
+      loading.present();
+
       let updateCustomer : RailsUpdate = {
         customer_info : {
           CustomerId : this.customerId,
@@ -143,14 +146,19 @@ export class AccountPage {
       this.accountForm.controls['full-address']['controls']['state'].disable();
 
       this.customerService.updateCustomerInfo(updateCustomer).subscribe(data => {
-        console.log(data);
-        this.customerService.getCustomerInfo(this.customerId).subscribe(updatedCustomerInfo => {
-          this.patchAccountForm(updatedCustomerInfo);
-          this.localStorage.set('user', updatedCustomerInfo).then(() => {});
-          this.editing = false;
-          this.accountProcessing = false;
-          this.accountError = '';
-        })
+        if(data.status === 200){
+          loading.dismiss();
+
+          // Retrieve changed account details and update the form for the user
+          this.customerService.getCustomerInfo(this.customerId).subscribe(returnObj => {
+            let updatedCustomerInfo = returnObj.json();
+            this.localStorage.set('user', updatedCustomerInfo).then(() => {
+              this.patchAccountForm(updatedCustomerInfo);
+              this.editing = false;
+              this.accountError = '';
+            });
+          })
+        }
       }, error => {
         // Update failed for some reason. Show error, return form to initial state
         this.errorOccurred = true;
