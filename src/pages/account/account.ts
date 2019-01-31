@@ -3,9 +3,10 @@ import { NavController, NavParams, IonicPage, LoadingController } from 'ionic-an
 import { AuthProvider } from '../../providers/auth/auth';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { Storage } from "@ionic/storage";
-import { Customer } from '../../models/customer';
+import { Customer, RailsUpdate } from '../../models/customer';
 import { CustomerProvider } from '../../providers/customer/customer';
 import { SavedPayment } from '../../models/Payment';
+import { WordPressProvider } from '../../providers/word-press/word-press';
 
 
 @IonicPage()
@@ -22,6 +23,8 @@ export class AccountPage {
   public customerId: string = '';
   public securityQuestion : string = '';
   public savedPayments : SavedPayment;
+  public editing: boolean = false;
+  public accountProcessing: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -29,7 +32,8 @@ export class AccountPage {
     private authService: AuthProvider,
     private fb: FormBuilder,
     private localStorage: Storage,
-    private customerService: CustomerProvider
+    private customerService: CustomerProvider,
+    private wpService: WordPressProvider
   ) {
     this.accountForm = this.fb.group({
       'first-name' : [null, Validators.required],
@@ -48,7 +52,6 @@ export class AccountPage {
 
   ionViewCanEnter(){
     this.authService.authenticated().then(response => {
-      console.log(response);
       if(response === null || response === undefined || response.CustomerId === undefined){
         this.navCtrl.push('LoginPage');
       }
@@ -99,6 +102,62 @@ export class AccountPage {
         });
       }, (error) => {
         console.log(error);
+      })
+    }
+  }
+
+  public editAccountDetails(){
+    this.editing = !this.editing;
+    // Enable the select group
+    this.accountForm.controls['full-address']['controls']['state'].enable();
+    // If returning to not editing, replace form with original data
+    if(!this.editing) this.patchAccountForm(this.customer);
+    // Return false to negate clicking an <a> tag
+    return false;
+  }
+
+  public saveAccountDetails(formData){
+    if(formData.valid){
+      this.accountProcessing = true;
+      let updateCustomer : RailsUpdate = {
+        customer_info : {
+          CustomerId : this.customerId,
+          EMail : formData.get('email').value,
+          FirstName : formData.get('first-name').value,
+          LastName : formData.get('last-name').value,
+          VoicePhone : formData.get('phone').value,
+          Addresses : [{
+            AddressType : 1,
+            AddressId : 1,
+            AddressLine1 : formData.controls['full-address'].get('address').value,
+            AddressLine2 : formData.controls['full-address'].get('address2').value,
+            City : formData.controls['full-address'].get('city').value,
+            State : formData.controls['full-address'].get('state').value,
+            Postal : formData.controls['full-address'].get('zip').value,
+            IsDefault : true
+          }]
+        }
+      };
+
+      // Disable the select again
+      this.accountForm.controls['full-address']['controls']['state'].disable();
+
+      this.customerService.updateCustomerInfo(updateCustomer).subscribe(data => {
+        console.log(data);
+        this.customerService.getCustomerInfo(this.customerId).subscribe(updatedCustomerInfo => {
+          this.patchAccountForm(updatedCustomerInfo);
+          this.localStorage.set('user', updatedCustomerInfo).then(() => {});
+          this.editing = false;
+          this.accountProcessing = false;
+          this.accountError = '';
+        })
+      }, error => {
+        // Update failed for some reason. Show error, return form to initial state
+        this.errorOccurred = true;
+        this.accountProcessing = false;
+        this.accountError = error.error.message;
+        this.wpService.logError('Payment Order Error: ' + JSON.stringify(error)).subscribe((result) => {console.log('error:' + result)});
+        this.patchAccountForm(this.customer);
       })
     }
   }
