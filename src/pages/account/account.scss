@@ -8,4 +8,38 @@ page-account {
       padding-right: 0;
     }
   }
+
+  .form-component-select{
+    .item-block{
+      .item-inner{
+        border-bottom: none !important;
+      }
+    }
+  }
+
+  .account-heading{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid $off-white;
+    align-items: center;
+    margin: 0 0 20px;
+
+    a{
+      color: $local-red;
+    }
+  }
+
+  ion-select{
+    max-width: none;
+  }
+
+  .red-button{
+    margin-top: 20px;
+  }
+
+  .button-md{
+    @extend %red-button;
+    margin: 0;
+    width: 100%;
+  }
 }
