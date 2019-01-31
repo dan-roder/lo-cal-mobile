@@ -81,7 +81,7 @@ export class CustomerProvider {
   }
 
   get currentCustomer() {
-      return this.customer;
+    return this.customer;
   }
 
   set currentCustomer( customer ) {
@@ -123,6 +123,13 @@ export class CustomerProvider {
     return this.http.get(this.config.railsCustomerEndpoint + `/${customerId}` + '/payments').map(data => {
       return data;
     })
+  }
+
+  public updateCustomerInfo(customer: RailsUpdate): Observable<any>{
+    return this.http.post(this.config.railsCustomerEndpoint + `/${customer.customer_info.CustomerId}`, customer)
+      .map(returnData => {
+        return returnData;
+      })
   }
 
   /**
