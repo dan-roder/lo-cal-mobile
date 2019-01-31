@@ -104,7 +104,7 @@ export class BagPage {
     checkout(isGuest) {
 
         if(isGuest) {
-          this.navCtrl.push("CheckoutReviewPage", {guest: true});
+          this.navCtrl.push("GuestPage");
         } else {
           this.navCtrl.push("CheckoutReviewPage");
         }

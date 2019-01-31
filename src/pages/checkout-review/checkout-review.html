@@ -116,7 +116,7 @@
             </div>
         </ion-list>
 
-        <form (ngSubmit)="checkoutAsGuest()" [formGroup]="guestCheckoutForm" *ngIf="!hideGuestForm">
+   <!--      <form (ngSubmit)="checkoutAsGuest()" [formGroup]="guestCheckoutForm" *ngIf="!hideGuestForm">
             <ion-list>
                 <ion-item no-padding>
                     <ion-label floating>Guest First Name</ion-label>
@@ -160,11 +160,11 @@
                     Re-enter Details
                 </button>
             </ion-col>
-        </ion-row>
+        </ion-row> -->
 
         
         <div class="red-button full-width-button small-text">
-            <button ion-button block color="red" (click)="putOrder()" [disabled]="!timeForm.valid || !selectedTime || !userLoggedIn || !hideGuestForm || !pickupForm.valid">Proceed
+            <button ion-button block color="red" (click)="putOrder()" [disabled]="!timeForm.valid || !selectedTime || !userLoggedIn || !pickupForm.valid">Proceed
                 to Checkout</button>
             <div class="required-message" *ngIf="submitAttempted && !selectedTime">
                 <p>Please select a pickup time.</p>
