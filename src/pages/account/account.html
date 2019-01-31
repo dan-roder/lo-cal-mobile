@@ -9,6 +9,10 @@
 
 <ion-content class="page" padding>
 
+  <div class="account-heading">
+    <h3>Account Details</h3>
+    <a href="" (click)="editAccountDetails()" role="button">{{ editing ? 'Cancel' : 'Edit' }}</a>
+  </div>
   <form action="" [formGroup]="accountForm" class="lo-cal-form" [ngClass]="editing ? 'editing' : 'static'" (submit)="saveAccountDetails(accountForm)">
     <div class="error-message" *ngIf="errorOccurred && accountError">
       <p>
@@ -52,7 +56,7 @@
           <ion-input type="text" [readonly]="!editing" name="city" id="city" formControlName="city" placeholder="City*" [ngClass]="{'has-error':!accountForm.controls['full-address']['controls']['city'].valid && submittedOnce}"></ion-input>
           <div class="error-message" *ngIf="!accountForm.controls['full-address']['controls']['city'].valid && submittedOnce">This field is required.</div>
         </ion-item>
-        <div class="form-component form-component-select">
+        <ion-item class="form-component form-component-select">
           <ion-label class="visuallyhidden">State</ion-label>
           <ion-select name="state" id="state" formControlName="state" [ngClass]="{'has-error':!accountForm.controls['full-address']['controls']['state'].valid && submittedOnce}">
             <ion-option value="">-- Select --</ion-option>
@@ -108,7 +112,7 @@
             <ion-option value="WI">Wisconsin</ion-option>
             <ion-option value="WY">Wyoming</ion-option>
           </ion-select>
-        </div>
+        </ion-item>
         <ion-item class="form-component form-component-text">
           <ion-label class="visuallyhidden">Zip Code</ion-label>
           <ion-input type="text" [readonly]="!editing" name="zip" id="zip" formControlName="zip" placeholder="Zip*" [ngClass]="{'has-error':!accountForm.controls['full-address']['controls']['zip'].valid && submittedOnce}"></ion-input>
