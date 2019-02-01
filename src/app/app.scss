@@ -357,7 +357,7 @@ ion-scroll[scrollX] {
     &-meta {
         display: flex;
         ion-col.border {
-            border-right: 1px solid $light-gray;
+            // border-right: 1px solid $light-gray;
         }
         .calories {
             font-weight: 600;
@@ -382,29 +382,6 @@ ion-scroll[scrollX] {
                 font-size:      12.5px;
                 font-weight:    600;
                 letter-spacing: 0.8px;
-            }
-            .allergen {
-                span {
-                    background: #e1e1e1;
-                    border-radius: 50%;
-                    width: 20px;
-                    padding-left: 1px;
-                    padding-top: 1px;
-                    margin-right: 2px;
-                    height: 20px;
-                    display: inline-block;
-                    text-align: center;
-                    font-size: 14px;
-                    color: #1e1e1e;
-                    @include breakpoint(375px) {
-                        margin-right: 5px;
-                    }
-                    @include breakpoint(768px) {
-                        width: 22px;
-                        height: 22px;
-                        font-size: 15px;
-                    }
-                }
             }
         }
     }
@@ -437,4 +414,28 @@ ion-scroll[scrollX] {
             padding-left: 0;
         } 
     }
+}
+.allergen {
+  span {
+    background: #e1e1e1;
+    border-radius: 50%;
+    letter-spacing: 0 !important;
+    width: 20px;
+    padding-left: 1px;
+    padding-top: 2px;
+    margin-right: 1px;
+    height: 20px;
+    display: inline-block;
+    text-align: center;
+    font-size: 13px;
+    color: #1e1e1e;
+    @include breakpoint(375px) {
+      margin-right: 5px;
+    }
+    @include breakpoint(768px) {
+      width: 22px;
+      height: 22px;
+      font-size: 15px;
+    }
+  }
 }
