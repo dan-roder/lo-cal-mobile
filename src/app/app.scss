@@ -211,29 +211,113 @@ ion-scroll[scrollX] {
         font-size: 13px;
 
     }
-
 }
 .sub-pages {
     margin-top: 0;
 }
-.bag-item {
-    background: map-get($colors, white);
-    margin:     20px 0;
-    min-height: 150px;
-    // max-height: 150px;
-    
+
+.spacing {
+    margin-right: 5px;
+}
+.form-control-feedback {
+    color: #ff0f1b;
+}
+.form-errors {
+    p {
+      color: #ff3b30;
+    }
+}
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+  .bag-item-name {
+        @include breakpoint(600px) {
+            font-size: 17px;
+        }
+        @include breakpoint(768px) {
+            font-size: 19px;
+        }
+    }
+    .amounts-charged {
+        font-size:      13px;
+        letter-spacing: 0.6px;
+        color: map-get($colors, black);
+        .subtotal, .taxes {
+            margin-bottom: 10px;
+        }
+        .dark {
+            background-color: map-get($colors, black);
+            margin-bottom: 10px;
+        }
+        .total {
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+        }
+    }
+    .checkout-button-wrap {
+        margin: 0 2.5%;
+    }
+    .bag-footer {
+        min-height: 100px;
+    }
+     .empty-bag {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 50vh;
+        &-notice {
+            font-size: 21px;
+            font-weight: 600;
+            text-align: center;
+        }
+    }
+    .bag-image {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 75px;
+        height: 150px;
+        @include breakpoint(375px) {
+            width: 100px;
+        }
+        @include breakpoint(425px) {
+            width: 110px;
+        }
+        @include breakpoint(600px) {
+            width: 125px;
+        }
+    }
+    .bag-item {
+      background: map-get($colors, white);
+      margin:     20px 0;
+      min-height: 150px;
+      [col-3] {
+        @include breakpoint(768px) {
+            flex: 0 0 20%;
+        }
+    }
     &-title {
-        // font-size:      14px;
         font-size: 16px;
         font-weight:    700;
         letter-spacing: 1.1px;
         text-align:     left;
         text-transform: uppercase;
         color: rgba(21, 21, 21, 0.9);
-        // padding-top: 15px;
         padding-top: 8px;
         @include breakpoint(600px) {
             padding-top: 5px !important;
+        }
+        @include breakpoint(768px) {
+            padding-top: 11px !important;
+            padding-bottom: 7px;
         }
 
     }
@@ -243,6 +327,9 @@ ion-scroll[scrollX] {
         line-height:    1.46;
         letter-spacing: 3px;
         text-transform: lowercase;
+        @include breakpoint(768px) {
+            font-size: 14px;
+        }
     }
     &-image {
         max-height: 150px;
@@ -263,9 +350,11 @@ ion-scroll[scrollX] {
         margin-top: 6px;
         letter-spacing: 0.7px;
         color: rgba(30, 30, 30, 0.99);
+        @include breakpoint(768px) {
+            font-size: 14px;
+        }
     }
     &-meta {
-        // padding: 10px 0 20px;
         display: flex;
         ion-col.border {
             border-right: 1px solid $light-gray;
@@ -278,6 +367,9 @@ ion-scroll[scrollX] {
                 font-size:      12px;
                 letter-spacing: 0.9px;
                 color:          map-get($colors, black);
+                @include breakpoint(768px) {
+                    font-size: 13px;
+                }
             }
             .price {
                 padding-left: 0;
@@ -307,11 +399,15 @@ ion-scroll[scrollX] {
                     @include breakpoint(375px) {
                         margin-right: 5px;
                     }
+                    @include breakpoint(768px) {
+                        width: 22px;
+                        height: 22px;
+                        font-size: 15px;
+                    }
                 }
             }
         }
     }
-
     .remove {
         background: $white;
         font-size: 9px;
@@ -329,36 +425,16 @@ ion-scroll[scrollX] {
             transform: translate(-50%, -50%);
             font-size: 8px;
             font-weight: 700;
-
         }
-
     }
     .title-and-description {
-        max-width: 333px;
+        // max-width: 333px;
         @include breakpoint(375px) {
           padding-left: 15px;
           padding-right: 8px;
         }
+        @include breakpoint(600px) {
+            padding-left: 0;
+        } 
     }
-}
-.spacing {
-    margin-right: 5px;
-}
-.form-control-feedback {
-    color: #ff0f1b;
-}
-.form-errors {
-    p {
-      color: #ff3b30;
-    }
-}
-.visuallyhidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
 }
