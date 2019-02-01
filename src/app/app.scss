@@ -258,7 +258,7 @@ ion-scroll[scrollX] {
         }
         .total {
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 400;
             letter-spacing: 0.8px;
         }
     }
@@ -344,7 +344,7 @@ ion-scroll[scrollX] {
     }
     &-description {
         font-size: 12px;
-        font-weight: 600;
+        font-weight: 400;
         padding-left: 2.5px;
         line-height: 1.3;
         margin-top: 6px;
@@ -360,7 +360,7 @@ ion-scroll[scrollX] {
             // border-right: 1px solid $light-gray;
         }
         .calories {
-            font-weight: 600;
+            font-weight: 400;
         }
         ion-col {
             span {
@@ -373,7 +373,7 @@ ion-scroll[scrollX] {
             }
             .price {
                 padding-left: 0;
-                font-weight: 600;
+                font-weight: 400;
             }
             .add {
                 padding-right:  20px;
