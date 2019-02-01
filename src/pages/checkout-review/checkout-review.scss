@@ -4,12 +4,27 @@ page-checkout-review {
             background: map-get($colors, light);
         }
     }
+    .scroll-content {
+      padding: 0 !important;
+    }
     .required-message {
-        color: red;
+      color: red;
+    }
+    .inner-step-wrapper {
+      padding: 20px 16px;
+      background: #ffffff;
+    }
+    h4 {
+      padding: 40px 15px 25px;
+    }
+    .form-component-text {
+      border-bottom: 1px solid black;
+      margin-top: 25px;
+      padding-bottom: 5px
     }
     .option  {
       &:first-child {
-        margin-bottom: 10px;
+        margin-bottom: 15px;
       }
       span {
         display: flex;
