@@ -56,7 +56,7 @@ page-burgers {
         }
         ion-col {
             span {
-                font-size: 14px;
+                font-size: 12px;
                 letter-spacing: 0.9px;
             }
             .price {
@@ -70,18 +70,6 @@ page-burgers {
                 font-weight: 600;
                 letter-spacing: 0.8px;
             }
-            .allergen {
-                ion-icon {
-                    color: $gray;
-                    padding-right: 5px;
-                    vertical-align: middle;
-                    font-size: 20px;
-                    &:last-child {
-                        padding-right: 0;
-                    }
-                }
-            }
         }
     }
-
 }
