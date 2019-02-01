@@ -25,20 +25,38 @@ page-burgers {
     }
     ion-card-title.card-title-md,
     ion-card-title.card-title-ios {
+        text-transform: uppercase;
+        font-weight: 700;
         font-size: 18px;
-        font-weight: 600;
         letter-spacing: 1.2px;
-        padding: 15px 0 10px 20px;
+        padding: 15px 0 10px 17.5px;
+        color: black;
     }
 
     .menu-item {
         margin-bottom: 20px;
+        @include breakpoint(425px) {
+          max-width: 360px;
+          margin: 0 auto 20px;
+        }
+        @include breakpoint(768px) {
+          width: 48%;
+          
+        }
+    }
+    .menu-items {
+        padding-bottom: 50px;
+        @include breakpoint(768px) {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 6px 50px 6px
+        }
     }
     .featured-title-icon {
-        color: red;
+        color: #ff0f1b;
         margin-right: 20px;
-        font-size: 15px;
-        vertical-align: middle;
+        font-size: 13px;
+        vertical-align: baseline;
     }
 
     p.featured-description {
@@ -47,12 +65,13 @@ page-burgers {
         font-size: 13px;
         line-height: 1.54;
         letter-spacing: 0.6px;
+        color: rgba(30, 30, 30, 0.99);
     }
 
     .featured-meta {
         padding: 10px 0 20px;
         ion-col.border {
-            border-right: 1px solid $light-gray;
+            // border-right: 1px solid $light-gray;
         }
         ion-col {
             span {
@@ -63,13 +82,16 @@ page-burgers {
                 padding-left: 20px
             }
             .add {
-                padding-right: 20px;
+                padding-right: 15px;
                 text-transform: uppercase;
-                color: $local-red;
+                color: #ff0f1b;
                 font-size: 12.5px;
-                font-weight: 600;
+                font-weight: 700;
                 letter-spacing: 0.8px;
             }
         }
+    }
+    .allergen span {
+        padding-left: 0;
     }
 }
