@@ -1,10 +1,10 @@
 <ion-content no-padding>
     <div class="menu-items">
-        <div  *ngFor="let menuItem of subMenu?.menuItems; let i = index" class="menu-item menu-item-{{ i }}"  no-padding>
+        <div *ngFor="let menuItem of subMenu?.menuItems; let i = index" class="menu-item menu-item-{{ i }}"  no-padding>
             <!-- <pre>
                 {{ menuItem | json }}
             </pre> -->
-            <ion-card no-margin class="full-width" no-shadow no-border>
+            <ion-card *ngIf="menuItem.DisplayName" no-margin class="full-width" no-shadow no-border>
                 <div class="image" *ngIf="(menuItem?.MenuItemId | cardImage:wpSubMenuItems | async) !== undefined">
                     <img class="food-item" [src]="menuItem?.MenuItemId | cardImage:wpSubMenuItems | async " />
                 </div>
