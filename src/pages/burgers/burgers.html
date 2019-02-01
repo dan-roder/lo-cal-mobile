@@ -29,9 +29,11 @@
                         <span class="calories">{{ menuItem.CaloricServingUnit }} cal</span>
                     </ion-col>
                     <ion-col col-4 text-center>
+                      <span class="allergen">
                         <span class="allergen" *ngFor="let allergen of (menuItem.Description | allergens).allergens">
                             {{ allergen }}
                         </span>
+                      </span>    
                     </ion-col>
                     <ion-col col float-right text-right (tap)="quickAdd(menuItem)">
                         <span class="add">Add</span>
