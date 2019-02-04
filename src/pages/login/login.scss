@@ -10,9 +10,7 @@ page-login {
     }
 
     [ion-button][disabled] {
-
-        background: map-get( $colors, offWhite );
-
+        background: #abadab;
     }
     // ion-item.item.has-error {
 
@@ -37,5 +35,25 @@ page-login {
     //         color: $error;
     //     }
     // }
-
+  h2 {
+    line-height: 2.37;
+    letter-spacing: 1.8px;
+    font-size: 18px;
+    font-weight: 700;
+    color: rgba(30, 30, 30, 0.99);
+    text-transform: uppercase;
+    padding-top: 15px;
+  }
+  p {
+    line-height: 1.54;
+    letter-spacing: 0.6px;
+    color: rgba(30, 30, 30, 0.99);
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .bottom-buttons-wrap {
+    a {
+       font-weight: 700;
+    }
+  }
 }
