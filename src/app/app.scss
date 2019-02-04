@@ -311,14 +311,14 @@ ion-scroll[scrollX] {
         text-align:     left;
         text-transform: uppercase;
         color: rgba(21, 21, 21, 0.9);
-        padding-top: 8px;
-        @include breakpoint(600px) {
-            padding-top: 5px !important;
-        }
-        @include breakpoint(768px) {
-            padding-top: 11px !important;
-            padding-bottom: 7px;
-        }
+        padding-top: 0;
+        // @include breakpoint(600px) {
+        //     padding-top: 5px !important;
+        // }
+        // @include breakpoint(768px) {
+        //     padding-top: 11px !important;
+        //     padding-bottom: 7px;
+        // }
 
     }
     &-quantity {
@@ -347,7 +347,7 @@ ion-scroll[scrollX] {
         font-weight: 400;
         padding-left: 2.5px;
         line-height: 1.3;
-        margin-top: 6px;
+        margin: 0;
         letter-spacing: 0.7px;
         color: rgba(30, 30, 30, 0.99);
         @include breakpoint(768px) {
@@ -406,6 +406,9 @@ ion-scroll[scrollX] {
     }
     .title-and-description {
         // max-width: 333px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
         @include breakpoint(375px) {
           padding-left: 15px;
           padding-right: 8px;
