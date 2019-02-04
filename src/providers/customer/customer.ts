@@ -151,4 +151,18 @@ export class CustomerProvider {
         this.storage.remove(element)
     });
   }
+
+  /**
+   *
+   * updateLoginInfo function
+   *
+   * @param updateLoginInfo InLoginUpdate
+   *
+   * @returns Observable of PasswordReset result from Aloha API
+   */
+  public updateLoginInfo(loginInfo: InLoginUpdate): Observable<any>{
+    return this.http.post(this.config.railsCustomerEndpoint + `/loginupdate`, loginInfo).map((result) => {
+      return result;
+    });
+  }
 }
