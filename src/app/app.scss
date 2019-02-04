@@ -100,6 +100,9 @@ super-tabs-toolbar>ion-toolbar.toolbar.scroll-tabs .tab-buttons-container .tab-b
     }
     &:last-child {
         border-right: none;
+        @include breakpoint(375px) {
+          padding-left: 20px;
+        }
     }
 }
 
