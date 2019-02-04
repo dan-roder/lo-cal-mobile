@@ -6,6 +6,7 @@ page-account {
   .item-md.item-block{
     .item-inner{
       padding-right: 0;
+      @include transition(border);
     }
   }
 
@@ -24,6 +25,18 @@ page-account {
     align-items: center;
     margin: 0 0 20px;
 
+    h3{
+      margin: 0;
+    }
+
+    button{
+      background: $local-red;
+      height: auto;
+      min-height: auto;
+      line-height: normal;
+      padding: 7px 15px;
+    }
+
     a{
       color: $local-red;
     }
@@ -31,15 +44,52 @@ page-account {
 
   ion-select{
     max-width: none;
+    width: 100%;
+
+    &.select-md{
+      padding: 13px 16px 13px 8px;
+    }
   }
 
   .red-button{
     margin-top: 20px;
   }
 
-  .button-md{
-    @extend %red-button;
-    margin: 0;
-    width: 100%;
+  .submit{
+    button{
+      @extend %red-button;
+      margin: 0;
+      width: 100%;
+    }
+  }
+
+  .account-section{
+    margin: 0 0 50px;
+  }
+
+  .lo-cal-form{
+
+    .form-component-text,
+    .form-component-email{
+      ion-input{
+        border-bottom: 1px solid transparent;
+        @include transition(border-bottom);
+      }
+    }
+
+    &.editing{
+      .form-component-text,
+      .form-component-email{
+        ion-input{
+          border-bottom: 1px solid black;
+        }
+      }
+    }
+  }
+
+  .error-message{
+    font-size: 12px;
+    padding: 5px 4px;
+    color: $local-red;
   }
 }
