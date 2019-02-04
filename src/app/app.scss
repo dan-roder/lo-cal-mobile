@@ -324,3 +324,19 @@ ion-scroll[scrollX] {
     position: absolute;
     width: 1px;
 }
+
+.form-errors{
+    p{
+      color: $local-red;
+      font-size: 13px;
+      text-align: center;
+    }
+  }
+
+  .form-success{
+    p{
+      color: $green;
+      font-size: 13px;
+      text-align: center;
+    }
+  }
