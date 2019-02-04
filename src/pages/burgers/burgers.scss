@@ -65,6 +65,7 @@ page-burgers {
         font-size: 13px;
         line-height: 1.54;
         letter-spacing: 0.6px;
+        font-weight: 600;
         color: rgba(30, 30, 30, 0.99);
     }
 
@@ -93,5 +94,11 @@ page-burgers {
     }
     .allergen span {
         padding-left: 0;
+    }
+    .price, .calories {
+        font-weight: 600;
+        display: inline-block;
+        width: 100%;
+        border-right: 1px solid $light-gray;
     }
 }
