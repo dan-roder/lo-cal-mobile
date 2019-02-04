@@ -30,7 +30,7 @@
                     </ion-col>
                     <ion-col col-4 text-center>
                       <span class="allergen">
-                        <span class="allergen" *ngFor="let allergen of (menuItem.Description | allergens).allergens">
+                        <span *ngFor="let allergen of (menuItem.Description | allergens).allergens">
                             {{ allergen }}
                         </span>
                       </span>    
