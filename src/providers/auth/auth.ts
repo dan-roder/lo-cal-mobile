@@ -11,30 +11,14 @@ import { CustomerProvider } from '../customer/customer';
 */
 @Injectable()
 export class AuthProvider {
-  private isLoggedIn: boolean = false;
 
-  constructor(public http: Http, private customerProvider: CustomerProvider) {
-
-  }
-
-  // Login a user
-  // Normally make a server request and store
-  // e.g. the auth token
-  login() : void {
-    this.isLoggedIn = true;
-  }
-
-  // Logout a user, destroy token and remove
-  // every information related to a user
-  logout() : void {
-    this.isLoggedIn = false;
-  }
+  constructor(public http: Http, private customerProvider: CustomerProvider) {  }
 
   // Returns whether the user is currently authenticated
   // Could check if current token is still valid
   authenticated() : any {
     return this.customerProvider.isLoggedIn().then(user => {
-      return user;
+      return user || false;
     })
     .catch((error) => {
       console.log(error);
