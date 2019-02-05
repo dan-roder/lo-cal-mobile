@@ -2,7 +2,14 @@ ion-list.menu-list {
   .item {
     min-height: 1rem;
     .item-inner {
-      height: 45px;
+      height: 47px;
+    }
+  }
+}
+ion-list.menu-list {
+  .bottom-links {
+    .item-inner {
+      height: 35px;
     }
   }
 }
