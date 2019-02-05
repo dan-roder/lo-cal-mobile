@@ -77,8 +77,7 @@ export class LoginPage {
         });
       }, error => {
         loader.dismiss();
-        console.log( error );
-        let message = error;
+        let message = 'Sorry. We did not find a valid account for that username and password.';
 
         let toast = this.toastController.create({
           message: message,
@@ -88,8 +87,6 @@ export class LoginPage {
         toast.present();
       });
 
-    } else {
-      console.log( this.loginForm.valid );
-    }
+    } else { }
   }
 }
