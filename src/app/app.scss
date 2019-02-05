@@ -64,6 +64,11 @@ button {
 .small-icon {
     font-size: 12px !important;
 }
+.sidebar-button {
+    border-radius: 2px;
+        border-color: rgba(255,255,255,0.5);
+        max-width: 150px;
+}
 
 .large-icon {
     font-size: 36px !important;
@@ -107,7 +112,7 @@ super-tabs-toolbar>ion-toolbar.toolbar.scroll-tabs .tab-buttons-container .tab-b
 }
 
 .side-menu-content {
-    background: map-get($colors, dark-gray);
+    background-color: #333333;
 }
 
 .menu-list {
@@ -132,7 +137,7 @@ super-tabs-toolbar>ion-toolbar.toolbar.scroll-tabs .tab-buttons-container .tab-b
         .label {
             text-transform: uppercase;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             line-height: 2.81;
             letter-spacing: 1.6px;
             text-align: left;
@@ -140,6 +145,17 @@ super-tabs-toolbar>ion-toolbar.toolbar.scroll-tabs .tab-buttons-container .tab-b
     }
     &.active {
         background-color: map-get($colors, red);
+        // &:before {
+        //   content: '';
+        //   position: absolute;
+        //   top: 0;
+        //   right: 0;
+        //   bottom: 0;
+        //   left: 0;
+        //   z-index: -1;
+        //   border-radius: inherit;
+        //   background: linear-gradient(to right, #ff3b30 96%, black 112%, #333333 106% );
+        // }
     }
 }
 
@@ -215,7 +231,7 @@ ion-scroll[scrollX] {
 .bottom-links .item-inner .input-wrapper {
     .label {
         font-size: 13px;
-
+        text-transform: none;
     }
 }
 .sub-pages {
@@ -259,13 +275,24 @@ ion-scroll[scrollX] {
             margin-bottom: 10px;
         }
         .dark {
-            background-color: map-get($colors, black);
             margin-bottom: 10px;
+            height: 2px;
+            background-color: rgba(30,30,30,0.99);
         }
         .total {
             font-size: 15px;
             font-weight: 400;
             letter-spacing: 0.8px;
+        }
+        span {
+          letter-spacing: 0.8px;
+          text-align: left;
+          color: rgba(30, 30, 30, 0.99);
+          font-size: 14.5px;
+          font-weight: 700;
+        }
+        .col {
+          padding: 0;
         }
     }
     .checkout-button-wrap {
