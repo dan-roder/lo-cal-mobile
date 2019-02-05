@@ -8,10 +8,10 @@
             </button>
         </ion-list>
         <div padding *ngIf="!currentCustomer">
-            <button menuClose="left" ion-button block outline color="white" (tap)="pushPage('LoginPage')">Log In</button>
+            <button menuClose="left" class="sidebar-button" ion-button block outline color="white" (tap)="pushPage('LoginPage')">Log In</button>
         </div>
         <div padding *ngIf="currentCustomer">
-            <button menuClose="left" ion-button block outline color="white" (tap)="logout()">Log Out</button>
+            <button menuClose="left" class="sidebar-button" ion-button block outline color="white" (tap)="logout()">Log Out</button>
         </div>
         <ion-grid padding>
             <ion-row>
