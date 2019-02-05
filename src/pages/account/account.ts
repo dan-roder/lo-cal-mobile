@@ -67,16 +67,11 @@ export class AccountPage {
   }
 
   ionViewCanEnter(){
-    console.log(this.authService.authenticated());
-    // this.authService.authenticated().then(response => {
-    //   if(response === null || response === undefined || response.CustomerId === undefined){
-    //     this.navCtrl.push('LoginPage');
-    //     return false;
-    //   }
-    //   else{
-    //     return true;
-    //   }
-    // });
+    return this.authService.authenticated().then(response => {
+      if(!response){
+        return false;
+      }
+    });
   }
 
   ionViewDidLoad() {
