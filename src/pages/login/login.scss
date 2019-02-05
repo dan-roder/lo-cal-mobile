@@ -1,41 +1,49 @@
 page-login {
+  .login-button {
+    margin-top: 50px;
+    height: 40px;
+    font-weight: 600;
+    letter-spacing: 1.4px;
+  }
 
-    .login-button {
+  [ion-button][disabled] {
+    background: map-get( $colors, offWhite );
+  }
 
-        margin-top: 50px;
-        height: 40px;
-        font-weight: 600;
-        letter-spacing: 1.4px;
+  .bottom-links-col {
+    text-align: center;
+    border-right: 1px solid map-get($colors, light-gray);
+    margin-top: 15px;
 
+    a {
+      text-transform: uppercase;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      color: map-get($colors, dark);
     }
 
-    [ion-button][disabled] {
-
-        background: map-get( $colors, offWhite );
-
+    &:last-child {
+      border-right: none;
     }
-    // ion-item.item.has-error {
+  }
 
-    //     .item-inner {
-    //         border-color: $error;
-    //         ion-label, ion-icon {
-    //             color: $error;
-    //         }
-    //         ion-icon {
-    //             position: absolute;
-    //             bottom: 0;
-    //             right: 0;
-    //         }
-    //     }
-    //     input {
-    //         color: $error;
-    //     }
-    // }
-    // .form-control-feedback {
-    //     .error-help {
-    //         margin-top: 5px;
-    //         color: $error;
-    //     }
-    // }
+  .bottom-buttons-wrap {
+    ion-col:first-child{
+      border-right: 1px solid map-get($colors, light-gray);
+    }
 
+    a{
+      text-transform: uppercase;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      color: $local-red;
+      display: block;
+      text-align: center;
+      padding: 12px 2px;
+    }
+  }
 }
