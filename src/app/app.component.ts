@@ -79,8 +79,16 @@ export class MyApp {
       console.log("THE PAGE: ", page);
       // Reset the content nav to have just this page
       // we wouldn't want the back button to show in this scenario
-      this.nav.setRoot(page.component);
-      this.activePage.next(page);
+      this.nav.setRoot(page.component).then((success) => {
+        if(!success){
+          this.nav.push('LoginPage');
+        }
+        else{
+          this.activePage.next(page);
+        }
+      }).catch((error) => {
+        console.log('error', error);
+      });
     }
 
     pushPage( page ) {
