@@ -17,7 +17,7 @@ export class AuthProvider {
   // Returns whether the user is currently authenticated
   // Could check if current token is still valid
   authenticated() : any {
-    return this.customerProvider.isLoggedIn().then(user => {
+    return this.customerProvider.getUserData().then(user => {
       return user || false;
     })
     .catch((error) => {
