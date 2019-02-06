@@ -7,6 +7,7 @@ page-account {
     .item-inner{
       padding-right: 0;
       @include transition(border);
+      border-bottom: none;
     }
   }
 
@@ -23,7 +24,6 @@ page-account {
     justify-content: space-between;
     border-bottom: 1px solid $off-white;
     align-items: center;
-    margin: 0 0 20px;
 
     h3{
       margin: 0;
