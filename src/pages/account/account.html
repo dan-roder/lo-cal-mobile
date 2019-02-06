@@ -20,45 +20,45 @@
           {{ accountError }}
         </p>
       </div>
-      <div class="form-component form-component-text">
-        <ion-label class="visuallyhidden">First Name</ion-label>
+      <ion-item class="form-component form-component-text">
+        <ion-label floating>First Name</ion-label>
         <ion-input type="text" [readonly]="!editing" name="first-name" id="first-name" formControlName="first-name" placeholder="First Name*" [ngClass]="{'has-error':!accountForm.controls['first-name'].valid}"></ion-input>
         <div class="error-message" *ngIf="!accountForm.controls['first-name'].valid">This field is required.</div>
-      </div>
-      <div class="form-component form-component-text">
-        <ion-label class="visuallyhidden">Last Name</ion-label>
+      </ion-item>
+      <ion-item class="form-component form-component-text">
+        <ion-label floating>Last Name</ion-label>
         <ion-input type="text" [readonly]="!editing" name="last-name" id="last-name" formControlName="last-name" placeholder="Last Name*" [ngClass]="{'has-error':!accountForm.controls['last-name'].valid}"></ion-input>
         <div class="error-message" *ngIf="!accountForm.controls['last-name'].valid">This field is required.</div>
-      </div>
-      <div class="form-component form-component-email">
-        <ion-label class="visuallyhidden">Email</ion-label>
+      </ion-item>
+      <ion-item class="form-component form-component-email">
+        <ion-label floating>Email</ion-label>
         <ion-input type="text" [readonly]="!editing" name="email" id="email" formControlName="email" placeholder="Email*" [ngClass]="{'has-error':!accountForm.controls['email'].valid}"></ion-input>
         <div class="error-message" *ngIf="!accountForm.controls['email'].valid">This field is required.</div>
-      </div>
-      <div class="form-component form-component-text">
-        <ion-label class="visuallyhidden">Phone Number</ion-label>
+      </ion-item>
+      <ion-item class="form-component form-component-text">
+        <ion-label floating>Phone Number</ion-label>
         <ion-input type="text" [readonly]="!editing" name="phone" id="phone" formControlName="phone" placeholder="Phone Number*" [ngClass]="{'has-error':!accountForm.controls['phone'].valid && submittedOnce}"></ion-input>
         <div class="error-message" *ngIf="!accountForm.controls['phone'].valid && submittedOnce">This field is required.</div>
         <div class="error-message" *ngIf="accountForm.controls['phone'].errors?.pattern">Phone number must be 10 digits with no spaces or special characters.</div>
-      </div>
+      </ion-item>
       <div class="control-wrapper" formGroupName="full-address">
-        <div class="form-component form-component-text">
-          <ion-label class="visuallyhidden">Address</ion-label>
+        <ion-item class="form-component form-component-text">
+          <ion-label floating>Address</ion-label>
           <ion-input type="text" [readonly]="!editing" name="address" id="address" formControlName="address" placeholder="Address*" [ngClass]="{'has-error':!accountForm.controls['full-address']['controls']['address'].valid && submittedOnce}"></ion-input>
           <div class="error-message" *ngIf="!accountForm.controls['full-address']['controls']['address'].valid && submittedOnce">This field is required.</div>
-        </div>
-        <div class="form-component form-component-text">
-          <ion-label class="visuallyhidden">Address 2</ion-label>
+        </ion-item>
+        <ion-item class="form-component form-component-text">
+          <ion-label floating>Address 2</ion-label>
           <ion-input type="text" [readonly]="!editing" name="address2" id="address2" formControlName="address2" placeholder="Apartment/Suite/Unit/Building"></ion-input>
-        </div>
+        </ion-item>
         <div class="form-section thirds">
-          <div class="form-component form-component-text">
-            <ion-label class="visuallyhidden">City</ion-label>
+          <ion-item class="form-component form-component-text">
+            <ion-label floating>City</ion-label>
             <ion-input type="text" [readonly]="!editing" name="city" id="city" formControlName="city" placeholder="City*" [ngClass]="{'has-error':!accountForm.controls['full-address']['controls']['city'].valid && submittedOnce}"></ion-input>
             <div class="error-message" *ngIf="!accountForm.controls['full-address']['controls']['city'].valid && submittedOnce">This field is required.</div>
-          </div>
+          </ion-item>
           <ion-item no-lines class="form-component form-component-select">
-            <ion-label class="visuallyhidden">State</ion-label>
+            <ion-label floating>State</ion-label>
             <ion-select name="state" id="state" formControlName="state" [ngClass]="{'has-error':!accountForm.controls['full-address']['controls']['state'].valid && submittedOnce}">
               <ion-option value="">-- Select --</ion-option>
               <ion-option value="AL">Alabama</ion-option>
@@ -114,12 +114,12 @@
               <ion-option value="WY">Wyoming</ion-option>
             </ion-select>
           </ion-item>
-          <div class="form-component form-component-text">
-            <ion-label class="visuallyhidden">Zip Code</ion-label>
+          <ion-item class="form-component form-component-text">
+            <ion-label floating>Zip Code</ion-label>
             <ion-input type="text" [readonly]="!editing" name="zip" id="zip" formControlName="zip" placeholder="Zip*" [ngClass]="{'has-error':!accountForm.controls['full-address']['controls']['zip'].valid && submittedOnce}"></ion-input>
             <div class="error-message" *ngIf="!accountForm.controls['full-address']['controls']['zip'].valid && submittedOnce">This field is required.</div>
             <div class="error-message" *ngIf="accountForm.controls['full-address']['controls']['zip'].errors?.pattern && accountForm.controls['full-address']['controls']['zip'].value.length > 5">Zip code must be only 5 digits.</div>
-          </div>
+          </ion-item>
         </div>
       </div>
 
@@ -138,24 +138,24 @@
     <form action="" [formGroup]="passwordForm" class="lo-cal-form" [ngClass]="editingPassword ? 'editing' : 'static'" (submit)="updatePassword(passwordForm)">
       <div class="form-errors" *ngIf="passwordError"><p>{{ passwordError }}</p></div>
       <div class="form-success"><p>{{ passwordSuccess }}</p></div>
-      <div class="form-component form-component-text">
-        <ion-label for="old-password" class="visuallyhidden">Old Password</ion-label>
-        <ion-input type="password" [readonly]="!editingPassword" name="old-password" id="old-password" formControlName="old-password" placeholder="Old Password" [ngClass]="{'has-error':!passwordForm.controls['old-password'].valid && submittedOnce}"></ion-input>
-        <div class="error-message" *ngIf="!passwordForm.controls['old-password'].valid && submittedOnce">This field is required.</div>
-      </div>
-      <div class="form-component form-component-text">
-        <ion-label for="new-password" class="visuallyhidden">New Password</ion-label>
-        <ion-input type="password" [readonly]="!editingPassword" name="password" id="new-password" formControlName="password" placeholder="New Password* (8 or more characters)" [ngClass]="{'has-error':!passwordForm.controls['password'].valid && submittedOnce}"></ion-input>
+      <ion-item class="form-component form-component-text">
+        <ion-label floating for="old-password" >Old Password</ion-label>
+        <ion-input type="password" name="old-password" id="old-password" [ngClass]="{'has-error':!passwordForm.controls['old-password'].valid && submittedOnce}" clearInput></ion-input>
+        <!-- <div class="error-message" *ngIf="!passwordForm.controls['old-password'].valid && submittedOnce">This field is required.</div> -->
+      </ion-item>
+      <ion-item class="form-component form-component-text">
+        <ion-label floating for="new-password">New Password* (8 or more characters)</ion-label>
+        <ion-input type="password" name="password" id="new-password" formControlName="password" [ngClass]="{'has-error':!passwordForm.controls['password'].valid && submittedOnce}" clearInput></ion-input>
         <div class="error-message" *ngIf="!passwordForm.controls['password'].valid && submittedOnce">This field is required.</div>
         <div class="error-message" *ngIf="passwordForm.controls['password'].value.length > 2 && passwordForm.controls['password'].errors?.minlength">Password must be at least 8 characters.</div>
         <div class="error-message" *ngIf="passwordForm.controls['password'].value.length > 2 && passwordForm.controls['password'].errors?.pattern">Password must contain at least 1 number, and 1 uppercase character.</div>
-      </div>
-      <div class="form-component form-component-text">
-        <ion-label for="confirm-password" class="visuallyhidden">Confirm Password</ion-label>
-        <ion-input type="password" [readonly]="!editingPassword" name="confirm-password" id="confirm-password" formControlName="confirm-password" placeholder="Confirm Password*" [ngClass]="{'has-error':!passwordForm.controls['confirm-password'].valid && submittedOnce}"></ion-input>
+      </ion-item>
+      <ion-item class="form-component form-component-text">
+        <ion-label floating for="confirm-password">Confirm Password*</ion-label>
+        <ion-input type="password" name="confirm-password" id="confirm-password" formControlName="confirm-password" [ngClass]="{'has-error':!passwordForm.controls['confirm-password'].valid && submittedOnce}" clearInput></ion-input>
         <div class="error-message" *ngIf="!passwordForm.controls['confirm-password'].valid && submittedOnce">This field is required.</div>
         <div class="error-message" *ngIf="passwordForm.controls['confirm-password'].errors?.MatchPassword">Password does not match.</div>
-      </div>
+      </ion-item>
 
       <div class="submit red-button full-width-button submit">
         <button ion-button type="submit" value="Save" *ngIf="editingPassword && !passwordProcessing" [disabled]="!passwordForm.valid">Save</button>
