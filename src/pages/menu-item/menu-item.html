@@ -90,8 +90,8 @@
         <p class="customization-errors text-center" *ngIf="requiredModifierGroups.length && submitAttempted">Please select an item from the required modifier groups.</p>
 
         <div class="button-bag-wrap">
-            <button ion-button block color="red" (tap)="addToBag()" class="button-bag-view">
-                   Add to My Bag (+{{ totalPrice | currency:'USD':'symbol' }}) 
+            <button ion-button block color="red" (tap)="addToBag()" [ngClass]="{ 'disabled': requiredModifierGroups.length }" class="button-bag-view">
+                   Add to My Bag (+{{ totalPrice | currency:'USD':'symbol' }})
             </button>
         </div>
     </ion-toolbar>
