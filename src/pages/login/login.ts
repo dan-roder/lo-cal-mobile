@@ -64,9 +64,13 @@ export class LoginPage {
       loader.present();
 
       this.localApi.login( credentials ).subscribe( ( response ) => {
+        // User was logged in successfully
         loader.dismiss();
 
         let customerId = response.json();
+
+        // Set isLoggedIn property on service to true
+        this.customerService.isLoggedIn = true;
 
         this.customerService.getCustomerInfo(customerId).subscribe(customerInfo => {
           let customerInfoJson = customerInfo.json();
