@@ -16,6 +16,7 @@ export class CustomerProvider {
   customer: any;
   private    customerObserver = new Subject();
   customerId: Observable<any> = this.customerObserver.asObservable();
+  private _isLoggedIn: boolean = false;
 
   constructor(
     private http: Http,
@@ -113,7 +114,7 @@ export class CustomerProvider {
     })
   }
 
-  public isLoggedIn(){
+  public getUserData(){
     return this.storage.get('user').then(userInfo => {
       return userInfo;
     });
@@ -164,5 +165,13 @@ export class CustomerProvider {
     return this.http.post(this.config.railsCustomerEndpoint + `/loginupdate`, loginInfo).map((result) => {
       return result;
     });
+  }
+
+  get isLoggedIn(): boolean{
+    return this._isLoggedIn;
+  }
+
+  set isLoggedIn(status: boolean){
+    this._isLoggedIn = status;
   }
 }
