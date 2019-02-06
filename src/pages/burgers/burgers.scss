@@ -41,7 +41,7 @@ page-burgers {
         }
         @include breakpoint(768px) {
           width: 48%;
-          
+
         }
     }
     .menu-items {
@@ -100,5 +100,17 @@ page-burgers {
         display: inline-block;
         width: 100%;
         border-right: 1px solid $light-gray;
+    }
+
+    img.food-item:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: #f4f4f4;
+        z-index: -1;
     }
 }
