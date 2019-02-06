@@ -67,6 +67,7 @@ export class AccountPage {
   }
 
   ionViewCanEnter(){
+    console.log(this.customerService.isLoggedIn);
     return this.authService.authenticated().then(response => {
       if(!response){
         return false;
@@ -228,8 +229,7 @@ export class AccountPage {
     setTimeout(() => {
       this.localStorage.remove('user').then(() => {
         console.log('user object removed');
-        // TODO: SEND USER BACK TO INITIAL PAGE
-        // this.router.navigateByUrl('/login');
+        this.navCtrl.setRoot('TabsComponent');
       });
     }, 4000);
   }
