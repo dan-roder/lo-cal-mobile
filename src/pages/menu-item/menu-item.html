@@ -32,7 +32,7 @@
     <div class="sub-heading" text-center *ngIf="menuItem && salesItems?.ModGroups.length">
         <p>Start your modification:</p>
     </div>
-    <div *ngFor="let group of salesItems?.ModGroups; let i = index">
+    <div *ngFor="let group of orderedSalesItemDetails; let i = index">
             <div class="required-message" *ngIf="group.MinimumItems > 0 && isGroupRequired(group.$id) && submitAttempted">
                     <p>A selection from this group is required.</p>
                   </div>
