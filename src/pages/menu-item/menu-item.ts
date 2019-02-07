@@ -40,6 +40,7 @@ export class MenuItemPage {
     order;
     itemPrice;
     calorieCount;
+    orderedSalesItemDetails
 
 
 
@@ -282,7 +283,7 @@ export class MenuItemPage {
             // this.featuredImageAlt = (item[0].featured_media !== 0) ? item[0]._embedded['wp:featuredmedia'][0].alt_text : '';
 
         }
-            console.log('cart image', this.cartImage)
+            // console.log('cart image', this.cartImage)
     }
     private arrangeMenuData( data ) {
 
@@ -295,17 +296,19 @@ export class MenuItemPage {
 
         this.recalculateCost();
         // console.log(data, this.menuItem, data.salesItems, this.itemPrice, this.calorieCount );
+        this.orderedSalesItemDetails = this.orderModifierGroups( this.salesItems.ModifierGroups, this.salesItems.ModGroups );
 
         if ( this.salesItems.ModGroups.length > 0 &&  this.salesItems.DefaultOptions.length > 0 ) {
 
             // console.log(this.salesItems.ModGroups.length);
             defaults = this.salesItems.DefaultOptions;
-            this.registerCustomizationVariables( this.salesItems.ModGroups, defaults );
+
+            this.registerCustomizationVariables( this.orderedSalesItemDetails, defaults );
 
         } else {
 
             // console.log("No Default Options", this.salesItems.ModGroups.length);
-            this.registerCustomizationVariables( this.salesItems.ModGroups );
+            this.registerCustomizationVariables( this.orderedSalesItemDetails );
 
         }
 
@@ -318,7 +321,7 @@ export class MenuItemPage {
         let reqMods = new Array;
         // let defaultArray = [];
         allModifiers.forEach( modifierGroup => {
-            console.log( modifierGroup );
+            // console.log( modifierGroup );
             let modObject = {};
             modObject['maximumItems'] = modifierGroup.MaximumItems;
             modObject['minimumItems'] = modifierGroup.MinimumItems;
@@ -333,7 +336,7 @@ export class MenuItemPage {
                 modObject['modifiers'][mod.$id] = {};
                 // console.log(defaultOptions);
                 let isModDefault = defaultOptions.find( option => {
-                    console.log( option.ModifierId, mod.ModifierId);
+                    // console.log( option.ModifierId, mod.ModifierId);
                     return option['ModifierId'] === mod.ModifierId;
                 });
                 // console.log( isModDefault );
@@ -355,7 +358,7 @@ export class MenuItemPage {
 
         this.customData = tempObj;
         this.requiredModifierGroups = reqMods;
-        console.log( this.customData );
+        // console.log( this.customData );
     }
 
     defaultItem( group, mod ) {
@@ -409,7 +412,6 @@ export class MenuItemPage {
             return; // disallow adding to bag
         }
 
-        console.log( this.customData );
         // Adding to bag needs to have all details of modifications
         //  Start simple. Add just the item itself
         let menuItem = {};
@@ -427,7 +429,7 @@ export class MenuItemPage {
         menuItem['SpecialInstructions'] = this.specialInstructions;
         menuItem['CartImage'] = this.cartImage;
 
-        console.log( 'hey menu-item', this.menuItem );
+        // console.log( 'hey menu-item', this.menuItem );
 
         let message = `${ menuItem['DisplayName'] } has been added to you your bag.`
         // Push full object to bag service
@@ -464,4 +466,23 @@ export class MenuItemPage {
         return (isRequired !== undefined) ? true : false;
       }
 
+    private orderModifierGroups(orderGroup, detailGroup){
+      // Sort the modifier groups
+      let sortedCollection = _.sortBy(detailGroup, (item) => {
+        return orderGroup.indexOf(item.ModifierGroupId)
+      });
+
+      // Sort modifiers in groups
+      _.forEach(detailGroup, modGroup => {
+        let modOrder = _.values(modGroup.Modifiers);
+
+        let sortedGroup = _.sortBy(modGroup.Mods, (item) => {
+          return modOrder.indexOf(item.ModifierId);
+        })
+
+        modGroup.Mods = sortedGroup;
+      });
+
+      return sortedCollection;
+    }
 }
