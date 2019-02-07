@@ -6,6 +6,7 @@ page-menu-item {
         background-repeat: no-repeat;
         background-position: bottom;
         height: 300px;
+        background-size: cover;
         position: relative;
         .title-box {
             position: absolute;
@@ -240,7 +241,7 @@ page-menu-item {
       font-weight: 700;
       font-size: 13px;
       display: inline-block;
-      
+
     }
     .label-md {
         margin: 0;
