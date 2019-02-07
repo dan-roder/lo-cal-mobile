@@ -366,7 +366,7 @@ ion-scroll[scrollX] {
     }
     &-image {
         max-height: 150px;
-        
+
     }
     &-edit {
         color: $local-red;
@@ -399,7 +399,7 @@ ion-scroll[scrollX] {
             font-weight: 600;
 
         }
-       
+
         ion-col {
             span {
                 font-size:      12px;
@@ -446,13 +446,14 @@ ion-scroll[scrollX] {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+        padding-left: 7px;
         @include breakpoint(375px) {
-          padding-left: 15px;
+          padding-left: 17px;
           padding-right: 8px;
         }
         @include breakpoint(600px) {
             padding-left: 0;
-        } 
+        }
     }
 }
 .allergen {
