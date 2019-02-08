@@ -18,7 +18,7 @@ import { CustomerProvider } from "../../providers/customer/customer";
 import { WordPressProvider } from './../../providers/word-press/word-press';
 import { OrderService } from './../../providers/order/order-provider';
 
-import * as _ from 'lodash'; 
+import * as _ from 'lodash';
 import * as moment from 'moment';
 
 @AutoUnsubscribe()
@@ -95,10 +95,10 @@ export class CheckoutPaymentPage {
 
     ngOnInit() {
         // Get current customer info. Patch contact form
-        this.customerService.isLoggedIn().then(customer => {
+        this.customerService.getUserData().then(customer => {
           this.currentCustomer = customer;
           this.patchContactForm(customer);
-    
+
           // If Customer has ID, look for any saved payment methods on customer's account
           if(customer.CustomerId){
             this.customerService.getSavedPayments(customer.CustomerId).subscribe(savedPayments => {
@@ -108,7 +108,7 @@ export class CheckoutPaymentPage {
             });
           }
         });
-    
+
         // Get address data from post
         if(!this.wpService.addressContent){
           this.wpService.getAddressContent().subscribe(addressData => {
@@ -119,11 +119,11 @@ export class CheckoutPaymentPage {
         else{
           this.addressData = this.wpService.addressContent;
         }
-    
+
         // Get Full Order Details from API
         this.orderService.getPreSavedOrder().then(order => {
           let orderId = order.OrderId;
-    
+
           this.orderService.getFullOrderDetails(orderId).subscribe(fullOrder => {
             this.orderMode = fullOrder.OrderMode;
             if(fullOrder.OrderMode === 4){
@@ -134,9 +134,9 @@ export class CheckoutPaymentPage {
             }
             this.orderForDisplay = this.orderService.calculateTotalWithModifiers(fullOrder);
             console.log("current order", fullOrder);
-            this.currentOrder = fullOrder; 
-              
-            
+            this.currentOrder = fullOrder;
+
+
           })
         });
       }
@@ -159,21 +159,21 @@ export class CheckoutPaymentPage {
         // 2. Retrieve order
         this.orderService.getPreSavedOrder().then(order => {
           let orderId = order.OrderId;
-    
+
           // Retrieve order again to ensure local storage order wasn't manipulated
           this.orderService.getFullOrderDetails(orderId).subscribe(fullOrder => {
             this.currentOrder = fullOrder;
-           
+
             // 3. Construct order with all form details
             this.constructOrder(fullOrder);
           })
         });
-    
+
       }
 
       protected constructOrder(order: any){
         let orderForApi : InSubmitOrderInformation;
-    
+
         // If saved card checked
         switch(this.paymentChoice){
           case '1' :
@@ -186,7 +186,7 @@ export class CheckoutPaymentPage {
             orderForApi = this.constructSecurePayment();
           break;
         }
-    
+
         let finalOrderForSubmission : RailsInSubmitOrder = {
           order_submission : orderForApi
         }
@@ -195,11 +195,11 @@ export class CheckoutPaymentPage {
         this.orderService.submitOrder(finalOrderForSubmission, this.currentOrder.OrderId).subscribe(orderResults => {
           console.log(orderResults.ResultCode);
           this.orderResultForTesting = orderResults.ResultCode;
-          
-        
+
+
           // TODO: At the current point in time this is only reached if we get a successful API response
           if(orderResults.ResultCode == 0 || orderResults.ResultCode == 4){
-           
+
             this.saveOrderAndRedirect(orderResults);
           }
           else{
@@ -208,7 +208,7 @@ export class CheckoutPaymentPage {
           }
         }, error => {
           this.processing = false;
-        
+
           switch(+error.error.error_code){
             case 150:
               this.pickupTimeError = true;
@@ -217,18 +217,18 @@ export class CheckoutPaymentPage {
               this.genericOrderError = true;
             break;
           }
-    
+
           this.wpService.logError('Payment Order Error: ' + JSON.stringify(error)).subscribe((result) => {console.log('error:' + result)});
         });
       }
-    
+
       protected constructClearCreditCardPayment(): InSubmitOrderInformation{
         let expirationDate = this.paymentForm.get('expiration-date').value;
         let finalExpDate = this.formatDate(expirationDate);
-    
+
         // Set final CC number: resolves view value vs model value discrepancy
         let finalCreditCardNumber = this.finalCardFormat(this.cardNumber);
-    
+
         let inSubmitOrderInfo : InSubmitOrderInformation = {
           PaymentMethods : [{
             PaymentMethod : 1,
@@ -242,10 +242,10 @@ export class CheckoutPaymentPage {
           SendEmail: true,
           Vehicle: this.vehicle
         }
-    
+
         return inSubmitOrderInfo;
       }
-    
+
       protected constructPayAtSitePayment(): InSubmitOrderInformation{
         let inSubmitOrderInfo : InSubmitOrderInformation = {
           PaymentMethods : [{
@@ -253,10 +253,10 @@ export class CheckoutPaymentPage {
           }],
           SendEmail: true
         }
-    
+
         return inSubmitOrderInfo;
       }
-    
+
       protected constructSecurePayment(): InSubmitOrderInformation{
         let inSubmitOrderInfo : InSubmitOrderInformation = {
           PaymentMethods : [{
@@ -268,13 +268,13 @@ export class CheckoutPaymentPage {
           Vehicle : this.vehicle,
           SendEmail: true
         }
-    
+
         return inSubmitOrderInfo;
       }
-    
+
       protected calculateTotal(fullOrder){
         let orderArray = Array();
-    
+
         _.forEach(fullOrder.LineItems, function(value, key){
           let initialPrice = value.UnitPrice;
           let addOnPrice = 0;
@@ -295,17 +295,17 @@ export class CheckoutPaymentPage {
           }
           orderArray.push(obj);
         });
-    
+
         this.orderForDisplay = orderArray;
       }
-    
+
       protected saveOrderAndRedirect(orderResults: any){
         this.localStorage.set('orderResult', orderResults).then(() => {
           // If Customer wishes to save payment method
           if(this.paymentForm.get('save-payment').value){
             // Ensure we have the correctly formatted credit card number
             let finalCreditCardNumber = this.finalCardFormat(this.cardNumber);
-    
+
             let paymentInfoForSaving : RailsSavePayment = {
               payment : {
                 AccountNumber: this.paymentForm.get('card-number').value,
@@ -313,25 +313,25 @@ export class CheckoutPaymentPage {
                 PaymentMethodType: this.cardType
               }
             }
-    
+
             // Save payment method, then navigate to confirmation
             this.customerService.savePaymentMethod(paymentInfoForSaving, this.currentCustomer.CustomerId).subscribe(() => {
-           
+
               this.navigateToConfirmation();
             });
           }
           else{
-            
+
             this.navigateToConfirmation();
           }
         });
       }
-    
+
       public detectCardType(val){
         let cardType = CreditCard.cardFromNumber(val);
         this.cardType = (val.length > 0 && cardType !== undefined) ? this.constants.paymentTypeMap[cardType.type] : undefined;
       }
-    
+
       private patchContactForm(customer: Customer){
         this.contactInfoForm.patchValue({
           'first-name' : customer.FirstName,
@@ -339,29 +339,29 @@ export class CheckoutPaymentPage {
           'email' : customer.EMail
         })
       }
-    
+
       protected finalCardFormat(cardNumber){
         return CreditCard.formatCardNumber(cardNumber).replace(/\D/g, '');
       }
-    
+
       protected formatDate(date: string){
         return moment('01/' + date, 'DD/MM/YYYY').format('YYYY-MM-DD');
       }
-    
+
       protected navigateToConfirmation(){
-        
+
         this.navCtrl.push('ThankYouPage');
       }
-    
+
       // Currently not in use as API doesn't seem to allow for multiple saved payments
       public whichPayment(value){
         console.log(value);
       }
-    
+
       set vehicle(vehicle: Vehicle){
         this._vehicle = vehicle;
       }
-    
+
       get vehicle(): Vehicle{
         return this._vehicle;
       }
