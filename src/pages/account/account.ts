@@ -30,6 +30,7 @@ export class AccountPage {
   public editing: boolean = false;
   public editingPassword: boolean = false;
   public accountProcessing: boolean = false;
+  public pwSubmittedOnce: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -203,6 +204,7 @@ export class AccountPage {
   }
 
   public updatePassword(formData){
+    console.log(formData);
     if(formData.valid){
       let loginInfo : InLoginUpdate = {
         Email : this.customer.EMail,
