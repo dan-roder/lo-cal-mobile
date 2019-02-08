@@ -140,22 +140,29 @@
       <div class="form-success"><p>{{ passwordSuccess }}</p></div>
       <ion-item class="form-component form-component-text">
         <ion-label floating for="old-password" >Old Password</ion-label>
-        <ion-input type="password" name="old-password" id="old-password" [ngClass]="{'has-error':!passwordForm.controls['old-password'].valid && submittedOnce}" clearInput></ion-input>
-        <!-- <div class="error-message" *ngIf="!passwordForm.controls['old-password'].valid && submittedOnce">This field is required.</div> -->
+        <ion-icon *ngIf="!passwordForm.controls['old-password'].valid && pwSubmittedOnce" name="alert" item-right class="has-error"></ion-icon>
+        <ion-input type="password" formControlName="old-password" [readonly]="!editingPassword" name="old-password" id="old-password" [ngClass]="{'has-error':!passwordForm.controls['old-password'].valid && pwSubmittedOnce}"></ion-input>
       </ion-item>
-      <ion-item class="form-component form-component-text">
+      <ion-item class="form-component form-component-text" [ngClass]="{ 'has-error': !passwordForm.controls['password'].valid && passwordForm.controls['password'].dirty }">
         <ion-label floating for="new-password">New Password* (8 or more characters)</ion-label>
-        <ion-input type="password" name="password" id="new-password" formControlName="password" [ngClass]="{'has-error':!passwordForm.controls['password'].valid && submittedOnce}" clearInput></ion-input>
-        <div class="error-message" *ngIf="!passwordForm.controls['password'].valid && submittedOnce">This field is required.</div>
-        <div class="error-message" *ngIf="passwordForm.controls['password'].value.length > 2 && passwordForm.controls['password'].errors?.minlength">Password must be at least 8 characters.</div>
-        <div class="error-message" *ngIf="passwordForm.controls['password'].value.length > 2 && passwordForm.controls['password'].errors?.pattern">Password must contain at least 1 number, and 1 uppercase character.</div>
+        <ion-icon *ngIf="!passwordForm.controls['password'].valid && passwordForm.controls['password'].dirty" name="alert" item-right class="has-error"></ion-icon>
+        <ion-input type="password" formControlName="password" name="password" [readonly]="!editingPassword" id="new-password" formControlName="password" [ngClass]="{'has-error':!passwordForm.controls['password'].valid && pwSubmittedOnce}"></ion-input>
       </ion-item>
-      <ion-item class="form-component form-component-text">
+      <div class="form-control-feedback">
+        <p class="error-help" *ngIf="!passwordForm.controls['password'].valid && pwSubmittedOnce">This field is required.</p>
+        <p class="error-help" *ngIf="passwordForm.controls['password'].value.length > 2 && passwordForm.controls['password'].errors?.minlength">Password must be at least 8 characters.</p>
+        <p class="error-help" *ngIf="passwordForm.controls['password'].value.length > 2 && passwordForm.controls['password'].errors?.pattern">Password must contain at least 1 number, and 1 uppercase character.</p>
+      </div>
+      <ion-item class="form-component form-component-text" [ngClass]="{ 'has-error': !passwordForm.controls['confirm-password'].valid && passwordForm.controls['confirm-password'].dirty }">
         <ion-label floating for="confirm-password">Confirm Password*</ion-label>
-        <ion-input type="password" name="confirm-password" id="confirm-password" formControlName="confirm-password" [ngClass]="{'has-error':!passwordForm.controls['confirm-password'].valid && submittedOnce}" clearInput></ion-input>
-        <div class="error-message" *ngIf="!passwordForm.controls['confirm-password'].valid && submittedOnce">This field is required.</div>
-        <div class="error-message" *ngIf="passwordForm.controls['confirm-password'].errors?.MatchPassword">Password does not match.</div>
+        <ion-icon *ngIf="!passwordForm.controls['confirm-password'].valid && passwordForm.controls['confirm-password'].dirty" name="alert" item-right class="has-error"></ion-icon>
+        <ion-input type="password" formControlName="confirm-password" name="confirm-password" [readonly]="!editingPassword" id="confirm-password" formControlName="confirm-password" [ngClass]="{'has-error':!passwordForm.controls['confirm-password'].valid && pwSubmittedOnce}" clearInput></ion-input>
       </ion-item>
+      <div class="form-control-feedback">
+        <p class="error-help" *ngIf="!passwordForm.controls['confirm-password'].valid && pwSubmittedOnce">This field is required.</p>
+        <p class="error-help" *ngIf="passwordForm.controls['confirm-password'].errors?.MatchPassword">Password does not match.</p>
+      </div>
+
 
       <div class="submit red-button full-width-button submit">
         <button ion-button type="submit" value="Save" *ngIf="editingPassword && !passwordProcessing" [disabled]="!passwordForm.valid">Save</button>
