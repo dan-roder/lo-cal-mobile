@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from "rxjs/Observable";
 import { RailsSavePayment } from '../../models/Payment';
-import { RailsCustomer, RailsLogin, Customer, RailsUpdate, InLoginUpdate, InPasswordReset } from '../../models/customer';
+import { RailsUpdate, InLoginUpdate, InPasswordReset } from '../../models/customer';
 
 
 @Injectable()
