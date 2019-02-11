@@ -234,7 +234,6 @@ export class AccountPage {
   private destroyAndLogout(){
     setTimeout(() => {
       this.localStorage.remove('user').then(() => {
-        console.log('user object removed');
         this.navCtrl.setRoot('TabsComponent');
       });
     }, 4000);
