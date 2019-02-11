@@ -204,7 +204,9 @@ export class AccountPage {
   }
 
   public updatePassword(formData){
-    console.log(formData);
+    let loading = this.loading.create({content: "Updating Password"});
+    loading.present();
+
     if(formData.valid){
       let loginInfo : InLoginUpdate = {
         Email : this.customer.EMail,
@@ -216,11 +218,13 @@ export class AccountPage {
         this.passwordError = '';
 
         if(result.ok){
+          loading.dismiss();
           this.editingPassword = false;
           this.passwordSuccess = 'Password successfully changed. You will now be logged out and need to log in again.';
           this.destroyAndLogout();
         }
       }, (error) => {
+        loading.dismiss();
         const errorObj = error.json();
         this.passwordError = errorObj.message;
       });
