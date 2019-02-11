@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage, LoadingController, Loading } from 'ionic-angular';
+import { Component, Inject } from '@angular/core';
+import { NavController, NavParams, IonicPage, LoadingController, AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { Storage } from "@ionic/storage";
@@ -8,7 +8,7 @@ import { CustomerProvider } from '../../providers/customer/customer';
 import { SavedPayment } from '../../models/Payment';
 import { WordPressProvider } from '../../providers/word-press/word-press';
 import { PasswordMatch } from '../../utils/passwordmatch';
-
+import { DOCUMENT } from '@angular/platform-browser';
 
 @IonicPage()
 @Component({
@@ -28,14 +28,14 @@ export class AccountPage {
   public customer : Customer;
   public customerId: string = '';
   public securityQuestion : string = '';
-  public savedPayments : SavedPayment;
   public editing: boolean = false;
   public editingPassword: boolean = false;
   public accountProcessing: boolean = false;
   public pwSubmittedOnce: boolean = false;
   public editingQuestion: boolean = false;
   public qSubmittedOnce: boolean = false;
-
+  public editingPayments: boolean = false;
+  public savedPayments : SavedPayment;
 
   constructor(
     public navCtrl: NavController,
@@ -45,7 +45,9 @@ export class AccountPage {
     private localStorage: Storage,
     private customerService: CustomerProvider,
     private wpService: WordPressProvider,
-    private loading: LoadingController
+    private loading: LoadingController,
+    private alertCtrl: AlertController,
+    @Inject(DOCUMENT) private document: any
   ) {
     // Set up Account Form
     this.accountForm = this.fb.group({
@@ -98,7 +100,7 @@ export class AccountPage {
       this.getSecurityQuestion();
 
       this.customerService.getSavedPayments(this.customerId).subscribe(paymentMethods => {
-        this.savedPayments = paymentMethods;
+        this.savedPayments = paymentMethods.json();
       });
     });
   }
@@ -281,6 +283,39 @@ export class AccountPage {
         this.questionError = errorJson.message;
       });
     }
+  }
+
+  public editPayments(){
+    this.editingPayments = !this.editingPayments;
+    return false;
+  }
+
+  public deletePaymentMethod(paymentId: string){
+    let alert = this.alertCtrl.create({
+      title: "Confirm",
+      message: "Are you sure? This cannot be undone",
+      buttons: [
+        {
+          text: "No.",
+          role: "cancel",
+          cssClass: "button-cancel",
+          handler: () => {
+
+          }
+        },
+        {
+          text: "Yes.",
+          cssClass: "button-accept",
+          handler: () => {
+            this.customerService.deleteSavedPayment(this.customerId, paymentId).subscribe(() => {
+              let paymentMethodObject = this.document.getElementsByClassName('id-'+paymentId);
+              paymentMethodObject[0].parentNode.removeChild(paymentMethodObject[0]);
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }
