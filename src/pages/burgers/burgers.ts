@@ -152,33 +152,33 @@ export class BurgersPage implements OnInit {
 
     }
 
-    // private quickAdd( item ) {
-    //     let message = `Add ${ item['DisplayName'] } to your bag?`
-    //     let alert = this.alertCtrl.create({
+    public quickAdd( item ) {
+        let message = `Add ${ item['DisplayName'] } to your bag?`
+        let alert = this.alertCtrl.create({
 
-    //         title   : message,
-    //         message : `Your item will be added with the included extras.`,
-    //         buttons : [
-    //                     {
-    //                         text: "No :(",
-    //                         role: "cancel",
-    //                         cssClass: "alert-button-reject",
-    //                         handler: () => {
-    //                             console.log("Cancel clicked");
-    //                         }
-    //                     },
-    //                     {
-    //                         text: "Yes!",
-    //                         cssClass: "alert-button-accept",
-    //                         handler: () => {
+            title   : message,
+            message : `Your item will be added with the included extras.`,
+            buttons : [
+                        {
+                            text: "No :(",
+                            role: "cancel",
+                            cssClass: "alert-button-reject",
+                            handler: () => {
+                                console.log("Cancel clicked");
+                            }
+                        },
+                        {
+                            text: "Yes!",
+                            cssClass: "alert-button-accept",
+                            handler: () => {
 
-    //                             this.addToBag( item );
-    //                         }
-    //                     }
-    //                 ]
-    //     });
-    //     alert.present();
-    // }
+                                this.addToBag( item );
+                            }
+                        }
+                    ]
+        });
+        alert.present();
+    }
 
     private addToBag( item ) {
 
