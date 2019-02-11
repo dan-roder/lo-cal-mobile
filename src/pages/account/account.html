@@ -163,9 +163,58 @@
         <p class="error-help" *ngIf="passwordForm.controls['confirm-password'].errors?.MatchPassword">Password does not match.</p>
       </div>
 
-
       <div class="submit red-button full-width-button submit">
         <button ion-button type="submit" value="Save" *ngIf="editingPassword && !passwordProcessing" [disabled]="!passwordForm.valid">Save</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="account-section">
+    <div class="account-heading">
+      <h3>Change Security Question</h3>
+      <button ion-button (click)="editQuestion()">{{ editingQuestion ? 'Cancel' : 'Edit' }}</button>
+    </div>
+    <form action="" [formGroup]="questionForm" class="lo-cal-form" [ngClass]="editingQuestion ? 'editing' : 'static'" (submit)="updateSecurityQuestion(questionForm)">
+      <div class="form-errors" *ngIf="questionError">
+        <p>{{ questionError }}</p>
+      </div>
+      <div class="form-success" *ngIf="questionSuccess">
+        <p>{{ questionSuccess }}</p>
+      </div>
+      <ion-item class="form-component form-component-select">
+        <ion-label for="security-question" floating>Security Question</ion-label>
+        <ion-select name="security-question" id="security-question" formControlName="security-question"  [ngClass]="{'has-error':!questionForm.controls['security-question'].valid && qSubmittedOnce}">
+          <ion-option value="">- Select -</ion-option>
+          <ion-option value="What was your childhood nickname?">What was your childhood nickname?</ion-option>
+          <ion-option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</ion-option>
+          <ion-option value="In what city or town did your mother and father meet?">In what city or town did your mother and father meet?</ion-option>
+          <ion-option value="What is your favorite sports team?">What is your favorite sports team?</ion-option>
+          <ion-option value="What is your favorite movie?">What is your favorite movie?</ion-option>
+          <ion-option value="What was your favorite sport in high school?">What was your favorite sport in high school?</ion-option>
+          <ion-option value="What was your favorite food as a child?">What was your favorite food as a child?</ion-option>
+          <ion-option value="What was the make and model of your first car?">What was the make and model of your first car?</ion-option>
+          <ion-option value="What was the name of the hospital where you were born?">What was the name of the hospital where you were born?</ion-option>
+          <ion-option value="What school did you attend for sixth grade?">What school did you attend for sixth grade?</ion-option>
+          <ion-option value="In what town was your first job?">In what town was your first job?</ion-option>
+          <ion-option value="What was the name of the company where you had your first job?">What was the name of the company where you had your first job?</ion-option>
+        </ion-select>
+      </ion-item>
+      <div class="form-control-feedback">
+        <p class="error-help" *ngIf="!questionForm.controls['security-question'].valid && qSubmittedOnce">This field is required.</p>
+      </div>
+      <ion-item class="form-component form-component-text" [hidden]="!editingQuestion">
+        <ion-label for="security-answer" floating>Security Answer</ion-label>
+        <ion-input type="text" [readonly]="!editingQuestion" name="security-answer" id="security-answer" formControlName="security-answer" [ngClass]="{'has-error':!questionForm.controls['security-answer'].valid && qSubmittedOnce}"></ion-input>
+      </ion-item>
+      <ion-item class="form-component form-component-text" [hidden]="!editingQuestion">
+        <ion-label floating for="current-password">Current Password</ion-label>
+        <ion-input type="password" [readonly]="!editingQuestion" name="current-password" id="current-password" formControlName="current-password" [ngClass]="{'has-error':!questionForm.controls['current-password'].valid && qSubmittedOnce}"></ion-input>
+      </ion-item>
+      <div class="form-control-feedback">
+        <p class="error-help" *ngIf="!questionForm.controls['current-password'].valid && qSubmittedOnce">This field is required.</p>
+      </div>
+      <div class="submit red-button full-width-button submit">
+        <button ion-button type="submit" value="Save" *ngIf="editingQuestion" [disabled]="!questionForm.valid">Save</button>
       </div>
     </form>
   </div>

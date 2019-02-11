@@ -23,6 +23,8 @@ export class AccountPage {
   public accountError: string = '';
   public passwordError: string = '';
   public passwordSuccess: string = '';
+  public questionError: string = '';
+  public questionSuccess: string = '';
   public customer : Customer;
   public customerId: string = '';
   public securityQuestion : string = '';
@@ -31,6 +33,9 @@ export class AccountPage {
   public editingPassword: boolean = false;
   public accountProcessing: boolean = false;
   public pwSubmittedOnce: boolean = false;
+  public editingQuestion: boolean = false;
+  public qSubmittedOnce: boolean = false;
+
 
   constructor(
     public navCtrl: NavController,
@@ -58,12 +63,18 @@ export class AccountPage {
     });
 
     // Set up Password Reset Form
-    this.passwordForm = fb.group({
+    this.passwordForm = this.fb.group({
       'old-password' : ['', Validators.required],
       'password' : ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)])],
       'confirm-password' : ['', Validators.compose([Validators.required, Validators.minLength(4)])]
     }, {
       validator : PasswordMatch.MatchPassword
+    });
+
+    this.questionForm = this.fb.group({
+      'current-password' : ['', Validators.required],
+      'security-question' : ['', Validators.required],
+      'security-answer' : ['', Validators.required]
     });
   }
 
@@ -84,7 +95,7 @@ export class AccountPage {
 
       this.patchAccountForm(customerData);
       // Retrieve security question
-      // this.getSecurityQuestion();
+      this.getSecurityQuestion();
 
       this.customerService.getSavedPayments(this.customerId).subscribe(paymentMethods => {
         this.savedPayments = paymentMethods;
@@ -115,11 +126,12 @@ export class AccountPage {
     // Retrieve security question if it hasn't been fetched before
     if(this.securityQuestion === ''){
       this.customerService.getSecurityQuestion(this.customer.EMail).subscribe((question) => {
-        this.securityQuestion = question;
+        this.securityQuestion = question.text();
 
         this.questionForm.patchValue({
-          'security-question' : question
+          'security-question' : this.securityQuestion
         });
+        this.questionForm.controls['security-question'].disable();
       }, (error) => {
         console.log(error);
       })
@@ -237,6 +249,38 @@ export class AccountPage {
         this.navCtrl.setRoot('TabsComponent');
       });
     }, 4000);
+  }
+
+  public editQuestion(){
+    this.questionForm.controls['security-question'].enable();
+    this.editingQuestion = !this.editingQuestion;
+    this.questionError = '';
+    this.questionSuccess = '';
+    return false;
+  }
+
+  public updateSecurityQuestion(formData){
+    let loading = this.loading.create({content: "Updating Security Question"});
+    loading.present();
+
+    if(formData.valid){
+      let loginInfo : InLoginUpdate = {
+        Email : this.customer.EMail,
+        OldPassword : formData.get('current-password').value,
+        NewSecurityQuestion : formData.get('security-question').value,
+        NewAnswer : formData.get('security-answer').value
+      }
+
+      this.customerService.updateLoginInfo(loginInfo).subscribe((result) => {
+        console.log(result);
+        loading.dismiss();
+        this.questionSuccess = 'Your security question has been succesfully updated';
+        this.editingQuestion = !this.editingQuestion;
+      }, (error) => {
+        loading.dismiss();
+        this.questionError = error.error.message;
+      });
+    }
   }
 
 }
