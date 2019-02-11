@@ -151,34 +151,34 @@ export class BurgersPage implements OnInit {
         return this.customData = tempObj;
 
     }
-    private quickAdd( item ) {
 
-        let message = `Add ${ item['DisplayName'] } to your bag?`
-        let alert = this.alertCtrl.create({
+    // private quickAdd( item ) {
+    //     let message = `Add ${ item['DisplayName'] } to your bag?`
+    //     let alert = this.alertCtrl.create({
 
-            title   : message,
-            message : `Your item will be added with the included extras.`,
-            buttons : [
-                        {
-                            text: "No :(",
-                            role: "cancel",
-                            cssClass: "alert-button-reject",
-                            handler: () => {
-                                console.log("Cancel clicked");
-                            }
-                        },
-                        {
-                            text: "Yes!",
-                            cssClass: "alert-button-accept",
-                            handler: () => {
+    //         title   : message,
+    //         message : `Your item will be added with the included extras.`,
+    //         buttons : [
+    //                     {
+    //                         text: "No :(",
+    //                         role: "cancel",
+    //                         cssClass: "alert-button-reject",
+    //                         handler: () => {
+    //                             console.log("Cancel clicked");
+    //                         }
+    //                     },
+    //                     {
+    //                         text: "Yes!",
+    //                         cssClass: "alert-button-accept",
+    //                         handler: () => {
 
-                                this.addToBag( item );
-                            }
-                        }
-                    ]
-        });
-        alert.present();
-    }
+    //                             this.addToBag( item );
+    //                         }
+    //                     }
+    //                 ]
+    //     });
+    //     alert.present();
+    // }
 
     private addToBag( item ) {
 
@@ -203,7 +203,6 @@ export class BurgersPage implements OnInit {
                 let menuItem   = data.item;
                 let salesItems = data.salesItems[0];
                 let quantity   = 1;
-                let totalPrice = 0;
 
                 // add quantity and totalPrice to object
                 menuItem['Quantity']   = quantity;
