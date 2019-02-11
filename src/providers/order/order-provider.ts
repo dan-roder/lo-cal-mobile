@@ -8,7 +8,6 @@ import { Config } from '../../app/app.config';
 import { LineItem } from '../../models/LineItem';
 import { RailsInSubmitOrder } from '../../models/Payment';
 import { RailsOrder, Order } from '../../models/Order';
-import { CustomerProvider } from './../customer/customer';
 import { Customer } from '../../models/Customer';
 import * as _ from 'lodash';
 
