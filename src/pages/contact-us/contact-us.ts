@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { WordPressProvider } from '../../providers/word-press/word-press';
 import { IPost } from '../../models/post';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 
 @AutoUnsubscribe()
@@ -35,7 +35,7 @@ export class ContactUsPage {
 
     ) {
 
-        this.contactForm = fb.group({
+        this.contactForm = this.fb.group({
             'contact-reason' : [null, Validators.required],
             'first-name' : [null, Validators.required],
             'last-name' : [null, Validators.required],
