@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavController, NavParams, IonicPage, LoadingController, AlertController } from 'ionic-angular';
 
-import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import{ Customer } from "../../models/customer"
 import { LineItem } from "../../models/LineItem";
@@ -61,19 +61,19 @@ export class CheckoutReviewPage {
 
   ) {
 
-    this.pickupForm = fb.group({
+    this.pickupForm = this.fb.group({
           'pickup-selection' : [null, Validators.required],
           'vehicle-make' : [null],
           'vehicle-model' : [null],
           'vehicle-color' : [null]
         });
-     
 
-    this.timeForm = fb.group({
+
+    this.timeForm = this.fb.group({
         'pickup-time': ['', Validators.required]
     })
 
-    this.guestCheckoutForm = fb.group({
+    this.guestCheckoutForm = this.fb.group({
         'guest-first-name': ['', [Validators.required, Validators.maxLength(28)]],
         'guest-last-name': ['', [Validators.required, Validators.maxLength(28)]],
         'guest-email': ['', Validators.compose([Validators.required, Validators.pattern(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)])],
@@ -218,7 +218,7 @@ export class CheckoutReviewPage {
                 // Save to LocalStorage and route to checkout
                 this.orderService.saveOrderToLocalStorage(jsonResponse).then(result => {
                   if(result){
-                     
+
                     // this.router.navigate(['/checkout/payment']);
                     this.navCtrl.push('CheckoutPaymentPage')
                     loader.dismiss()
@@ -227,7 +227,7 @@ export class CheckoutReviewPage {
 
               }
               else{
-               
+
                 this.processing = false;
                 this.errorData.error = "We're sorry. There was an error placing your order. Please try again."
                 this.wpService.logError('Put Order Error: ' + JSON.stringify(response)).subscribe(() => {});
@@ -275,14 +275,14 @@ export class CheckoutReviewPage {
           Model: this.pickupForm.get('vehicle-model').value,
           Color: this.pickupForm.get('vehicle-color').value
         }
-    
+
         return vehicleInfo;
       }
 
     get totalBagPrice(){
         return this.bag.totalPrice;
       }
-    
+
       get bagItems(){
         return this.bag.itemsInBag;
       }
