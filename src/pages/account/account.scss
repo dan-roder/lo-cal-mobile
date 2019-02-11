@@ -93,3 +93,43 @@ page-account {
     color: $local-red;
   }
 }
+
+.payments{
+  .payment{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .delete{
+    cursor: pointer;
+    position: relative;
+  }
+
+  .icon {
+    display: block;
+    position: absolute;
+    right: 0;
+    width: 25px;
+    height: 25px;
+    transform: rotate(45deg);
+
+    &:after,
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      height: 2px;
+      width: 15px;
+      background: $black;
+      opacity: 1;
+      left: 0;
+      right: 0;
+      margin: -2px auto 0;
+      top: 50%;
+    }
+
+    &:before {
+      transform: rotate(90deg);
+    }
+  }
+}
