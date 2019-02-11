@@ -174,4 +174,19 @@ export class CustomerProvider {
   set isLoggedIn(status: boolean){
     this._isLoggedIn = status;
   }
+
+  /**
+   *
+   * deleteSavedPayment
+   *
+   * @param customerId
+   * @param paymentId
+   *
+   * @returns Observable of result from Aloha API
+   */
+  public deleteSavedPayment(customerId: string, paymentId: string){
+    return this.http.delete(this.config.railsCustomerEndpoint + `/${customerId}/payments/${paymentId}`).map(result => {
+      return result;
+    })
+  }
 }
