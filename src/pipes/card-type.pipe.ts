@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Config } from '../app/app.config';
-import * as _ from 'lodash';
 
 @Pipe({
   name: 'cardType'
