@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, LoadingController } from 'ionic-angular';
 import { CustomerProvider } from '../providers/customer/customer';
-import { LoCalApiProvider } from '../providers/lo-cal-api/lo-cal-api';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Subject, Subscription  } from 'rxjs';
@@ -23,7 +22,6 @@ export class MyApp {
     public  statusBar: StatusBar,
     public  splashScreen: SplashScreen,
     private customerService: CustomerProvider,
-    private localApi: LoCalApiProvider,
     public  loadingController : LoadingController
   ){
     console.log( process.env );
