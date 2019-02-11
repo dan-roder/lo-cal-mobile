@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { NavController, NavParams, IonicPage, LoadingController, AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
-import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Storage } from "@ionic/storage";
 import { Customer, RailsUpdate, InLoginUpdate } from '../../models/customer';
 import { CustomerProvider } from '../../providers/customer/customer';
