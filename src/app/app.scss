@@ -48,6 +48,21 @@
     font-family: Muli;
     box-sizing: border-box;
 }
+body {
+    padding-top: constant(safe-area-inset-top);//for iOS 11.2
+    padding-top: env(safe-area-inset-top);//for iOS 11.1
+}
+ion-header {
+
+    // margin-top: 20px;
+    // z-index: 10;
+    // display: block;
+    // width: 100%;
+    // position: relative;
+    ion-icon {
+        color: #424242;
+    }
+}
 
 .list-ios>.item-block:first-child {
     border-top: none !important;
