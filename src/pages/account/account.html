@@ -219,4 +219,21 @@
     </form>
   </div>
 
+  <div class="account-section" *ngIf="savedPayments">
+    <div class="account-heading">
+      <h3>Saved Payments</h3>
+      <button ion-button (click)="editPayments()" role="button">{{ editingPayments ? 'Cancel' : 'Edit' }}</button>
+    </div>
+    <div class="payments">
+      <div class="payment id-{{ savedPayments?.AccountId }}">
+        <p class="card-details small-text">
+          {{ savedPayments?.MethodType | cardType }}: {{ savedPayments?.MaskedAccountNumber }}
+        </p>
+        <p class="delete" tappable (click)="deletePaymentMethod(savedPayments?.AccountId)" *ngIf="editingPayments">
+          <span class="icon"></span>
+        </p>
+      </div>
+    </div>
+  </div>
+
 </ion-content>
