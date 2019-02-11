@@ -361,7 +361,6 @@ export class MenuItemPage {
     defaultItem( group, mod ) {
         // console.log( group, mod );
         let groupId = group.$id;
-        let modId = mod.$id;
         let selectedItems = this.customData[groupId].currentlySelected;
         let itemSelected = selectedItems.find( item => item.ModifierId === mod.ModifierId );
 
