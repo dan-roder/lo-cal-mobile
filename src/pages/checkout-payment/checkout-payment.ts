@@ -1,23 +1,15 @@
 import { Component } from '@angular/core';
-
-import { NavController, NavParams, IonicPage, LoadingController, AlertController } from 'ionic-angular';
-
-import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { CreditCardValidator, CreditCard } from 'angular-cc-library';
-
-import { Order } from '../../models/order';
 import { RailsSavePayment, InSubmitOrderInformation, RailsInSubmitOrder, SavedPayment,Vehicle } from '../../models/payment';
 import { Config } from '../../app/app.config';
 import{ Customer } from "../../models/customer"
-
 import { Storage } from "@ionic/storage";
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
-
-import { BagProvider } from "../../providers/bag/bag";
 import { CustomerProvider } from "../../providers/customer/customer";
 import { WordPressProvider } from './../../providers/word-press/word-press';
 import { OrderService } from './../../providers/order/order-provider';
-
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
@@ -50,13 +42,12 @@ export class CheckoutPaymentPage {
     public pickupTimeError: boolean = false;
     public genericOrderError: boolean = false;
     public addressData: any;
-    private orderMode : number;
     private _vehicle : Vehicle = {};
+    private orderMode : number;
 
   constructor(
       public navCtrl: NavController,
       public navParams: NavParams,
-      private bagService: BagProvider,
       private orderService: OrderService,
       private fb: FormBuilder,
       private constants: Config,
@@ -65,21 +56,21 @@ export class CheckoutPaymentPage {
       private localStorage: Storage,
   ) {
 
-    this.pickupForm = fb.group({
+    this.pickupForm = this.fb.group({
         'pickup-selection' : ['', Validators.required],
         'vehicle-make' : [null],
         'vehicle-model' : [null],
         'vehicle-color' : [null]
       })
 
-      this.contactInfoForm = fb.group({
+      this.contactInfoForm = this.fb.group({
         'first-name' : [null, Validators.required],
         'last-name' : [null, Validators.required],
         'email' : [null, Validators.compose([Validators.required, Validators.email])],
         'phone' : [null]
       });
 
-      this.paymentForm = fb.group({
+      this.paymentForm = this.fb.group({
         'payment-choice' : [this.paymentChoice, Validators.required],
         'card-number' : [null, [Validators.required, <any>CreditCardValidator.validateCCNumber]],
         'expiration-date' : ['', [Validators.required, <any>CreditCardValidator.validateExpDate]],
@@ -146,11 +137,11 @@ export class CheckoutPaymentPage {
     }
 
     public editSection(num: number, $event: string) {
-        this.sectionOpen = (this.sectionOpen === num) ? -1 : num;
+      this.sectionOpen = (this.sectionOpen === num) ? -1 : num;
     }
 
     public nextStep() {
-        this.sectionOpen++;
+      this.sectionOpen++;
     }
 
     public submitOrder(){
