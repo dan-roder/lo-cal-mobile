@@ -272,13 +272,13 @@ export class AccountPage {
       }
 
       this.customerService.updateLoginInfo(loginInfo).subscribe((result) => {
-        console.log(result);
         loading.dismiss();
         this.questionSuccess = 'Your security question has been succesfully updated';
         this.editingQuestion = !this.editingQuestion;
       }, (error) => {
+        const errorJson = error.json();
         loading.dismiss();
-        this.questionError = error.error.message;
+        this.questionError = errorJson.message;
       });
     }
   }
