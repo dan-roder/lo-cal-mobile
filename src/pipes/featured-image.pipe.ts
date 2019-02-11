@@ -1,4 +1,3 @@
-import { WordPressProvider } from './../providers/word-press/word-press';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
@@ -6,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FeaturedImagePipe implements PipeTransform {
 
-  constructor(private wpService: WordPressProvider){}
+  constructor(){}
 
   transform(mediaData: any, args?: any): any {
     if(args == 'alt'){
