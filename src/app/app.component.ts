@@ -14,6 +14,7 @@ export class MyApp {
   activePage = new Subject();
   pages: Array<{title: string, component: string, active: boolean}>;
   subPages: Array<{title: string, component: string, active: boolean}>;
+  accountPages: Array<{title: string, component: string, active: boolean}>;
   customerObserver: Subscription;
   currentCustomer: String;
 
@@ -24,7 +25,6 @@ export class MyApp {
     private customerService: CustomerProvider,
     public  loadingController : LoadingController
   ){
-    console.log( process.env );
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -41,13 +41,16 @@ export class MyApp {
       { title: 'Terms', component: 'TermsPage', active: false },
       { title: 'Privacy', component: 'PrivacyPage', active: false }
     ];
+    this.accountPages = [
+      { title: 'Order History', component: 'OrderHistoryPage', active: false }
+    ];
     this.activePage.subscribe( ( selectedPage: any ) => {
 
       this.pages.map( page => {
-          page.active = page.title === selectedPage.title;
+        page.active = page.title === selectedPage.title;
       });
       this.subPages.map( subPage => {
-          subPage.active = subPage.title === selectedPage.title;
+        subPage.active = subPage.title === selectedPage.title;
       });
 
     });
@@ -64,44 +67,50 @@ export class MyApp {
         // console.log( 'her her', customer );
         if ( customer ) {
           console.log(customer);
+          this.customerService.isLoggedIn = true;
           this.currentCustomer = customer;
         } else {
           console.log( "NO CUSTOMER" );
+          this.customerService.isLoggedIn = false;
           this.currentCustomer = null;
         }
       });
     });
   }
 
-    openPage( page ) {
-      console.log("THE PAGE: ", page);
-      // Reset the content nav to have just this page
-      // we wouldn't want the back button to show in this scenario
-      this.nav.setRoot(page.component).then((success) => {
-        if(!success){
-          this.nav.push('LoginPage');
-        }
-        else{
-          this.activePage.next(page);
-        }
-      }).catch((error) => {
-        console.log('error', error);
-      });
-    }
+  openPage( page ) {
+    console.log("THE PAGE: ", page);
+    // Reset the content nav to have just this page
+    // we wouldn't want the back button to show in this scenario
+    this.nav.setRoot(page.component).then((success) => {
+      if(!success){
+        this.nav.push('LoginPage');
+      }
+      else{
+        this.activePage.next(page);
+      }
+    }).catch((error) => {
+      console.log('error', error);
+    });
+  }
 
-    pushPage( page ) {
-      this.nav.push( page );
-    }
+  pushPage( page ) {
+    this.nav.push( page );
+  }
 
-    goToSubPage (page) {
-      this.nav.setRoot(page.component);
-      this.activePage.next(page);
-    }
+  goToSubPage (page) {
+    this.nav.setRoot(page.component);
+    this.activePage.next(page);
+  }
 
-    logout() {
-      this.customerService.logOut()
-      this.currentCustomer = null;
+  logout() {
+    this.customerService.logOut()
+    this.currentCustomer = null;
 
-      this.nav.setRoot('TabsComponent')
-    }
+    this.nav.setRoot('TabsComponent')
+  }
+
+  get loggedInStatus(): boolean{
+    return this.customerService.isLoggedIn;
+  }
 }
