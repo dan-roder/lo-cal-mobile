@@ -3,7 +3,7 @@ import { Nav, Platform, LoadingController } from 'ionic-angular';
 import { CustomerProvider } from '../providers/customer/customer';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Subject, Subscription  } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Component({
     templateUrl: 'app.html'
