@@ -21,7 +21,7 @@ import { MODULES, PROVIDERS, DIRECTIVES } from './app.imports';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-      MyApp
+    MyApp
   ],
   providers: [
     PROVIDERS,
