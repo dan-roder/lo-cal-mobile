@@ -18,21 +18,7 @@ export class CustomerProvider {
   customerId: Observable<any> = this.customerObserver.asObservable();
   private _isLoggedIn: boolean = false;
 
-  constructor(
-    private http: Http,
-    private storage: Storage,
-    private config: Config
-  ) {
-    this.storage.get('user').then( customerFromLocalStorage => {
-      if ( customerFromLocalStorage ) {
-        this.customer = customerFromLocalStorage;
-        this.customerObserver.next( customerFromLocalStorage );
-      }
-    })
-    .catch(error => {
-      console.log( error );
-    });
-  }
+  constructor( private http: Http, private storage: Storage, private config: Config) { }
 
   login( credentials ) {
     console.log( credentials );
@@ -149,8 +135,9 @@ export class CustomerProvider {
     let itemsToRemove = ['user', 'customerid', 'order']
 
     itemsToRemove.forEach(element => {
-        this.storage.remove(element)
+      this.storage.remove(element);
     });
+    this.isLoggedIn = false;
   }
 
   /**
