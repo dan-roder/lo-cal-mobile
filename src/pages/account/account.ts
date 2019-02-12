@@ -81,7 +81,6 @@ export class AccountPage {
   }
 
   ionViewCanEnter(){
-    console.log(this.customerService.isLoggedIn);
     return this.authService.authenticated().then(response => {
       if(!response){
         return false;
