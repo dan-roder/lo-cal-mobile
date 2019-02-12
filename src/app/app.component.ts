@@ -15,8 +15,6 @@ export class MyApp {
   pages: Array<{title: string, component: string, active: boolean}>;
   subPages: Array<{title: string, component: string, active: boolean}>;
   accountPages: Array<{title: string, component: string, active: boolean}>;
-  customerObserver: Subscription;
-  currentCustomer: String;
 
   constructor(
     public  platform: Platform,
@@ -52,6 +50,9 @@ export class MyApp {
       this.subPages.map( subPage => {
         subPage.active = subPage.title === selectedPage.title;
       });
+      this.accountPages.map( accPage => {
+        accPage.active = accPage.title === selectedPage.title;
+      });
 
     });
   }
@@ -63,16 +64,10 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.customerObserver = this.customerService.customerId.subscribe( ( customer ) => {
-        // console.log( 'her her', customer );
-        if ( customer ) {
-          console.log(customer);
+      // Get initial state of user and set it on the service for retrieving later
+      this.customerService.getUserData().then((user) => {
+        if(user){
           this.customerService.isLoggedIn = true;
-          this.currentCustomer = customer;
-        } else {
-          console.log( "NO CUSTOMER" );
-          this.customerService.isLoggedIn = false;
-          this.currentCustomer = null;
         }
       });
     });
@@ -104,9 +99,7 @@ export class MyApp {
   }
 
   logout() {
-    this.customerService.logOut()
-    this.currentCustomer = null;
-
+    this.customerService.logOut();
     this.nav.setRoot('TabsComponent')
   }
 
