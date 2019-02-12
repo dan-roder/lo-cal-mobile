@@ -1,35 +1,40 @@
 <!-- <ion-split-pane> -->
 <ion-menu type="reveal" side="left" [content]="content" swipeEnabled="false">
 
-    <ion-content class="side-menu-content">
-        <ion-list class="menu-list">
-            <button menuClose ion-item no-lines detail-none *ngFor="let p of pages" (click)="openPage(p)" [class.active]="p.active">
-                {{p.title}}
-            </button>
-        </ion-list>
-        <div padding *ngIf="!currentCustomer">
-            <button menuClose="left" ion-button block outline color="white" (tap)="pushPage('LoginPage')">Log In</button>
-        </div>
-        <div padding *ngIf="currentCustomer">
-            <button menuClose="left" ion-button block outline color="white" (tap)="logout()">Log Out</button>
-        </div>
-        <ion-grid padding>
-            <ion-row>
-                <ion-col col-3>
-                    <ion-icon name="facebook" class="large-icon" color="white"></ion-icon>
-                </ion-col>
-                <ion-col col-3>
-                    <ion-icon name="twitter" class="large-icon" color="white"></ion-icon>
-                </ion-col>
-                <ion-col col-3>
-                    <ion-icon name="instagram" class="large-icon" color="white"></ion-icon>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-        <ion-list class="menu-list sub-pages">
-            <button class="bottom-links" menuClose ion-item no-lines detail-none color="white" *ngFor="let page of subPages" (click)="goToSubPage(page)" [class.active]="page.active" href="#">{{page.title}}</button>
-        </ion-list>
-    </ion-content>
+  <ion-content class="side-menu-content">
+    <ion-list class="menu-list">
+      <button menuClose ion-item no-lines detail-none *ngFor="let p of pages" (click)="openPage(p)" [class.active]="p.active">
+        {{p.title}}
+      </button>
+    </ion-list>
+    <div padding *ngIf="!loggedInStatus">
+      <button menuClose="left" ion-button block outline color="white" (tap)="pushPage('LoginPage')">Log In</button>
+    </div>
+    <div padding *ngIf="loggedInStatus">
+      <button menuClose="left" ion-button block outline color="white" (tap)="logout()">Log Out</button>
+    </div>
+    <ion-list *ngIf="loggedInStatus">
+      <button menuClose ion-item no-lines detail-none *ngFor="let p of accountPages" (click)="openPage(p)" [class.active]="p.active">
+        {{p.title}}
+      </button>
+    </ion-list>
+    <ion-grid padding>
+      <ion-row>
+        <ion-col col-3>
+          <ion-icon name="facebook" class="large-icon" color="white"></ion-icon>
+        </ion-col>
+        <ion-col col-3>
+          <ion-icon name="twitter" class="large-icon" color="white"></ion-icon>
+        </ion-col>
+        <ion-col col-3>
+          <ion-icon name="instagram" class="large-icon" color="white"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-list class="menu-list sub-pages">
+      <button class="bottom-links" menuClose ion-item no-lines detail-none color="white" *ngFor="let page of subPages" (click)="goToSubPage(page)" [class.active]="page.active" href="#">{{page.title}}</button>
+    </ion-list>
+  </ion-content>
 
 </ion-menu>
 
