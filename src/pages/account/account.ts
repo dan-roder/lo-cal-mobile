@@ -100,6 +100,8 @@ export class AccountPage {
 
       this.customerService.getSavedPayments(this.customerId).subscribe(paymentMethods => {
         this.savedPayments = paymentMethods.json();
+      }, (error) => {
+        console.log(error);
       });
     });
   }
