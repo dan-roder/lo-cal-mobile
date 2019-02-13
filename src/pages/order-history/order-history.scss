@@ -1,3 +1,38 @@
-page-order-history {
+.history-wrapper{
+  .order-detail-wrapper{
+    display: flex;
+    justify-content: space-between;
+  }
 
+  .order-link{
+    p{
+      margin: 0;
+      font-weight: 700;
+    }
+  }
+
+  .order{
+    padding: 15px 0;
+
+    &:first-child{
+      padding: 0 0 15px;
+    }
+  }
+
+  .order-summary{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    div{
+      max-width: 45%;
+      margin-right: 2%;
+    }
+
+    p{
+      margin: 4px 0 0 2%;
+      padding: 0;
+      max-width: 45%;
+    }
+  }
 }
