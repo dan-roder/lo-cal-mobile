@@ -13,7 +13,7 @@ import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Vehicle } from "../../models/Payment";
 
 import { BagProvider } from "../../providers/bag/bag";
-// import { CustomerProvider } from "../../providers/customer/customer";
+import { CustomerProvider } from "../../providers/customer/customer";
 import { WordPressProvider } from './../../providers/word-press/word-press';
 import { OrderService } from './../../providers/order/order-provider';
 
@@ -50,7 +50,7 @@ export class CheckoutReviewPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private bag: BagProvider,
-    //   private customer: CustomerProvider,
+    private customerService: CustomerProvider,
     private storage: Storage,
     private alertCtrl: AlertController,
     private loadingController: LoadingController,
@@ -74,6 +74,7 @@ export class CheckoutReviewPage {
     this.guestCheckoutForm = fb.group({
       'guest-first-name': ['', [Validators.required, Validators.maxLength(28)]],
       'guest-last-name': ['', [Validators.required, Validators.maxLength(28)]],
+      'guest-phone' : [ '', Validators.compose([Validators.required, Validators.pattern(/(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}/)])],
       'guest-email': ['', Validators.compose([Validators.required, Validators.pattern(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)])],
     })
 
@@ -105,32 +106,31 @@ export class CheckoutReviewPage {
     this.itemsInBag = this.bag.itemsInBag
 
   }
-  public checkoutAsGuest() {
+  // public checkoutAsGuest() {
+  //   this.submitAttempted = true
+  //   let loader = this.loadingController.create({
+  //     content: "Signing In As Guest"
+  //   });
+  //   loader.present()
 
-    let loader = this.loadingController.create({
-      content: "Signing In As Guest"
-    });
-    loader.present()
+  //   if (this.guestCheckoutForm.valid) {
+  //     // Save customer as normal
+  //     let customer: Customer = {
+  //       FirstName: this.guestCheckoutForm.controls['guest-first-name'].value,
+  //       LastName: this.guestCheckoutForm.controls['guest-last-name'].value,
+  //       EMail: this.guestCheckoutForm.controls['guest-email'].value,
+  //       Phone: this.guestCheckoutForm.controls['guest-phone'].value,
+  //       IsGuest: true
+  //     }
 
-    if (this.guestCheckoutForm.valid) {
-      // Save customer as normal
-      let customer: Customer = {
-        FirstName: this.guestCheckoutForm.controls['guest-first-name'].value,
-        LastName: this.guestCheckoutForm.controls['guest-last-name'].value,
-        EMail: this.guestCheckoutForm.controls['guest-email'].value,
-        IsGuest: true
-      }
-
-      // Redirect to checkout review
-      this.storage.set('user', customer).then(() => {
-        this.orderService.customerInfo = customer;
-        this.hideGuestForm = true
-        this.userLoggedIn = true;
-        loader.dismiss();
-      });
-      this.hideReEnterDetails = false;
-    }
-  }
+  //     // Redirect to checkout review
+  //     this.storage.set('user', customer).then(() => {
+  //       this.orderService.customerInfo = customer;
+  //       this.userLoggedIn = true;
+  //       loader.dismiss();
+  //     });
+  //   }
+  // }
   getCustomer() {
     // get customer so order PUT doesn't fail
     this.storage.get('user').then(customerData => {
@@ -185,10 +185,6 @@ export class CheckoutReviewPage {
     });
     alert.present();
   }
-  reEnterDetails() {
-    this.hideReEnterDetails = true;
-    this.hideGuestForm = false;
-  }
   backToMenu() {
     this.navCtrl.popToRoot();
   }
@@ -197,6 +193,8 @@ export class CheckoutReviewPage {
     if (!this.selectedTime) {
       this.submitAttempted = true;
       return;
+    } else {
+      this.submitAttempted = true;
     }
 
     this.processing = true;
@@ -286,5 +284,8 @@ export class CheckoutReviewPage {
 
   get bagItems() {
     return this.bag.itemsInBag;
+  }
+  get loggedInStatus(): boolean{
+    return this.customerService.isLoggedIn;
   }
 }
