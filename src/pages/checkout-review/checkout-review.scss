@@ -129,4 +129,8 @@ page-checkout-review {
           display: inline-block;
         }
     }
+    .disabled {
+      cursor: default;
+      opacity: .4;
+    }
 }
