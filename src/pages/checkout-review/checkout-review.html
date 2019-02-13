@@ -10,19 +10,19 @@
 <ion-content padding>
   <h4>Confirm Pickup info</h4>
   <div class="location-details" [innerHtml]="addressData?.content?.rendered | safeHtml"></div>
-  <form class="guest-checkout-form" (ngSubmit)="checkoutAsGuest()" [formGroup]="guestCheckoutForm" *ngIf="!hideGuestForm">
+  <form class="guest-checkout-form" [formGroup]="guestCheckoutForm" *ngIf="!loggedInStatus">
     <ion-list>
       <ion-item no-padding>
         <ion-label floating>Guest First Name</ion-label>
         <ion-input type="text" formControlName="guest-first-name"></ion-input>
       </ion-item>
-      <div class="form-control-feedback" *ngIf="!guestCheckoutForm.controls['guest-first-name'].valid && guestCheckoutForm.controls['guest-first-name'].dirty">This
+      <div class="form-control-feedback" *ngIf="!guestCheckoutForm.controls['guest-first-name'].valid && submitAttempted">This
         field is required.</div>
       <ion-item no-padding>
         <ion-label floating>Guest Last Name</ion-label>
         <ion-input type="text" formControlName="guest-last-name"></ion-input>
       </ion-item>
-      <div class="form-control-feedback" *ngIf="!guestCheckoutForm.controls['guest-last-name'].valid && guestCheckoutForm.controls['guest-last-name'].dirty">This
+      <div class="form-control-feedback" *ngIf="!guestCheckoutForm.controls['guest-last-name'].valid && submitAttempted">This
         field is required.</div>
       <ion-item no-padding>
         <ion-label floating>Guest Email</ion-label>
@@ -30,8 +30,16 @@
         <ion-icon *ngIf="!guestCheckoutForm.controls['guest-email'].valid && guestCheckoutForm.controls['guest-email'].dirty"
           name="alert" item-right class="has-error"></ion-icon>
       </ion-item>
-      <div class="form-control-feedback" *ngIf="!guestCheckoutForm.controls['guest-email'].valid && guestCheckoutForm.controls['guest-email'].dirty">Please
+      <div class="form-control-feedback" *ngIf="!guestCheckoutForm.controls['guest-email'].valid && submitAttempted">Please
         enter valid email address.</div>
+      <ion-item no-padding>
+        <ion-label floating>Guest Phone</ion-label>
+        <ion-input type="text" formControlName="guest-phone"></ion-input>
+        <ion-icon *ngIf="!guestCheckoutForm.controls['guest-phone'].valid && submitAttempted"
+          name="alert" item-right class="has-error"></ion-icon>
+      </ion-item>
+      <div class="form-control-feedback" *ngIf="!guestCheckoutForm.controls['guest-phone'].valid && submitAttempted">Please
+        enter valid phone number.</div>
       <ion-row>
       </ion-row>
     </ion-list>
@@ -95,14 +103,15 @@
   <!-- ADD Location to show next-available time before submission -->
   <div class="next-available-time" *ngIf="selectedTime">
     <p><strong>Pickup at: </strong>{{ selectedTime | date:"EEE MMM dd, h:mma" }}</p>
-  </div>
-
-  <div class="red-button full-width-button small-text">
-    <button ion-button block color="red" (click)="putOrder()" [disabled]="!timeForm.valid || !selectedTime || !userLoggedIn || !pickupForm.valid">Proceed
-      to Checkout</button>
     <div class="required-message" *ngIf="submitAttempted && !selectedTime">
       <p>Please select a pickup time.</p>
     </div>
+  </div>
+
+  <div class="red-button full-width-button small-text">
+    <button ion-button block color="red" (click)="putOrder()" [ngClass]="{ 'disabled': !timeForm.valid || !selectedTime || (!loggedInStatus && !guestCheckoutForm.valid) || !pickupForm.valid }">Proceed
+      to Checkout</button>
+    
   </div>
 
   <p *ngIf="!itemsInBag.length">There is currently nothing in your bag. Please return to
