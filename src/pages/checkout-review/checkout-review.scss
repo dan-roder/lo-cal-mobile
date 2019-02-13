@@ -12,6 +12,8 @@ page-checkout-review {
     }
     .inner-step-wrapper {
       padding-top: 25px;
+      text-align: center;
+      width: 99%;
     }
     h4 {
       padding: 0 15px 0;
@@ -73,6 +75,13 @@ page-checkout-review {
         //     }
         // }
       }
+    }
+    .car-options {
+      width: 90%;
+      margin: 0 auto;
+    }
+    .form-component-text {
+      text-align: left;
     }
     .location-details {
         p {
