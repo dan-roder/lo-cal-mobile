@@ -3,14 +3,14 @@
         <button ion-button menuToggle>
             <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
         </button>
-        <ion-title>Review Your Order</ion-title>
+        <ion-title>Checkout</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h4>How would you like to pickup your order?</h4>
-    <ion-card>
-        <ion-card-content>
+  <h4>Confirm Pickup info</h4>
+    <div class="location-details" [innerHtml]="addressData?.content?.rendered | safeHtml"></div>
+
             <div class="required-message review-errors" *ngIf="submitAttempted && !pickupForm.valid">
               <p>Please select a pickup method.</p>
             </div>
@@ -20,13 +20,13 @@
                   <div class="option">
                     <label for="in-store">
                       <input type="radio" name="pickup-selection" id="in-store" value="1" formControlName="pickup-selection">
-                      <span class="semi-bold">In Store Pick Up</span>
+                        <span class="default" [ngClass]="{ 'active': pickupForm.controls['pickup-selection'].value === '1' }">In Store Pick Up</span>
                     </label>
                   </div>
                   <div class="option">
                     <label for="curbside">
                       <input type="radio" name="pickup-selection" id="curbside" value="4" formControlName="pickup-selection">
-                      <span class="semi-bold">Curbside Pickup</span>
+                      <span [ngClass]="{ 'active': pickupForm.controls['pickup-selection'].value === '4' }">Curbside Pickup</span>
                     </label>
                   </div>
                 </div>
@@ -51,9 +51,6 @@
               </form>
             </div>
 
-        </ion-card-content>
-        </ion-card>
-
         <form action="" [formGroup]="timeForm">
                 <ion-label>Choose your pickup time</ion-label>
                 <ion-item no-padding>
@@ -64,12 +61,12 @@
                     </ion-select>
                 </ion-item>
             </form>
-    
+
             <!-- ADD Location to show next-available time before submission -->
             <div class="next-available-time" *ngIf="selectedTime">
                 <p><strong>Pickup at: </strong>{{ selectedTime | date:"EEE MMM dd, h:mma" }}</p>
             </div>
-    
+
 
     <div class="checkout-holder" *ngIf="itemsInBag.length">
          <ion-list class="bag-items" no-margin *ngIf="itemsInBag.length">
@@ -120,7 +117,7 @@
             </ion-row>
         </div>
     </ion-list>
- 
+
    <!--      <form (ngSubmit)="checkoutAsGuest()" [formGroup]="guestCheckoutForm" *ngIf="!hideGuestForm">
             <ion-list>
                 <ion-item no-padding>
@@ -167,7 +164,7 @@
             </ion-col>
         </ion-row> -->
 
-        
+
         <div class="red-button full-width-button small-text">
             <button ion-button block color="red" (click)="putOrder()" [disabled]="!timeForm.valid || !selectedTime || !userLoggedIn || !pickupForm.valid">Proceed
                 to Checkout</button>
@@ -175,7 +172,6 @@
                 <p>Please select a pickup time.</p>
             </div>
         </div>
-        <div class="location-details" [innerHtml]="addressData?.content?.rendered | safeHtml"></div>
     </div>
     <p *ngIf="!itemsInBag.length">There is currently nothing in your bag. Please return to
         <a href="#" (tap)="backToMenu()">our menu.</a>
