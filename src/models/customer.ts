@@ -17,6 +17,7 @@ export interface Customer{
     LoyaltyZipCode?: string; //  (string , optional) : Get or set the LoyaltyZipCode property ,
     FacebookId?: number; //  (integer , optional) : Get or sets facebookid property
     IsGuest?: boolean;
+    Phone?: string;
   }
 
   export interface CustomerAddress{
