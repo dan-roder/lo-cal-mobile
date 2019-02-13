@@ -7,17 +7,17 @@
         {{p.title}}
       </button>
     </ion-list>
+    <ion-list *ngIf="loggedInStatus" class="menu-list sub-pages">
+      <button class="bottom-links" menuClose ion-item no-lines detail-none color="white" *ngFor="let p of accountPages" (click)="openPage(p)" [class.active]="p.active">
+        {{p.title}}
+      </button>
+    </ion-list>
     <div padding *ngIf="!loggedInStatus">
       <button menuClose="left" ion-button block outline color="white" (tap)="pushPage('LoginPage')">Log In</button>
     </div>
     <div padding *ngIf="loggedInStatus">
       <button menuClose="left" ion-button block outline color="white" (tap)="logout()">Log Out</button>
     </div>
-    <ion-list *ngIf="loggedInStatus" class="menu-list sub-pages">
-      <button class="bottom-links" menuClose ion-item no-lines detail-none color="white" *ngFor="let p of accountPages" (click)="openPage(p)" [class.active]="p.active">
-        {{p.title}}
-      </button>
-    </ion-list>
     <ion-grid padding>
       <ion-row>
         <ion-col col-3>
