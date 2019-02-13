@@ -44,7 +44,7 @@ export class BagPage {
     }
     ngOnInit() {
 
-     
+
         // check if customer is logged in by pulling customer id from ionic storage
         this.storage.get("user").then(customer => {
             if(customer){
@@ -104,7 +104,7 @@ export class BagPage {
     checkout(isGuest) {
 
         if(isGuest) {
-          this.navCtrl.push("GuestPage");
+          this.navCtrl.push("CheckoutReviewPage", { guest: true });
         } else {
           this.navCtrl.push("CheckoutReviewPage");
         }
