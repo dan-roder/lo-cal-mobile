@@ -60,21 +60,10 @@ page-checkout-review {
         height: 0;
         width: 0;
       }
-      input {
-        // border: 0;
-        // clip: rect(0 0 0 0);
-        // height: 1px;
-        // margin: -1px;
-        // overflow: hidden;
-        // padding: 0;
-        // position: absolute;
-        // width: 1px;
-        // &:checked {
-        //     + span:before {
-        //         background: none, url('/assets/images/checkmark.svg') no-repeat;
-        //     }
-        // }
-      }
+    }
+    .guest-checkout-form {
+      width: 90%;
+      margin: 0 auto;
     }
     .location-message {
       text-align: left;
