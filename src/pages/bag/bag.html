@@ -79,7 +79,7 @@
         </div>
     </div>
 </ion-content>
-<ion-footer no-border class="bag-footer" *ngIf="!isLoggedIn">
+<ion-footer no-border class="bag-footer" *ngIf="!loggedInStatus">
     <ion-toolbar color="light" no-padding>
         <div class="bottom-buttons-wrap">
             <div class="checkout-button-wrap" *ngIf="itemsInBag.length">
@@ -87,7 +87,7 @@
                     Checkout as Guest
                 </button>
             </div>
-            <ion-grid no-padding *ngIf="!isLoggedIn">
+            <ion-grid no-padding *ngIf="!loggedInStatus">
                 <ion-row>
                     <ion-col class="bottom-links-col">
                         <a href="#" class="bottom-link" [navPush]="'LoginPage'">log in</a>
@@ -101,7 +101,7 @@
     </ion-toolbar>
 </ion-footer>
 
-<ion-footer no-border *ngIf="isLoggedIn">
+<ion-footer no-border *ngIf="loggedInStatus">
     <ion-toolbar color="light" no-padding>
         <div class="checkout-button-wrap" *ngIf="itemsInBag.length">
             <button ion-button block color="red" class="order-now" no-padding (tap)="checkout(false)">
