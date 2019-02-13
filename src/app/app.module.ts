@@ -16,7 +16,8 @@ import { MODULES, PROVIDERS, DIRECTIVES } from './app.imports';
         IonicModule.forRoot(MyApp, {
             autocomplete: 'on',
             scrollAssist: false,
-            autoFocusAssist: false
+            autoFocusAssist: false,
+            backButtonText: '',
         })
     ],
     bootstrap: [IonicApp],
