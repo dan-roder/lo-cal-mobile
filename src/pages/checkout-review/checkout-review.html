@@ -32,6 +32,8 @@
                     </label>
                 </div>
             </div>
+            <p class="location-message" *ngIf="pickupForm.controls['pickup-selection'].value === '1'">See you in the store!</p>
+            <p class="location-message" *ngIf="pickupForm.controls['pickup-selection'].value === '4'">See you at the curbside!</p>
             <div class="car-options" *ngIf="pickupForm.controls['pickup-selection'].value === '4'">
                 <div class="form-section half-and-half">
                     <div class="form-component form-component-text">
@@ -73,7 +75,7 @@
     </div>
 
 
-    <!-- <form (ngSubmit)="checkoutAsGuest()" [formGroup]="guestCheckoutForm" *ngIf="!hideGuestForm">
+    <form (ngSubmit)="checkoutAsGuest()" [formGroup]="guestCheckoutForm" *ngIf="!hideGuestForm">
             <ion-list>
                 <ion-item no-padding>
                     <ion-label floating>Guest First Name</ion-label>
@@ -117,7 +119,7 @@
                     Re-enter Details
                 </button>
             </ion-col>
-        </ion-row> -->
+        </ion-row>
 
 
     <div class="red-button full-width-button small-text">
