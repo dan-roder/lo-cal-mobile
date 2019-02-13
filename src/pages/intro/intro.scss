@@ -1,7 +1,7 @@
 page-intro {
 
     .scroll-content {
-        padding: 16px 0 !important;
+        padding: 0 0 20px 0 !important;
         background: map-get( $colors, light );
     }
     .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {
@@ -26,11 +26,11 @@ page-intro {
             position: relative;
             &.top {
                 position : absolute;
-                top: 25px;
+                top: 20px;
             }
             &.bottom{
                 position: absolute;
-                bottom: 50px;
+                bottom: 40px;
                 font-size: 15px;
                 line-height: 1.4;
                 letter-spacing: 0.6px;
@@ -42,20 +42,35 @@ page-intro {
             font-size: 45px !important;
             line-height: 52px !important;
             letter-spacing: 2.7px !important;
+            font-weight: 700 !important;
             span.red {
                 color: map-get( $colors, red );
             }
         }
         p {
-            text-align: left;
+          line-height: 1.4;
+          letter-spacing: 0.6px;
+          text-align: left;
+          color: rgba(30, 30, 30, 0.99);
+          font-size: 15px;
+          font-weight: 700;
+          max-width: 290px;
         }
     }
-
+    .bottom-link {
+      font-weight: 700;
+    }
     button.order-now {
-        text-transform: uppercase;
-        font-weight: 600;
-        height: 40px;
-        width: 90%;
-        margin: 2% auto;
+      text-transform: uppercase;
+      font-weight: 700;
+      height: 40px;
+      width: 90%;
+      margin: 2% auto;
+      border-radius: 3px;
+      background-color: rgba(30, 30, 30, 0.99);
+      span {
+        letter-spacing: 1.4px;
+        color: rgba(255, 255, 255, 0.99);
+      }
     }
 }

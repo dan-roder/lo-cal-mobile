@@ -13,16 +13,17 @@
         <div class="bag-item" *ngFor="let item of itemsInBag; let i = index">
             <ion-row>
                 <ion-col col-3 no-padding>
-                    <img *ngIf="item.CartImage" [src]="item.CartImage" alt="bag item" class="bag-item-image" />
+                    <div *ngIf="item.CartImage" class="bag-image" [ngStyle]="{'background-image': 'url(' + item.CartImage + ')'}"></div>
+                    <!--<img *ngIf="item.CartImage" [src]="item.CartImage" alt="bag item" class="bag-item-image" /> -->
                     <div tappable class="remove" (tap)="removeItem( item, i )">
                         <ion-icon name="close" class="remove-icon"></ion-icon>
                     </div>
                 </ion-col>
-                <ion-col>
+                <ion-col class="title-and-description">
                     <div class="bag-item-title">
                         <ion-row>
                             <ion-col>
-                                {{ item.Name }}
+                                <span class="bag-item-name">{{ item.Name }}</span>
                                 <span class="bag-item-quantity">x{{ item.Quantity }}</span>
                             </ion-col>
                         </ion-row>
@@ -40,7 +41,7 @@
                         </ion-col>
                         <ion-col col-5 text-center>
                             <span class="allergen">
-                                <span class="allergen" *ngFor="let allergen of (item.ShortDescription | allergens)?.allergens">
+                                <span *ngFor="let allergen of (item.ShortDescription | allergens)?.allergens">
                                     {{ allergen }}
                                 </span>
                                 <!-- <ion-icon name="vegan"></ion-icon>
@@ -58,10 +59,10 @@
         <hr class="dark">
         <ion-row class="total">
             <ion-col col-3>
-                Total
+                <span>Total</span>
             </ion-col>
             <ion-col col-9 text-right>
-                {{ total | currency:'USD':'symbol' }}
+                <span>{{ total | currency:'USD':'symbol' }}</span>
             </ion-col>
         </ion-row>
         <!-- </ion-item> -->

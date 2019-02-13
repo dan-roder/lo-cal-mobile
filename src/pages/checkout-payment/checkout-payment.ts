@@ -184,7 +184,7 @@ export class CheckoutPaymentPage {
 
         // Order object with payment has been created, submit to API
         this.orderService.submitOrder(finalOrderForSubmission, this.currentOrder.OrderId).subscribe(orderResults => {
-          console.log(orderResults.ResultCode);
+          console.log("result code:", orderResults);
           this.orderResultForTesting = orderResults.ResultCode;
 
 

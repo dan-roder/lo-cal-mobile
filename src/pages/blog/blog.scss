@@ -14,10 +14,15 @@ page-blog {
   .scroll-content {
     background: #f4f4f4;
   }
+  .max-960 {
+    max-width: 960px;
+    margin: auto;
+  }
   .blog-post {
     border-top: 1px solid;
     padding: 30px 0 50px;
     @include breakpoint(575px) {
+      padding: 30px 0 30px;
       display: flex;
       justify-content: space-between;
     }
@@ -39,6 +44,7 @@ page-blog {
   }
   .left {
     text-align: center;
+    padding: 0 0 30px;
     @include breakpoint(575px) {
       width: 30%;
     }

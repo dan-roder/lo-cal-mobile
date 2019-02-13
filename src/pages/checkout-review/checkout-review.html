@@ -8,7 +8,9 @@
 </ion-header>
 
 <ion-content padding>
-          <h4>How would you like to pickup your order?</h4>
+  <h4>How would you like to pickup your order?</h4>
+    <ion-card>
+        <ion-card-content>
             <div class="required-message review-errors" *ngIf="submitAttempted && !pickupForm.valid">
               <p>Please select a pickup method.</p>
             </div>
@@ -49,9 +51,11 @@
               </form>
             </div>
 
+        </ion-card-content>
+        </ion-card>
 
         <form action="" [formGroup]="timeForm">
-                <ion-label>Select a time to pickup your order?</ion-label>
+                <ion-label>Choose your pickup time</ion-label>
                 <ion-item no-padding>
                     <ion-select large name="pickup-time" id="pickup-time" formControlName="pickup-time" [(ngModel)]="timeSelectBox"
                         (ngModelChange)="timeSelectChanged()">
@@ -68,55 +72,56 @@
     
 
     <div class="checkout-holder" *ngIf="itemsInBag.length">
-        <ion-list class="bag-items" no-margin>
-            <div class="bag-item" *ngFor="let item of itemsInBag; let i = index">
-                <ion-row>
-                    <ion-col col-3 no-padding>
-                        <img *ngIf="item.CartImage" [src]="item.CartImage" alt="bag item" class="bag-item-image" />
-                        <div tappable class="remove" (tap)="removeItem( item, i )">
-                            <ion-icon name="close" class="remove-icon"></ion-icon>
-                        </div>
-                    </ion-col>
-                    <ion-col>
-                        <div class="bag-item-title">
-                            <ion-row>
-                                <ion-col>
-                                    {{ item.Name }}
-                                    <span class="bag-item-quantity">x{{ item.Quantity }}</span>
-                                </ion-col>
+         <ion-list class="bag-items" no-margin *ngIf="itemsInBag.length">
+        <div class="bag-item" *ngFor="let item of itemsInBag; let i = index">
+            <ion-row>
+                <ion-col col-3 no-padding>
+                    <div *ngIf="item.CartImage" class="bag-image" [ngStyle]="{'background-image': 'url(' + item.CartImage + ')'}"></div>
+                    <!--<img *ngIf="item.CartImage" [src]="item.CartImage" alt="bag item" class="bag-item-image" /> -->
+                    <div tappable class="remove" (tap)="removeItem( item, i )">
+                        <ion-icon name="close" class="remove-icon"></ion-icon>
+                    </div>
+                </ion-col>
+                <ion-col class="title-and-description">
+                    <div class="bag-item-title">
+                        <ion-row>
+                            <ion-col>
+                                <span class="bag-item-name">{{ item.Name }}</span>
+                                <span class="bag-item-quantity">x{{ item.Quantity }}</span>
+                            </ion-col>
                             <!-- <ion-col class="bag-item-edit" text-center>
                                 Edit
                             </ion-col> -->
-                            </ion-row>
-                        </div>
-                        <p class="bag-item-description">
-                            {{ (item.ShortDescription | allergens).description }}
-                        </p>
-                        <ion-row class="bag-item-meta">
-                            <ion-col col-3 class="border">
-                                <span class="price">{{ item.ExtendedPrice | currency:'USD':'symbol' }}</span>
-                            </ion-col>
-                            <ion-col col-4 text-center class="border">
-                                <span class="calories" *ngIf="item.caloricValue !== null && item.caloricValue !== 0">{{
-                                    item.caloricValue }} cal</span>
-                            </ion-col>
-                            <ion-col col-5 text-center>
-                                <span class="allergen">
-                                    <span class="allergen" *ngFor="let allergen of (item.ShortDescription | allergens)?.allergens">
-                                        {{ allergen }}
-                                    </span>
-                                    <!-- <ion-icon name="vegan"></ion-icon>
+                        </ion-row>
+                    </div>
+                    <p class="bag-item-description">
+                        {{ (item.ShortDescription | allergens).description }}
+                    </p>
+                    <ion-row class="bag-item-meta">
+                        <ion-col col-3 class="border">
+                            <span class="price">{{ item.ExtendedPrice | currency:'USD':'symbol' }}</span>
+                        </ion-col>
+                        <ion-col col-4 text-center class="border">
+                            <span class="calories" *ngIf="item.caloricValue !== null && item.caloricValue !== 0">{{
+                                item.caloricValue }} cal</span>
+                        </ion-col>
+                        <ion-col col-5 text-center>
+                            <span class="allergen">
+                                <span class="allergen" *ngFor="let allergen of (item.ShortDescription | allergens)?.allergens">
+                                    {{ allergen }}
+                                </span>
+                                <!-- <ion-icon name="vegan"></ion-icon>
                                 <ion-icon name="paleo"></ion-icon>
                                 <ion-icon name="veget"></ion-icon> -->
-                                </span>
-                            </ion-col>
-                        </ion-row>
-                    </ion-col>
-                </ion-row>
-            </div>
-        </ion-list>
-
-        <form (ngSubmit)="checkoutAsGuest()" [formGroup]="guestCheckoutForm" *ngIf="!hideGuestForm">
+                            </span>
+                        </ion-col>
+                    </ion-row>
+                </ion-col>
+            </ion-row>
+        </div>
+    </ion-list>
+ 
+   <!--      <form (ngSubmit)="checkoutAsGuest()" [formGroup]="guestCheckoutForm" *ngIf="!hideGuestForm">
             <ion-list>
                 <ion-item no-padding>
                     <ion-label floating>Guest First Name</ion-label>
@@ -160,19 +165,17 @@
                     Re-enter Details
                 </button>
             </ion-col>
-        </ion-row>
+        </ion-row> -->
 
         
         <div class="red-button full-width-button small-text">
-            <button ion-button block color="red" (click)="putOrder()" [disabled]="!timeForm.valid || !selectedTime || !userLoggedIn || !hideGuestForm || !pickupForm.valid">Proceed
+            <button ion-button block color="red" (click)="putOrder()" [disabled]="!timeForm.valid || !selectedTime || !userLoggedIn || !pickupForm.valid">Proceed
                 to Checkout</button>
             <div class="required-message" *ngIf="submitAttempted && !selectedTime">
                 <p>Please select a pickup time.</p>
             </div>
         </div>
-        <div class="location-details" [innerHtml]="addressData?.content?.rendered | safeHtml">
-
-        </div>
+        <div class="location-details" [innerHtml]="addressData?.content?.rendered | safeHtml"></div>
     </div>
     <p *ngIf="!itemsInBag.length">There is currently nothing in your bag. Please return to
         <a href="#" (tap)="backToMenu()">our menu.</a>

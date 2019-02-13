@@ -32,7 +32,7 @@ export class CheckoutReviewPage {
     public isOpen: number = -1;
     public allOrderDetails : Order;
     public timeForm : FormGroup;
-    public guestCheckoutForm: FormGroup;
+    //public guestCheckoutForm: FormGroup;
     public timeSelectBox : string;
     public selectedTime : any;
     public times : any;
@@ -42,7 +42,7 @@ export class CheckoutReviewPage {
     public bagTotalPrice : number;
     public submitAttempted : boolean = false;
     public pickupForm : FormGroup;
-    public hideGuestForm   : boolean = false;
+   // public hideGuestForm   : boolean = false;
     public userLoggedIn    : boolean = false;
     public hideReEnterDetails: boolean = true;
 
@@ -73,7 +73,7 @@ export class CheckoutReviewPage {
         'pickup-time': ['', Validators.required]
     })
 
-    this.guestCheckoutForm = this.fb.group({
+   /*  this.guestCheckoutForm = fb.group({
         'guest-first-name': ['', [Validators.required, Validators.maxLength(28)]],
         'guest-last-name': ['', [Validators.required, Validators.maxLength(28)]],
         'guest-email': ['', Validators.compose([Validators.required, Validators.pattern(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)])],
@@ -84,7 +84,7 @@ export class CheckoutReviewPage {
 
         this.hideGuestForm = true;
         this.hideReEnterDetails = true;
-    }
+    } */
     // let loader = this.loadingController.create({ content: "Loading" });
 
     // loader.present()
@@ -107,7 +107,7 @@ export class CheckoutReviewPage {
         this.itemsInBag = this.bag.itemsInBag
 
     }
-    public checkoutAsGuest(){
+  /*   public checkoutAsGuest(){
 
         let loader = this.loadingController.create({ content: "Signing In As Guest" });
         loader.present()
@@ -130,7 +130,7 @@ export class CheckoutReviewPage {
           });
           this.hideReEnterDetails = false;
         }
-      }
+      } */
     getCustomer() {
         // get customer so order PUT doesn't fail
         this.storage.get('user').then(customerData => {
@@ -185,10 +185,10 @@ export class CheckoutReviewPage {
         });
         alert.present();
     }
-    reEnterDetails() {
+   /*  reEnterDetails() {
         this.hideReEnterDetails = true;
         this.hideGuestForm = false;
-    }
+    } */
     backToMenu() {
         this.navCtrl.popToRoot();
     }

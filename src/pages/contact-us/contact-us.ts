@@ -35,15 +35,13 @@ export class ContactUsPage {
 
     ) {
 
-        this.contactForm = this.fb.group({
-            'contact-reason' : [null, Validators.required],
+        this.contactForm = fb.group({
             'first-name' : [null, Validators.required],
             'last-name' : [null, Validators.required],
             'email' : [null, [Validators.required, Validators.email]],
             'comments' : null,
             'recaptchaReactive' : [null, Validators.required]
           })
-
     }
 
     ngOnInit() {
@@ -81,18 +79,15 @@ export class ContactUsPage {
     }
     public submitForm(formData){
         this.submittedOnce = true;
-
         if(formData.valid){
           this.processing = true;
 
           let data = {
-            'contactReason' : formData.get('contact-reason').value,
-            'firstName' : formData.get('first-name').value,
-            'lastName' : formData.get('last-name').value,
-            'email' : formData.get('email').value,
-            'comments' : formData.get('comments').value
+            'firstName' : formData.controls['first-name'].value,
+            'lastName' : formData.controls['last-name'].value,
+            'email' : formData.controls['email'].value,
+            'comments' : formData.controls['comments'].value
           }
-
           this.wordpressService.submitContactForm(data).subscribe(() => {
             this.processing = false;
             this.formSuccess = true;

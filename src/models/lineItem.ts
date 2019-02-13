@@ -47,4 +47,5 @@ export interface LineItemModifier {
     PosModifierId?: number; // (integer , optional) : The POS Modifier id ,
     Status?: string; // (enum , optional) = ['Normal' or 'UnknownError'] : The status of the modifier ,
     Modifiers?: Array<LineItemModifier>; //(array[ExternalLineItemModifier] , optional) : Allows the user add modifiers to another modifier
+    ModifierId?: number
 }

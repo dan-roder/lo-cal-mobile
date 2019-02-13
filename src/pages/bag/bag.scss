@@ -5,28 +5,6 @@ page-bag {
         }
     }
 
-
-    .amounts-charged {
-        font-size:      13px;
-        letter-spacing: 0.6px;
-        color: map-get($colors, black);
-        .subtotal, .taxes {
-            margin-bottom: 10px;
-        }
-        .dark {
-            background-color: map-get($colors, black);
-            margin-bottom: 10px;
-
-        }
-        .total {
-            font-size: 15px;
-            font-weight: 600;
-            letter-spacing: 0.8px;
-
-        }
-
-    }
-
     .checkout-button-wrap {
         margin: 0 2.5%;
     }
@@ -35,16 +13,8 @@ page-bag {
         min-height: 100px;
     }
 
-    .empty-bag {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 50vh;
-        &-notice {
-            font-size: 21px;
-            font-weight: 600;
-            text-align: center;
-        }
+    .button-inner {
+      font-weight: 700;
+      font-size: 16px;
     }
-
 }
