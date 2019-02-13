@@ -63,7 +63,6 @@ export class SignupPage implements OnInit {
         'city' : [ '', [Validators.required] ],
         'state' : [ '', [Validators.required] ],
         'zip' : [ '', [Validators.required, Validators.pattern('^[0-9]{5}$')] ]
-        // 'description' : [ '', [Validators.required] ],
       }, { validator: this.checkAddress }),
       'passwords' : this.fb.group({
         'password' : ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)])],
