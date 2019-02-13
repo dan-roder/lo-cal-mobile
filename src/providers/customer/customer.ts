@@ -176,4 +176,16 @@ export class CustomerProvider {
       return result;
     })
   }
+
+  /**
+   *
+   * @param customerId string
+   *
+   * @returns Observable of order history
+   */
+  public getOrderHistory(customerId: string): Observable<any>{
+    return this.http.get(this.config.railsCustomerEndpoint + `/${customerId}/order/recent`).map(result => {
+      return result;
+    })
+  }
 }
