@@ -68,7 +68,7 @@
             <p class="form-control-feedback" *ngIf="signupForm.hasError('custInfoInvalid','custInfo')">All fields are required. </p>
             <ion-row *ngIf="!custInfoComp">
                 <ion-col no-padding>
-                    <button type="button" ion-button block no-border [disabled]="!custInfo.valid" color="red" (tap)="nextStep('info')">
+                    <button type="button" ion-button block no-border [disabled]="!custInfo.valid" color="red" (click)="nextStep('info')">
                         Next <ion-icon class="featured-title-icon" name="chevron" color="white"></ion-icon>
                     </button>
                 </ion-col>
@@ -102,12 +102,12 @@
             </div>
             <ion-row *ngIf="!passwordsComp && custInfoComp && !addressComp">
                 <ion-col class="spacing" no-padding>
-                    <button type="button" ion-button block no-border [disabled]="!custInfo.valid" color="red" (tap)="nextStep('info')">
+                    <button type="button" ion-button block no-border [disabled]="!custInfo.valid" color="red" (click)="nextStep('info')">
                         Back
                     </button>
                 </ion-col>
                 <ion-col no-padding>
-                    <button type="button" ion-button block no-border [disabled]="!address.valid" color="red" (tap)="nextStep('passwords')">
+                    <button type="button" ion-button block no-border [disabled]="!address.valid" color="red" (click)="nextStep('passwords')">
                         Next
                     </button>
                 </ion-col>
@@ -152,7 +152,7 @@
             </div>
             <ion-row *ngIf="!passwordsComp && custInfoComp && addressComp">
                 <ion-col class="spacing" no-padding>
-                    <button type="button" ion-button block no-border [disabled]="!custInfo.valid" color="red" (tap)="nextStep('passwords')">
+                    <button type="button" ion-button block no-border [disabled]="!custInfo.valid" color="red" (click)="nextStep('passwords')">
                         Back
                     </button>
                 </ion-col>
