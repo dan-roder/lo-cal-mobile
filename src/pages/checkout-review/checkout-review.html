@@ -34,7 +34,7 @@
         enter valid email address.</div>
       <ion-item no-padding>
         <ion-label floating>Guest Phone</ion-label>
-        <ion-input type="text" formControlName="guest-phone"></ion-input>
+        <ion-input phone type="text" formControlName="guest-phone"></ion-input>
         <ion-icon *ngIf="!guestCheckoutForm.controls['guest-phone'].valid && submitAttempted"
           name="alert" item-right class="has-error"></ion-icon>
       </ion-item>
@@ -111,7 +111,7 @@
   <div class="red-button full-width-button small-text">
     <button ion-button block color="red" (click)="putOrder()" [ngClass]="{ 'disabled': !timeForm.valid || !selectedTime || (!loggedInStatus && !guestCheckoutForm.valid) || !pickupForm.valid }">Proceed
       to Checkout</button>
-    
+
   </div>
 
   <p *ngIf="!itemsInBag.length">There is currently nothing in your bag. Please return to
