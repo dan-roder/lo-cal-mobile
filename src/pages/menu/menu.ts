@@ -35,7 +35,7 @@ export class MenuComponent {
     ngOnInit() {
         this.categories = this.navParams.get('menu');
         this.wp.retrieveMenuImages().subscribe( res => {
-            this.menu_images = res;
+            this.menu_images = res.json();
         });
     }
 

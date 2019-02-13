@@ -151,8 +151,8 @@ export class BurgersPage implements OnInit {
         return this.customData = tempObj;
 
     }
-    private quickAdd( item ) {
 
+    public quickAdd( item ) {
         let message = `Add ${ item['DisplayName'] } to your bag?`
         let alert = this.alertCtrl.create({
 
@@ -203,7 +203,6 @@ export class BurgersPage implements OnInit {
                 let menuItem   = data.item;
                 let salesItems = data.salesItems[0];
                 let quantity   = 1;
-                let totalPrice = 0;
 
                 // add quantity and totalPrice to object
                 menuItem['Quantity']   = quantity;

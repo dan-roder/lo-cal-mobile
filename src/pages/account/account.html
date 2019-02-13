@@ -1,14 +1,239 @@
 <ion-header no-border>
-    <ion-navbar>
-        <button ion-button menuToggle>
-            <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
-        </button>
-        <ion-title>My Account</ion-title>
-    </ion-navbar>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
+    </button>
+    <ion-title>My Account</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content class="page" padding>
 
-    <h1>Account page goes here :)</h1>
+  <div class="account-section">
+    <div class="account-heading">
+      <h3>Account Details</h3>
+      <button ion-button (click)="editAccountDetails()">{{ editing ? 'Cancel' : 'Edit' }}</button>
+    </div>
+    <form action="" [formGroup]="accountForm" class="lo-cal-form" [ngClass]="editing ? 'editing' : 'static'" (submit)="saveAccountDetails(accountForm)">
+      <div class="error-message" *ngIf="errorOccurred && accountError">
+        <p>
+          {{ accountError }}
+        </p>
+      </div>
+      <ion-item class="form-component form-component-text">
+        <ion-label floating>First Name</ion-label>
+        <ion-input type="text" [readonly]="!editing" name="first-name" id="first-name" formControlName="first-name" placeholder="First Name*" [ngClass]="{'has-error':!accountForm.controls['first-name'].valid}"></ion-input>
+        <div class="error-message" *ngIf="!accountForm.controls['first-name'].valid">This field is required.</div>
+      </ion-item>
+      <ion-item class="form-component form-component-text">
+        <ion-label floating>Last Name</ion-label>
+        <ion-input type="text" [readonly]="!editing" name="last-name" id="last-name" formControlName="last-name" placeholder="Last Name*" [ngClass]="{'has-error':!accountForm.controls['last-name'].valid}"></ion-input>
+        <div class="error-message" *ngIf="!accountForm.controls['last-name'].valid">This field is required.</div>
+      </ion-item>
+      <ion-item class="form-component form-component-email">
+        <ion-label floating>Email</ion-label>
+        <ion-input type="text" [readonly]="!editing" name="email" id="email" formControlName="email" placeholder="Email*" [ngClass]="{'has-error':!accountForm.controls['email'].valid}"></ion-input>
+        <div class="error-message" *ngIf="!accountForm.controls['email'].valid">This field is required.</div>
+      </ion-item>
+      <ion-item class="form-component form-component-text">
+        <ion-label floating>Phone Number</ion-label>
+        <ion-input type="text" [readonly]="!editing" name="phone" id="phone" formControlName="phone" placeholder="Phone Number*" [ngClass]="{'has-error':!accountForm.controls['phone'].valid && submittedOnce}"></ion-input>
+        <div class="error-message" *ngIf="!accountForm.controls['phone'].valid && submittedOnce">This field is required.</div>
+        <div class="error-message" *ngIf="accountForm.controls['phone'].errors?.pattern">Phone number must be 10 digits with no spaces or special characters.</div>
+      </ion-item>
+      <div class="control-wrapper" formGroupName="full-address">
+        <ion-item class="form-component form-component-text">
+          <ion-label floating>Address</ion-label>
+          <ion-input type="text" [readonly]="!editing" name="address" id="address" formControlName="address" placeholder="Address*" [ngClass]="{'has-error':!accountForm.controls['full-address']['controls']['address'].valid && submittedOnce}"></ion-input>
+          <div class="error-message" *ngIf="!accountForm.controls['full-address']['controls']['address'].valid && submittedOnce">This field is required.</div>
+        </ion-item>
+        <ion-item class="form-component form-component-text">
+          <ion-label floating>Address 2</ion-label>
+          <ion-input type="text" [readonly]="!editing" name="address2" id="address2" formControlName="address2" placeholder="Apartment/Suite/Unit/Building"></ion-input>
+        </ion-item>
+        <div class="form-section thirds">
+          <ion-item class="form-component form-component-text">
+            <ion-label floating>City</ion-label>
+            <ion-input type="text" [readonly]="!editing" name="city" id="city" formControlName="city" placeholder="City*" [ngClass]="{'has-error':!accountForm.controls['full-address']['controls']['city'].valid && submittedOnce}"></ion-input>
+            <div class="error-message" *ngIf="!accountForm.controls['full-address']['controls']['city'].valid && submittedOnce">This field is required.</div>
+          </ion-item>
+          <ion-item no-lines class="form-component form-component-select">
+            <ion-label floating>State</ion-label>
+            <ion-select name="state" id="state" formControlName="state" [ngClass]="{'has-error':!accountForm.controls['full-address']['controls']['state'].valid && submittedOnce}">
+              <ion-option value="">-- Select --</ion-option>
+              <ion-option value="AL">Alabama</ion-option>
+              <ion-option value="AK">Alaska</ion-option>
+              <ion-option value="AZ">Arizona</ion-option>
+              <ion-option value="AR">Arkansas</ion-option>
+              <ion-option value="CA">California</ion-option>
+              <ion-option value="CO">Colorado</ion-option>
+              <ion-option value="CT">Connecticut</ion-option>
+              <ion-option value="DE">Delaware</ion-option>
+              <ion-option value="DC">District Of Columbia</ion-option>
+              <ion-option value="FL">Florida</ion-option>
+              <ion-option value="GA">Georgia</ion-option>
+              <ion-option value="HI">Hawaii</ion-option>
+              <ion-option value="ID">Idaho</ion-option>
+              <ion-option value="IL">Illinois</ion-option>
+              <ion-option value="IN">Indiana</ion-option>
+              <ion-option value="IA">Iowa</ion-option>
+              <ion-option value="KS">Kansas</ion-option>
+              <ion-option value="KY">Kentucky</ion-option>
+              <ion-option value="LA">Louisiana</ion-option>
+              <ion-option value="ME">Maine</ion-option>
+              <ion-option value="MD">Maryland</ion-option>
+              <ion-option value="MA">Massachusetts</ion-option>
+              <ion-option value="MI">Michigan</ion-option>
+              <ion-option value="MN">Minnesota</ion-option>
+              <ion-option value="MS">Mississippi</ion-option>
+              <ion-option value="MO">Missouri</ion-option>
+              <ion-option value="MT">Montana</ion-option>
+              <ion-option value="NE">Nebraska</ion-option>
+              <ion-option value="NV">Nevada</ion-option>
+              <ion-option value="NH">New Hampshire</ion-option>
+              <ion-option value="NJ">New Jersey</ion-option>
+              <ion-option value="NM">New Mexico</ion-option>
+              <ion-option value="NY">New York</ion-option>
+              <ion-option value="NC">North Carolina</ion-option>
+              <ion-option value="ND">North Dakota</ion-option>
+              <ion-option value="OH">Ohio</ion-option>
+              <ion-option value="OK">Oklahoma</ion-option>
+              <ion-option value="OR">Oregon</ion-option>
+              <ion-option value="PA">Pennsylvania</ion-option>
+              <ion-option value="RI">Rhode Island</ion-option>
+              <ion-option value="SC">South Carolina</ion-option>
+              <ion-option value="SD">South Dakota</ion-option>
+              <ion-option value="TN">Tennessee</ion-option>
+              <ion-option value="TX">Texas</ion-option>
+              <ion-option value="UT">Utah</ion-option>
+              <ion-option value="VT">Vermont</ion-option>
+              <ion-option value="VA">Virginia</ion-option>
+              <ion-option value="WA">Washington</ion-option>
+              <ion-option value="WV">West Virginia</ion-option>
+              <ion-option value="WI">Wisconsin</ion-option>
+              <ion-option value="WY">Wyoming</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="form-component form-component-text">
+            <ion-label floating>Zip Code</ion-label>
+            <ion-input type="text" [readonly]="!editing" name="zip" id="zip" formControlName="zip" placeholder="Zip*" [ngClass]="{'has-error':!accountForm.controls['full-address']['controls']['zip'].valid && submittedOnce}"></ion-input>
+            <div class="error-message" *ngIf="!accountForm.controls['full-address']['controls']['zip'].valid && submittedOnce">This field is required.</div>
+            <div class="error-message" *ngIf="accountForm.controls['full-address']['controls']['zip'].errors?.pattern && accountForm.controls['full-address']['controls']['zip'].value.length > 5">Zip code must be only 5 digits.</div>
+          </ion-item>
+        </div>
+      </div>
+
+      <div class="loading-gif button-size" *ngIf="accountProcessing"></div>
+      <div class="submit red-button full-width-button submit">
+        <button ion-button type="submit" *ngIf="editing && !accountProcessing" [disabled]="!accountForm.valid">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="account-section">
+    <div class="account-heading">
+      <h3>Change Password</h3>
+      <button ion-button (click)="editPassword()">{{ editingPassword ? 'Cancel' : 'Edit' }}</button>
+    </div>
+    <form action="" [formGroup]="passwordForm" class="lo-cal-form" [ngClass]="editingPassword ? 'editing' : 'static'" (submit)="updatePassword(passwordForm)">
+      <div class="form-errors" *ngIf="passwordError"><p>{{ passwordError }}</p></div>
+      <div class="form-success"><p>{{ passwordSuccess }}</p></div>
+      <ion-item class="form-component form-component-text">
+        <ion-label floating for="old-password" >Old Password</ion-label>
+        <ion-icon *ngIf="!passwordForm.controls['old-password'].valid && pwSubmittedOnce" name="alert" item-right class="has-error"></ion-icon>
+        <ion-input type="password" formControlName="old-password" [readonly]="!editingPassword" name="old-password" id="old-password" [ngClass]="{'has-error':!passwordForm.controls['old-password'].valid && pwSubmittedOnce}"></ion-input>
+      </ion-item>
+      <ion-item class="form-component form-component-text" [ngClass]="{ 'has-error': !passwordForm.controls['password'].valid && passwordForm.controls['password'].dirty }">
+        <ion-label floating for="new-password">New Password* (8 or more characters)</ion-label>
+        <ion-icon *ngIf="!passwordForm.controls['password'].valid && passwordForm.controls['password'].dirty" name="alert" item-right class="has-error"></ion-icon>
+        <ion-input type="password" formControlName="password" name="password" [readonly]="!editingPassword" id="new-password" formControlName="password" [ngClass]="{'has-error':!passwordForm.controls['password'].valid && pwSubmittedOnce}"></ion-input>
+      </ion-item>
+      <div class="form-control-feedback">
+        <p class="error-help" *ngIf="!passwordForm.controls['password'].valid && pwSubmittedOnce">This field is required.</p>
+        <p class="error-help" *ngIf="passwordForm.controls['password'].value.length > 2 && passwordForm.controls['password'].errors?.minlength">Password must be at least 8 characters.</p>
+        <p class="error-help" *ngIf="passwordForm.controls['password'].value.length > 2 && passwordForm.controls['password'].errors?.pattern">Password must contain at least 1 number, and 1 uppercase character.</p>
+      </div>
+      <ion-item class="form-component form-component-text" [ngClass]="{ 'has-error': !passwordForm.controls['confirm-password'].valid && passwordForm.controls['confirm-password'].dirty }">
+        <ion-label floating for="confirm-password">Confirm Password*</ion-label>
+        <ion-icon *ngIf="!passwordForm.controls['confirm-password'].valid && passwordForm.controls['confirm-password'].dirty" name="alert" item-right class="has-error"></ion-icon>
+        <ion-input type="password" formControlName="confirm-password" name="confirm-password" [readonly]="!editingPassword" id="confirm-password" formControlName="confirm-password" [ngClass]="{'has-error':!passwordForm.controls['confirm-password'].valid && pwSubmittedOnce}" clearInput></ion-input>
+      </ion-item>
+      <div class="form-control-feedback">
+        <p class="error-help" *ngIf="!passwordForm.controls['confirm-password'].valid && pwSubmittedOnce">This field is required.</p>
+        <p class="error-help" *ngIf="passwordForm.controls['confirm-password'].errors?.MatchPassword">Password does not match.</p>
+      </div>
+
+      <div class="submit red-button full-width-button submit">
+        <button ion-button type="submit" value="Save" *ngIf="editingPassword && !passwordProcessing" [disabled]="!passwordForm.valid">Save</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="account-section">
+    <div class="account-heading">
+      <h3>Change Security Question</h3>
+      <button ion-button (click)="editQuestion()">{{ editingQuestion ? 'Cancel' : 'Edit' }}</button>
+    </div>
+    <form action="" [formGroup]="questionForm" class="lo-cal-form" [ngClass]="editingQuestion ? 'editing' : 'static'" (submit)="updateSecurityQuestion(questionForm)">
+      <div class="form-errors" *ngIf="questionError">
+        <p>{{ questionError }}</p>
+      </div>
+      <div class="form-success" *ngIf="questionSuccess">
+        <p>{{ questionSuccess }}</p>
+      </div>
+      <ion-item class="form-component form-component-select">
+        <ion-label for="security-question" floating>Security Question</ion-label>
+        <ion-select name="security-question" id="security-question" formControlName="security-question"  [ngClass]="{'has-error':!questionForm.controls['security-question'].valid && qSubmittedOnce}">
+          <ion-option value="">- Select -</ion-option>
+          <ion-option value="What was your childhood nickname?">What was your childhood nickname?</ion-option>
+          <ion-option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</ion-option>
+          <ion-option value="In what city or town did your mother and father meet?">In what city or town did your mother and father meet?</ion-option>
+          <ion-option value="What is your favorite sports team?">What is your favorite sports team?</ion-option>
+          <ion-option value="What is your favorite movie?">What is your favorite movie?</ion-option>
+          <ion-option value="What was your favorite sport in high school?">What was your favorite sport in high school?</ion-option>
+          <ion-option value="What was your favorite food as a child?">What was your favorite food as a child?</ion-option>
+          <ion-option value="What was the make and model of your first car?">What was the make and model of your first car?</ion-option>
+          <ion-option value="What was the name of the hospital where you were born?">What was the name of the hospital where you were born?</ion-option>
+          <ion-option value="What school did you attend for sixth grade?">What school did you attend for sixth grade?</ion-option>
+          <ion-option value="In what town was your first job?">In what town was your first job?</ion-option>
+          <ion-option value="What was the name of the company where you had your first job?">What was the name of the company where you had your first job?</ion-option>
+        </ion-select>
+      </ion-item>
+      <div class="form-control-feedback">
+        <p class="error-help" *ngIf="!questionForm.controls['security-question'].valid && qSubmittedOnce">This field is required.</p>
+      </div>
+      <ion-item class="form-component form-component-text" [hidden]="!editingQuestion">
+        <ion-label for="security-answer" floating>Security Answer</ion-label>
+        <ion-input type="text" [readonly]="!editingQuestion" name="security-answer" id="security-answer" formControlName="security-answer" [ngClass]="{'has-error':!questionForm.controls['security-answer'].valid && qSubmittedOnce}"></ion-input>
+      </ion-item>
+      <ion-item class="form-component form-component-text" [hidden]="!editingQuestion">
+        <ion-label floating for="current-password">Current Password</ion-label>
+        <ion-input type="password" [readonly]="!editingQuestion" name="current-password" id="current-password" formControlName="current-password" [ngClass]="{'has-error':!questionForm.controls['current-password'].valid && qSubmittedOnce}"></ion-input>
+      </ion-item>
+      <div class="form-control-feedback">
+        <p class="error-help" *ngIf="!questionForm.controls['current-password'].valid && qSubmittedOnce">This field is required.</p>
+      </div>
+      <div class="submit red-button full-width-button submit">
+        <button ion-button type="submit" value="Save" *ngIf="editingQuestion" [disabled]="!questionForm.valid">Save</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="account-section" *ngIf="savedPayments">
+    <div class="account-heading">
+      <h3>Saved Payments</h3>
+      <button ion-button (click)="editPayments()" role="button">{{ editingPayments ? 'Cancel' : 'Edit' }}</button>
+    </div>
+    <div class="payments">
+      <div class="payment id-{{ savedPayments?.AccountId }}">
+        <p class="card-details small-text">
+          {{ savedPayments?.MethodType | cardType }}: {{ savedPayments?.MaskedAccountNumber }}
+        </p>
+        <p class="delete" tappable (click)="deletePaymentMethod(savedPayments?.AccountId)" *ngIf="editingPayments">
+          <span class="icon"></span>
+        </p>
+      </div>
+    </div>
+  </div>
 
 </ion-content>

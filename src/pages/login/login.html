@@ -5,41 +5,41 @@
 </ion-header>
 
 <ion-content padding>
-    <h2>Welcome Back!</h2>
-    <p>Log in now to explore the menu and place your order!</p>
-    <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
-        <ion-list>
-            <ion-item [ngClass]="{ 'has-error': email.invalid && email.dirty }" no-padding>
-                <ion-label floating>Email</ion-label>
-                <ion-icon *ngIf="email.invalid && email.dirty" name="alert" item-right class="has-error"></ion-icon>
-                <ion-input type="email" name="email" formControlName="email"></ion-input>
-            </ion-item>
-            <div class="form-control-feedback" *ngIf="email.invalid && email.dirty">
-                <p class="error-help">Please enter a valid email address.</p>
-            </div>
-            <ion-item [ngClass]="{ 'has-error': password.invalid && password.dirty }" no-padding>
-                <ion-label floating>Enter your password</ion-label>
-                <ion-input type="password" name="password" formControlName="password"></ion-input>
-            </ion-item>
-            <ion-row>
-                <ion-col no-padding>
-                    <button type="submit" ion-button block no-border [disabled]="!loginForm.valid" color="red" class="login-button">
-                        Log In
-                    </button>
-                </ion-col>
-            </ion-row>
-        </ion-list>
-    </form>
-    <div class="bottom-buttons-wrap">
-        <ion-grid>
-            <ion-row>
-                <ion-col class="bottom-links-col">
-                    <a href="#" class="bottom-link" [navPush]="'SignupPage'">New Account</a>
-                </ion-col>
-                <ion-col class="bottom-links-col">
-                    <a href="#" class="bottom-link" [navPush]="'PasswordResetPage'">Forgot Password</a>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-    </div>
+  <h2>Welcome Back!</h2>
+  <p>Log in now to explore the menu and place your order!</p>
+  <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
+    <ion-list>
+      <ion-item [ngClass]="{ 'has-error': email.invalid && email.dirty }" no-padding>
+        <ion-label floating>Email</ion-label>
+        <ion-icon *ngIf="email.invalid && email.dirty" name="alert" item-right class="has-error"></ion-icon>
+        <ion-input type="email" name="email" formControlName="email"></ion-input>
+      </ion-item>
+      <div class="form-control-feedback" *ngIf="email.invalid && email.dirty">
+        <p class="error-help">Please enter a valid email address.</p>
+      </div>
+      <ion-item [ngClass]="{ 'has-error': password.invalid && password.dirty }" no-padding>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" name="password" formControlName="password"></ion-input>
+      </ion-item>
+      <ion-row>
+        <ion-col no-padding>
+          <button type="submit" ion-button block no-border [disabled]="!loginForm.valid" color="red" class="login-button">
+            Log In
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </form>
+  <div class="bottom-buttons-wrap">
+    <ion-grid>
+      <ion-row align-items-center>
+        <ion-col size="6">
+          <a href="#" class="bottom-link" [navPush]="'SignupPage'">New Account</a>
+        </ion-col>
+        <ion-col size="6">
+          <a href="#" class="bottom-link" [navPush]="'PasswordResetPage'">Forgot Password</a>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>

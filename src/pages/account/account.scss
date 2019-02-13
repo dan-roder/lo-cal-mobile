@@ -1,3 +1,135 @@
 page-account {
+  .item-md{
+    padding-left: 0;
+  }
 
+  .item-md.item-block{
+    .item-inner{
+      padding-right: 0;
+      @include transition(border);
+      border-bottom: none;
+    }
+  }
+
+  .form-component-select{
+    .item-block{
+      .item-inner{
+        border-bottom: none !important;
+      }
+    }
+  }
+
+  .account-heading{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid $off-white;
+    align-items: center;
+
+    h3{
+      margin: 0;
+    }
+
+    button{
+      background: $local-red;
+      height: auto;
+      min-height: auto;
+      line-height: normal;
+      padding: 7px 15px;
+    }
+
+    a{
+      color: $local-red;
+    }
+  }
+
+  ion-select{
+    max-width: none;
+    width: 100%;
+
+    &.select-md{
+      padding: 13px 16px 13px 8px;
+    }
+  }
+
+  .red-button{
+    margin-top: 20px;
+  }
+
+  .submit{
+    button{
+      @extend %red-button;
+      margin: 0;
+      width: 100%;
+    }
+  }
+
+  .account-section{
+    margin: 0 0 50px;
+  }
+
+  .lo-cal-form{
+
+    .form-component-text,
+    .form-component-email{
+      ion-input{
+        border-bottom: 1px solid transparent;
+        @include transition(border-bottom);
+      }
+    }
+
+    &.editing{
+      .form-component-text,
+      .form-component-email{
+        ion-input{
+          border-bottom: 1px solid black;
+        }
+      }
+    }
+  }
+
+  .error-message{
+    font-size: 12px;
+    padding: 5px 4px;
+    color: $local-red;
+  }
+}
+
+.payments{
+  .payment{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .delete{
+    cursor: pointer;
+    position: relative;
+  }
+
+  .icon {
+    display: block;
+    position: absolute;
+    right: 0;
+    width: 25px;
+    height: 25px;
+    transform: rotate(45deg);
+
+    &:after,
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      height: 2px;
+      width: 15px;
+      background: $black;
+      opacity: 1;
+      left: 0;
+      right: 0;
+      margin: -2px auto 0;
+      top: 50%;
+    }
+
+    &:before {
+      transform: rotate(90deg);
+    }
+  }
 }

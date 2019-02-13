@@ -1,6 +1,5 @@
-import { FeaturedImagePipe } from './../../pipes/featured-image.pipe';
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { WordPressProvider } from './../../providers/word-press/word-press';
 

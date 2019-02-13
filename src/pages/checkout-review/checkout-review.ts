@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavController, NavParams, IonicPage, LoadingController, AlertController } from 'ionic-angular';
 
-import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import{ Customer } from "../../models/customer"
 import { LineItem } from "../../models/LineItem";
@@ -61,15 +61,14 @@ export class CheckoutReviewPage {
 
   ) {
 
-    this.pickupForm = fb.group({
+    this.pickupForm = this.fb.group({
           'pickup-selection' : [null, Validators.required],
           'vehicle-make' : [null],
           'vehicle-model' : [null],
           'vehicle-color' : [null]
         });
 
-
-    this.timeForm = fb.group({
+    this.timeForm = this.fb.group({
         'pickup-time': ['', Validators.required]
     })
 

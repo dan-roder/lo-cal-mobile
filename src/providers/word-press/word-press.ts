@@ -70,8 +70,7 @@ export class WordPressProvider {
     retrieveMenuImages() {
         return this.http.get(this.config.localApi + `/marketing/menu-images`)
             .map(result => {
-                // console.log( result.json() );
-                return result.json()
+                return result;
             });
     }
 

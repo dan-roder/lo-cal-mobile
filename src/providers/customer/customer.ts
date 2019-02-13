@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from "rxjs/Observable";
 import { RailsSavePayment } from '../../models/Payment';
-import { RailsCustomer, RailsLogin, Customer, RailsUpdate, InLoginUpdate, InPasswordReset } from '../../models/customer';
+import { RailsUpdate, InLoginUpdate, InPasswordReset } from '../../models/customer';
 
 
 @Injectable()
@@ -16,22 +16,9 @@ export class CustomerProvider {
   customer: any;
   private    customerObserver = new Subject();
   customerId: Observable<any> = this.customerObserver.asObservable();
+  private _isLoggedIn: boolean = false;
 
-  constructor(
-    private http: Http,
-    private storage: Storage,
-    private config: Config
-  ) {
-    this.storage.get('user').then( customerFromLocalStorage => {
-      if ( customerFromLocalStorage ) {
-        this.customer = customerFromLocalStorage;
-        this.customerObserver.next( customerFromLocalStorage );
-      }
-    })
-    .catch(error => {
-      console.log( error );
-    });
-  }
+  constructor( private http: Http, private storage: Storage, private config: Config) { }
 
   login( credentials ) {
     console.log( credentials );
@@ -81,7 +68,7 @@ export class CustomerProvider {
   }
 
   get currentCustomer() {
-      return this.customer;
+    return this.customer;
   }
 
   set currentCustomer( customer ) {
@@ -113,7 +100,7 @@ export class CustomerProvider {
     })
   }
 
-  public isLoggedIn(){
+  public getUserData(){
     return this.storage.get('user').then(userInfo => {
       return userInfo;
     });
@@ -123,6 +110,13 @@ export class CustomerProvider {
     return this.http.get(this.config.railsCustomerEndpoint + `/${customerId}` + '/payments').map(data => {
       return data;
     })
+  }
+
+  public updateCustomerInfo(customer: RailsUpdate): Observable<any>{
+    return this.http.post(this.config.railsCustomerEndpoint + `/${customer.customer_info.CustomerId}`, customer)
+      .map(returnData => {
+        return returnData;
+      })
   }
 
   /**
@@ -141,7 +135,57 @@ export class CustomerProvider {
     let itemsToRemove = ['user', 'customerid', 'order']
 
     itemsToRemove.forEach(element => {
-        this.storage.remove(element)
+      this.storage.remove(element);
     });
+    this.isLoggedIn = false;
+  }
+
+  /**
+   *
+   * updateLoginInfo function
+   *
+   * @param updateLoginInfo InLoginUpdate
+   *
+   * @returns Observable of PasswordReset result from Aloha API
+   */
+  public updateLoginInfo(loginInfo: InLoginUpdate): Observable<any>{
+    return this.http.post(this.config.railsCustomerEndpoint + `/loginupdate`, loginInfo).map((result) => {
+      return result;
+    });
+  }
+
+  get isLoggedIn(): boolean{
+    return this._isLoggedIn;
+  }
+
+  set isLoggedIn(status: boolean){
+    this._isLoggedIn = status;
+  }
+
+  /**
+   *
+   * deleteSavedPayment
+   *
+   * @param customerId
+   * @param paymentId
+   *
+   * @returns Observable of result from Aloha API
+   */
+  public deleteSavedPayment(customerId: string, paymentId: string){
+    return this.http.delete(this.config.railsCustomerEndpoint + `/${customerId}/payments/${paymentId}`).map(result => {
+      return result;
+    })
+  }
+
+  /**
+   *
+   * @param customerId string
+   *
+   * @returns Observable of order history
+   */
+  public getOrderHistory(customerId: string): Observable<any>{
+    return this.http.get(this.config.railsCustomerEndpoint + `/${customerId}/order/recent`).map(result => {
+      return result;
+    })
   }
 }

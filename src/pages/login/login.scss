@@ -1,60 +1,49 @@
 page-login {
-
-    .login-button {
-
-        margin-top: 50px;
-        height: 40px;
-        font-weight: 600;
-        letter-spacing: 1.4px;
-        border-radius: 3px;
-
-    }
-
-    [ion-button][disabled] {
-        background: #abadab;
-    }
-    // ion-item.item.has-error {
-
-    //     .item-inner {
-    //         border-color: $error;
-    //         ion-label, ion-icon {
-    //             color: $error;
-    //         }
-    //         ion-icon {
-    //             position: absolute;
-    //             bottom: 0;
-    //             right: 0;
-    //         }
-    //     }
-    //     input {
-    //         color: $error;
-    //     }
-    // }
-    // .form-control-feedback {
-    //     .error-help {
-    //         margin-top: 5px;
-    //         color: $error;
-    //     }
-    // }
-  h2 {
-    line-height: 2.37;
-    letter-spacing: 1.8px;
-    font-size: 18px;
-    font-weight: 700;
-    color: rgba(30, 30, 30, 0.99);
-    text-transform: uppercase;
-    padding-top: 15px;
-  }
-  p {
-    line-height: 1.54;
-    letter-spacing: 0.6px;
-    color: rgba(30, 30, 30, 0.99);
-    font-size: 13px;
+  .login-button {
+    margin-top: 50px;
+    height: 40px;
     font-weight: 600;
+    letter-spacing: 1.4px;
   }
-  .bottom-buttons-wrap {
+
+  [ion-button][disabled] {
+    background: map-get( $colors, offWhite );
+  }
+
+  .bottom-links-col {
+    text-align: center;
+    border-right: 1px solid map-get($colors, light-gray);
+    margin-top: 15px;
+
     a {
-       font-weight: 700;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      color: map-get($colors, dark);
+    }
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  .bottom-buttons-wrap {
+    ion-col:first-child{
+      border-right: 1px solid map-get($colors, light-gray);
+    }
+
+    a{
+      text-transform: uppercase;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      color: $local-red;
+      display: block;
+      text-align: center;
+      padding: 12px 2px;
     }
   }
 }

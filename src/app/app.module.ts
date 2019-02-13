@@ -7,26 +7,25 @@ import { MODULES, PROVIDERS, DIRECTIVES } from './app.imports';
 
 
 @NgModule({
-    declarations: [
-        MyApp
-    ],
-    imports: [
-        MODULES,
-        DIRECTIVES,
-        IonicModule.forRoot(MyApp, {
-            autocomplete: 'on',
-            scrollAssist: false,
-            autoFocusAssist: false,
-            backButtonText: '',
-        })
-    ],
-    bootstrap: [IonicApp],
-    entryComponents: [
-        MyApp
-    ],
-    providers: [
-        PROVIDERS,
-        { provide: ErrorHandler, useClass: IonicErrorHandler }
-    ]
+  declarations: [
+    MyApp
+  ],
+  imports: [
+    MODULES,
+    DIRECTIVES,
+    IonicModule.forRoot(MyApp, {
+      autocomplete: 'on',
+      scrollAssist: false,
+      autoFocusAssist: false
+    })
+  ],
+  bootstrap: [IonicApp],
+  entryComponents: [
+    MyApp
+  ],
+  providers: [
+    PROVIDERS,
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
+  ]
 })
 export class AppModule { }

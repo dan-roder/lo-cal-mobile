@@ -11,164 +11,145 @@ import * as _ from 'lodash';
 @Injectable()
 export class BagProvider {
 
-    public lineItems: Array<LineItem> = [];
-    public _itemsInBag: Array<LineItem> = [];
-    public _itemCountInBag: number = 0;
-    private bagObserver = new Subject();
-    bagItems = this.bagObserver.asObservable();
-    public totalPrice : number;
+  public lineItems: Array<LineItem> = [];
+  public _itemsInBag: Array<LineItem> = [];
+  public _itemCountInBag: number = 0;
+  private bagObserver = new Subject();
+  bagItems = this.bagObserver.asObservable();
+  public totalPrice : number;
 
-    constructor(
-        public platform: Platform,
-        public http: Http,
-        private storage: Storage
-    ) {
+  constructor(
+    public platform: Platform,
+    public http: Http,
+    private storage: Storage
+  ) {
+    console.log('Hello BagProvider Provider');
 
-        console.log('Hello BagProvider Provider');
+      this.storage.get('bag').then(bagItemsFromLocalStorage => {
+        if (bagItemsFromLocalStorage) {
+          this.itemsInBag = bagItemsFromLocalStorage;
+          this.bagObserver.next( this.itemsInBag );
+        }
+      })
+      .catch(error => {
+        console.log( error );
+      });
 
-        this.storage.get('bag').then(bagItemsFromLocalStorage => {
+  }
 
-                if (bagItemsFromLocalStorage) {
-                    this.itemsInBag = bagItemsFromLocalStorage;
-                    this.bagObserver.next( this.itemsInBag );
-                }
+  public createLineItem(passedMenuItem) {
+    // construct object to save in bag
+    let lineItem: LineItem = {};
+    lineItem.SalesItemId = passedMenuItem.SalesItemId; // Not sure if this should come from the SalesItem object instead of the DefaultItemId
+    lineItem.MenuItemId = passedMenuItem.MenuItemId;
+    lineItem.Name = passedMenuItem.Name;
+    lineItem.ShortDescription = passedMenuItem.Description;
+    lineItem.SpecialInstructions = passedMenuItem.SpecialInstructions;
+    lineItem.UnitPrice = passedMenuItem.UnitPrice;
+    lineItem.Quantity = passedMenuItem.Quantity;
+    lineItem.ExtendedPrice = passedMenuItem.TotalPrice;
+    lineItem.caloricValue = passedMenuItem.caloricValue;
+    lineItem.Modifiers = this.constructLineItemModifiers(passedMenuItem.Modifiers);
+    lineItem.CartImage = passedMenuItem.CartImage;
+    lineItem.DisplayName = passedMenuItem.DisplayName;
+    lineItem.CaloricServingUnit = passedMenuItem.CaloricServingUnit
 
-            })
-            .catch(error => {
+    // Push menuItem and lineItem into arrays
+    this.itemsInBag.push(lineItem);
 
-                console.log( error );
+    // Save to localStorage
+    this.saveToLocalStorage();
 
-            });
+    lineItem = null;
+  }
 
-    }
+  public quickAddLineItem( passedMenuItem ){
+    // construct object to save in bag
+    let lineItem: LineItem = {};
 
-    public createLineItem(passedMenuItem) {
+    lineItem.SalesItemId = passedMenuItem.DefaultItemId;
+    lineItem.MenuItemId = passedMenuItem.MenuItemId;
+    lineItem.Name = passedMenuItem.Name;
+    lineItem.ShortDescription = passedMenuItem.Description;
+    lineItem.UnitPrice = passedMenuItem.UnitPrice;
+    lineItem.Quantity = 1;
+    lineItem.ExtendedPrice = passedMenuItem.UnitPrice;
+    lineItem.CartImage = passedMenuItem.CartImage;
+    lineItem.DisplayName = passedMenuItem.DisplayName;
+    lineItem.caloricValue = passedMenuItem.caloricValue;
+    lineItem.CaloricServingUnit = passedMenuItem.CaloricServingUnit
 
+    // add to items in bag
+    this.itemsInBag.push(lineItem);
 
-        // construct object to save in bag
-        let lineItem: LineItem = {};
-        lineItem.SalesItemId = passedMenuItem.SalesItemId; // Not sure if this should come from the SalesItem object instead of the DefaultItemId
-        lineItem.MenuItemId = passedMenuItem.MenuItemId;
-        lineItem.Name = passedMenuItem.Name;
-        lineItem.ShortDescription = passedMenuItem.Description;
-        lineItem.SpecialInstructions = passedMenuItem.SpecialInstructions;
-        lineItem.UnitPrice = passedMenuItem.UnitPrice;
-        lineItem.Quantity = passedMenuItem.Quantity;
-        lineItem.ExtendedPrice = passedMenuItem.TotalPrice;
-        lineItem.caloricValue = passedMenuItem.caloricValue;
-        lineItem.Modifiers = this.constructLineItemModifiers(passedMenuItem.Modifiers);
-        lineItem.CartImage = passedMenuItem.CartImage;
-        lineItem.DisplayName = passedMenuItem.DisplayName;
-        lineItem.CaloricServingUnit = passedMenuItem.CaloricServingUnit
+    // Save to localStorage
+    this.saveToLocalStorage();
 
-        // Push menuItem and lineItem into arrays
-        this.itemsInBag.push(lineItem);
+    // reset line item
+    lineItem = null;
+  }
 
-        // Save to localStorage
-        this.saveToLocalStorage();
+  private constructLineItemModifiers(allModifiers): Array<LineItemModifier> {
+    let formattedLineItemModifierArray: Array<LineItemModifier> = [];
 
-        lineItem = null;
-    }
+    allModifiers.forEach((modGroup, key) => {
+      let modifierGroupId = modGroup.groupDetails.ModifierGroupId;
 
-    public quickAddLineItem( passedMenuItem ){
+      if (modGroup.currentlySelected.length > 0) {
+        modGroup.currentlySelected.forEach((modifier, key) => {
+          // Set initial quantity for the modifier being added
+          let modifierQuantity : number = 1;
 
-        // construct object to save in bag
-        let lineItem: LineItem = {};
+          // If the modifier ID we're iterating over exists
+          let modExists = _.findIndex(formattedLineItemModifierArray, {SalesItemOptionId: modifier.ModifierId});
 
-        lineItem.SalesItemId = passedMenuItem.DefaultItemId;
-        lineItem.MenuItemId = passedMenuItem.MenuItemId;
-        lineItem.Name = passedMenuItem.Name;
-        lineItem.ShortDescription = passedMenuItem.Description;
-        lineItem.UnitPrice = passedMenuItem.UnitPrice;
-        lineItem.Quantity = 1;
-        lineItem.ExtendedPrice = passedMenuItem.UnitPrice;
-        lineItem.CartImage = passedMenuItem.CartImage;
-        lineItem.DisplayName = passedMenuItem.DisplayName;
-        lineItem.caloricValue = passedMenuItem.caloricValue;
-        lineItem.CaloricServingUnit = passedMenuItem.CaloricServingUnit
+          // If it does, increase the quantity of that modifier
+          if(modExists !== -1){
+            formattedLineItemModifierArray[modExists].Quantity++;
+          }
+          // Else, construct the object and insert it
+          else{
+            let lineItemModifierObject : LineItemModifier = {
+              Name : modifier.Name,
+              ItemOptionGroupId : modifierGroupId,
+              SalesItemOptionId : modifier.ModifierId,
+              Quantity : modifierQuantity
+            };
 
-        // add to items in bag
-        this.itemsInBag.push(lineItem);
-
-        // Save to localStorage
-        this.saveToLocalStorage();
-
-        // reset line item
-        lineItem = null;
-
-    }
-
-    private constructLineItemModifiers(allModifiers): Array<LineItemModifier> {
-        let formattedLineItemModifierArray: Array<LineItemModifier> = [];
-
-        allModifiers.forEach((modGroup, key) => {
-
-            let modifierGroupId = modGroup.groupDetails.ModifierGroupId;
-
-            if (modGroup.currentlySelected.length > 0) {
-                modGroup.currentlySelected.forEach((modifier, key) => {
-                    // Set initial quantity for the modifier being added
-                    let modifierQuantity : number = 1;
-
-                    // If the modifier ID we're iterating over exists
-                    let modExists = _.findIndex(formattedLineItemModifierArray, {SalesItemOptionId: modifier.ModifierId});
-
-                    // If it does, increase the quantity of that modifier
-                    if(modExists !== -1){
-                        formattedLineItemModifierArray[modExists].Quantity++;
-                    }
-                    // Else, construct the object and insert it
-                    else{
-                        let lineItemModifierObject : LineItemModifier = {
-                            Name : modifier.Name,
-                            ItemOptionGroupId : modifierGroupId,
-                            SalesItemOptionId : modifier.ModifierId,
-                            Quantity : modifierQuantity,
-                            ModifierId: modifier.ModifierId
-                        };
-
-                        formattedLineItemModifierArray.push(lineItemModifierObject);
-                    }
-                });
-            }
+            formattedLineItemModifierArray.push(lineItemModifierObject);
+          }
         });
-        return formattedLineItemModifierArray;
-    }
+      }
+    });
+    return formattedLineItemModifierArray;
+  }
 
-    public removeFromBagAtIndex(index) {
+  public removeFromBagAtIndex(index) {
+    // Remove item from both arrays
+    this._itemsInBag.splice(index, 1);
 
-        // Remove item from both arrays
-        this._itemsInBag.splice(index, 1);
+    // Bag was modified, overwrite localStorage object with saved object
+    this.saveToLocalStorage();
+  }
 
-        // Bag was modified, overwrite localStorage object with saved object
-        this.saveToLocalStorage();
-    }
+  get itemCountInBag(): number {
+    return this._itemsInBag.length;
+  }
 
-    get itemCountInBag(): number {
-        return this._itemsInBag.length;
-    }
+  get itemsInBag() {
+    return this._itemsInBag;
+  }
 
-    get itemsInBag() {
-        return this._itemsInBag;
-    }
+  set itemsInBag(items: Array<LineItem>) {
+    this._itemsInBag = items;
+  }
 
-    set itemsInBag(items: Array<LineItem>) {
-        this._itemsInBag = items;
-    }
-
-    protected saveToLocalStorage() {
-
-        this.storage.set('bag', this.itemsInBag).then(() => {
-
-            this.bagObserver.next( this.itemsInBag );
-
-        })
-        .catch(error => {
-
-            console.log(error);
-
-        });
-
-    }
-
+  protected saveToLocalStorage() {
+    this.storage.set('bag', this.itemsInBag).then(() => {
+      this.bagObserver.next( this.itemsInBag );
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
 }

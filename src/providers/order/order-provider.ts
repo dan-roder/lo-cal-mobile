@@ -6,9 +6,8 @@ import 'rxjs/add/operator/map';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Config } from '../../app/app.config';
 import { LineItem } from '../../models/LineItem';
-import { RailsSavePayment, InSubmitOrderInformation, RailsInSubmitOrder, SavedPayment } from '../../models/Payment';
-import { RailsOrder, Order, OrderResults } from '../../models/Order';
-import { CustomerProvider } from './../customer/customer';
+import { RailsInSubmitOrder } from '../../models/Payment';
+import { RailsOrder, Order } from '../../models/Order';
 import { Customer } from '../../models/Customer';
 import * as _ from 'lodash';
 
@@ -16,22 +15,19 @@ import * as _ from 'lodash';
 
 @Injectable()
 export class OrderService {
- 
-    private userId : string;
     private _customerInfo : Customer;
     public _currentOrder : any;
     private _promiseDateTime : any;
     private _orderMode : number;
-  
+
     constructor(
         private httpClient: Http,
         private localStorage: Storage,
-        private config: Config,
-        private customerService: CustomerProvider
+        private config: Config
       ) { }
 
       public putOrder(bagItems: Array<LineItem>): Observable<any>{
-       
+
         let orderEndpoint = this.config.railsOrderEndpoint + '/' + this.config.siteId;
         let order = this.constructOrderObject(bagItems);
 
@@ -73,7 +69,7 @@ export class OrderService {
         })
       }
 
-     
+
 
 
       public submitOrder(order: RailsInSubmitOrder, orderId: number): Observable<any>{
@@ -98,13 +94,13 @@ export class OrderService {
 
       public calculateTotalWithModifiers(fullOrder: Order): Array<any>{
         let orderArray = Array();
-    
+
         _.forEach(fullOrder.LineItems, (value) => {
           let initialPrice = value.UnitPrice;
           let addOnPrice = 0;
           let modArray = Array();
           let specialInstructions = value.SpecialInstructions;
-    
+
           _.forEach(value.Modifiers, (value) => {
             addOnPrice += (value.UnitPrice > 0 && value.FreeQuantity === 0) ? value.UnitPrice : 0;
             let modOject = {
@@ -122,7 +118,7 @@ export class OrderService {
           }
           orderArray.push(obj);
         });
-    
+
         return orderArray;
       }
 
@@ -134,7 +130,7 @@ export class OrderService {
         })
       }
 
-    
+
 
       get customerInfo(): Customer{
         return this._customerInfo;
@@ -163,7 +159,7 @@ export class OrderService {
       get orderMode(): number{
         return this._orderMode;
       }
-    
+
       set orderMode(mode: number){
         this._orderMode = mode;
       }
@@ -175,5 +171,5 @@ export class OrderService {
         })
       }
 
-    
+
 }

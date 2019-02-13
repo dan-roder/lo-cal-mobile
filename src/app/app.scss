@@ -521,3 +521,29 @@ ion-scroll[scrollX] {
     }
   }
 }
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.form-errors{
+    p{
+      color: $local-red;
+      font-size: 13px;
+      text-align: center;
+    }
+  }
+
+  .form-success{
+    p{
+      color: $green;
+      font-size: 13px;
+      text-align: center;
+    }
+  }
