@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { LoCalApiProvider } from '../../providers/lo-cal-api/lo-cal-api';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import {CustomerProvider} from '../../providers/customer/customer';
@@ -33,8 +33,7 @@ export class LoginPage {
       private toastController: ToastController,
       private fb: FormBuilder,
       private customerService: CustomerProvider,
-      private storage: Storage,
-      public events : Events
+      private storage: Storage
   ) {
 
     this.loginForm = this.fb.group({
@@ -47,7 +46,7 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-   
+
   }
 
   // must be present with auto-unsubscribe even if empty
@@ -78,7 +77,7 @@ export class LoginPage {
           let customerInfoJson = customerInfo.json();
 
           this.storage.set('user', customerInfoJson).then(() => {
-            this.events.publish('loggedin');
+            // this.events.publish('loggedin');
             this.navCtrl.setRoot('TabsComponent');
           });
         });
