@@ -106,17 +106,14 @@
   <!-- ADD Location to show next-available time before submission -->
   <div class="next-available-time" *ngIf="selectedTime">
     <p><strong>Pickup at: </strong>{{ selectedTime | date:"EEE MMM dd, h:mma" }}</p>
-    <div class="required-message" *ngIf="submitAttempted && !selectedTime">
-      <p>Please select a pickup time.</p>
-    </div>
   </div>
-
+  <div class="required-message" *ngIf="submitAttempted && !selectedTime">
+    <p>Please select a pickup time.</p>
+  </div>
   <div class="red-button full-width-button small-text">
     <button ion-button block color="red" (click)="putOrder()" [ngClass]="{ 'disabled': !timeForm.valid || !selectedTime || (!loggedInStatus && !guestCheckoutForm.valid) || !pickupForm.valid }">Proceed
       to Checkout</button>
-
   </div>
-
   <p *ngIf="!itemsInBag.length">There is currently nothing in your bag. Please return to
     <a href="#" (tap)="backToMenu()">our menu.</a>
   </p>
