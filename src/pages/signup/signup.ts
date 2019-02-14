@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, IonicPage, ToastController } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
+import { NavController, NavParams, IonicPage, LoadingController, ToastController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { CustomerProvider } from '../../providers/customer/customer';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 
@@ -46,7 +46,8 @@ export class SignupPage implements OnInit {
     public  navParams       : NavParams,
     private fb              : FormBuilder,
     private customer        : CustomerProvider,
-    private toastController : ToastController
+    private toastController : ToastController,
+    private loading: LoadingController
   ) {}
 
   ngOnInit() {
@@ -144,8 +145,11 @@ export class SignupPage implements OnInit {
     }
   }
 
-  public save( customer ) {
-    console.log( customer );
+  public createNewAccount( customer ) {
+    let loading = this.loading.create({content: "Creating New Account"});
+    loading.present();
+    console.log(customer);
+
     let customerObj = {
       "Customer": {
         "CustomerId": null,
@@ -167,8 +171,12 @@ export class SignupPage implements OnInit {
       "SecurityAnswer": this.answer.value
     };
 
-    this.customerSubscription = this.customer.create( customerObj ).subscribe( (res) => {
-      this.processing = true
+    console.log(customerObj);
+    return;
+
+    this.customer.create( customerObj ).subscribe( (res) => {
+      loading.dismiss();
+      console.log(res);
 
       switch (res) {
         case 163 :
@@ -179,6 +187,9 @@ export class SignupPage implements OnInit {
         break;
       }
 
+    }, (error) => {
+      console.log(error);
+      loading.dismiss();
     });
   }
 }
