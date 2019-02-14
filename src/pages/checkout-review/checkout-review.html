@@ -71,9 +71,6 @@
       <p class="location-message" *ngIf="pickupForm.controls['pickup-selection'].value === '1'">See you in the store!</p>
       <p class="location-message" *ngIf="pickupForm.controls['pickup-selection'].value === '4'">See you at the
         curbside!</p>
-        <div class="next-available-time" *ngIf="selectedTime">
-          <p>Pickup at: {{ selectedTime | date:"EEE MMM dd, h:mma" }}</p>
-        </div>
       <div class="car-options" *ngIf="pickupForm.controls['pickup-selection'].value === '4'">
         <div class="form-section half-and-half">
           <div class="form-component form-component-text">
@@ -92,14 +89,17 @@
           </div>
         </div>
       </div>
+      <div class="next-available-time" *ngIf="selectedTime">
+        <p>Pickup at: {{ selectedTime | date:"EEE MMM dd, h:mma" }}</p>
+      </div>
     </form>
   </div>
 
   <form class="pickup-time-form" action="" [formGroup]="timeForm">
-  <img src="../../assets/images/left-arrow-red@3x.png" />
-    <ion-item no-padding>
-    <ion-label>Pickup Time</ion-label>
     <img src="../../assets/images/left-arrow-red@3x.png" />
+    <ion-item no-padding>
+      <ion-label>Pickup Time</ion-label>
+      <img src="../../assets/images/left-arrow-red@3x.png" />
       <ion-select large name="pickup-time" id="pickup-time" formControlName="pickup-time" [(ngModel)]="timeSelectBox"
         (ngModelChange)="timeSelectChanged()">
         <ion-option value="next">Next Available</ion-option>
