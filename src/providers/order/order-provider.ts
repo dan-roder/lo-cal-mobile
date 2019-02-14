@@ -36,13 +36,13 @@ export class OrderService {
         });
       }
 
-      public async saveOrderToLocalStorage(order){
-        const response = await this.localStorage.set('order', order);
+      public saveOrderToLocalStorage(order){
+        return this.localStorage.set('order', order).then((response) => {
           return response;
+        });
       }
 
       protected constructOrderObject(bagItems: Array<LineItem>){
-
         let order : RailsOrder = {
           order : {
             SiteId : this.config.siteId,
