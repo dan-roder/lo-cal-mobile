@@ -35,8 +35,8 @@
       <ion-item no-padding>
         <ion-label floating>Guest Phone</ion-label>
         <ion-input phone type="text" formControlName="guest-phone"></ion-input>
-        <ion-icon *ngIf="!guestCheckoutForm.controls['guest-phone'].valid && submitAttempted"
-          name="alert" item-right class="has-error"></ion-icon>
+        <ion-icon *ngIf="!guestCheckoutForm.controls['guest-phone'].valid && submitAttempted" name="alert" item-right
+          class="has-error"></ion-icon>
       </ion-item>
       <div class="form-control-feedback" *ngIf="!guestCheckoutForm.controls['guest-phone'].valid && submitAttempted">Please
         enter valid phone number.</div>
@@ -46,6 +46,9 @@
   </form>
   <div class="required-message review-errors" *ngIf="submitAttempted && !pickupForm.valid">
     <p>Please select a pickup method.</p>
+  </div>
+  <div class="required-message review-errors" *ngIf="timeElapsedError">
+    <p>This pickup time is no longer valid. Please select a new time that is more than 25 minutes from now.</p>
   </div>
   <div class="inner-step-wrapper">
     <form action="" class="lo-cal-form" [formGroup]="pickupForm">
