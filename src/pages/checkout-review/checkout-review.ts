@@ -46,7 +46,7 @@ export class CheckoutReviewPage {
   public hideGuestForm: boolean = false;
   public userLoggedIn: boolean = false;
   public hideReEnterDetails: boolean = true;
-  public timeElapsedError : boolean = false;
+  public timeElapsedError: boolean = false;
 
   constructor(
 
@@ -77,7 +77,7 @@ export class CheckoutReviewPage {
     this.guestCheckoutForm = fb.group({
       'guest-first-name': ['', [Validators.required, Validators.maxLength(28)]],
       'guest-last-name': ['', [Validators.required, Validators.maxLength(28)]],
-      'guest-phone' : [ '', Validators.compose([Validators.required, Validators.pattern(/(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}/)])],
+      'guest-phone': ['', Validators.compose([Validators.required, Validators.pattern(/(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}/)])],
       'guest-email': ['', Validators.compose([Validators.required, Validators.pattern(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)])],
     })
 
@@ -200,7 +200,7 @@ export class CheckoutReviewPage {
     }
 
     // Ensure when order is PUT, 30min delay has not elapsed
-    if(!this.ensureEnoughTime(this.selectedTime)){
+    if (!this.ensureEnoughTime(this.selectedTime)) {
       this.selectedTime = '';
       this.timeElapsedError = true;
       return;
@@ -215,19 +215,31 @@ export class CheckoutReviewPage {
     }
 
 
+    if (!this.loggedInStatus) {
+      let customer: Customer = {
+        FirstName: this.guestCheckoutForm.controls['guest-first-name'].value,
+        LastName: this.guestCheckoutForm.controls['guest-last-name'].value,
+        EMail: this.guestCheckoutForm.controls['guest-email'].value,
+        Phone: this.guestCheckoutForm.controls['guest-phone'].value.replace(/[^A-Z0-9]/ig, ""),
+        IsGuest: true
+      }
+      this.orderService.customerInfo = customer;
+      this.storage.set('user', customer).then(() => {});
+    }
+
+
+
     let loader = this.loadingController.create({
       content: "Processing Order"
     });
-    loader.present()
+    // loader.present()
 
     this.orderService.putOrder(this.bagItems).subscribe(response => {
-
       let jsonResponse = response.json()
       if (jsonResponse.ResultCode === 0 || jsonResponse.ResultCode === 4) {
         // Save to LocalStorage and route to checkout
         this.orderService.saveOrderToLocalStorage(jsonResponse).then(result => {
           if (result) {
-
             // this.router.navigate(['/checkout/payment']);
             this.navCtrl.push('CheckoutPaymentPage')
             loader.dismiss()
@@ -248,7 +260,7 @@ export class CheckoutReviewPage {
       this.wpService.logError('Put Order Error: ' + JSON.stringify(error)).subscribe(() => {});
     });
   }
-  public ensureEnoughTime(time){
+  public ensureEnoughTime(time) {
     // Is selected time still later than
     let validPickupTime = moment().add(25, 'minutes').format();
     let isValid = moment(validPickupTime).isBefore(time);
@@ -261,7 +273,7 @@ export class CheckoutReviewPage {
       let todaysTimes = JSON.parse(times._body)[0].Value;
       // Filter out times that are shorter than 30min from current time
       this.times = _.filter(todaysTimes, (time) => {
-        if(this.ensureEnoughTime(time.Time)) return time;
+        if (this.ensureEnoughTime(time.Time)) return time;
       });
     })
   }
@@ -302,7 +314,7 @@ export class CheckoutReviewPage {
   get bagItems() {
     return this.bag.itemsInBag;
   }
-  get loggedInStatus(): boolean{
+  get loggedInStatus(): boolean {
     return this.customerService.isLoggedIn;
   }
 }
