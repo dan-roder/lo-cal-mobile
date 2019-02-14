@@ -189,12 +189,11 @@ export class CheckoutReviewPage {
     this.navCtrl.popToRoot();
   }
   public putOrder() {
+
     // Ensure time was selected
-    if (!this.selectedTime) {
+    if (!this.selectedTime || !this.pickupForm.valid || (!this.loggedInStatus && !this.guestCheckoutForm.valid)) {
       this.submitAttempted = true;
       return;
-    } else {
-      this.submitAttempted = true;
     }
 
     this.processing = true;
