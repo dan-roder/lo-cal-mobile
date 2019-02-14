@@ -16,6 +16,8 @@ import { BagProvider } from "../../providers/bag/bag";
 import { CustomerProvider } from "../../providers/customer/customer";
 import { WordPressProvider } from './../../providers/word-press/word-press';
 import { OrderService } from './../../providers/order/order-provider';
+import * as moment from 'moment'
+import * as _ from 'lodash';
 
 @AutoUnsubscribe()
 
@@ -44,6 +46,7 @@ export class CheckoutReviewPage {
   public hideGuestForm: boolean = false;
   public userLoggedIn: boolean = false;
   public hideReEnterDetails: boolean = true;
+  public timeElapsedError : boolean = false;
 
   constructor(
 
@@ -196,6 +199,13 @@ export class CheckoutReviewPage {
       return;
     }
 
+    // Ensure when order is PUT, 30min delay has not elapsed
+    if(!this.ensureEnoughTime(this.selectedTime)){
+      this.selectedTime = '';
+      this.timeElapsedError = true;
+      return;
+    }
+
     this.processing = true;
     this.orderService.orderMode = this.pickupForm.get('pickup-selection').value;
     let vehicle: Vehicle = {};
@@ -238,13 +248,21 @@ export class CheckoutReviewPage {
       this.wpService.logError('Put Order Error: ' + JSON.stringify(error)).subscribe(() => {});
     });
   }
-
+  public ensureEnoughTime(time){
+    // Is selected time still later than
+    let validPickupTime = moment().add(25, 'minutes').format();
+    let isValid = moment(validPickupTime).isBefore(time);
+    return isValid;
+  }
 
   private retrievePickupTimes() {
     this.orderService.retrieveTimes('1').subscribe(times => {
-
       // 0 position in array indicates current day
-      this.times = JSON.parse(times._body)[0].Value;
+      let todaysTimes = JSON.parse(times._body)[0].Value;
+      // Filter out times that are shorter than 30min from current time
+      this.times = _.filter(todaysTimes, (time) => {
+        if(this.ensureEnoughTime(time.Time)) return time;
+      });
     })
   }
 
