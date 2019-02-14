@@ -220,7 +220,7 @@ export class CheckoutReviewPage {
         FirstName: this.guestCheckoutForm.controls['guest-first-name'].value,
         LastName: this.guestCheckoutForm.controls['guest-last-name'].value,
         EMail: this.guestCheckoutForm.controls['guest-email'].value,
-        Phone: this.guestCheckoutForm.controls['guest-phone'].value.replace(/[^A-Z0-9]/ig, ""),
+        VoicePhone: this.guestCheckoutForm.controls['guest-phone'].value.replace(/[^A-Z0-9]/ig, ""),
         IsGuest: true
       }
       this.orderService.customerInfo = customer;
@@ -232,7 +232,7 @@ export class CheckoutReviewPage {
     let loader = this.loadingController.create({
       content: "Processing Order"
     });
-    // loader.present()
+    loader.present()
 
     this.orderService.putOrder(this.bagItems).subscribe(response => {
       let jsonResponse = response.json()
