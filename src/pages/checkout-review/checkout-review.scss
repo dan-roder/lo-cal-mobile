@@ -8,7 +8,9 @@ page-checkout-review {
       padding: 0 !important;
     }
     .required-message {
-      color: red;
+      color: #ff3b30;
+      padding-left: 15px;
+      text-align: left;
     }
     .inner-step-wrapper {
       padding-top: 25px;
@@ -64,6 +66,21 @@ page-checkout-review {
     .guest-checkout-form {
       width: 90%;
       margin: 0 auto;
+      .label-md {
+        font-weight: 700;
+        font-size: 13.5px;
+        margin-top: 5px;
+      }
+      ion-icon {
+        position: absolute;
+    bottom: 0;
+    right: 0;
+      }
+    }
+    .form-control-feedback {
+      margin: 5px 0;
+      color: #ff3b30;
+      font-size: 13px;
     }
     .location-message {
       text-align: left;
@@ -140,6 +157,12 @@ page-checkout-review {
       letter-spacing: 0.8px;
       color: rgba(30, 30, 30, 0.99);
       padding-left: 15px;
+      margin: 0;
+      border-bottom: 1px solid #e1e1e1;
+      p {
+        margin: 0;
+        padding: 19px 0 22px;
+      }
     }
     .pickup-time-form {
       position: relative;
@@ -152,6 +175,9 @@ page-checkout-review {
         letter-spacing: 0.8px;
         color: rgba(30, 30, 30, 0.99) !important;
         padding-left: 15px;
+      }
+      ion-item {
+        min-height: 54px;
       }
       ion-select {
         font-size: 14px;
@@ -168,7 +194,7 @@ page-checkout-review {
         z-index: 1;
         width: auto;
         height: 12px;
-        bottom: 18px;
+        bottom: 22px;
       }
     }
 }
