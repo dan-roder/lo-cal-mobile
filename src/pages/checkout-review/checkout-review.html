@@ -44,9 +44,6 @@
       </ion-row>
     </ion-list>
   </form>
-  <div class="required-message review-errors" *ngIf="submitAttempted && !pickupForm.valid">
-    <p>Please select a pickup method.</p>
-  </div>
   <div class="required-message review-errors" *ngIf="timeElapsedError">
     <p>This pickup time is no longer valid. Please select a new time that is more than 25 minutes from now.</p>
   </div>
@@ -67,6 +64,9 @@
               Pickup</span>
           </label>
         </div>
+      </div>
+      <div class="required-message review-errors" *ngIf="submitAttempted && !pickupForm.valid">
+        <p>Please select a pickup method.</p>
       </div>
       <p class="location-message" *ngIf="pickupForm.controls['pickup-selection'].value === '1'">See you in the store!</p>
       <p class="location-message" *ngIf="pickupForm.controls['pickup-selection'].value === '4'">See you at the
