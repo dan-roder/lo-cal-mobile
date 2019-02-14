@@ -87,6 +87,7 @@ export class CheckoutPaymentPage {
     ngOnInit() {
         // Get current customer info. Patch contact form
         this.customerService.getUserData().then(customer => {
+          console.log('here', customer)
           this.currentCustomer = customer;
           this.patchContactForm(customer);
 
@@ -327,7 +328,8 @@ export class CheckoutPaymentPage {
         this.contactInfoForm.patchValue({
           'first-name' : customer.FirstName,
           'last-name' : customer.LastName,
-          'email' : customer.EMail
+          'email' : customer.EMail,
+          'phone': customer.VoicePhone
         })
       }
 
