@@ -66,6 +66,9 @@ page-checkout-review {
     .guest-checkout-form {
       width: 90%;
       margin: 0 auto;
+      .item-md.item-block .item-inner {
+        border-color: #e1e1e1;
+      }
       .label-md {
         font-weight: 700;
         font-size: 13.5px;
@@ -73,8 +76,8 @@ page-checkout-review {
       }
       ion-icon {
         position: absolute;
-    bottom: 0;
-    right: 0;
+        bottom: 0;
+        right: 0;
       }
     }
     .form-control-feedback {
@@ -93,9 +96,18 @@ page-checkout-review {
     .car-options {
       width: 90%;
       margin: 0 auto;
+      input {
+        &::placeholder {
+          font-weight: 700;
+          font-size: 13.5px;
+          margin-top: 5px;
+          color: #999;
+        }
+      }
     }
     .form-component-text {
       text-align: left;
+      border-color: #e1e1e1;
     }
     .location-details {
         p {
@@ -161,7 +173,7 @@ page-checkout-review {
       border-bottom: 1px solid #e1e1e1;
       p {
         margin: 0;
-        padding: 19px 0 22px;
+        padding: 22px 0 22px;
       }
     }
     .pickup-time-form {
@@ -177,7 +189,7 @@ page-checkout-review {
         padding-left: 15px;
       }
       ion-item {
-        min-height: 54px;
+        min-height: 56px;
       }
       ion-select {
         font-size: 14px;
