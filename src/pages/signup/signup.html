@@ -27,7 +27,7 @@
     <div *ngIf="processing" class="loading-gif"></div>
   </div>
 
-  <form *ngIf="!processing" [formGroup]="signupForm" (ngSubmit)="save( signupForm )" novalidate>
+  <form *ngIf="!processing" [formGroup]="signupForm" (submit)="createNewAccount( signupForm )" novalidate>
     <ion-list>
       <div formGroupName="custInfo" *ngIf="!custInfoComp">
         <h4>
