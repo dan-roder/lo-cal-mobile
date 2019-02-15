@@ -62,6 +62,7 @@
       <div class="step-wrapper" [hidden]="sectionOpen !== 2">
         <form action="" [formGroup]="paymentForm">
           <ion-row radio-group>
+          <div class="option">
             <ion-item>
               <label for="cc">
                 <input type="radio" name="payment-choice" id="cc" value="1" formControlName="payment-choice" />
@@ -69,6 +70,8 @@
                   Pay now with a credit card</span>
               </label>
             </ion-item>
+            </div>
+            <div class="option">
             <ion-item>
               <label for="saved-cc">
                 <input type="radio" name="payment-choice" id="saved-cc" value="3" formControlName="payment-choice" />
@@ -76,6 +79,7 @@
                   Pay with saved card</span>
               </label>
             </ion-item>
+            </div>
           </ion-row>
           <div class="new-card-section" *ngIf="paymentForm.controls['payment-choice'].value === '1'">
             <div class="form-section half-and-half">
