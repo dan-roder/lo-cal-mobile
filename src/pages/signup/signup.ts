@@ -148,7 +148,9 @@ export class SignupPage implements OnInit {
   public createNewAccount( customer ) {
     let loading = this.loading.create({content: "Creating New Account"});
     loading.present();
-    console.log(customer);
+
+    let phoneNum = this.phone.value.replace(/[^A-Z0-9]/ig, "");
+    let phoneNumFinal = phoneNum.substring(0,10);
 
     let customerObj = {
       "Customer": {
@@ -156,7 +158,7 @@ export class SignupPage implements OnInit {
         "EMail": this.email.value,
         "FirstName": this.firstName.value,
         "LastName": this.lastName.value,
-        "VoicePhone": this.phone.value.replace(/[^A-Z0-9]/ig, ""),
+        "VoicePhone": phoneNumFinal,
         "FavoriteSiteIds": [1],
         "Addresses": [{
           AddressLine1: this.line1.value,
@@ -170,9 +172,6 @@ export class SignupPage implements OnInit {
       "SecurityQuestion": this.question.value,
       "SecurityAnswer": this.answer.value
     };
-
-    console.log(customerObj);
-    return;
 
     this.customer.create( customerObj ).subscribe( (res) => {
       loading.dismiss();
