@@ -1,165 +1,177 @@
 <ion-header no-border>
-    <ion-navbar>
-        <button ion-button menuToggle>
-            <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
-        </button>
-        <ion-title>Payment</ion-title>
-    </ion-navbar>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
+    </button>
+    <ion-title>Payment</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content>
-    <ion-title>
-        <h1>Complete Your Order</h1>
-    </ion-title>
+  <ion-title>
+    <h1>Complete Your Order</h1>
+  </ion-title>
 
 
-    <ion-card>
-        <ion-card-content>
-            <ion-item (tap)="editSection(1, $event.type)">
-                <h1>1. Contact Information</h1>
+  <ion-card>
+    <ion-card-content>
+      <ion-item (tap)="editSection(1, $event.type)">
+        <h1>1. Contact Information</h1>
+      </ion-item>
+      <div class="step-wrapper" [hidden]="sectionOpen !== 1">
+        <form action="" [formGroup]="contactInfoForm">
+          <ion-row>
+            <ion-item>
+              <ion-label for="first-name" floating>First Name*</ion-label>
+              <ion-input type="text" id="first-name" name="first-name" formControlName="first-name" readonly></ion-input>
             </ion-item>
-            <div class="step-wrapper" [hidden]="sectionOpen !== 1">
-                <form action="" [formGroup]="contactInfoForm">
-                    <ion-row>
-                        <ion-item>
-                            <ion-label for="first-name" floating>First Name*</ion-label>
-                            <ion-input type="text" id="first-name" name="first-name" formControlName="first-name" readonly></ion-input>
-                        </ion-item>
-                        <div class="form-control-feedback" *ngIf="!contactInfoForm.controls['first-name'].valid && contactInfoForm.controls['first-name'].dirty">
-                            This field is required.</div>
-                        <ion-item>
-                            <ion-label for="last-name" floating>Last Name*</ion-label>
-                            <ion-input type="text" id="last-name" name="last-name" formControlName="last-name" readonly></ion-input>
-                        </ion-item>
-                        <div class="form-control-feedback" *ngIf="!contactInfoForm.controls['last-name'].valid && contactInfoForm.controls['last-name'].dirty">
-                            This field is required.</div>
-                        <ion-item>
-                            <ion-label for="email" floating>Email*</ion-label>
-                            <ion-input type="text" id="email" name="email" formControlName="email" readonly></ion-input>
-                        </ion-item>
-                        <div class="form-control-feedback" *ngIf="!contactInfoForm.controls['email'].valid && contactInfoForm.controls['email'].dirty">
-                            Please enter valid email address.</div>
-                        <ion-item>
-                            <ion-label for="phone" floating>Phone</ion-label>
-                            <ion-input type="text" phone id="phone" name="phone" formControlName="phone" readonly></ion-input>
-                        </ion-item>
-                        <!-- <div class="form-control-feedback" *ngIf="!contactInfoForm.controls['phone'].valid && contactInfoForm.controls['phone'].dirty">
+            <div class="form-control-feedback" *ngIf="!contactInfoForm.controls['first-name'].valid && contactInfoForm.controls['first-name'].dirty">
+              This field is required.</div>
+            <ion-item>
+              <ion-label for="last-name" floating>Last Name*</ion-label>
+              <ion-input type="text" id="last-name" name="last-name" formControlName="last-name" readonly></ion-input>
+            </ion-item>
+            <div class="form-control-feedback" *ngIf="!contactInfoForm.controls['last-name'].valid && contactInfoForm.controls['last-name'].dirty">
+              This field is required.</div>
+            <ion-item>
+              <ion-label for="email" floating>Email*</ion-label>
+              <ion-input type="text" id="email" name="email" formControlName="email" readonly></ion-input>
+            </ion-item>
+            <div class="form-control-feedback" *ngIf="!contactInfoForm.controls['email'].valid && contactInfoForm.controls['email'].dirty">
+              Please enter valid email address.</div>
+            <ion-item>
+              <ion-label for="phone" floating>Phone</ion-label>
+              <ion-input type="text" phone id="phone" name="phone" formControlName="phone" readonly></ion-input>
+            </ion-item>
+            <!-- <div class="form-control-feedback" *ngIf="!contactInfoForm.controls['phone'].valid && contactInfoForm.controls['phone'].dirty">
                                 Please enter a valid telephone number.</div> -->
-                    </ion-row>
-                    <ion-item>
-                        <button [disabled]="!contactInfoForm.valid" (tap)="nextStep()" ion-button color="black">Next Step</button>
-                    </ion-item>
-                </form>
-            </div>
-        </ion-card-content>
-    </ion-card>
+          </ion-row>
+          <ion-item>
+            <button [disabled]="!contactInfoForm.valid" (tap)="nextStep()" ion-button color="black">Next Step</button>
+          </ion-item>
+        </form>
+      </div>
+    </ion-card-content>
+  </ion-card>
 
-    <ion-card>
-        <ion-card-content>
-            <ion-item (tap)="editSection(2, $event.type)">
-                <h1>2. Payment Information</h1>
+  <ion-card>
+    <ion-card-content>
+      <ion-item (tap)="editSection(2, $event.type)">
+        <h1>2. Payment Information</h1>
+      </ion-item>
+      <div class="step-wrapper" [hidden]="sectionOpen !== 2">
+        <form action="" [formGroup]="paymentForm">
+          <ion-row radio-group>
+            <ion-item>
+              <label for="cc">
+                <input type="radio" name="payment-choice" id="cc" value="1" formControlName="payment-choice" />
+                <span class="default">
+                  Pay now with a credit card</span>
+              </label>
             </ion-item>
-            <div class="step-wrapper" [hidden]="sectionOpen !== 2">
-                <form action="" [formGroup]="paymentForm">
-                    <ion-row radio-group formControlName="payment-choice" [(ngModel)]="paymentChoice">
-                        <ion-item>
-                            <ion-label for="cc">Pay now with a credit card</ion-label>
-                            <ion-radio name="cc" id="cc" value="1"></ion-radio>
-                        </ion-item>
-                        <ion-item>
-                            <ion-label for="saved-cc">Pay with saved card</ion-label>
-                            <ion-radio name="saved-cc" id="saved-cc" value="3"></ion-radio>
-                        </ion-item>
-                    </ion-row>
-
-                    <div class="new-card-section" *ngIf="paymentForm.controls['payment-choice'].value === '1'">
-                            <div class="form-section half-and-half">
-                              <div class="form-component form-component-text">
-                                <label for="card-number" class="visuallyhidden">Credit Card Number</label>
-                                <input id="card-number" type="tel" autocomplete="cc-number" formControlName="card-number" placeholder="Credit Card Number*" [ngClass]="{'has-error':!paymentForm.controls['card-number'].valid && submittedOnce}" ccNumber #ccNumber (ngModelChange)="detectCardType(ccNumber.value)" [(ngModel)]="cardNumber">
-                                <div class="card-sprite-wrapper">
-                                  <div class="card visa" title="Visa"></div>
-                                  <div class="card mastercard" title="MasterCard"></div>
-                                  <div class="card american-express" title="American Express"></div>
-                                  <div class="card discover" title="Discover"></div>
-                                  <div class="card diners-club" title="Diners Club"></div>
-                                </div>
-                                <div class="error-message" *ngIf="!paymentForm.controls['card-number'].valid && submittedOnce">This field is required.</div>
-                              </div>
-                              <div class="form-component form-component-text">
-                                <label for="last-name" class="visuallyhidden">Expiration Date</label>
-                                <input id="cc-exp-date" name="expiration-date" id="expiration-date" formControlName="expiration-date" placeholder="Expiration Date (mm/yyyy)*" [ngClass]="{'has-error':!paymentForm.controls['expiration-date'].valid && submittedOnce}" type="tel" autocomplete="cc-exp" ccExp>
-                                <div class="error-message" *ngIf="!paymentForm.controls['expiration-date'].valid && submittedOnce">This field is required.</div>
-                              </div>
-                            </div>
-                            <div class="form-section half-and-half">
-                              <div class="form-component form-component-email">
-                                <label for="email" class="visuallyhidden">CVV</label>
-                                <input type="text" name="cvv" id="cvv" formControlName="cvv" placeholder="CVV*" [ngClass]="{'has-error':!paymentForm.controls['cvv'].valid && submittedOnce}">
-                                <div class="error-message" *ngIf="!paymentForm.controls['cvv'].valid && submittedOnce">This field is required.</div>
-                              </div>
-                              <div class="form-component form-component-text radio-options" *ngIf="currentCustomer?.CustomerId">
-                                <div class="option">
-                                  <label for="save-payment">
-                                    <input type="checkbox" name="save-payment" id="save-payment" value="save" formControlName="save-payment">
-                                    <span class="semi-bold">Save payment for future use?</span>
-                                  </label>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="next-step black-button step-4-button">
-                            <button [disabled]="(!paymentForm.valid && paymentChoice !== '3')"(click)="nextStep()">Next Step</button>
-                          </div>
-                </form>
+            <ion-item>
+              <label for="saved-cc">
+                <input type="radio" name="payment-choice" id="saved-cc" value="3" formControlName="payment-choice" />
+                <span class="default">
+                  Pay with saved card</span>
+              </label>
+            </ion-item>
+          </ion-row>
+          <div class="new-card-section" *ngIf="paymentForm.controls['payment-choice'].value === '1'">
+            <div class="form-section half-and-half">
+              <div class="form-component form-component-text">
+                <label for="card-number" class="visuallyhidden">Credit Card Number</label>
+                <input id="card-number" type="tel" autocomplete="cc-number" formControlName="card-number" placeholder="Credit Card Number*"
+                  [ngClass]="{'has-error':!paymentForm.controls['card-number'].valid && submittedOnce}" ccNumber
+                  #ccNumber (ngModelChange)="detectCardType(ccNumber.value)" [(ngModel)]="cardNumber">
+                <div class="card-sprite-wrapper">
+                  <div class="card visa" title="Visa"></div>
+                  <div class="card mastercard" title="MasterCard"></div>
+                  <div class="card american-express" title="American Express"></div>
+                  <div class="card discover" title="Discover"></div>
+                  <div class="card diners-club" title="Diners Club"></div>
+                </div>
+                <div class="error-message" *ngIf="!paymentForm.controls['card-number'].valid && submittedOnce">This
+                  field is required.</div>
+              </div>
+              <div class="form-component form-component-text">
+                <label for="last-name" class="visuallyhidden">Expiration Date</label>
+                <input id="cc-exp-date" name="expiration-date" id="expiration-date" formControlName="expiration-date"
+                  placeholder="Expiration Date (mm/yyyy)*" [ngClass]="{'has-error':!paymentForm.controls['expiration-date'].valid && submittedOnce}"
+                  type="tel" autocomplete="cc-exp" ccExp>
+                <div class="error-message" *ngIf="!paymentForm.controls['expiration-date'].valid && submittedOnce">This
+                  field is required.</div>
+              </div>
             </div>
-        </ion-card-content>
-    </ion-card>
-
-
-    <div class="order-summary">
-            <div class="itemized-summary">
-              <h4>Order Summary</h4>
-              <div class="item flex-between" *ngFor="let menuItem of orderForDisplay">
-                <div class="item-specifics">
-                  <div class="title semi-bold"><span class="quantity">{{ menuItem?.quantity }} x</span> <span class="item-name">{{ menuItem?.name }}</span></div>
-                  <div class="additions" *ngIf="menuItem?.modifiers">
-                    <span class="modifier" *ngFor="let mod of menuItem?.modifiers; let last = last;">{{ mod?.name }}<span class="separator" *ngIf="!last">,</span></span>
-                  </div>
-                </div>
-                <div class="item-price">
-                  <span class="price">{{ menuItem?.fullPrice | currency }}</span>
+            <div class="form-section half-and-half">
+              <div class="form-component form-component-email">
+                <label for="email" class="visuallyhidden">CVV</label>
+                <input type="text" name="cvv" id="cvv" formControlName="cvv" placeholder="CVV*" [ngClass]="{'has-error':!paymentForm.controls['cvv'].valid && submittedOnce}">
+                <div class="error-message" *ngIf="!paymentForm.controls['cvv'].valid && submittedOnce">This field is
+                  required.</div>
+              </div>
+              <div class="form-component form-component-text radio-options" *ngIf="currentCustomer?.CustomerId">
+                <div class="option">
+                  <label for="save-payment">
+                    <input type="checkbox" name="save-payment" id="save-payment" value="save" formControlName="save-payment">
+                    <span class="semi-bold">Save payment for future use?</span>
+                  </label>
                 </div>
               </div>
-            </div><!-- /.itemized-summary -->
-            <div class="pricing-and-location">
-              <div class="pricing-details">
-                <div class="flex-between subtotal">
-                  <span class="label">Subtotal</span>
-                  <span class="value">{{ currentOrder?.SubTotalAmount | currency }}</span>
-                </div>
-                <div class="flex-between">
-                  <span class="label">Tax</span>
-                  <span class="value">{{ currentOrder?.TaxAmount | currency }}</span>
-                </div>
-                <div class="flex-between total">
-                  <span class="label semi-bold">Total</span>
-                  <span class="value semi-bold">{{ currentOrder?.TotalAmount | currency }}</span>
-                </div>
+            </div>
+          </div>
+          <div class="next-step black-button step-4-button">
+            <button [disabled]="(!paymentForm.valid && paymentChoice !== '3')" (click)="nextStep()">Next Step</button>
+          </div>
+        </form>
+      </div>
+    </ion-card-content>
+  </ion-card>
 
-                <div class="red-button full-width-button small-text" [ngClass]="processing ? 'loading' : ''">
-                  <div class="loading-gif button-size" *ngIf="processing"></div>
-                  <p>{{ orderResultForTesting }}</p>
-                  <button [disabled]="((!paymentForm.valid && (paymentChoice !== '3')) || !contactInfoForm.valid) && !processing" *ngIf="!processing" (click)="submitOrder()">Place Order Now</button>
-                </div>
-              </div>
-              <div class="location-details" [innerHtml]="addressData?.content?.rendered | safeHtml">
-            </div><!-- /.pricing-and-location -->
 
-          </div><!-- /.order-summary -->
+  <div class="order-summary">
+    <div class="itemized-summary">
+      <h4>Order Summary</h4>
+      <div class="item flex-between" *ngFor="let menuItem of orderForDisplay">
+        <div class="item-specifics">
+          <div class="title semi-bold"><span class="quantity">{{ menuItem?.quantity }} x</span> <span class="item-name">{{
+              menuItem?.name }}</span></div>
+          <div class="additions" *ngIf="menuItem?.modifiers">
+            <span class="modifier" *ngFor="let mod of menuItem?.modifiers; let last = last;">{{ mod?.name }}<span class="separator"
+                *ngIf="!last">,</span></span>
+          </div>
+        </div>
+        <div class="item-price">
+          <span class="price">{{ menuItem?.fullPrice | currency }}</span>
+        </div>
+      </div>
+    </div><!-- /.itemized-summary -->
+    <div class="pricing-and-location">
+      <div class="pricing-details">
+        <div class="flex-between subtotal">
+          <span class="label">Subtotal</span>
+          <span class="value">{{ currentOrder?.SubTotalAmount | currency }}</span>
+        </div>
+        <div class="flex-between">
+          <span class="label">Tax</span>
+          <span class="value">{{ currentOrder?.TaxAmount | currency }}</span>
+        </div>
+        <div class="flex-between total">
+          <span class="label semi-bold">Total</span>
+          <span class="value semi-bold">{{ currentOrder?.TotalAmount | currency }}</span>
         </div>
 
+        <div class="red-button full-width-button small-text" [ngClass]="processing ? 'loading' : ''">
+          <div class="loading-gif button-size" *ngIf="processing"></div>
+          <p>{{ orderResultForTesting }}</p>
+          <button [disabled]="((!paymentForm.valid && (paymentChoice !== '3')) || !contactInfoForm.valid) && !processing"
+            *ngIf="!processing" (click)="submitOrder()">Place Order Now</button>
+        </div>
+      </div>
+      <div class="location-details" [innerHtml]="addressData?.content?.rendered | safeHtml">
+      </div><!-- /.pricing-and-location -->
+
+    </div><!-- /.order-summary -->
+  </div>
+
 </ion-content>
-
-
-
