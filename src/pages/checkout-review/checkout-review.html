@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content padding>
+  <div *ngIf="itemsInBag.length">
   <h4>Confirm Pickup info</h4>
   <div class="location-details" [innerHtml]="addressData?.content?.rendered | safeHtml"></div>
   <form class="guest-checkout-form" [formGroup]="guestCheckoutForm" *ngIf="!loggedInStatus">
@@ -117,7 +118,8 @@
     <button ion-button block color="red" (click)="putOrder()" [ngClass]="{ 'disabled': !timeForm.valid || !selectedTime || (!loggedInStatus && !guestCheckoutForm.valid) || !pickupForm.valid }">Proceed
       to Checkout</button>
   </div>
-  <p *ngIf="!itemsInBag.length">There is currently nothing in your bag. Please return to
+  </div>
+  <p class="empty-bag-message" *ngIf="!itemsInBag.length">There is currently nothing in your bag. Please return to
     <a href="#" (tap)="backToMenu()">our menu.</a>
   </p>
 </ion-content>

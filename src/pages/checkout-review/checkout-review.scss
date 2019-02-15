@@ -4,6 +4,15 @@ page-checkout-review {
             background: #ffffff;
         }
     }
+    .empty-bag-message {
+      padding-right: 10px;
+      padding-left: 10px;
+      top: 40%;
+      transform: translateY(-40%);
+      position: absolute;
+      text-align: center;
+      font-size: 22px;
+    }
     .scroll-content {
       padding: 0 !important;
     }
