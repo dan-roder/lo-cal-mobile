@@ -4,6 +4,26 @@ page-checkout-payment {
             background: map-get($colors, light);
         }
     }
+    ion-title {
+      h1 {
+        padding-left: 18px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        font-weight: 700 !important;
+      }
+    }
+    .item-md .item-button {
+      padding-left: 15px !important;
+      padding-right: 15px !important;
+    }
+    ion-item {
+      h1 {
+        font-weight: 700 !important;
+      }
+    }
+    .scroll-content {
+      padding-bottom: 50px;
+    }
     .card-md {
       margin: 15px;
       width: calc(100% - 30px);
