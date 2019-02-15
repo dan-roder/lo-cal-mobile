@@ -24,6 +24,7 @@ export class LoginPage {
   public error:     any;
   public page: any;
   currentCustomer: String;
+  public isFromBagPage: boolean;
 
   constructor(
       public navCtrl: NavController,
@@ -47,7 +48,7 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-   
+    this.isFromBagPage = this.navParams.get('fromBagPage');
   }
 
   // must be present with auto-unsubscribe even if empty
@@ -79,7 +80,11 @@ export class LoginPage {
 
           this.storage.set('user', customerInfoJson).then(() => {
             this.events.publish('loggedin');
-            this.navCtrl.setRoot('TabsComponent');
+            if(this.isFromBagPage) {
+              this.navCtrl.setRoot('CheckoutReviewPage');
+            } else {
+              this.navCtrl.setRoot('TabsComponent');
+            }
           });
         });
       }, error => {
