@@ -4,7 +4,6 @@ import { BagProvider } from "../../providers/bag/bag";
 import { LineItem } from "../../models/LineItem";
 import { Storage } from "@ionic/storage";
 import { CustomerProvider } from '../../providers/customer/customer';
-
 @IonicPage()
 @Component({
   selector: "page-bag",
@@ -12,7 +11,7 @@ import { CustomerProvider } from '../../providers/customer/customer';
 })
 export class BagPage {
 
-  public itemsInBag: Array<LineItem>;
+  public itemsInBag: Array < LineItem > ;
   public subtotal: number;
   public tax: number;
   public total: number;
@@ -50,49 +49,48 @@ export class BagPage {
     return total;
   }
 
-    removeItem(item, index) {
-      let alert = this.alertCtrl.create({
-        title: "Confirm",
-        message: "Are you sure you want to remove this item from your bag?",
-        buttons: [
-          {
-            text: "No.",
-            role: "cancel",
-            cssClass: "button-cancel",
-            handler: () => {}
-          },
-          {
-            text: "Yes.",
-            cssClass: "button-accept",
-            handler: () => {
-              // console.log("Removed clicked");
-              this.bag.removeFromBagAtIndex(index);
-              this.subtotal = this.calculateSubtotal(this.itemsInBag);
-              this.tax = 0.0;
-              this.total = this.subtotal + this.tax;
-            }
+  removeItem(item, index) {
+    let alert = this.alertCtrl.create({
+      title: "Confirm",
+      message: "Are you sure you want to remove this item from your bag?",
+      buttons: [{
+          text: "No.",
+          role: "cancel",
+          cssClass: "button-cancel",
+          handler: () => {}
+        },
+        {
+          text: "Yes.",
+          cssClass: "button-accept",
+          handler: () => {
+            // console.log("Removed clicked");
+            this.bag.removeFromBagAtIndex(index);
+            this.subtotal = this.calculateSubtotal(this.itemsInBag);
+            this.tax = 0.0;
+            this.total = this.subtotal + this.tax;
           }
-        ]
-      });
-      alert.present();
-    }
-
-    // goToItem(item, index) {
-    //     console.log("edit item", item);
-
-    //     this.bag.removeFromBagAtIndex(index);
-    //     this.navCtrl.push("MenuItemPage", { menuItem: item });
-    // }
-
-    checkout(isGuest) {
-
-        if(isGuest) {
-          this.navCtrl.push("CheckoutReviewPage", { guest: true });
-        } else {
-          this.navCtrl.push("CheckoutReviewPage");
         }
+      ]
+    });
+    alert.present();
+  }
+
+  // goToItem(item, index) {
+  //     console.log("edit item", item);
+
+  //     this.bag.removeFromBagAtIndex(index);
+  //     this.navCtrl.push("MenuItemPage", { menuItem: item });
+  // }
+
+  checkout(isGuest) {
+
+    if (isGuest) {
+      this.navCtrl.push("CheckoutReviewPage", { guest: true });
+    } else {
+      this.navCtrl.push("CheckoutReviewPage");
     }
-    get loggedInStatus(): boolean{
-      return this.customerService.isLoggedIn;
-    }
+  }
+  get loggedInStatus(): boolean {
+    return this.customerService.isLoggedIn;
+  }
 }
