@@ -90,7 +90,7 @@
             <ion-grid no-padding *ngIf="!loggedInStatus">
                 <ion-row>
                     <ion-col class="bottom-links-col">
-                        <a href="#" class="bottom-link" [navPush]="'LoginPage'">log in</a>
+                        <a href="#" class="bottom-link" (click)="goToLoginPage()">log in</a>
                     </ion-col>
                     <ion-col class="bottom-links-col">
                         <a href="#" class="bottom-link" [navPush]="'SignupPage'">sign up</a>

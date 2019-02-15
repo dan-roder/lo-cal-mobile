@@ -81,7 +81,9 @@ export class BagPage {
   //     this.bag.removeFromBagAtIndex(index);
   //     this.navCtrl.push("MenuItemPage", { menuItem: item });
   // }
-
+  goToLoginPage() {
+    this.navCtrl.push("LoginPage", { fromBagPage: true });
+  }
   checkout(isGuest) {
 
     if (isGuest) {
