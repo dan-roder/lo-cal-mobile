@@ -12,6 +12,49 @@ page-checkout-payment {
         font-weight: 700 !important;
       }
     }
+    .item-md {
+      padding-left: 0 !important;
+    }
+    .option {
+      &:first-child {
+        margin-bottom: 10px;
+      }
+
+      span {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+
+        &:before {
+          content: '';
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+          vertical-align: -0.25em;
+          border-radius: 50%;
+          border: 1px solid #000;
+          margin-right: 0.75em;
+          transition: all 300ms ease-in-out;
+        }
+      }
+
+      input {
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+
+        &:checked {
+          +span:before {
+            background: none, url('/assets/images/checkmark.svg') no-repeat;
+          }
+        }
+      }
+    }
     .item-md .item-button {
       padding-left: 15px !important;
       padding-right: 15px !important;
