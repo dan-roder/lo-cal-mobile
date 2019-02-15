@@ -11,7 +11,7 @@
     <ion-title>
         <h1>Complete Your Order</h1>
     </ion-title>
-   
+
 
     <ion-card>
         <ion-card-content>
@@ -23,25 +23,25 @@
                     <ion-row>
                         <ion-item>
                             <ion-label for="first-name" floating>First Name*</ion-label>
-                            <ion-input type="text" id="first-name" name="first-name" formControlName="first-name"></ion-input>
+                            <ion-input type="text" id="first-name" name="first-name" formControlName="first-name" readonly></ion-input>
                         </ion-item>
                         <div class="form-control-feedback" *ngIf="!contactInfoForm.controls['first-name'].valid && contactInfoForm.controls['first-name'].dirty">
                             This field is required.</div>
                         <ion-item>
                             <ion-label for="last-name" floating>Last Name*</ion-label>
-                            <ion-input type="text" id="last-name" name="last-name" formControlName="last-name"></ion-input>
+                            <ion-input type="text" id="last-name" name="last-name" formControlName="last-name" readonly></ion-input>
                         </ion-item>
                         <div class="form-control-feedback" *ngIf="!contactInfoForm.controls['last-name'].valid && contactInfoForm.controls['last-name'].dirty">
                             This field is required.</div>
                         <ion-item>
                             <ion-label for="email" floating>Email*</ion-label>
-                            <ion-input type="text" id="email" name="email" formControlName="email"></ion-input>
+                            <ion-input type="text" id="email" name="email" formControlName="email" readonly></ion-input>
                         </ion-item>
                         <div class="form-control-feedback" *ngIf="!contactInfoForm.controls['email'].valid && contactInfoForm.controls['email'].dirty">
                             Please enter valid email address.</div>
                         <ion-item>
                             <ion-label for="phone" floating>Phone</ion-label>
-                            <ion-input type="text" phone id="phone" name="phone" formControlName="phone"></ion-input>
+                            <ion-input type="text" phone id="phone" name="phone" formControlName="phone" readonly></ion-input>
                         </ion-item>
                         <!-- <div class="form-control-feedback" *ngIf="!contactInfoForm.controls['phone'].valid && contactInfoForm.controls['phone'].dirty">
                                 Please enter a valid telephone number.</div> -->
@@ -146,7 +146,7 @@
                   <span class="label semi-bold">Total</span>
                   <span class="value semi-bold">{{ currentOrder?.TotalAmount | currency }}</span>
                 </div>
-    
+
                 <div class="red-button full-width-button small-text" [ngClass]="processing ? 'loading' : ''">
                   <div class="loading-gif button-size" *ngIf="processing"></div>
                   <p>{{ orderResultForTesting }}</p>
@@ -155,10 +155,10 @@
               </div>
               <div class="location-details" [innerHtml]="addressData?.content?.rendered | safeHtml">
             </div><!-- /.pricing-and-location -->
-    
+
           </div><!-- /.order-summary -->
         </div>
-        
+
 </ion-content>
 
 
