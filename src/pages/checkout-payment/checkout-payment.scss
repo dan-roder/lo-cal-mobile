@@ -4,4 +4,60 @@ page-checkout-payment {
             background: map-get($colors, light);
         }
     }
+    .card-md {
+      margin: 15px;
+      width: calc(100% - 30px);
+    }
+    .location-details {
+      a {
+        color: #ff0f1b;
+      }
+      p {
+        margin: 0;
+        padding-left: 15px;
+        &:nth-child(4) {
+          padding-left: 0;
+        }
+        &:nth-child(3) {
+          font-size: 13px;
+          line-height: 1.62;
+          letter-spacing: 0.6px;
+          color: rgba(30, 30, 30, 0.99);
+          padding-bottom: 15px;
+        }
+      }
+      .promotion-text {
+        font-size: 19px;
+        font-weight: 700;
+        letter-spacing: 1.1px;
+        color: rgba(30, 30, 30, 0.99);
+        padding-bottom: 12px;
+      }
+      div div {
+        padding-left: 15px;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.7px;
+        color: rgba(30, 30, 30, 0.99);
+        padding-top: 12px;
+        a {
+          font-weight: 700;
+          letter-spacing: 0.7px;
+          color: #ff0f1b;
+          text-decoration: none;
+        }
+      }
+      img {
+        margin: 0;
+        width: 100%;
+      }
+      strong {
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.7px;
+        text-transform: capitalize;
+        padding-bottom: 5px;
+        display: inline-block;
+      }
+  }
 }
