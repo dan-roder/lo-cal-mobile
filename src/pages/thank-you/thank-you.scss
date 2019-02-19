@@ -125,4 +125,29 @@ page-thank-you {
       }
     }
   }
+  .curbside-pickup {
+    padding: 15px 15px 0;
+    .red-button {
+      background-color: #ff3b30;
+      display: inline-block;
+      padding: 10px 30px;
+      margin-top: 10px;
+      margin-bottom: 0;
+      border-radius: 3px;
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: .4px;
+    }
+    h3 {
+      font-weight: 600;
+    }
+    p {
+      font-size: 14px;
+    line-height: 1.38;
+    letter-spacing: 0.3px;
+    color: rgba(30, 30, 30, 0.99);
+    }
+  }
 }
