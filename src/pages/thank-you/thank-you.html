@@ -17,21 +17,19 @@
         <p>Your order number is</p>
         <h3>{{ orderResult?.OrderId }}</h3>
         <p>Your scheduled pickup time is</p>
-        <div><h3>{{ orderResult?.Order.PromiseDateTime | date:"h:mma" }} </h3><span>{{ orderResult?.Order.PromiseDateTime | date:"MMM d, yyyy" }}</span></div>
+        <div>
+          <h3>{{ orderResult?.Order.PromiseDateTime | date:"h:mma" }} </h3><span>{{ orderResult?.Order.PromiseDateTime
+            | date:"MMM d, yyyy" }}</span>
+        </div>
       </div>
     </div>
     <div class="order-details">
-
-
-
-        <div class="curbside-pickup" *ngIf="orderResult?.Order?.OrderMode === 4">
-          <h3 class="details-title">Curbside Pickup</h3>
-          <p>Click the button below to call the store and let us know you've arrived!</p>
-          <p class="red-button full-width-button">
-            <a href="tel:+1-516-625-3300" class="red-button">Call Us</a>
-          </p>
-        </div>
-        <!--<div class="payment-information" *ngIf="orderResult?.Order?.Payments[0]">
+      <div class="curbside-pickup" *ngIf="orderResult?.Order?.OrderMode === 4">
+        <h3 class="details-title">Curbside Pickup</h3>
+        <p>Click the button below to call the store and let us know you've arrived!</p>
+        <a href="tel:+1-516-625-3300" class="red-button">Call Us</a>
+      </div>
+      <!--<div class="payment-information" *ngIf="orderResult?.Order?.Payments[0]">
           <h3 class="details-title">Payment Information</h3>
           <div class="payment-details">
             <div class="card-sprite-wrapper">
@@ -42,12 +40,9 @@
             </div>
           </div>
         </div> -->
-
-
-
       <div class="confirmation-content" [innerHtml]="confirmationContent?.content?.rendered | safeHtml"></div>
       <div class="order-summary">
-      <div class="line-items" *ngIf="orderItemsForDisplay">
+        <div class="line-items" *ngIf="orderItemsForDisplay">
           <div class="line-item flex-between" *ngFor="let lineItem of orderItemsForDisplay">
             <div class="item-specifics">
               <h4 class="title"><span class="quantity">{{ lineItem?.quantity }} x</span> <span class="item-name">{{
@@ -77,9 +72,7 @@
             <span class="value semi-bold">{{ orderResult?.FinancialSummary?.Total | currency:'USD':'symbol' }}</span>
           </div>
         </div>
-        </div>
+      </div>
     </div>
-
   </ion-list>
-
 </ion-content>
