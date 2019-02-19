@@ -56,6 +56,13 @@ page-checkout-payment {
             background: none, url('/assets/images/checkmark.svg') no-repeat;
           }
         }
+
+      }
+    }
+    input{
+      width: 100%;
+      &::placeholder {
+        font-weight: 600
       }
     }
     .item-md .item-button {
@@ -136,7 +143,9 @@ page-checkout-payment {
     padding: 8px 4px;
     }
   }
-
+  .form-component-email {
+    margin-bottom: 20px;
+  }
   .order-summary {
     padding: 0 15px;
     font-weight: 700;
@@ -144,6 +153,7 @@ page-checkout-payment {
       font-size: 2.3rem;
       margin-top: 25px;
       margin-bottom: 20px;
+      font-weight: 700;
     }
     .item {
       margin: 0 0 12px;
@@ -160,7 +170,7 @@ page-checkout-payment {
       border-top: 1px dotted;
     }
     .pricing-details {
-      margin: 40px 0 50px;
+      margin: 35px 0 50px;
       .flex-between {
         padding: 7px 0;
       }
@@ -193,7 +203,8 @@ page-checkout-payment {
   }
 
   .card-sprite-wrapper{
-    padding-top: 3px;
+    padding-top: 7px;
+    padding-left: 8px;
     .card{
       background: url("../../assets/images/cc-sprite.png");
       display: inline-block;
