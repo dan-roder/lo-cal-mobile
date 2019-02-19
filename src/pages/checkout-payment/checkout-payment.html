@@ -60,7 +60,7 @@
         <h1>2. Payment Information</h1>
       </ion-item>
       <div class="step-wrapper" [hidden]="sectionOpen !== 2">
-        <form action="" [formGroup]="paymentForm">
+        <form action="" [formGroup]="paymentForm" class="lo-cal-form">
           <ion-row radio-group>
           <div class="option">
             <ion-item>
@@ -71,7 +71,7 @@
               </label>
             </ion-item>
             </div>
-            <div class="option">
+            <div class="option" *ngIf="savedPaymentMethods">
             <ion-item>
               <label for="saved-cc">
                 <input type="radio" name="payment-choice" id="saved-cc" value="3" formControlName="payment-choice" />
@@ -84,10 +84,10 @@
           <div class="new-card-section" *ngIf="paymentForm.controls['payment-choice'].value === '1'">
             <div class="form-section half-and-half">
               <div class="form-component form-component-text">
-              <div class="border">
+
                 <label for="card-number" class="visuallyhidden">Credit Card Number</label>
                 <input id="card-number" type="tel" autocomplete="cc-number" formControlName="card-number" placeholder="Credit Card Number*" [ngClass]="{'has-error':!paymentForm.controls['card-number'].valid && submittedOnce}" ccNumber #ccNumber (ngModelChange)="detectCardType(ccNumber.value)" [(ngModel)]="cardNumber">
-                </div>
+
                 <div class="card-sprite-wrapper">
                   <div class="card visa" title="Visa"></div>
                   <div class="card mastercard" title="MasterCard"></div>
@@ -123,9 +123,6 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="next-step black-button step-4-button">
-            <button [disabled]="(!paymentForm.valid && paymentChoice !== '3')" ion-button color="black" (click)="nextStep()">Next Step</button>
           </div>
         </form>
       </div>
