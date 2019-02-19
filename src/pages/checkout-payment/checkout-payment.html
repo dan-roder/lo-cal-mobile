@@ -125,7 +125,7 @@
             </div>
           </div>
           <div class="next-step black-button step-4-button">
-            <button [disabled]="(!paymentForm.valid && paymentChoice !== '3')" (click)="nextStep()">Next Step</button>
+            <button [disabled]="(!paymentForm.valid && paymentChoice !== '3')" ion-button color="black" (click)="nextStep()">Next Step</button>
           </div>
         </form>
       </div>
@@ -169,13 +169,12 @@
           <div class="loading-gif button-size" *ngIf="processing"></div>
           <p>{{ orderResultForTesting }}</p>
           <button [disabled]="((!paymentForm.valid && (paymentChoice !== '3')) || !contactInfoForm.valid) && !processing"
-            *ngIf="!processing" (click)="submitOrder()">Place Order Now</button>
+            *ngIf="!processing" (click)="submitOrder()" ion-button color="red">Place Order Now</button>
         </div>
       </div>
-      <div class="location-details" [innerHtml]="addressData?.content?.rendered | safeHtml">
       </div><!-- /.pricing-and-location -->
-
     </div><!-- /.order-summary -->
+    <div class="location-details" [innerHtml]="addressData?.content?.rendered | safeHtml">
   </div>
 
 </ion-content>

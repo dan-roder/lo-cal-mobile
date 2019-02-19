@@ -137,6 +137,7 @@ page-checkout-payment {
     }
   }
   .card-sprite-wrapper{
+    padding: 8px 0 0 8px;
     .card{
       background: url("../../assets/images/cc-sprite.png");
       display: inline-block;
@@ -197,6 +198,53 @@ page-checkout-payment {
     &.amex + .card-sprite-wrapper .american-express{
       opacity: 1;
       background-position-y: 0;
+    }
+  }
+  .order-summary {
+    padding: 0 15px;
+    font-weight: 700;
+    h4 {
+      font-size: 2.3rem;
+      margin-top: 25px;
+      margin-bottom: 20px;
+    }
+    .item {
+      margin: 0 0 12px;
+    }
+    .item-name {
+      text-transform: uppercase;
+    }
+    .flex-between {
+      padding: 5px 0;
+      display: flex;
+      justify-content: space-between;
+    }
+    .subtotal {
+      border-top: 1px dotted;
+    }
+    .pricing-details {
+      margin: 40px 0 50px;
+      .flex-between {
+        padding: 7px 0;
+      }
+      span {
+        font-weight: 500;
+        font-size: 12.5px;
+      }
+      .total {
+        border-top: 1px solid;
+        span {
+          font-size: 14px;
+          font-weight: 700;
+        }
+      }
+      .button {
+        width: 100%;
+        span {
+          font-size: 14px;
+          font-weight: 700;
+        }
+      }
     }
   }
 }
