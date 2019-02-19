@@ -15,6 +15,9 @@ page-checkout-payment {
     .item-md {
       padding-left: 0 !important;
     }
+    .card-sprite-wrapper {
+
+    }
     .option {
       &:first-child {
         margin-bottom: 10px;
@@ -122,5 +125,78 @@ page-checkout-payment {
         padding-bottom: 5px;
         display: inline-block;
       }
+  }
+  .new-card-section {
+    .border {
+      border-bottom: 1px solid #000;
+      padding: 8px 4px;
+    }
+    .radio-options {
+      
+    padding: 8px 4px;
+    }
+  }
+  .card-sprite-wrapper{
+    .card{
+      background: url("../../assets/images/cc-sprite.png");
+      display: inline-block;
+      margin: 0 0 0 2px;
+      width: 21px;
+      height: 15px;
+      opacity: .7;
+      @include transition(opacity);
+
+      &:first-child{
+        margin: 0;
+      }
+
+      &.visa{
+        background-position: 0 15px;
+      }
+      &.mastercard{
+        background-position: -21px 15px;
+      }
+      &.american-express{
+        background-position: -42px 15px;
+      }
+      &.discover{
+        background-position: -63px 15px;
+      }
+      &.diners-club{
+        background-position: -84px 15px;
+      }
+
+      &.active{
+        opacity: 1;
+        background-position-y: 0;
+      }
+    }
+  }
+
+  #card-number{
+    &.mastercard + .card-sprite-wrapper .mastercard{
+      opacity: 1;
+      background-position-y: 0;
+    }
+
+    &.dinersclub + .card-sprite-wrapper .diners-club{
+      opacity: 1;
+      background-position-y: 0;
+    }
+
+    &.visa + .card-sprite-wrapper .visa{
+      opacity: 1;
+      background-position-y: 0;
+    }
+
+    &.discover + .card-sprite-wrapper .discover{
+      opacity: 1;
+      background-position-y: 0;
+    }
+
+    &.amex + .card-sprite-wrapper .american-express{
+      opacity: 1;
+      background-position-y: 0;
+    }
   }
 }
