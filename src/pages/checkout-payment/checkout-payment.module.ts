@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { CheckoutPaymentPage } from './checkout-payment';
 import { PipesModule } from '../../pipes/pipes.module';
 import { DirectivesModule } from '../../directives/directives.module';
+import { CreditCardDirectivesModule } from 'angular-cc-library';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import { DirectivesModule } from '../../directives/directives.module';
   imports: [
     DirectivesModule,
     PipesModule,
+    CreditCardDirectivesModule,
     IonicPageModule.forChild(CheckoutPaymentPage),
   ],
   exports: [
