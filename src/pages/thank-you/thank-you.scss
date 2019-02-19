@@ -1,3 +1,120 @@
 page-thank-you {
+  .scroll-content {
+    background-color: #f4f4f4;
+    padding-bottom: 50px;
+    .confirmation-top {
+      padding: 0 15px;
+      h1 {
+        color: #ff3b30;
+        text-transform: uppercase;
+        font-weight: 700 !important;
+        letter-spacing: 1.7px !important;
+        font-size: 25px !important;
+        margin-top: 25px;
+      }
+      .conf-text {
+        font-size: 16px;
+        line-height: 1.38;
+        letter-spacing: 0.3px;
+        color: rgba(30, 30, 30, 0.99);
+      }
+    }
+    .order-number {
+      h3 {
+        display: inline-block;
+        border-bottom: 2px solid #ff3b30;
+        font-size: 40px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: rgba(30, 30, 30, 0.99);
+        margin: 0;
+      }
+      p {
+        margin-bottom: 3px;
+        margin-top: 22px;
+        font-size: 14px;
+        line-height: 1.43;
+        letter-spacing: 0.4px;
+        color: rgba(30, 30, 30, 0.99);
+      }
+      span {
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.7px;
+        color: rgba(30, 30, 30, 0.99);
+        text-transform: uppercase;
+        padding-left: 22px;
+      }
+    }
+    .confirmation-content {
+      padding-bottom: 40px;
+      margin-top: 32px;
+      p {
+        margin-bottom: 3px;
+        margin-top: 12px;
+        font-size: 14px;
+        line-height: 1.43;
+        letter-spacing: 0.4px;
+        color: rgba(30, 30, 30, 0.99);
+        padding: 0 15px;
+        &:first-child {
+          padding: 0;
+          margin-bottom: 25px;
+        }
+      }
+      a {
+        font-weight: 700;
+        color: rgba(30, 30, 30, 0.99);
+      }
+    }
 
+  }
+  .order-summary {
+    padding: 0 15px;
+    font-weight: 700;
+    h4, span {
+      font-size: 13px;
+      color: rgba(30, 30, 30, 0.99);
+      margin: 0;
+      letter-spacing: 0.6px;
+      font-weight: 600;
+    }
+    .item {
+      margin: 0 0 12px;
+    }
+    // .item-name {
+    //   text-transform: uppercase;
+    // }
+    .flex-between {
+      padding: 5px 0;
+      display: flex;
+      justify-content: space-between;
+    }
+    .subtotal {
+      border-top: 2px solid rgba(204, 204, 204, 0.99);
+      padding-top: 10px;
+    }
+    .tax {
+      padding-bottom: 10px;
+    }
+    .pricing-details {
+      margin: 40px 0 50px;
+      .flex-between {
+        padding: 7px 0;
+      }
+      span {
+        font-weight: 500;
+        font-size: 12.5px;
+      }
+
+    }
+    .total {
+      border-top: 2px solid rgba(204, 204, 204, 0.99);
+      padding-top: 14px;
+      span {
+        font-size: 14px;
+        font-weight: 700;
+      }
+    }
+  }
 }
