@@ -84,10 +84,10 @@
           <div class="new-card-section" *ngIf="paymentForm.controls['payment-choice'].value === '1'">
             <div class="form-section half-and-half">
               <div class="form-component form-component-text">
+              <div class="border">
                 <label for="card-number" class="visuallyhidden">Credit Card Number</label>
-                <input id="card-number" type="tel" autocomplete="cc-number" formControlName="card-number" placeholder="Credit Card Number*"
-                  [ngClass]="{'has-error':!paymentForm.controls['card-number'].valid && submittedOnce}" ccNumber
-                  #ccNumber (ngModelChange)="detectCardType(ccNumber.value)" [(ngModel)]="cardNumber">
+                <input id="card-number" type="tel" autocomplete="cc-number" formControlName="card-number" placeholder="Credit Card Number*" [ngClass]="{'has-error':!paymentForm.controls['card-number'].valid && submittedOnce}" ccNumber #ccNumber (ngModelChange)="detectCardType(ccNumber.value)" [(ngModel)]="cardNumber">
+                </div>
                 <div class="card-sprite-wrapper">
                   <div class="card visa" title="Visa"></div>
                   <div class="card mastercard" title="MasterCard"></div>
@@ -98,7 +98,7 @@
                 <div class="error-message" *ngIf="!paymentForm.controls['card-number'].valid && submittedOnce">This
                   field is required.</div>
               </div>
-              <div class="form-component form-component-text">
+              <div class="form-component border form-component-text">
                 <label for="last-name" class="visuallyhidden">Expiration Date</label>
                 <input id="cc-exp-date" name="expiration-date" id="expiration-date" formControlName="expiration-date"
                   placeholder="Expiration Date (mm/yyyy)*" [ngClass]="{'has-error':!paymentForm.controls['expiration-date'].valid && submittedOnce}"
@@ -108,13 +108,13 @@
               </div>
             </div>
             <div class="form-section half-and-half">
-              <div class="form-component form-component-email">
+              <div class="form-component border form-component-email">
                 <label for="email" class="visuallyhidden">CVV</label>
                 <input type="text" name="cvv" id="cvv" formControlName="cvv" placeholder="CVV*" [ngClass]="{'has-error':!paymentForm.controls['cvv'].valid && submittedOnce}">
                 <div class="error-message" *ngIf="!paymentForm.controls['cvv'].valid && submittedOnce">This field is
                   required.</div>
               </div>
-              <div class="form-component form-component-text radio-options" *ngIf="currentCustomer?.CustomerId">
+              <div class="form-component-text radio-options" *ngIf="currentCustomer?.CustomerId">
                 <div class="option">
                   <label for="save-payment">
                     <input type="checkbox" name="save-payment" id="save-payment" value="save" formControlName="save-payment">
