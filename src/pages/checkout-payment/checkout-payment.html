@@ -84,10 +84,8 @@
           <div class="new-card-section" *ngIf="paymentForm.controls['payment-choice'].value === '1'">
             <div class="form-section half-and-half">
               <div class="form-component form-component-text">
-
                 <label for="card-number" class="visuallyhidden">Credit Card Number</label>
                 <input id="card-number" type="tel" autocomplete="cc-number" formControlName="card-number" placeholder="Credit Card Number*" [ngClass]="{'has-error':!paymentForm.controls['card-number'].valid && submittedOnce}" ccNumber #ccNumber (ngModelChange)="detectCardType(ccNumber.value)" [(ngModel)]="cardNumber">
-
                 <div class="card-sprite-wrapper">
                   <div class="card visa" title="Visa"></div>
                   <div class="card mastercard" title="MasterCard"></div>
@@ -100,9 +98,7 @@
               </div>
               <div class="form-component border form-component-text">
                 <label for="last-name" class="visuallyhidden">Expiration Date</label>
-                <input id="cc-exp-date" name="expiration-date" id="expiration-date" formControlName="expiration-date"
-                  placeholder="Expiration Date (mm/yyyy)*" [ngClass]="{'has-error':!paymentForm.controls['expiration-date'].valid && submittedOnce}"
-                  type="tel" autocomplete="cc-exp" ccExp>
+                <input id="cc-exp-date" name="expiration-date" id="expiration-date" formControlName="expiration-date" placeholder="Expiration Date (mm/yyyy)*" [ngClass]="{'has-error':!paymentForm.controls['expiration-date'].valid && submittedOnce}" type="tel" autocomplete="cc-exp" ccExp>
                 <div class="error-message" *ngIf="!paymentForm.controls['expiration-date'].valid && submittedOnce">This
                   field is required.</div>
               </div>
@@ -143,7 +139,7 @@
           </div>
         </div>
         <div class="item-price">
-          <span class="price">{{ menuItem?.fullPrice | currency }}</span>
+          <span class="price">{{ menuItem?.fullPrice | currency:'USD':'symbol' }}</span>
         </div>
       </div>
     </div><!-- /.itemized-summary -->
@@ -151,15 +147,15 @@
       <div class="pricing-details">
         <div class="flex-between subtotal">
           <span class="label">Subtotal</span>
-          <span class="value">{{ currentOrder?.SubTotalAmount | currency }}</span>
+          <span class="value">{{ currentOrder?.SubTotalAmount | currency:'USD':'symbol' }}</span>
         </div>
         <div class="flex-between">
           <span class="label">Tax</span>
-          <span class="value">{{ currentOrder?.TaxAmount | currency }}</span>
+          <span class="value">{{ currentOrder?.TaxAmount | currency:'USD':'symbol' }}</span>
         </div>
         <div class="flex-between total">
           <span class="label semi-bold">Total</span>
-          <span class="value semi-bold">{{ currentOrder?.TotalAmount | currency }}</span>
+          <span class="value semi-bold">{{ currentOrder?.TotalAmount | currency:'USD':'symbol' }}</span>
         </div>
 
         <div class="red-button full-width-button small-text" [ngClass]="processing ? 'loading' : ''">

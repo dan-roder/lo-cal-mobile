@@ -59,22 +59,22 @@
               <p class="special-instructions" *ngIf="lineItem?.specialInstructions">{{ lineItem?.specialInstructions }}</p>
             </div>
             <div class="item-price">
-              <span class="price">{{ lineItem?.fullPrice | currency }}</span>
+              <span class="price">{{ lineItem?.fullPrice | currency:'USD':'symbol' }}</span>
             </div>
           </div>
         </div><!-- /.line-items -->
         <div class="order-total">
           <div class="flex-between subtotal">
             <span class="label">Subtotal</span>
-            <span class="value">{{ orderResult?.FinancialSummary?.Subtotal | currency }}</span>
+            <span class="value">{{ orderResult?.FinancialSummary?.Subtotal | currency:'USD':'symbol' }}</span>
           </div>
           <div class="flex-between tax">
             <span class="label">Tax</span>
-            <span class="value">{{ orderResult?.FinancialSummary?.Tax | currency }}</span>
+            <span class="value">{{ orderResult?.FinancialSummary?.Tax | currency:'USD':'symbol' }}</span>
           </div>
           <div class="flex-between total">
             <span class="label semi-bold">Total Paid</span>
-            <span class="value semi-bold">{{ orderResult?.FinancialSummary?.Total | currency }}</span>
+            <span class="value semi-bold">{{ orderResult?.FinancialSummary?.Total | currency:'USD':'symbol' }}</span>
           </div>
         </div>
         </div>
