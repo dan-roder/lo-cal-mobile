@@ -87,14 +87,15 @@ export class CheckoutPaymentPage {
     ngOnInit() {
         // Get current customer info. Patch contact form
         this.customerService.getUserData().then(customer => {
-          console.log('here', customer)
+
           this.currentCustomer = customer;
           this.patchContactForm(customer);
 
           // If Customer has ID, look for any saved payment methods on customer's account
           if(customer.CustomerId){
             this.customerService.getSavedPayments(customer.CustomerId).subscribe(savedPayments => {
-              this.savedPaymentMethods = savedPayments;
+              console.log('test', JSON.parse(savedPayments._body))
+              this.savedPaymentMethods = JSON.parse(savedPayments._body);
             }, error => {
               console.log(error);
             });
@@ -125,7 +126,7 @@ export class CheckoutPaymentPage {
               });
             }
             this.orderForDisplay = this.orderService.calculateTotalWithModifiers(fullOrder);
-            console.log("current order", fullOrder);
+
             this.currentOrder = fullOrder;
 
 
@@ -295,13 +296,15 @@ export class CheckoutPaymentPage {
         this.localStorage.set('orderResult', orderResults).then(() => {
           // If Customer wishes to save payment method
           if(this.paymentForm.get('save-payment').value){
+            let expirationDate = this.paymentForm.get('expiration-date').value;
+            let finalExpDate = this.formatDate(expirationDate);
             // Ensure we have the correctly formatted credit card number
             let finalCreditCardNumber = this.finalCardFormat(this.cardNumber);
 
             let paymentInfoForSaving : RailsSavePayment = {
               payment : {
-                AccountNumber: this.paymentForm.get('card-number').value,
-                ExpirationDate: finalCreditCardNumber,
+                AccountNumber: finalCreditCardNumber,
+                ExpirationDate: finalExpDate,
                 PaymentMethodType: this.cardType
               }
             }
