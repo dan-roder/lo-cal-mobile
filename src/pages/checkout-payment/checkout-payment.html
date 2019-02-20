@@ -19,7 +19,7 @@
         <h1>1. Contact Information</h1>
       </ion-item>
       <div class="step-wrapper" [hidden]="sectionOpen !== 1">
-        <form action="" [formGroup]="contactInfoForm">
+        <form action="" class="contact-info" [formGroup]="contactInfoForm">
           <ion-row>
             <ion-item>
               <ion-label for="first-name" floating>First Name*</ion-label>
@@ -86,6 +86,7 @@
               <select name="" id="" (change)="whichPayment($event.target.value)" class="custom">
                 <option [value]="savedPaymentMethods.AccountId" selected>{{ savedPaymentMethods.MaskedAccountNumber }}</option>
               </select>
+              <img src="../../assets/images/left-arrow-red@3x.png" />
             </div>
           </ion-row>
           <div class="new-card-section" *ngIf="paymentForm.controls['payment-choice'].value === '1'">

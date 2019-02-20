@@ -289,4 +289,31 @@ page-checkout-payment {
     background-size: cover;
     margin: 10px auto;
   }
+  .saved-cards {
+    margin-top: 20px;
+    padding-bottom: 10px;
+    position: relative;
+    select {
+      height: 55px;
+      padding: 0 72px 0 20px;
+      border: 1px solid;
+      width: 100%;
+    }
+    img {
+      width: 8px;
+      position: absolute;
+      right: 16px;
+      top: 22px;
+      transform: rotate(90deg);
+    }
+  }
+  .row {
+    justify-content: space-between;
+  }
+  .contact-info {
+    input {
+      border-bottom: 1px solid;
+      padding-bottom: 5px;
+    }
+  }
 }
