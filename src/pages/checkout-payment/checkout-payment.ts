@@ -346,7 +346,7 @@ export class CheckoutPaymentPage {
 
       protected navigateToConfirmation(){
 
-        this.navCtrl.push('ThankYouPage');
+        this.navCtrl.setRoot('ThankYouPage');
       }
 
       // Currently not in use as API doesn't seem to allow for multiple saved payments
