@@ -62,30 +62,39 @@
       <div class="step-wrapper" [hidden]="sectionOpen !== 2">
         <form action="" [formGroup]="paymentForm" class="lo-cal-form">
           <ion-row radio-group>
-          <div class="option">
-            <ion-item>
-              <label for="cc">
-                <input type="radio" name="payment-choice" id="cc" value="1" formControlName="payment-choice" />
-                <span class="default">
-                  Pay now with a credit card</span>
-              </label>
-            </ion-item>
+            <div class="option">
+              <ion-item>
+                <label for="cc">
+                  <input type="radio" name="payment-choice" id="cc" value="1" formControlName="payment-choice"
+                    [(ngModel)]="paymentChoice" />
+                  <span class="default">
+                    Pay now with a credit card</span>
+                </label>
+              </ion-item>
             </div>
             <div class="option" *ngIf="savedPaymentMethods">
-            <ion-item>
-              <label for="saved-cc">
-                <input type="radio" name="payment-choice" id="saved-cc" value="3" formControlName="payment-choice" />
-                <span class="default">
-                  Pay with saved card</span>
-              </label>
-            </ion-item>
+              <ion-item>
+                <label for="saved-cc">
+                  <input type="radio" name="payment-choice" id="saved-cc" value="3" formControlName="payment-choice"
+                    [(ngModel)]="paymentChoice" />
+                  <span class="default">
+                    Pay with saved card</span>
+                </label>
+              </ion-item>
+            </div>
+            <div class="saved-cards" *ngIf="savedPaymentMethods && paymentForm.controls['payment-choice'].value === '3'">
+              <select name="" id="" (change)="whichPayment($event.target.value)" class="custom">
+                <option [value]="savedPaymentMethods.AccountId" selected>{{ savedPaymentMethods.MaskedAccountNumber }}</option>
+              </select>
             </div>
           </ion-row>
           <div class="new-card-section" *ngIf="paymentForm.controls['payment-choice'].value === '1'">
             <div class="form-section half-and-half">
               <div class="form-component form-component-text">
                 <label for="card-number" class="visuallyhidden">Credit Card Number</label>
-                <input id="card-number" type="tel" autocomplete="cc-number" formControlName="card-number" placeholder="Credit Card Number*" [ngClass]="{'has-error':!paymentForm.controls['card-number'].valid && submittedOnce}" ccNumber #ccNumber (ngModelChange)="detectCardType(ccNumber.value)" [(ngModel)]="cardNumber">
+                <input id="card-number" type="tel" autocomplete="cc-number" formControlName="card-number" placeholder="Credit Card Number*"
+                  [ngClass]="{'has-error':!paymentForm.controls['card-number'].valid && submittedOnce}" ccNumber
+                  #ccNumber (ngModelChange)="detectCardType(ccNumber.value)" [(ngModel)]="cardNumber">
                 <div class="card-sprite-wrapper">
                   <div class="card visa" title="Visa"></div>
                   <div class="card mastercard" title="MasterCard"></div>
@@ -98,7 +107,9 @@
               </div>
               <div class="form-component border form-component-text">
                 <label for="last-name" class="visuallyhidden">Expiration Date</label>
-                <input id="cc-exp-date" name="expiration-date" id="expiration-date" formControlName="expiration-date" placeholder="Expiration Date (mm/yyyy)*" [ngClass]="{'has-error':!paymentForm.controls['expiration-date'].valid && submittedOnce}" type="tel" autocomplete="cc-exp" ccExp>
+                <input id="cc-exp-date" name="expiration-date" id="expiration-date" formControlName="expiration-date"
+                  placeholder="Expiration Date (mm/yyyy)*" [ngClass]="{'has-error':!paymentForm.controls['expiration-date'].valid && submittedOnce}"
+                  type="tel" autocomplete="cc-exp" ccExp>
                 <div class="error-message" *ngIf="!paymentForm.controls['expiration-date'].valid && submittedOnce">This
                   field is required.</div>
               </div>
@@ -165,9 +176,9 @@
             *ngIf="!processing" (click)="submitOrder()" ion-button color="red">Place Order Now</button>
         </div>
       </div>
-      </div><!-- /.pricing-and-location -->
-    </div><!-- /.order-summary -->
-    <div class="location-details" [innerHtml]="addressData?.content?.rendered | safeHtml">
+    </div><!-- /.pricing-and-location -->
+  </div><!-- /.order-summary -->
+  <div class="location-details" [innerHtml]="addressData?.content?.rendered | safeHtml">
   </div>
 
 </ion-content>
