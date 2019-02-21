@@ -5,7 +5,6 @@ import { BagProvider } from '../../providers/bag/bag';
 import { SubMenu } from "../../models/subMenu";
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { DefaultOptions } from '../../models/DefaultOptions';
 import { WordPressProvider } from '../../providers/word-press/word-press';
 import * as _ from 'lodash';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
