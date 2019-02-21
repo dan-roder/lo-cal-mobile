@@ -114,44 +114,44 @@ export class BurgersPage implements OnInit {
     //     }
     // }
 
-    private registerCustomizationVariables( allModifiers, defaultOptions: Array<DefaultOptions> = [] ) {
+    // private registerCustomizationVariables( allModifiers, defaultOptions: Array<DefaultOptions> = [] ) {
 
-        let tempObj      = {};
-        allModifiers.forEach( modifierGroup => {
+    //     let tempObj      = {};
+    //     allModifiers.forEach( modifierGroup => {
 
-            let modObject = {};
-            modObject['maximumItems'] = modifierGroup.MaximumItems;
-            modObject['minimumItems'] = modifierGroup.MinimumItems;
-            modObject['currentlySelected'] = [];
-            modObject['modifiers'] = {};
-            modObject['groupDetails'] = {};
-            modifierGroup.Mods.forEach( mod => {
+    //         let modObject = {};
+    //         modObject['maximumItems'] = modifierGroup.MaximumItems;
+    //         modObject['minimumItems'] = modifierGroup.MinimumItems;
+    //         modObject['currentlySelected'] = [];
+    //         modObject['modifiers'] = {};
+    //         modObject['groupDetails'] = {};
+    //         modifierGroup.Mods.forEach( mod => {
 
-                modObject['groupDetails'] = modifierGroup;
-                modObject['modifiers'][mod.$id] = {};
+    //             modObject['groupDetails'] = modifierGroup;
+    //             modObject['modifiers'][mod.$id] = {};
 
-                let isModDefault = defaultOptions.find( option => {
-                    return option['ModifierId'] === mod.ModifierId;
-                });
+    //             let isModDefault = defaultOptions.find( option => {
+    //                 return option['ModifierId'] === mod.ModifierId;
+    //             });
 
-                if ( isModDefault ) {
+    //             if ( isModDefault ) {
 
-                    modObject['modifiers'][mod.$id]['quantity'] = isModDefault.DefaultQuantity;
-                    modObject['currentlySelected'].push(mod);
+    //                 modObject['modifiers'][mod.$id]['quantity'] = isModDefault.DefaultQuantity;
+    //                 modObject['currentlySelected'].push(mod);
 
-                } else {
-                    modObject['modifiers'][mod.$id]['quantity'] = 0;
-                }
-            });
+    //             } else {
+    //                 modObject['modifiers'][mod.$id]['quantity'] = 0;
+    //             }
+    //         });
 
-            tempObj[modifierGroup.$id] = {};
-            tempObj[modifierGroup.$id] = modObject;
+    //         tempObj[modifierGroup.$id] = {};
+    //         tempObj[modifierGroup.$id] = modObject;
 
-        });
+    //     });
 
-        return this.customData = tempObj;
+    //     return this.customData = tempObj;
 
-    }
+    // }
 
     public quickAdd( item ) {
         let message = `Add ${ item['DisplayName'] } to your bag?`
