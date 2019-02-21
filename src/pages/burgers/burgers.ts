@@ -97,22 +97,23 @@ export class BurgersPage implements OnInit {
         this.app.getRootNavs()[0].push( 'MenuItemPage', { menuItem: item }, { animate: true } );
     }
 
-    private arrangeMenuData( data ) {
+    // private arrangeMenuData( data ) {
 
-        let defaults     = [];
-        // let menuItem     = data.item;
-        let salesItems   = data.salesItems[0];
+    //     let defaults     = [];
+    //     // let menuItem     = data.item;
+    //     let salesItems   = data.salesItems[0];
 
-        if ( salesItems.ModGroups.length > 0 &&  salesItems.DefaultOptions.length > 0 ) {
+    //     if ( salesItems.ModGroups.length > 0 &&  salesItems.DefaultOptions.length > 0 ) {
 
-            defaults = salesItems.DefaultOptions;
-            return this.registerCustomizationVariables( salesItems.ModGroups, defaults );
+    //         defaults = salesItems.DefaultOptions;
+    //         return this.registerCustomizationVariables( salesItems.ModGroups, defaults );
 
-        } else {
+    //     } else {
 
-            return this.registerCustomizationVariables( salesItems.ModGroups );
-        }
-    }
+    //         return this.registerCustomizationVariables( salesItems.ModGroups );
+    //     }
+    // }
+
     private registerCustomizationVariables( allModifiers, defaultOptions: Array<DefaultOptions> = [] ) {
 
         let tempObj      = {};
