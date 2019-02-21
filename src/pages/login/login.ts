@@ -35,7 +35,7 @@ export class LoginPage {
       private fb: FormBuilder,
       private customerService: CustomerProvider,
       private storage: Storage,
-      public events : Events
+      public events: Events
   ) {
 
     this.loginForm = this.fb.group({

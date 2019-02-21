@@ -1,175 +1,217 @@
 <ion-header no-border>
-    <ion-navbar>
-        <button ion-button menuToggle>
-            <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
-        </button>
-        <ion-title>Sign Up</ion-title>
-    </ion-navbar>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
+    </button>
+    <ion-title>Sign Up</ion-title>
+  </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-    <div *ngIf="!processing">
-        <h2>Create an account.</h2>
-        <p>
-            Get past orders, save your payment methods and more.
-        </p>
-    </div>
-    <div class="signup-loading" *ngIf="processing">
-        <div class="account-exists" *ngIf="accountExists">
-            <h2>Account Already Exists</h2>
-            <p>It looks like an account with that email already exists. Log in <a href="#" [navPush]="'LoginPage'">here</a></p>
+  <div *ngIf="!accountCreated">
+    <h2>Create an account.</h2>
+    <p>
+      Get past orders, save your payment methods and more.
+    </p>
+  </div>
+  <div class="account-exists" *ngIf="accountExists">
+    <h2>Account Already Exists</h2>
+    <p>It looks like an account with that email already exists. Log in <a href="#" [navPush]="'LoginPage'">here</a></p>
+  </div>
+  <div class="account-success" *ngIf="accountCreated">
+    <h2>Success!</h2>
+    <p>Your account has been created. Keep an eye out for an email from us with your login information. Please return to the <a href="#" [navPush]="'LoginPage'">login</a> page to proceed.</p>
+  </div>
+
+  <form *ngIf="!accountCreated" [formGroup]="signupForm" (submit)="createNewAccount( signupForm )" novalidate>
+    <ion-list>
+      <div formGroupName="custInfo" *ngIf="!custInfoComp">
+        <h4>
+          Let's start with the basics ...
+        </h4>
+        <ion-item [ngClass]="{ 'has-error': firstName.invalid && firstName.dirty }" no-padding>
+          <ion-label floating>First Name</ion-label>
+          <ion-icon *ngIf="firstName.invalid && firstName.dirty" name="alert" item-right class="has-error"></ion-icon>
+          <ion-input type="text" name="firstName" formControlName="firstName"></ion-input>
+        </ion-item>
+        <div class="form-control-feedback" *ngIf="firstName.invalid && firstName.dirty">
+          <p class="error-help">This field is required.</p>
         </div>
-        <div class="account-success" *ngIf="accountCreated">
-            <h2>Success!</h2>
-            <p>Your account has been created. Keep an eye out for an email from us with your login information. Please return to the <a href="#" [navPush]="'LoginPage'">login</a> page to proceed.</p>
+        <ion-item [ngClass]="{ 'has-error': lastName.invalid && lastName.dirty }" no-padding>
+          <ion-label floating>Last Name</ion-label>
+          <ion-icon *ngIf="lastName.invalid && lastName.dirty" name="alert" item-right class="has-error"></ion-icon>
+          <ion-input type="text" name="lastName" formControlName="lastName"></ion-input>
+        </ion-item>
+        <div class="form-control-feedback" *ngIf="lastName.invalid && lastName.dirty">
+          <p class="error-help">This field is required.</p>
         </div>
-        <div *ngIf="processing" class="loading-gif"></div>
-    </div>
+        <ion-item [ngClass]="{ 'has-error': email.invalid && email.dirty }" no-padding>
+          <ion-label floating>Email</ion-label>
+          <ion-icon *ngIf="email.invalid && email.dirty" name="alert" item-right class="has-error"></ion-icon>
+          <ion-input type="email" name="email" formControlName="email"></ion-input>
+        </ion-item>
+        <div class="form-control-feedback" *ngIf="email.invalid && email.dirty">
+          <p class="error-help">Please enter a valid email address.</p>
+        </div>
+        <ion-item [ngClass]="{ 'has-error': phone.invalid && phone.dirty }" no-padding no-lines no-border>
+          <ion-label floating>Telephone</ion-label>
+          <ion-input type="text" phone name="phone" formControlName="phone" autocomplete="new-password"></ion-input>
+        </ion-item>
+        <div class="form-control-feedback" *ngIf="phone.invalid && phone.dirty">
+          <p class="error-help">Please enter a valid telephone number.</p>
+        </div>
+      </div>
+      <p class="form-control-feedback" *ngIf="signupForm.hasError('custInfoInvalid','custInfo')">All fields are required. </p>
+      <ion-row *ngIf="!custInfoComp">
+        <ion-col no-padding>
+          <button type="button" ion-button block no-border [disabled]="!custInfo.valid" color="red" (click)="nextStep('info')">
+            Next <ion-icon class="featured-title-icon" name="chevron" color="white"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+      <div formGroupName="address" *ngIf="!addressComp && custInfoComp">
+        <h4>
+            Now the address info ...
+        </h4>
+        <ion-item [ngClass]="{ 'has-error': line1.invalid && line1.dirty }" no-padding>
+          <ion-label floating>Address</ion-label>
+          <ion-input type="text" name="line1" formControlName="line1"></ion-input>
+        </ion-item>
+        <ion-item [ngClass]="{ 'has-error': line2.invalid && line2.dirty }" no-padding>
+          <ion-label floating>Address Line 2</ion-label>
+          <ion-input type="text" name="line2" formControlName="line2"></ion-input>
+        </ion-item>
+        <ion-item [ngClass]="{ 'has-error': city.invalid && city.dirty }" no-padding>
+          <ion-label floating>City</ion-label>
+          <ion-input type="text" name="city" formControlName="city"></ion-input>
+        </ion-item>
+        <ion-item [ngClass]="{ 'has-error': state.invalid && state.dirty }" no-padding>
+          <ion-label floating>State</ion-label>
+          <ion-select name="state" id="state" formControlName="state">
+            <ion-option value=""></ion-option>
+            <ion-option value="AL">Alabama</ion-option>
+            <ion-option value="AK">Alaska</ion-option>
+            <ion-option value="AZ">Arizona</ion-option>
+            <ion-option value="AR">Arkansas</ion-option>
+            <ion-option value="CA">California</ion-option>
+            <ion-option value="CO">Colorado</ion-option>
+            <ion-option value="CT">Connecticut</ion-option>
+            <ion-option value="DE">Delaware</ion-option>
+            <ion-option value="DC">District Of Columbia</ion-option>
+            <ion-option value="FL">Florida</ion-option>
+            <ion-option value="GA">Georgia</ion-option>
+            <ion-option value="HI">Hawaii</ion-option>
+            <ion-option value="ID">Idaho</ion-option>
+            <ion-option value="IL">Illinois</ion-option>
+            <ion-option value="IN">Indiana</ion-option>
+            <ion-option value="IA">Iowa</ion-option>
+            <ion-option value="KS">Kansas</ion-option>
+            <ion-option value="KY">Kentucky</ion-option>
+            <ion-option value="LA">Louisiana</ion-option>
+            <ion-option value="ME">Maine</ion-option>
+            <ion-option value="MD">Maryland</ion-option>
+            <ion-option value="MA">Massachusetts</ion-option>
+            <ion-option value="MI">Michigan</ion-option>
+            <ion-option value="MN">Minnesota</ion-option>
+            <ion-option value="MS">Mississippi</ion-option>
+            <ion-option value="MO">Missouri</ion-option>
+            <ion-option value="MT">Montana</ion-option>
+            <ion-option value="NE">Nebraska</ion-option>
+            <ion-option value="NV">Nevada</ion-option>
+            <ion-option value="NH">New Hampshire</ion-option>
+            <ion-option value="NJ">New Jersey</ion-option>
+            <ion-option value="NM">New Mexico</ion-option>
+            <ion-option value="NY">New York</ion-option>
+            <ion-option value="NC">North Carolina</ion-option>
+            <ion-option value="ND">North Dakota</ion-option>
+            <ion-option value="OH">Ohio</ion-option>
+            <ion-option value="OK">Oklahoma</ion-option>
+            <ion-option value="OR">Oregon</ion-option>
+            <ion-option value="PA">Pennsylvania</ion-option>
+            <ion-option value="RI">Rhode Island</ion-option>
+            <ion-option value="SC">South Carolina</ion-option>
+            <ion-option value="SD">South Dakota</ion-option>
+            <ion-option value="TN">Tennessee</ion-option>
+            <ion-option value="TX">Texas</ion-option>
+            <ion-option value="UT">Utah</ion-option>
+            <ion-option value="VT">Vermont</ion-option>
+            <ion-option value="VA">Virginia</ion-option>
+            <ion-option value="WA">Washington</ion-option>
+            <ion-option value="WV">West Virginia</ion-option>
+            <ion-option value="WI">Wisconsin</ion-option>
+            <ion-option value="WY">Wyoming</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item [ngClass]="{ 'has-error': zip.invalid && zip.dirty }" no-padding no-lines no-border>
+          <ion-label floating>Zip Code</ion-label>
+          <ion-input type="number" name="zip" formControlName="zip"></ion-input>
+        </ion-item>
+        <p class="form-control-feedback" *ngIf="signupForm.hasError('notComplete','address')">Please fill out all required fields </p>
 
-    <form *ngIf="!processing" [formGroup]="signupForm" (ngSubmit)="save( signupForm )" novalidate>
-        <ion-list>
-            <div formGroupName="custInfo" *ngIf="!custInfoComp">
-                <h4>
-                    Let's start with the basics ...
-                </h4>
-                <ion-item [ngClass]="{ 'has-error': firstName.invalid && firstName.dirty }" no-padding>
-                    <ion-label floating>First Name</ion-label>
-                    <ion-icon *ngIf="firstName.invalid && firstName.dirty" name="alert" item-right class="has-error"></ion-icon>
-                    <ion-input type="text" name="firstName" formControlName="firstName"></ion-input>
-                </ion-item>
-                <div class="form-control-feedback" *ngIf="firstName.invalid && firstName.dirty">
-                    <p class="error-help">This field is required.</p>
-                </div>
-                <ion-item [ngClass]="{ 'has-error': lastName.invalid && lastName.dirty }" no-padding>
-                    <ion-label floating>Last Name</ion-label>
-                    <ion-icon *ngIf="lastName.invalid && lastName.dirty" name="alert" item-right class="has-error"></ion-icon>
-                    <ion-input type="text" name="lastName" formControlName="lastName"></ion-input>
-                </ion-item>
-                <div class="form-control-feedback" *ngIf="lastName.invalid && lastName.dirty">
-                    <p class="error-help">This field is required.</p>
-                </div>
-                <ion-item [ngClass]="{ 'has-error': email.invalid && email.dirty }" no-padding>
-                    <ion-label floating>Email</ion-label>
-                    <ion-icon *ngIf="email.invalid && email.dirty" name="alert" item-right class="has-error"></ion-icon>
-                    <ion-input type="email" name="email" formControlName="email"></ion-input>
-                </ion-item>
-                <div class="form-control-feedback" *ngIf="email.invalid && email.dirty">
-                    <p class="error-help">Please enter a valid email address.</p>
-                </div>
-                <ion-item [ngClass]="{ 'has-error': phone.invalid && phone.dirty }" no-padding no-lines no-border>
-                    <ion-label floating>Telephone</ion-label>
-                    <ion-input type="text" phone name="phone" formControlName="phone" autocomplete="new-password"></ion-input>
-                </ion-item>
-                <div class="form-control-feedback" *ngIf="phone.invalid && phone.dirty">
-                    <p class="error-help">Please enter a valid telephone number.</p>
-                </div>
-            </div>
-            <p class="form-control-feedback" *ngIf="signupForm.hasError('custInfoInvalid','custInfo')">All fields are required. </p>
-            <ion-row *ngIf="!custInfoComp">
-                <ion-col no-padding>
-                    <button type="button" ion-button block no-border [disabled]="!custInfo.valid" color="red" (tap)="nextStep('info')">
-                        Next <ion-icon class="featured-title-icon" name="chevron" color="white"></ion-icon>
-                    </button>
-                </ion-col>
-            </ion-row>
-            <div formGroupName="address" *ngIf="!addressComp && custInfoComp">
-                <h4>
-                    Now the address info ...
-                </h4>
-                <ion-item [ngClass]="{ 'has-error': line1.invalid && line1.dirty }" no-padding>
-                    <ion-label floating>Address</ion-label>
-                    <ion-input type="text" name="line1" formControlName="line1"></ion-input>
-                </ion-item>
-                <ion-item [ngClass]="{ 'has-error': line2.invalid && line2.dirty }" no-padding>
-                    <ion-label floating>Address Line 2</ion-label>
-                    <ion-input type="text" name="line2" formControlName="line2"></ion-input>
-                </ion-item>
-                <ion-item [ngClass]="{ 'has-error': city.invalid && city.dirty }" no-padding>
-                    <ion-label floating>City</ion-label>
-                    <ion-input type="text" name="city" formControlName="city"></ion-input>
-                </ion-item>
-                <ion-item [ngClass]="{ 'has-error': state.invalid && state.dirty }" no-padding>
-                    <ion-label floating>State</ion-label>
-                    <ion-input type="text" name="state" formControlName="state"></ion-input>
-                </ion-item>
-                <ion-item [ngClass]="{ 'has-error': zip.invalid && zip.dirty }" no-padding no-lines no-border>
-                    <ion-label floating>Zip Code</ion-label>
-                    <ion-input type="number" name="zip" formControlName="zip"></ion-input>
-                </ion-item>
-                <p class="form-control-feedback" *ngIf="signupForm.hasError('notComplete','address')">Please fill out all required fields </p>
+      </div>
+      <ion-row *ngIf="!passwordsComp && custInfoComp && !addressComp">
+        <ion-col class="spacing" no-padding>
+          <button type="button" ion-button block no-border [disabled]="!custInfo.valid" color="red" (click)="nextStep('info')">
+            Back
+          </button>
+        </ion-col>
+        <ion-col no-padding>
+          <button type="button" ion-button block no-border [disabled]="!address.valid" color="red" (click)="nextStep('passwords')">
+            Next
+          </button>
+        </ion-col>
+      </ion-row>
+      <div formGroupName="passwords" *ngIf="!passwordsComp && custInfoComp && addressComp">
+        <h4>
+          Set your password ...
+        </h4>
+        <p class="help-text">Your password needs to be at least 8 characters long, and contain at least one lowercase, one uppercase letter and at least one number.</p>
+        <ion-item  [ngClass]="{ 'has-error': password.invalid && password.dirty }" no-padding>
+          <ion-label floating>Password.</ion-label>
+          <ion-input type="password" name="password" formControlName="password"></ion-input>
+        </ion-item>
+        <p class="form-control-feedback" *ngIf="signupForm.hasError('notValid','passwords')">Password requirements not met </p>
 
-            </div>
-            <ion-row *ngIf="!passwordsComp && custInfoComp && !addressComp">
-                <ion-col class="spacing" no-padding>
-                    <button type="button" ion-button block no-border [disabled]="!custInfo.valid" color="red" (tap)="nextStep('info')">
-                        Back
-                    </button>
-                </ion-col>
-                <ion-col no-padding>
-                    <button type="button" ion-button block no-border [disabled]="!address.valid" color="red" (tap)="nextStep('passwords')">
-                        Next
-                    </button>
-                </ion-col>
-            </ion-row>
-            <div formGroupName="passwords" *ngIf="!passwordsComp && custInfoComp && addressComp">
-                <h4>
-                    Set your password ...
-                </h4>
-                <p class="help-text">Your password needs to be at least 8 characters long, and contain at least one lowercase, one uppercase letter and at least one number.</p>
-                <ion-item  [ngClass]="{ 'has-error': password.invalid && password.dirty }" no-padding>
-                    <ion-label floating>Password.</ion-label>
-                    <ion-input type="password" name="password" formControlName="password"></ion-input>
-                </ion-item>
-                <p class="form-control-feedback" *ngIf="signupForm.hasError('notValid','passwords')">Password requirements not met </p>
-
-                <ion-item no-padding>
-                    <ion-label floating>Confirm your password.</ion-label>
-                    <ion-input type="password" name="confirm" formControlName="confirm"></ion-input>
-                </ion-item>
-                <p class="form-control-feedback" *ngIf="signupForm.hasError('notSame','passwords')">Please ensure your password matches the confirmation. </p>
-                <ion-item no-padding>
-                    <ion-label floating>Choose a security question.</ion-label>
-                    <ion-select formControlName="question">
-                        <ion-option value="What was your childhood nickname?">What was your childhood nickname?</ion-option>
-                        <ion-option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</ion-option>
-                        <ion-option value="In what city or town did your mother and father meet?">In what city or town did your mother and father meet?</ion-option>
-                        <ion-option value="What is your favorite sports team?">What is your favorite sports team?</ion-option>
-                        <ion-option value="What is your favorite movie?">What is your favorite movie?</ion-option>
-                        <ion-option value="What was your favorite sport in high school?">What was your favorite sport in high school?</ion-option>
-                        <ion-option value="What was your favorite food as a child?">What was your favorite food as a child?</ion-option>
-                        <ion-option value="What was the make and model of your first car?">What was the make and model of your first car?</ion-option>
-                        <ion-option value="What was the name of the hospital where you were born?">What was the name of the hospital where you were born?</ion-option>
-                        <ion-option value="What school did you attend for sixth grade?">What school did you attend for sixth grade?</ion-option>
-                        <ion-option value="In what town was your first job?">In what town was your first job?</ion-option>
-                        <ion-option value="What was the name of the company where you had your first job?">What was the name of the company where you had your first job?</ion-option>
-                    </ion-select>
-                </ion-item>
-                <ion-item no-padding no-lines no-border [ngClass]="{ 'has-error': answer.invalid && answer.dirty }">
-                    <ion-label floating>The answer.</ion-label>
-                    <ion-input type="text" name="answer" formControlName="answer"></ion-input>
-                </ion-item>
-            </div>
-            <ion-row *ngIf="!passwordsComp && custInfoComp && addressComp">
-                <ion-col class="spacing" no-padding>
-                    <button type="button" ion-button block no-border [disabled]="!custInfo.valid" color="red" (tap)="nextStep('passwords')">
-                        Back
-                    </button>
-                </ion-col>
-                <ion-col no-padding>
-                    <button type="submit" ion-button block no-border [disabled]="!signupForm.valid" color="red" class="login-button">
-                        Create Account
-                    </button>
-                </ion-col>
-            </ion-row>
-
-            <!-- <ion-row *ngIf="signupForm.valid">
-                <ion-col no-padding>
-                    <button type="submit" ion-button block no-border [disabled]="!signupForm.valid" color="red" class="login-button">
-                        Log In
-                    </button>
-                </ion-col>
-            </ion-row> -->
-        </ion-list>
-    </form>
+        <ion-item no-padding>
+          <ion-label floating>Confirm your password.</ion-label>
+          <ion-input type="password" name="confirm" formControlName="confirm"></ion-input>
+        </ion-item>
+        <p class="form-control-feedback" *ngIf="signupForm.hasError('notSame','passwords')">Please ensure your password matches the confirmation. </p>
+        <ion-item no-padding>
+          <ion-label floating>Choose a security question.</ion-label>
+          <ion-select formControlName="question">
+            <ion-option value="What was your childhood nickname?">What was your childhood nickname?</ion-option>
+            <ion-option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</ion-option>
+            <ion-option value="In what city or town did your mother and father meet?">In what city or town did your mother and father meet?</ion-option>
+            <ion-option value="What is your favorite sports team?">What is your favorite sports team?</ion-option>
+            <ion-option value="What is your favorite movie?">What is your favorite movie?</ion-option>
+            <ion-option value="What was your favorite sport in high school?">What was your favorite sport in high school?</ion-option>
+            <ion-option value="What was your favorite food as a child?">What was your favorite food as a child?</ion-option>
+            <ion-option value="What was the make and model of your first car?">What was the make and model of your first car?</ion-option>
+            <ion-option value="What was the name of the hospital where you were born?">What was the name of the hospital where you were born?</ion-option>
+            <ion-option value="What school did you attend for sixth grade?">What school did you attend for sixth grade?</ion-option>
+            <ion-option value="In what town was your first job?">In what town was your first job?</ion-option>
+            <ion-option value="What was the name of the company where you had your first job?">What was the name of the company where you had your first job?</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item no-padding no-lines no-border [ngClass]="{ 'has-error': answer.invalid && answer.dirty }">
+          <ion-label floating>The answer.</ion-label>
+          <ion-input type="text" name="answer" formControlName="answer"></ion-input>
+        </ion-item>
+      </div>
+      <ion-row *ngIf="!passwordsComp && custInfoComp && addressComp">
+        <ion-col class="spacing" no-padding>
+          <button type="button" ion-button block no-border [disabled]="!custInfo.valid" color="red" (click)="nextStep('passwords')">
+            Back
+          </button>
+        </ion-col>
+        <ion-col no-padding>
+          <button type="submit" ion-button block no-border [disabled]="!signupForm.valid" color="red" class="login-button">
+            Create Account
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </form>
 </ion-content>
