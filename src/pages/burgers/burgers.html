@@ -1,45 +1,45 @@
 <ion-content no-padding>
-    <div class="menu-items">
-        <div *ngFor="let menuItem of subMenu?.menuItems; let i = index" class="menu-item menu-item-{{ i }}"  no-padding>
-            <!-- <pre>
-                {{ menuItem | json }}
-            </pre> -->
-            <ion-card *ngIf="menuItem.DisplayName" no-margin class="full-width" no-shadow no-border>
-                <div class="image" *ngIf="(menuItem?.MenuItemId | cardImage:wpSubMenuItems | async) !== undefined">
-                    <img class="food-item" [src]="menuItem?.MenuItemId | cardImage:wpSubMenuItems | async " />
-                </div>
-                <ion-card-content no-padding (tap)="addItem( menuItem )">
-                    <ion-card-title>
-                        <ion-row>
-                            <ion-col col-11>
-                                {{ menuItem.DisplayName }}
-                            </ion-col>
-                            <ion-col text-right col-1>
-                                <ion-icon class="featured-title-icon" name="chevron"></ion-icon>
-                            </ion-col>
-                        </ion-row>
-                    </ion-card-title>
-                    <p class="featured-description">{{ (menuItem.Description | allergens).description }}</p>
-                </ion-card-content>
-                <ion-row class="featured-meta">
-                    <ion-col col-3 class="border">
-                        <span class="price">{{ menuItem.defaultPrice | currency:'USD':'symbol' }}</span>
-                    </ion-col>
-                    <ion-col col-3 text-center class="border" *ngIf="menuItem.CaloricServingUnit">
-                        <span class="calories">{{ menuItem.CaloricServingUnit }} cal</span>
-                    </ion-col>
-                    <ion-col col-4 text-center>
-                      <span class="allergen">
-                        <span *ngFor="let allergen of (menuItem.Description | allergens).allergens">
-                            {{ allergen }}
-                        </span>
-                      </span>    
-                    </ion-col>
-                    <ion-col col float-right text-right (tap)="quickAdd(menuItem)">
-                        <span class="add">Add</span>
-                    </ion-col>
-                </ion-row>
-            </ion-card>
+  <div class="menu-items">
+    <div *ngFor="let menuItem of subMenu?.menuItems; let i = index" class="menu-item menu-item-{{ i }}"  no-padding>
+      <!-- <pre>
+          {{ menuItem | json }}
+      </pre> -->
+      <ion-card *ngIf="menuItem.DisplayName" no-margin class="full-width" no-shadow no-border>
+        <div class="image" *ngIf="(menuItem?.MenuItemId | cardImage:wpSubMenuItems | async) !== undefined" (click)="addItem( menuItem )" tappable>
+          <img class="food-item" [src]="menuItem?.MenuItemId | cardImage:wpSubMenuItems | async " />
         </div>
+        <ion-card-content no-padding (click)="addItem( menuItem )" tappable>
+          <ion-card-title>
+            <ion-row>
+              <ion-col col-11>
+                {{ menuItem.DisplayName }}
+              </ion-col>
+              <ion-col text-right col-1>
+                <ion-icon class="featured-title-icon" name="chevron"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-card-title>
+          <p class="featured-description">{{ (menuItem.Description | allergens).description }}</p>
+        </ion-card-content>
+        <ion-row class="featured-meta">
+          <ion-col col-3 class="border">
+            <span class="price">{{ menuItem.defaultPrice | currency:'USD':'symbol' }}</span>
+          </ion-col>
+          <ion-col col-3 text-center class="border" *ngIf="menuItem.CaloricServingUnit">
+            <span class="calories">{{ menuItem.CaloricServingUnit }} cal</span>
+          </ion-col>
+          <ion-col col-4 text-center>
+            <span class="allergen">
+              <span *ngFor="let allergen of (menuItem.Description | allergens).allergens">
+                {{ allergen }}
+              </span>
+            </span>
+          </ion-col>
+          <ion-col col float-right text-right (tap)="quickAdd(menuItem)">
+            <span class="add">Add</span>
+          </ion-col>
+        </ion-row>
+      </ion-card>
     </div>
+  </div>
 </ion-content>
