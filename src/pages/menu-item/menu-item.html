@@ -1,99 +1,99 @@
 <ion-header no-shadow no-border>
-    <ion-navbar transparent>
-        <button ion-button menuToggle>
-            <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
-        </button>
-    </ion-navbar>
+  <ion-navbar transparent>
+    <button ion-button menuToggle>
+      <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
+    </button>
+  </ion-navbar>
 </ion-header>
 
 <ion-content no-padding>
-    <div class="menu-item-header" *ngIf="menuItem" [ngStyle]="{'background-image': 'url(' + featuredImage + ')'}">
-        <div class="title-box">
-            <h2 class="menu-item-title">{{ menuItem.DisplayName }}</h2>
-            <p class="menu-item-description" text-wrap>
-                <ion-icon name="star"></ion-icon>
-                {{ (menuItem.Description | allergens).description }}
-            </p>
-            <ion-row class="menu-item-meta">
-                <ion-col col-3 class="border">
-                    <span class="price">{{ itemPrice | currency:'USD':'symbol' }}</span>
-                </ion-col>
-                <ion-col col-4 text-center class="border">
-                    <span class="calories" *ngIf="calorieCount !== null && calorieCount !== 0">{{ calorieCount }} cal</span>
-                </ion-col>
-                <ion-col text-center *ngIf="(menuItem?.Description | allergens)?.allergens">
-                    <span class="allergen" *ngFor="let allergen of (menuItem?.Description | allergens)?.allergens">
-                       <span> {{ allergen }} </span>
-                    </span>
-                </ion-col>
-            </ion-row>
+  <div class="menu-item-header" *ngIf="menuItem" [ngStyle]="{'background-image': 'url(' + featuredImage + ')'}">
+    <div class="title-box">
+      <h2 class="menu-item-title">{{ menuItem.DisplayName }}</h2>
+      <p class="menu-item-description" text-wrap>
+        <ion-icon name="star"></ion-icon>
+        {{ (menuItem.Description | allergens).description }}
+      </p>
+      <ion-row class="menu-item-meta">
+        <ion-col col-3 class="border">
+          <span class="price">{{ itemPrice | currency:'USD':'symbol' }}</span>
+        </ion-col>
+        <ion-col col-4 text-center class="border">
+          <span class="calories" *ngIf="calorieCount !== null && calorieCount !== 0">{{ calorieCount }} cal</span>
+        </ion-col>
+        <ion-col text-center *ngIf="(menuItem?.Description | allergens)?.allergens">
+          <span class="allergen" *ngFor="let allergen of (menuItem?.Description | allergens)?.allergens">
+            <span> {{ allergen }} </span>
+          </span>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+  <div class="sub-heading" text-center *ngIf="menuItem && salesItems?.ModGroups.length">
+    <p>Start your modification:</p>
+  </div>
+  <div *ngFor="let group of orderedSalesItemDetails; let i = index">
+    <div class="required-message" *ngIf="group.MinimumItems > 0 && isGroupRequired(group.$id) && submitAttempted">
+      <p>A selection from this group is required.</p>
+    </div>
+    <ion-list radio-group class="sales-item sales-item-{{ i }}" no-margin>
+      <ion-list-header no-margin>
+        <span class="title">{{ group?.DisplayName }}</span>
+        <span class="choices" *ngIf="group?.MaximumItems > 0">{{ group?.FreeModifiers }} Included. ({{ customData[group?.$id].currentlySelected.length }}/{{ group?.MaximumItems }})</span>
+      </ion-list-header>
+      <ion-item *ngFor="let mod of group.Mods, let i = index" no-margin no-padding>
+        <div class="mod-name" padding no-margin>
+          <span>{{ (mod.Name| allergens).description }}</span>
+          <span class="allergen" *ngFor="let allergen of (mod.Name | allergens).allergens">
+            {{ allergen }}
+          </span>
         </div>
-    </div>
-    <div class="sub-heading" text-center *ngIf="menuItem && salesItems?.ModGroups.length">
-        <p>Start your modification:</p>
-    </div>
-    <div *ngFor="let group of orderedSalesItemDetails; let i = index">
-            <div class="required-message" *ngIf="group.MinimumItems > 0 && isGroupRequired(group.$id) && submitAttempted">
-                    <p>A selection from this group is required.</p>
-                  </div>
-        <ion-list radio-group class="sales-item sales-item-{{ i }}" no-margin>
-            <ion-list-header no-margin>
-                <span class="title">{{ group?.DisplayName }}</span>
-                <span class="choices" *ngIf="group?.MaximumItems > 0">{{ group?.FreeModifiers }} Included. ({{ customData[group?.$id].currentlySelected.length }}/{{ group?.MaximumItems }})</span>
-
-            </ion-list-header>
-            <ion-item *ngFor="let mod of group.Mods, let i = index" no-margin no-padding>
-                <div class="mod-name" padding no-margin>
-                    <span>{{ (mod.Name| allergens).description }}</span>
-                    <span class="allergen" *ngFor="let allergen of (mod.Name | allergens).allergens">
-                        {{ allergen }}
-                    </span>
-                </div>
-                <div class="calories">{{ mod?.ItemModifiers[0]?.CaloricValue }}
-                    <span *ngIf="mod?.ItemModifiers[0]?.CaloricValue !== null">cal</span>
-                </div>
-                <div class="choice-controls" item-right>
-                  <ion-icon name="minus" float-left color="red" [ngClass]="(customData[group.$id].currentlySelected.length > 0 && customData[group.$id].modifiers[mod.$id].quantity > 0) ? 'enabled' : 'disabled'" (tap)="removeMod( group, mod )" ></ion-icon>
-                    <span class="quantity-holder" [ngClass]="customData[group.$id].modifiers[mod.$id].quantity > 0 ? 'populated' : ''">
-                    <span class="quantity-number" *ngIf="customData[group.$id].modifiers[mod.$id].quantity !== 0">{{ customData[group.$id].modifiers[mod.$id].quantity }}</span>
-                    </span>
-                  <ion-icon name="plus" float-right color="red" [ngClass]="((customData[group.$id].currentlySelected.length < group.MaximumItems) || (group.MaximumItems === 0 && customData[group.$id].modifiers[mod.$id].quantity < 1)) ? 'enabled' : 'disabled'" (tap)="addMod( group, mod )" ></ion-icon>
-                </div>
-            </ion-item>
-        </ion-list>
-    </div>
-
-    <div *ngIf="menuItem" class="special-instructions" padding>
-        <p class="special-instructions-tag">Add Special Instruction (optional)</p>
-        <ion-textarea [(ngModel)]="specialInstructions"></ion-textarea>
-    </div>
-
-    <ion-toolbar color="light" *ngIf="totalPrice">
-        <div class="quantity">
-            <ion-row no-padding>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col>
-                            <span class="quantity-title">Quantity</span>
-                        </ion-col>
-                        <ion-col text-center>
-                            <p>
-                                <ion-icon name="minus" color="red" (tap)="decrementQuantity()" float-left></ion-icon>
-                                <span class="quantity-number" padding>{{ quantity }}</span>
-                                <ion-icon name="plus" color="red" (tap)="incrementQuantity()" float-right></ion-icon>
-                            </p>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-row>
+        <div class="calories">{{ mod?.ItemModifiers[0]?.CaloricValue }}
+          <span *ngIf="mod?.ItemModifiers[0]?.CaloricValue !== null">cal</span>
         </div>
-        <p class="customization-errors text-center" *ngIf="requiredModifierGroups.length && submitAttempted">Please select an item from the required modifier groups.</p>
-
-        <div class="button-bag-wrap">
-            <button ion-button block color="red" (tap)="addToBag()" [ngClass]="{ 'disabled': requiredModifierGroups.length }" class="button-bag-view">
-                   Add to My Bag (+{{ totalPrice | currency:'USD':'symbol' }})
-            </button>
+        <div class="choice-controls" item-right>
+          <ion-icon name="minus" float-left color="red" [ngClass]="(customData[group.$id].currentlySelected.length > 0 && customData[group.$id].modifiers[mod.$id].quantity > 0) ? 'enabled' : 'disabled'" (tap)="removeMod( group, mod )" ></ion-icon>
+            <span class="quantity-holder" [ngClass]="customData[group.$id].modifiers[mod.$id].quantity > 0 ? 'populated' : ''">
+              <span class="quantity-number" *ngIf="customData[group.$id].modifiers[mod.$id].quantity !== 0">{{ customData[group.$id].modifiers[mod.$id].quantity }}</span>
+            </span>
+          <ion-icon name="plus" float-right color="red" [ngClass]="((customData[group.$id].currentlySelected.length < group.MaximumItems) || (group.MaximumItems === 0 && customData[group.$id].modifiers[mod.$id].quantity < 1)) ? 'enabled' : 'disabled'" (tap)="addMod( group, mod )" ></ion-icon>
         </div>
-    </ion-toolbar>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="menuItem" class="special-instructions" padding>
+    <p class="special-instructions-tag">Add Special Instruction (optional)</p>
+    <ion-textarea [(ngModel)]="specialInstructions"></ion-textarea>
+  </div>
+
+  <ion-toolbar color="light" *ngIf="totalPrice">
+    <div class="quantity">
+      <ion-row no-padding>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <span class="quantity-title">Quantity</span>
+            </ion-col>
+            <ion-col text-center>
+              <p>
+                <ion-icon name="minus" color="red" (tap)="decrementQuantity()" float-left></ion-icon>
+                <span class="quantity-number" padding>{{ quantity }}</span>
+                <ion-icon name="plus" color="red" (tap)="incrementQuantity()" float-right></ion-icon>
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-row>
+    </div>
+
+    <p class="customization-errors text-center" *ngIf="requiredModifierGroups.length && submitAttempted">Please select an item from the required modifier groups.</p>
+
+    <div class="button-bag-wrap">
+      <button ion-button block color="red" (tap)="addToBag()" [ngClass]="{ 'disabled': requiredModifierGroups.length }" class="button-bag-view">
+        Add to My Bag (+{{ totalPrice | currency:'USD':'symbol' }})
+      </button>
+    </div>
+  </ion-toolbar>
 </ion-content>
 
