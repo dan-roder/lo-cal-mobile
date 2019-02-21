@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { Storage } from "@ionic/storage";
 import { BagProvider } from "../../providers/bag/bag";
 import { OrderService } from './../../providers/order/order-provider';
@@ -7,8 +7,6 @@ import { OrderResults } from '../../models/order';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Config } from '../../app/app.config';
 import { WordPressProvider } from './../../providers/word-press/word-press';
-import { CustomerProvider } from "../../providers/customer/customer";
-import{ Customer } from "../../models/customer"
 
 /**
  * Generated class for the ThankYouPage page.
@@ -17,6 +15,9 @@ import{ Customer } from "../../models/customer"
  * on Ionic pages and navigation.
  */
 @IonicPage()
+
+@AutoUnsubscribe()
+
 @Component({
   selector: 'page-thank-you',
   templateUrl: 'thank-you.html',
@@ -31,11 +32,10 @@ export class ThankYouPage {
 
   constructor(
     private localStorage: Storage,
-    private bagService: BagProvider, 
-    private orderService: OrderService, 
-    private config: Config, 
-    private wpService: WordPressProvider, 
-    private customerService: CustomerProvider,
+    private bagService: BagProvider,
+    private orderService: OrderService,
+    private config: Config,
+    private wpService: WordPressProvider,
     public navCtrl: NavController,
     public navParams: NavParams
   ) { }
@@ -47,7 +47,7 @@ export class ThankYouPage {
 
     this.getCustomer();
     // Get current customer to check if they were a guest customer
-   
+
 
     this.bagService.itemsInBag = [];
     this.bagService.totalPrice = 0;
@@ -73,9 +73,11 @@ export class ThankYouPage {
         this.localStorage.remove('user').then(() => {});
       }
     })
-}
+  }
 
-  
+  ngOnDestroy() { }
+
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ThankYouPage');
   }
