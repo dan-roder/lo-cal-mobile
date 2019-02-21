@@ -73,7 +73,7 @@ export class TabsComponent {
   }
 
   public onTabSelect(tab: { index: number; id: string }) {
-    let index = tab.index-1;
+    tab.index-1;
   }
 
   public openBag(page) {
