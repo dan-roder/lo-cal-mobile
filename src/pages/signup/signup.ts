@@ -20,7 +20,6 @@ export class SignupPage implements OnInit {
   public passwordComp : boolean = false;
   public accountExists : boolean = false;
   public accountCreated : boolean = false;
-  public processing   : boolean = false;
   public signupForm   : FormGroup;
   public custInfo     : AbstractControl;
   public firstName     : AbstractControl;
@@ -91,18 +90,14 @@ export class SignupPage implements OnInit {
     this.answer = this.signupForm.controls.passwords['controls']['answer'];
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignupPage');
-  }
+  ionViewDidLoad() { }
 
   // must be present with auto-unsubscribe even if empty
   ngOnDestroy() {
     // You can also do whatever you need here
   }
 
-  ionViewWillLeave() {
-    this.processing = false
-  }
+  ionViewWillLeave() { }
 
   public checkCustInfo( group: FormGroup ) {
 
@@ -175,7 +170,6 @@ export class SignupPage implements OnInit {
 
     this.customer.create( customerObj ).subscribe( (res) => {
       loading.dismiss();
-      console.log(res);
 
       switch (res) {
         case 163 :
@@ -187,8 +181,15 @@ export class SignupPage implements OnInit {
       }
 
     }, (error) => {
-      console.log(error);
       loading.dismiss();
+      let message = 'An unknown error occurred. Please try again.';
+
+      let toast = this.toastController.create({
+        message: message,
+        duration: 6000,
+        position: 'bottom'
+      });
+      toast.present();
     });
   }
 }
