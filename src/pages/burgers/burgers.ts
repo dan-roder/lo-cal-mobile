@@ -100,7 +100,7 @@ export class BurgersPage implements OnInit {
     private arrangeMenuData( data ) {
 
         let defaults     = [];
-        let menuItem     = data.item;
+        // let menuItem     = data.item;
         let salesItems   = data.salesItems[0];
 
         if ( salesItems.ModGroups.length > 0 &&  salesItems.DefaultOptions.length > 0 ) {
@@ -199,7 +199,7 @@ export class BurgersPage implements OnInit {
 
             .subscribe( data => {
 
-                let bagItem = this.arrangeMenuData( data );
+                // let bagItem = this.arrangeMenuData( data );
                 let menuItem   = data.item;
                 let salesItems = data.salesItems[0];
                 let quantity   = 1;
