@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, LoadingController } from 'ionic-angular';
-import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WordPressProvider } from '../../providers/word-press/word-press';
 import { IPost } from '../../models/post';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
@@ -17,7 +16,6 @@ import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 export class CateringPage implements OnInit {
 
     public page: any;
-    public cateringForm : FormGroup;
     public pageContent : IPost;
     public acf : any;
     public featuredImage : any;
@@ -28,8 +26,7 @@ export class CateringPage implements OnInit {
     constructor(
 
         private wordpressService: WordPressProvider,
-        private loadingController: LoadingController,
-        public fb: FormBuilder
+        private loadingController: LoadingController
 
     ) {
 
