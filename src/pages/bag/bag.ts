@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { Platform, AlertController, IonicPage, NavController, NavParams } from "ionic-angular";
 import { BagProvider } from "../../providers/bag/bag";
 import { LineItem } from "../../models/LineItem";
-import { Storage } from "@ionic/storage";
+// import { Storage } from "@ionic/storage";
 import { CustomerProvider } from '../../providers/customer/customer';
 @IonicPage()
 @Component({
@@ -22,7 +22,7 @@ export class BagPage {
     public navParams: NavParams,
     private alertCtrl: AlertController,
     private bag: BagProvider,
-    private storage: Storage,
+    // private storage: Storage,
     private customerService: CustomerProvider
   ) {
     this.platform.ready().then(() => {
