@@ -11,7 +11,6 @@
     <div class="title-box">
       <h2 class="menu-item-title">{{ menuItem.DisplayName }}</h2>
       <p class="menu-item-description" text-wrap>
-        <ion-icon name="star"></ion-icon>
         {{ (menuItem.Description | allergens).description }}
       </p>
       <ion-row class="menu-item-meta">
@@ -64,7 +63,7 @@
 
   <div *ngIf="menuItem" class="special-instructions" padding>
     <p class="special-instructions-tag">Add Special Instruction (optional)</p>
-    <ion-textarea rows="6" [(ngModel)]="specialInstructions"></ion-textarea>
+    <ion-textarea rows="6" [(ngModel)]="specialInstructions" resiz></ion-textarea>
   </div>
 
   <ion-toolbar color="light" *ngIf="totalPrice">
