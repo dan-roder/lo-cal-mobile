@@ -1,116 +1,125 @@
 page-burgers {
 
-    ion-content.content-md, ion-content.content-ios {
-        background: #f4f4f4;
+  ion-content.content-md, ion-content.content-ios {
+    background: #f4f4f4;
+  }
+
+  .menu-heading {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    padding: 30px 0 15px 20px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+  }
+
+  .featured {
+    ion-card {
+      box-shadow: none;
+      border-bottom: 20px solid map-get($colors, light);
+    }
+  }
+
+  ion-card.card-md, ion-card.card-ios {
+    box-shadow: none;
+  }
+
+  ion-card-title.card-title-md,
+  ion-card-title.card-title-ios {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 1.2px;
+    padding: 15px 0 10px 17.5px;
+    color: black;
+  }
+
+  .menu-item {
+    margin-bottom: 20px;
+
+    @include breakpoint(425px) {
+      max-width: 360px;
+      margin: 0 auto 20px;
     }
 
-    .menu-heading {
-        font-size: 14px;
-        font-weight: 600;
-        margin: 0;
-        padding: 30px 0 15px 20px;
-        letter-spacing: 1.6px;
+    @include breakpoint(768px) {
+      width: 48%;
+    }
+  }
+
+  .menu-items {
+    padding-bottom: 50px;
+
+    @include breakpoint(768px) {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0 6px 50px 6px
+    }
+  }
+
+  .featured-title-icon {
+    color: #ff0f1b;
+    margin-right: 20px;
+    font-size: 13px;
+    vertical-align: baseline;
+  }
+
+  p.featured-description {
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 13px;
+    line-height: 1.54;
+    letter-spacing: 0.6px;
+    font-weight: 600;
+    color: rgba(30, 30, 30, 0.99);
+  }
+
+  .featured-meta {
+    padding: 10px 0 20px;
+
+    ion-col.border {
+      border-right: 1px solid $light-gray;
+    }
+
+    ion-col {
+      span {
+        font-size: 12px;
+        letter-spacing: 0.9px;
+      }
+      .price {
+        padding-left: 20px
+      }
+      .add {
+        padding-right: 15px;
         text-transform: uppercase;
-    }
-
-    .featured {
-        ion-card {
-            box-shadow: none;
-            border-bottom: 20px solid map-get($colors, light);
-        }
-    }
-
-    ion-card.card-md, ion-card.card-ios {
-        box-shadow: none;
-    }
-    ion-card-title.card-title-md,
-    ion-card-title.card-title-ios {
-        text-transform: uppercase;
-        font-weight: 700;
-        font-size: 18px;
-        letter-spacing: 1.2px;
-        padding: 15px 0 10px 17.5px;
-        color: black;
-    }
-
-    .menu-item {
-        margin-bottom: 20px;
-        @include breakpoint(425px) {
-          max-width: 360px;
-          margin: 0 auto 20px;
-        }
-        @include breakpoint(768px) {
-          width: 48%;
-
-        }
-    }
-    .menu-items {
-        padding-bottom: 50px;
-        @include breakpoint(768px) {
-            display: flex;
-            flex-wrap: wrap;
-            padding: 0 6px 50px 6px
-        }
-    }
-    .featured-title-icon {
         color: #ff0f1b;
-        margin-right: 20px;
-        font-size: 13px;
-        vertical-align: baseline;
+        font-size: 12.5px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+      }
     }
+  }
 
-    p.featured-description {
-        margin-left: 20px;
-        margin-right: 20px;
-        font-size: 13px;
-        line-height: 1.54;
-        letter-spacing: 0.6px;
-        font-weight: 600;
-        color: rgba(30, 30, 30, 0.99);
-    }
+  .allergen span {
+    padding-left: 0;
+  }
 
-    .featured-meta {
-        padding: 10px 0 20px;
-        ion-col.border {
-            // border-right: 1px solid $light-gray;
-        }
-        ion-col {
-            span {
-                font-size: 12px;
-                letter-spacing: 0.9px;
-            }
-            .price {
-                padding-left: 20px
-            }
-            .add {
-                padding-right: 15px;
-                text-transform: uppercase;
-                color: #ff0f1b;
-                font-size: 12.5px;
-                font-weight: 700;
-                letter-spacing: 0.8px;
-            }
-        }
-    }
-    .allergen span {
-        padding-left: 0;
-    }
-    .price, .calories {
-        font-weight: 600;
-        display: inline-block;
-        width: 100%;
-        border-right: 1px solid $light-gray;
-    }
+  .price, .calories {
+    font-weight: 600;
+    display: inline-block;
+    width: 100%;
+    // border-right: 1px solid $light-gray;
+  }
 
-    img.food-item:before {
-        content: '';
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background: #f4f4f4;
-        z-index: -1;
-    }
+  img.food-item:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #f4f4f4;
+    z-index: -1;
+  }
 }
