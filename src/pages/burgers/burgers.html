@@ -22,20 +22,20 @@
           <p class="featured-description">{{ (menuItem.Description | allergens).description }}</p>
         </ion-card-content>
         <ion-row class="featured-meta">
-          <ion-col col-3 class="border">
+          <ion-col col-3>
             <span class="price">{{ menuItem.defaultPrice | currency:'USD':'symbol' }}</span>
           </ion-col>
           <ion-col col-3 text-center class="border" *ngIf="menuItem.CaloricServingUnit">
             <span class="calories">{{ menuItem.CaloricServingUnit }} cal</span>
           </ion-col>
-          <ion-col col-4 text-center>
+          <ion-col col-4 class="border" text-center *ngIf="(menuItem?.Description | allergens).allergens">
             <span class="allergen">
               <span *ngFor="let allergen of (menuItem.Description | allergens).allergens">
                 {{ allergen }}
               </span>
             </span>
           </ion-col>
-          <ion-col col float-right text-right (tap)="quickAdd(menuItem)">
+          <ion-col col float-right text-right (click)="quickAdd(menuItem)" *ngIf="menuItem?.SalesItemIds.length <= 1" tappable>
             <span class="add">Add</span>
           </ion-col>
         </ion-row>
