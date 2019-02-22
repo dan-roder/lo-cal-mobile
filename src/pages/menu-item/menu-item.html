@@ -64,7 +64,7 @@
 
   <div *ngIf="menuItem" class="special-instructions" padding>
     <p class="special-instructions-tag">Add Special Instruction (optional)</p>
-    <ion-textarea [(ngModel)]="specialInstructions"></ion-textarea>
+    <ion-textarea rows="6" [(ngModel)]="specialInstructions"></ion-textarea>
   </div>
 
   <ion-toolbar color="light" *ngIf="totalPrice">
