@@ -8,10 +8,11 @@ import { Observable } from 'rxjs/Observable';
 export class WordPressProvider {
 
   private _addressContent : any;
+  private _menuMap: any;
 
   constructor(
     private http: Http,
-    private config: Config
+    private config: Config,
   ) {}
 
   login(data) {
@@ -182,6 +183,14 @@ export class WordPressProvider {
 
   set addressContent(address) {
     this._addressContent = address;
+  }
+
+  get menuMap(): any{
+    return this._menuMap;
+  }
+
+  set menuMap(map: any){
+    this._menuMap = map;
   }
 
 }
