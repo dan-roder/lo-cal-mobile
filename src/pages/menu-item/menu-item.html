@@ -7,11 +7,11 @@
 </ion-header>
 
 <ion-content no-padding>
-  <div class="menu-item-header" *ngIf="menuItem" [ngStyle]="{'background-image': 'url(' + featuredImage + ')'}">
+  <div class="menu-item-header" *ngIf="menuItemDetails" [ngStyle]="{'background-image': 'url(' + featuredImage + ')'}">
     <div class="title-box">
-      <h2 class="menu-item-title">{{ menuItem.DisplayName }}</h2>
+      <h2 class="menu-item-title">{{ menuItemDetails?.item?.DisplayName }}</h2>
       <p class="menu-item-description" text-wrap>
-        {{ (menuItem.Description | allergens).description }}
+        {{ (menuItemDetails?.item?.Description | allergens).description }}
       </p>
       <ion-row class="menu-item-meta">
         <ion-col col-3 class="border">
@@ -20,8 +20,8 @@
         <ion-col col-4 text-center class="border">
           <span class="calories" *ngIf="calorieCount !== null && calorieCount !== 0">{{ calorieCount }} cal</span>
         </ion-col>
-        <ion-col text-center *ngIf="(menuItem?.Description | allergens)?.allergens">
-          <span class="allergen" *ngFor="let allergen of (menuItem?.Description | allergens)?.allergens">
+        <ion-col text-center *ngIf="(menuItemDetails?.item?.Description | allergens)?.allergens">
+          <span class="allergen" *ngFor="let allergen of (menuItemDetails?.item?.Description | allergens)?.allergens">
             <span> {{ allergen }} </span>
           </span>
         </ion-col>
@@ -29,17 +29,17 @@
     </div>
   </div>
   <div class="size-selection">
-    <div class="sub-heading" text-center *ngIf="menuItem && multipleSalesItems.length > 0">
+    <div class="sub-heading" text-center *ngIf="menuItemDetails && multipleSalesItems.length > 0">
       <p>Select a size:</p>
     </div>
     <ion-item>
       <ion-label for="size" floating>Size</ion-label>
       <ion-select name="size" id="size" class="custom white-bg" [(ngModel)]="sizeChoice" (ngModelChange)="updateDataPerSize(sizeChoice)">
-        <ion-option [value]="salesItem?.SalesItemId" *ngFor="let salesItem of multipleSalesItems">{{ salesItem?.DisplayName }}</ion-option>
+        <ion-option [value]="salesItemDetails?.SalesItemId" *ngFor="let salesItemDetails of multipleSalesItems">{{ salesItemDetails?.DisplayName }}</ion-option>
       </ion-select>
     </ion-item>
   </div>
-  <div class="sub-heading" text-center *ngIf="menuItem && salesItems?.ModGroups.length">
+  <div class="sub-heading" text-center *ngIf="menuItemDetails && salesItemDetails?.ModGroups.length">
     <p>Start your modification:</p>
   </div>
   <div *ngFor="let group of orderedSalesItemDetails; let i = index">
@@ -72,7 +72,7 @@
     </ion-list>
   </div>
 
-  <div *ngIf="menuItem" class="special-instructions" padding>
+  <div *ngIf="menuItemDetails" class="special-instructions" padding>
     <p class="special-instructions-tag">Add Special Instruction (optional)</p>
     <ion-textarea rows="6" [(ngModel)]="specialInstructions"></ion-textarea>
   </div>

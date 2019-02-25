@@ -14,19 +14,18 @@ import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 @IonicPage()
 
 @Component({
-
-    selector: "page-menu-item",
-    templateUrl: "menu-item.html"
-
+  selector: "page-menu-item",
+  templateUrl: "menu-item.html"
 })
+
 export class MenuItemPage {
 
   quantity     : number = 1;
   public customizationData : Object = {};
   loadingMenu  : boolean = true;
   menuItemId   : String;
-  menuItem     : any;
-  salesItems   : any;
+  public menuItemDetails : any;
+  private salesItemDetails : any;
   defaultPrice : any;
   totalPrice   : number;
   salesItemId  : number;
@@ -46,13 +45,13 @@ export class MenuItemPage {
   public sizeChoice : any;
 
   constructor(
-      public  app       : App,
-      public  navCtrl   : NavController,
-      public  navParams : NavParams,
-      private alertCtrl : AlertController,
-      private menu      : MenuProvider,
-      private bag       : BagProvider,
-      private wpService : WordPressProvider
+    public  app       : App,
+    public  navCtrl   : NavController,
+    public  navParams : NavParams,
+    private alertCtrl : AlertController,
+    private menu      : MenuProvider,
+    private bag       : BagProvider,
+    private wpService : WordPressProvider
   ) {
     this.menuItemId   = this.navParams.get('menuItem').MenuItemId;
     this.defaultPrice = this.navParams.get('menuItem').defaultPrice;
@@ -277,12 +276,15 @@ export class MenuItemPage {
 
     console.log(data);
 
-    let defaults          = [];
-    this.menuItem         = data.item;
-    this.salesItems       = data.salesItems[0];
-    this.itemPrice        = data.salesItems[0].Price;
-    this.calorieCount     = (this.navParams.get('menuItem').CaloricServingUnit === null) ? 0 : parseInt(this.navParams.get('menuItem').CaloricServingUnit, 10);
-    this.salesItemId      = data.salesItems[0].SalesItemId;
+    let defaults = [];
+    let defaultItemId = data.item.DefaultItemId;
+
+    this.menuItemDetails = data;
+    this.salesItemDetails = _.find(data['salesItems'], {'SalesItemId': defaultItemId});
+    this.itemPrice = this.salesItemDetails.Price;
+
+    this.calorieCount = (this.navParams.get('menuItem').CaloricServingUnit === null) ? 0 : parseInt(this.navParams.get('menuItem').CaloricServingUnit, 10);
+    this.salesItemId = this.salesItemDetails.SalesItemId;
 
     // Need to account for sizes if there is more than 1 sales item
     if(data['salesItems'].length > 1){
@@ -291,11 +293,11 @@ export class MenuItemPage {
     }
 
     this.recalculateCost();
-    // console.log(data, this.menuItem, data.salesItems, this.itemPrice, this.calorieCount );
-    this.orderedSalesItemDetails = this.orderModifierGroups( this.salesItems.ModifierGroups, this.salesItems.ModGroups );
 
-    if ( this.salesItems.ModGroups.length > 0 &&  this.salesItems.DefaultOptions.length > 0 ) {
-      defaults = this.salesItems.DefaultOptions;
+    this.orderedSalesItemDetails = this.orderModifierGroups( this.salesItemDetails.ModifierGroups, this.salesItemDetails.ModGroups );
+
+    if ( this.salesItemDetails.ModGroups.length > 0 && this.salesItemDetails.DefaultOptions.length > 0 ) {
+      defaults = this.salesItemDetails.DefaultOptions;
       this.registerCustomizationVariables( this.orderedSalesItemDetails, defaults );
     } else {
       this.registerCustomizationVariables( this.orderedSalesItemDetails );
@@ -349,6 +351,28 @@ export class MenuItemPage {
     // console.log( this.customizationData );
   }
 
+  public updateDataPerSize(salesId: number){
+    this.salesItemDetails = _.find(this.menuItemDetails.salesItems, {'SalesItemId': +salesId});
+    this.calorieCount = +this.salesItemDetails.CaloricValue;
+    this.itemPrice = this.salesItemDetails.Price;
+
+    // Initialize defaults
+    let defaults = [];
+    this.currentModifierArray = [];
+    if(this.salesItemDetails.ModGroups.length > 0){
+      // Does the sales item have defaults?
+      if(this.salesItemDetails.DefaultOptions.length > 0){
+        defaults = this.salesItemDetails.DefaultOptions;
+      }
+
+      this.orderedSalesItemDetails = this.orderModifierGroups( this.salesItemDetails.ModifierGroups, this.salesItemDetails.ModGroups );
+      this.registerCustomizationVariables( this.salesItemDetails.ModGroups, defaults );
+    }
+
+    // Calculate initial cost based on initial quantity of 1
+    this.recalculateCost();
+  }
+
   defaultItem( group, mod ) {
     // console.log( group, mod );
     let groupId = group.$id;
@@ -400,7 +424,7 @@ export class MenuItemPage {
     // Adding to bag needs to have all details of modifications
     //  Start simple. Add just the item itself
     let menuItem = {};
-    menuItem = this.menuItem;
+    menuItem = this.menuItemDetails;
 
     // add quantity and totalPrice to object
     let      quantity      = this.quantity;
@@ -408,13 +432,11 @@ export class MenuItemPage {
     menuItem['Quantity']   = quantity;
     menuItem['TotalPrice'] = totalPrice;
     menuItem['Modifiers']  = Object.values( this.customizationData );
-    menuItem['UnitPrice']  = this.salesItems.Price;
+    menuItem['UnitPrice']  = this.salesItemDetails.Price;
     menuItem['caloricValue'] = this.calorieCount;
     menuItem['SalesItemId'] = this.salesItemId;
     menuItem['SpecialInstructions'] = this.specialInstructions;
     menuItem['CartImage'] = this.cartImage;
-
-        // console.log( 'hey menu-item', this.menuItem );
 
     let message = `${ menuItem['DisplayName'] } has been added to you your bag.`
     // Push full object to bag service
