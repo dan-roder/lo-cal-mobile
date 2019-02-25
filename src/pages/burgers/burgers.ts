@@ -28,7 +28,7 @@ export class BurgersPage implements OnInit {
   public customData       : Object = {};
   public cartImage        : string = '';
   public menuSlug         : any;
-  public menuMap          : any;
+  public menuMap          : any = null;
   public wpSubMenuItems   : any;
 
   constructor(
@@ -38,14 +38,13 @@ export class BurgersPage implements OnInit {
     public  navParams : NavParams,
     public  loading   : LoadingController,
     private alertCtrl : AlertController,
-    private menu      : MenuProvider,
+    private menuService : MenuProvider,
     private bag       : BagProvider,
     private wpService : WordPressProvider,
 
   ) {}
 
   ngOnInit() {
-
     let loading = this.loading.create({
       content: "Loading Menu ... ",
       spinner: "circles"
@@ -55,24 +54,24 @@ export class BurgersPage implements OnInit {
 
     this.subMenuMeta = this.navParams.get("menuItem");
 
-    this.wpService.getMenuMapObject().subscribe(menuMap => {
-      let navItemName = this.navParams.get('menuItem').Name
-      let navItemFormatted = navItemName.replace(/[^A-Z0-9]+/ig, "-").toLowerCase();
-
-      this.menuMap = menuMap;
-
-      if (this.subMenuMeta['SubMenuId'] === 7) {
-        this.menuSlug = 'smoothies-and-smoothie-bowls'
-      } else {
-        this.menuSlug = navItemFormatted;
-      }
-
-      this.wpSubMenuItems = _.filter(this.menuMap, {'submenu' : this.menuSlug})
-    })
-
-    this.subMenuObserver = this.menu.getSubmenu( this.subMenuMeta['SubMenuId'] ).subscribe( data => {
+    // Retrieving subMenuData
+    this.menuService.getSubmenu( this.subMenuMeta['SubMenuId'] ).subscribe( data => {
       this.subMenu = data;
       loading.dismiss();
+    });
+
+    let navItemName = this.navParams.get('menuItem').Name
+    let navItemFormatted = navItemName.replace(/[^A-Z0-9]+/ig, "-").toLowerCase();
+
+    if (this.subMenuMeta['SubMenuId'] === 7) {
+      this.menuSlug = 'smoothies-and-smoothie-bowls'
+    } else {
+      this.menuSlug = navItemFormatted;
+    }
+
+    this.wpService.getSubMenu(this.menuSlug).subscribe((items) => {
+      let itemJson = items.json();
+      this.wpSubMenuItems = _(itemJson).map('acf').flatten().value();
     });
   }
 
@@ -150,26 +149,25 @@ export class BurgersPage implements OnInit {
   public quickAdd( item ) {
     let message = `Add ${ item['DisplayName'] } to your bag?`
     let alert = this.alertCtrl.create({
-
-        title   : message,
-        message : `Your item will be added with the included extras.`,
-        buttons : [
-          {
-            text: "Cancel",
-            role: "cancel",
-            cssClass: "alert-button-reject",
-            handler: () => {
-              console.log("Cancel clicked");
-            }
-          },
-          {
-            text: "Yes",
-            cssClass: "alert-button-accept",
-            handler: () => {
-              this.addToBag( item );
-            }
+      title   : message,
+      message : `Your item will be added with the included extras.`,
+      buttons : [
+        {
+          text: "Cancel",
+          role: "cancel",
+          cssClass: "alert-button-reject",
+          handler: () => {
+            console.log("Cancel clicked");
           }
-        ]
+        },
+        {
+          text: "Yes",
+          cssClass: "alert-button-accept",
+          handler: () => {
+            this.addToBag( item );
+          }
+        }
+      ]
     });
     alert.present();
   }
@@ -185,7 +183,7 @@ export class BurgersPage implements OnInit {
       }
     })
 
-    this.menuItemObserver = this.menu.getMenuItem( item.MenuItemId ).subscribe( data => {
+    this.menuItemObserver = this.menuService.getMenuItem( item.MenuItemId ).subscribe( data => {
       // let bagItem = this.arrangeMenuData( data );
       let menuItem   = data.item;
       let salesItems = data.salesItems[0];
