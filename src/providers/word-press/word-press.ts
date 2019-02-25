@@ -141,6 +141,14 @@ export class WordPressProvider {
             });
     }
 
+    public getSubMenu(category: string){
+      return this.http.get(this.config.wordpressApiUrl + `/sub_menus/v2/items/${category}`).map(result => {
+        return result;
+      }, error => {
+        return error;
+      })
+    }
+
     private transformRequest(obj) {
         let p, str;
         str = [];
