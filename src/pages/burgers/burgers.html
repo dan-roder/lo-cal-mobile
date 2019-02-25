@@ -5,8 +5,8 @@
           {{ menuItem | json }}
       </pre> -->
       <ion-card *ngIf="menuItem.DisplayName" no-margin class="full-width" no-shadow no-border>
-        <div class="image" *ngIf="(menuItem?.MenuItemId | cardImage:wpSubMenuItems | async) !== undefined" (click)="addItem( menuItem )" tappable>
-          <img class="food-item" [src]="menuItem?.MenuItemId | cardImage:wpSubMenuItems | async " />
+        <div class="image" *ngIf="(menuItem?.MenuItemId | cardImage:wpSubMenuItems) !== ''" (click)="addItem( menuItem )" tappable>
+          <img class="food-item" src="{{ (menuItem?.MenuItemId | cardImage:wpSubMenuItems)?.submenu_image }}" />
         </div>
         <ion-card-content no-padding (click)="addItem( menuItem )" tappable>
           <ion-card-title>
