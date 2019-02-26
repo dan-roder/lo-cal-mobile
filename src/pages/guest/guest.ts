@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {  IonicPage, NavController, NavParams, ToastController, LoadingController, Events} from 'ionic-angular';
-import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
+import {  IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Storage } from "@ionic/storage";
 import{ Customer } from "../../models/customer";
 import { OrderService } from './../../providers/order/order-provider';
@@ -31,7 +31,7 @@ export class GuestPage {
     private orderService: OrderService
   ) {
 
-    this.guestCheckoutForm = fb.group({
+    this.guestCheckoutForm = this.fb.group({
       'guest-first-name': ['', [Validators.required, Validators.maxLength(28)]],
       'guest-last-name': ['', [Validators.required, Validators.maxLength(28)]],
       'guest-email': ['', Validators.compose([Validators.required, Validators.pattern(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)])],
@@ -60,7 +60,7 @@ export class GuestPage {
         loader.dismiss();
         this.navCtrl.push('CheckoutReviewPage')
       });
-    
+
     }
   }
 

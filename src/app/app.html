@@ -13,10 +13,10 @@
       </button>
     </ion-list>
     <div padding *ngIf="!loggedInStatus">
-      <button menuClose="left" ion-button block outline color="white" (tap)="pushPage('LoginPage')">Log In</button>
+      <button menuClose="left" ion-button block outline color="white" (click)="pushPage('LoginPage')">Log In</button>
     </div>
     <div padding *ngIf="loggedInStatus">
-      <button menuClose="left" ion-button block outline color="white" (tap)="logout()">Log Out</button>
+      <button menuClose="left" ion-button block outline color="white" (click)="logout()">Log Out</button>
     </div>
     <ion-grid padding>
       <ion-row>
@@ -39,5 +39,5 @@
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false" main></ion-nav>
+<ion-nav [root]="rootPage" #content main></ion-nav>
 <!-- </ion-split-pane> -->

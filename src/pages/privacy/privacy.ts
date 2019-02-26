@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, LoadingController } from 'ionic-angular';
 import { WordPressProvider } from '../../providers/word-press/word-press';
 import { IPost } from '../../models/post';
@@ -14,35 +14,33 @@ import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
   templateUrl: 'privacy.html',
   providers: [WordPressProvider]
 })
+
 export class PrivacyPage {
+  public page: any;
+  public pageContent : IPost;
 
-    public page: any;
-    public pageContent : IPost;
+  constructor(
+    private wordpressService: WordPressProvider,
+    private loadingController: LoadingController,
+  ) { }
 
-    constructor(
+  ngOnInit() {
+    this.getPrivacyPolicy();
+  }
 
-        private wordpressService: WordPressProvider,
-        private loadingController: LoadingController,
+  // must be present with auto-unsubscribe even if empty
+  ngOnDestroy() {
+    // You can also do whatever you need here
+  }
 
-    ) { }
+  public getPrivacyPolicy () {
+    let loader = this.loadingController.create({ content: "Loading" });
+    loader.present()
 
-    ngOnInit() {
-        this.getPrivacyPolicy();
-    }
-
-    // must be present with auto-unsubscribe even if empty
-    ngOnDestroy() {
-        // You can also do whatever you need here
-    }
-
-    public getPrivacyPolicy () {
-        let loader = this.loadingController.create({ content: "Loading" });
-        loader.present()
-
-        this.wordpressService.getPost(3982).subscribe(page => {
-            this.pageContent = page;
-            loader.dismiss();
-        })
-    }
+    this.wordpressService.getPost(3982).subscribe(page => {
+      this.pageContent = page;
+      loader.dismiss();
+    })
+  }
 
 }

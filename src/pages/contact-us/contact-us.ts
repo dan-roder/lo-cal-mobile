@@ -35,7 +35,7 @@ export class ContactUsPage {
 
     ) {
 
-        this.contactForm = fb.group({
+        this.contactForm = this.fb.group({
             'first-name' : [null, Validators.required],
             'last-name' : [null, Validators.required],
             'email' : [null, [Validators.required, Validators.email]],
