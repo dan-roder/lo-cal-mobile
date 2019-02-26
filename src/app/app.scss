@@ -56,6 +56,16 @@ ion-header {
 }
 
 .platform-ios {
+  // .button-bag-wrap {
+  //   padding-bottom: 25px;
+  //   // padding-bottom: calc(constant(safe-area-inset-top));
+  //   // padding-bottom: calc(env(safe-area-inset-top) - 15px);
+  // }
+  ion-footer {
+    padding-bottom: 25px;
+  //   padding-bottom: calc(constant(safe-area-inset-bottom) - 15px);
+  //   padding-bottom: calc(env(safe-area-inset-bottom) - 15px);
+  }
   ion-header {
     padding-top: calc(constant(safe-area-inset-top) - 15px);
     padding-top: calc(env(safe-area-inset-top) - 15px);
