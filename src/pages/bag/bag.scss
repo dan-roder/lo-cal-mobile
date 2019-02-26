@@ -3,6 +3,10 @@ page-bag {
         &.content-md, &.content-ios {
             background: map-get($colors, light);
         }
+
+    }
+    ion-header {
+      background-color: #ffffff;
     }
 
     .checkout-button-wrap {
