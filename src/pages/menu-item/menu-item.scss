@@ -30,12 +30,14 @@ page-menu-item {
         text-transform: uppercase;
       }
 
-      .menu-item-description {
+      .menu-item-description,
+      .customization-ingredients {
         font-size: 12px;
         line-height: 1.67;
         letter-spacing: 0.6px;
         font-weight: 600;
         color: rgba(30, 30, 30, 0.99);
+        margin: 5px 0;
       }
 
       .menu-item-meta {
