@@ -112,12 +112,21 @@
   <div class="required-message" *ngIf="submitAttempted && !selectedTime">
     <p>Please select a pickup time.</p>
   </div>
-  <div class="red-button full-width-button small-text">
+  <!--<div class="red-button full-width-button small-text">
     <button ion-button block color="red" (click)="putOrder()" [ngClass]="{ 'disabled': !timeForm.valid || !selectedTime || (!loggedInStatus && !guestCheckoutForm.valid) || !pickupForm.valid }">Proceed
-      to Checkout</button>
+      to Checkout</button>-->
   </div>
   </div>
   <p class="empty-bag-message" *ngIf="!itemsInBag.length">There is currently nothing in your bag. Please return to
     <a href="#" (tap)="backToMenu()">our menu.</a>
   </p>
 </ion-content>
+<ion-footer no-border *ngIf="loggedInStatus">
+  <ion-toolbar color="light" no-padding>
+    <div class="red-button full-width-button small-text">
+      <button ion-button block color="red" (click)="putOrder()" [ngClass]="{ 'disabled': !timeForm.valid || !selectedTime || (!loggedInStatus && !guestCheckoutForm.valid) || !pickupForm.valid }">
+        Proceed to Checkout
+      </button>
+    </div>
+  </ion-toolbar>
+</ion-footer>
