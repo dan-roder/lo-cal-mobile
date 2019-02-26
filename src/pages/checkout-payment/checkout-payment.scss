@@ -4,6 +4,9 @@ page-checkout-payment {
             background: map-get($colors, light);
         }
     }
+    ion-header {
+      background-color: #ffffff;
+    }
     ion-title {
       h1 {
         padding-left: 18px;
@@ -315,5 +318,8 @@ page-checkout-payment {
       border-bottom: 1px solid;
       padding-bottom: 5px;
     }
+  }
+  #expiration-date, #cvv {
+    border: none;
   }
 }
