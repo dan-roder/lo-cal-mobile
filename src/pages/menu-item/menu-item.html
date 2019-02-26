@@ -7,11 +7,14 @@
 </ion-header>
 
 <ion-content no-padding>
-  <div class="menu-item-header" *ngIf="menuItem" [ngStyle]="{'background-image': 'url(' + featuredImage + ')'}">
+  <div class="menu-item-header" *ngIf="menuItemDetails" [ngStyle]="{'background-image': 'url(' + featuredImage + ')'}">
     <div class="title-box">
-      <h2 class="menu-item-title">{{ menuItem.DisplayName }}</h2>
+      <h2 class="menu-item-title">{{ menuItemDetails?.item?.DisplayName }}</h2>
       <p class="menu-item-description" text-wrap>
-        {{ (menuItem.Description | allergens).description }}
+        {{ (menuItemDetails?.item?.Description | allergens).description }}
+      </p>
+      <p class="customization-ingredients" *ngIf="currentModifierArray">
+        <span class="customization" *ngFor="let item of currentModifierArray; let last = last;">{{ item?.DisplayName }}<span class="separator" *ngIf="!last">, </span></span>
       </p>
       <ion-row class="menu-item-meta">
         <ion-col col-3 class="border">
@@ -20,15 +23,26 @@
         <ion-col col-4 text-center class="border">
           <span class="calories" *ngIf="calorieCount !== null && calorieCount !== 0">{{ calorieCount }} cal</span>
         </ion-col>
-        <ion-col text-center *ngIf="(menuItem?.Description | allergens)?.allergens">
-          <span class="allergen" *ngFor="let allergen of (menuItem?.Description | allergens)?.allergens">
+        <ion-col text-center *ngIf="(menuItemDetails?.item?.Description | allergens)?.allergens">
+          <span class="allergen" *ngFor="let allergen of (menuItemDetails?.item?.Description | allergens)?.allergens">
             <span> {{ allergen }} </span>
           </span>
         </ion-col>
       </ion-row>
     </div>
   </div>
-  <div class="sub-heading" text-center *ngIf="menuItem && salesItems?.ModGroups.length">
+  <div class="size-selection" *ngIf="menuItemDetails && multipleSalesItems.length > 0">
+    <div class="sub-heading" text-center>
+      <p>Select a size:</p>
+    </div>
+    <ion-item>
+      <ion-label for="size" floating>Size</ion-label>
+      <ion-select name="size" id="size" class="custom white-bg" [(ngModel)]="sizeChoice" (ngModelChange)="updateDataPerSize(sizeChoice)">
+        <ion-option [value]="salesItemDetails?.SalesItemId" *ngFor="let salesItemDetails of multipleSalesItems">{{ salesItemDetails?.DisplayName }}</ion-option>
+      </ion-select>
+    </ion-item>
+  </div>
+  <div class="sub-heading" text-center *ngIf="menuItemDetails && salesItemDetails?.ModGroups.length">
     <p>Start your modification:</p>
   </div>
   <div *ngFor="let group of orderedSalesItemDetails; let i = index">
@@ -38,7 +52,7 @@
     <ion-list radio-group class="sales-item sales-item-{{ i }}" no-margin>
       <ion-list-header no-margin>
         <span class="title">{{ group?.DisplayName }}</span>
-        <span class="choices" *ngIf="group?.MaximumItems > 0">{{ group?.FreeModifiers }} Included. ({{ customData[group?.$id].currentlySelected.length }}/{{ group?.MaximumItems }})</span>
+        <span class="choices" *ngIf="group?.MaximumItems > 0">{{ group?.FreeModifiers }} Included. ({{ customizationData[group?.$id].currentlySelected.length }}/{{ group?.MaximumItems }})</span>
       </ion-list-header>
       <ion-item *ngFor="let mod of group.Mods, let i = index" no-margin no-padding>
         <div class="mod-name" padding no-margin>
@@ -51,19 +65,19 @@
           <span *ngIf="mod?.ItemModifiers[0]?.CaloricValue !== null">cal</span>
         </div>
         <div class="choice-controls" item-right>
-          <ion-icon name="minus" float-left color="red" [ngClass]="(customData[group.$id].currentlySelected.length > 0 && customData[group.$id].modifiers[mod.$id].quantity > 0) ? 'enabled' : 'disabled'" (click)="removeMod( group, mod )" tappable></ion-icon>
-            <span class="quantity-holder" [ngClass]="customData[group.$id].modifiers[mod.$id].quantity > 0 ? 'populated' : ''">
-              <span class="quantity-number" *ngIf="customData[group.$id].modifiers[mod.$id].quantity !== 0">{{ customData[group.$id].modifiers[mod.$id].quantity }}</span>
+          <ion-icon name="minus" float-left color="red" [ngClass]="(customizationData[group.$id].currentlySelected.length > 0 && customizationData[group.$id].modifiers[mod.$id].quantity > 0) ? 'enabled' : 'disabled'" (click)="removeMod( group, mod )" tappable></ion-icon>
+            <span class="quantity-holder" [ngClass]="customizationData[group.$id].modifiers[mod.$id].quantity > 0 ? 'populated' : ''">
+              <span class="quantity-number" *ngIf="customizationData[group.$id].modifiers[mod.$id].quantity !== 0">{{ customizationData[group.$id].modifiers[mod.$id].quantity }}</span>
             </span>
-          <ion-icon name="plus" float-right color="red" [ngClass]="((customData[group.$id].currentlySelected.length < group.MaximumItems) || (group.MaximumItems === 0 && customData[group.$id].modifiers[mod.$id].quantity < 1)) ? 'enabled' : 'disabled'" (click)="addMod( group, mod )" tappable></ion-icon>
+          <ion-icon name="plus" float-right color="red" [ngClass]="((customizationData[group.$id].currentlySelected.length < group.MaximumItems) || (group.MaximumItems === 0 && customizationData[group.$id].modifiers[mod.$id].quantity < 1)) ? 'enabled' : 'disabled'" (click)="addMod( group, mod )" tappable></ion-icon>
         </div>
       </ion-item>
     </ion-list>
   </div>
 
-  <div *ngIf="menuItem" class="special-instructions" padding>
+  <div *ngIf="menuItemDetails" class="special-instructions" padding>
     <p class="special-instructions-tag">Add Special Instruction (optional)</p>
-    <ion-textarea rows="6" [(ngModel)]="specialInstructions" resiz></ion-textarea>
+    <ion-textarea rows="6" [(ngModel)]="specialInstructions"></ion-textarea>
   </div>
 
   <ion-toolbar color="light" *ngIf="totalPrice">
