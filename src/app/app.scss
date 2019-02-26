@@ -50,9 +50,11 @@
 }
 ion-header {
     ion-icon {
-        color: #424242;
+        color: #ff0f1b;
+        padding: 5px;
     }
 }
+
 .platform-ios {
   ion-header {
     padding-top: calc(constant(safe-area-inset-top) - 15px);
@@ -62,9 +64,16 @@ ion-header {
     padding-top: constant(safe-area-inset-top);
     padding-top: env(safe-area-inset-top);
   }
-  page-bag {
+  page-bag, page-checkout-review,
+  page-login, page-signup,
+  page-password-reset {
     .back-button {
       padding-top: 0 !important;
+    }
+  }
+  page-individual-post {
+    .back-button {
+      padding-top: 5px;
     }
   }
   page-menu-item {
@@ -72,7 +81,7 @@ ion-header {
       padding-bottom: 10px;
     }
   }
-  page-login, page-account {
+  page-account  {
     ion-header {
       padding-top: 0;
     }
@@ -89,6 +98,10 @@ ion-header {
     z-index: 99;
     position: relative;
     vertical-align: middle;
+    color: #ff0f1b;
+}
+ion-header ion-icon.back-button-icon.icon {
+  color: #ff0f1b;
 }
 .list-ios>.item-block:first-child {
     border-top: none !important;
