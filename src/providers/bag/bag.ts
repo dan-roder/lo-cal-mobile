@@ -23,18 +23,15 @@ export class BagProvider {
     public http: Http,
     private storage: Storage
   ) {
-    console.log('Hello BagProvider Provider');
-
-      this.storage.get('bag').then(bagItemsFromLocalStorage => {
-        if (bagItemsFromLocalStorage) {
-          this.itemsInBag = bagItemsFromLocalStorage;
-          this.bagObserver.next( this.itemsInBag );
-        }
-      })
-      .catch(error => {
-        console.log( error );
-      });
-
+    this.storage.get('bag').then(bagItemsFromLocalStorage => {
+      if (bagItemsFromLocalStorage) {
+        this.itemsInBag = bagItemsFromLocalStorage;
+        this.bagObserver.next( this.itemsInBag );
+      }
+    })
+    .catch(error => {
+      console.log( error );
+    });
   }
 
   public createLineItem(passedMenuItem) {
@@ -113,7 +110,8 @@ export class BagProvider {
               Name : modifier.Name,
               ItemOptionGroupId : modifierGroupId,
               SalesItemOptionId : modifier.ModifierId,
-              Quantity : modifierQuantity
+              Quantity : modifierQuantity,
+              ModifierId : modifier.ModifierId
             };
 
             formattedLineItemModifierArray.push(lineItemModifierObject);

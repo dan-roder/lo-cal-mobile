@@ -1,112 +1,114 @@
 <ion-header no-border>
-    <ion-navbar>
-        <button ion-button menuToggle>
-            <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
-        </button>
-        <ion-title>My Bag</ion-title>
-    </ion-navbar>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="hamburger-menu" class="small-icon"></ion-icon>
+    </button>
+    <ion-title>My Bag</ion-title>
+  </ion-navbar>
 </ion-header>
 
 
 <ion-content no-padding>
-    <ion-list class="bag-items" no-margin *ngIf="itemsInBag.length">
-        <div class="bag-item" *ngFor="let item of itemsInBag; let i = index">
+  <ion-list class="bag-items" no-margin *ngIf="itemsInBag.length">
+    <div class="bag-item" *ngFor="let item of itemsInBag; let i = index">
+      <ion-row>
+        <ion-col col-3 no-padding>
+          <div *ngIf="item.CartImage" class="bag-image" [ngStyle]="{'background-image': 'url(' + item.CartImage + ')'}"></div>
+          <!--<img *ngIf="item.CartImage" [src]="item.CartImage" alt="bag item" class="bag-item-image" /> -->
+          <div tappable class="remove" (tap)="removeItem( item, i )">
+            <ion-icon name="close" class="remove-icon"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col class="title-and-description">
+          <div class="bag-item-title">
             <ion-row>
-                <ion-col col-3 no-padding>
-                    <div *ngIf="item.CartImage" class="bag-image" [ngStyle]="{'background-image': 'url(' + item.CartImage + ')'}"></div>
-                    <!--<img *ngIf="item.CartImage" [src]="item.CartImage" alt="bag item" class="bag-item-image" /> -->
-                    <div tappable class="remove" (tap)="removeItem( item, i )">
-                        <ion-icon name="close" class="remove-icon"></ion-icon>
-                    </div>
-                </ion-col>
-                <ion-col class="title-and-description">
-                    <div class="bag-item-title">
-                        <ion-row>
-                            <ion-col>
-                                <span class="bag-item-name">{{ item.Name }}</span>
-                                <span class="bag-item-quantity">x{{ item.Quantity }}</span>
-                            </ion-col>
-                        </ion-row>
-                    </div>
-                    <p class="bag-item-description">
-                        {{ (item.ShortDescription | allergens).description }}
-                    </p>
-                    <ion-row class="bag-item-meta">
-                        <ion-col col-3 class="border">
-                            <span class="price">{{ item.ExtendedPrice | currency:'USD':'symbol' }}</span>
-                        </ion-col>
-                        <ion-col col-4 text-center class="border">
-                            <span class="calories" *ngIf="item.caloricValue !== null && item.caloricValue !== 0">{{
-                                item.caloricValue }} cal</span>
-                        </ion-col>
-                        <ion-col col-5 text-center>
-                            <span class="allergen">
-                                <span *ngFor="let allergen of (item.ShortDescription | allergens)?.allergens">
-                                    {{ allergen }}
-                                </span>
-                                <!-- <ion-icon name="vegan"></ion-icon>
-                                <ion-icon name="paleo"></ion-icon>
-                                <ion-icon name="veget"></ion-icon> -->
-                            </span>
-                        </ion-col>
-                    </ion-row>
-                </ion-col>
+              <ion-col>
+                <span class="bag-item-name">{{ item.Name }}</span>
+                <span class="bag-item-quantity">x{{ item.Quantity }}</span>
+              </ion-col>
             </ion-row>
-        </div>
-    </ion-list>
-    <ion-list class="amounts-charged" padding *ngIf="itemsInBag.length">
-        <!-- <ion-item> -->
-        <hr class="dark">
-        <ion-row class="total">
-            <ion-col col-3>
-                <span>Total</span>
+          </div>
+          <p class="bag-item-description" *ngIf="item?.ShortDescription">
+            {{ (item.ShortDescription | allergens).description }}
+          </p>
+          <p class="bag-item-customizations" *ngIf="item?.Modifiers">
+            <span class="customization" *ngFor="let mod of item?.Modifiers; let last = last;">{{ mod?.Name }}<span class="separator" *ngIf="!last">, </span></span>
+          </p>
+          <ion-row class="bag-item-meta">
+            <ion-col col-3 class="border">
+              <span class="price">{{ item.ExtendedPrice | currency:'USD':'symbol' }}</span>
             </ion-col>
-            <ion-col col-9 text-right>
-                <span>{{ total | currency:'USD':'symbol' }}</span>
+            <ion-col col-4 text-center class="border">
+              <span class="calories" *ngIf="item.caloricValue !== null && item.caloricValue !== 0">{{ item.caloricValue }} cal</span>
             </ion-col>
-        </ion-row>
-        <!-- </ion-item> -->
-    </ion-list>
-    <div *ngIf="!itemsInBag.length" class="empty-bag">
-        <div>
-            <p class="empty-bag-notice">Your bag is empty.</p>
-            <p class="empty-bag-notice">
-                Go to the <a href="#" class="empty-bag-link" (tap)="backToMenu()">
-                    menu
-                </a>
-                and select your fav!
-            </p>
-        </div>
+            <ion-col col-5 text-center>
+              <span class="allergen">
+                <span *ngFor="let allergen of (item.ShortDescription | allergens)?.allergens">
+                  {{ allergen }}
+                </span>
+                <!-- <ion-icon name="vegan"></ion-icon>
+                <ion-icon name="paleo"></ion-icon>
+                <ion-icon name="veget"></ion-icon> -->
+              </span>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
     </div>
+  </ion-list>
+  <ion-list class="amounts-charged" padding *ngIf="itemsInBag.length">
+    <!-- <ion-item> -->
+    <hr class="dark">
+    <ion-row class="total">
+      <ion-col col-3>
+        <span>Total</span>
+      </ion-col>
+      <ion-col col-9 text-right>
+        <span>{{ total | currency:'USD':'symbol' }}</span>
+      </ion-col>
+    </ion-row>
+    <!-- </ion-item> -->
+  </ion-list>
+  <div *ngIf="!itemsInBag.length" class="empty-bag">
+    <div>
+      <p class="empty-bag-notice">Your bag is empty.</p>
+      <p class="empty-bag-notice">
+        Go to the <a href="#" class="empty-bag-link" (tap)="backToMenu()">
+          menu
+        </a>
+        and select your fav!
+      </p>
+    </div>
+  </div>
 </ion-content>
 <ion-footer no-border class="bag-footer" *ngIf="!loggedInStatus">
-    <ion-toolbar color="light" no-padding>
-        <div class="bottom-buttons-wrap">
-            <div class="checkout-button-wrap" *ngIf="itemsInBag.length">
-                <button ion-button block color="red" class="order-now" no-padding (tap)="checkout(true)">
-                    Checkout as Guest
-                </button>
-            </div>
-            <ion-grid no-padding *ngIf="!loggedInStatus">
-                <ion-row>
-                    <ion-col class="bottom-links-col">
-                        <a href="#" class="bottom-link" (click)="goToLoginPage()">log in</a>
-                    </ion-col>
-                    <ion-col class="bottom-links-col">
-                        <a href="#" class="bottom-link" [navPush]="'SignupPage'">sign up</a>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </div>
-    </ion-toolbar>
+  <ion-toolbar color="light" no-padding>
+    <div class="bottom-buttons-wrap">
+      <div class="checkout-button-wrap" *ngIf="itemsInBag.length">
+          <button ion-button block color="red" class="order-now" no-padding (tap)="checkout(true)">
+              Checkout as Guest
+          </button>
+      </div>
+      <ion-grid no-padding *ngIf="!loggedInStatus">
+        <ion-row>
+          <ion-col class="bottom-links-col">
+            <a href="#" class="bottom-link" (click)="goToLoginPage()">log in</a>
+          </ion-col>
+          <ion-col class="bottom-links-col">
+            <a href="#" class="bottom-link" [navPush]="'SignupPage'">sign up</a>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-toolbar>
 </ion-footer>
 
 <ion-footer no-border *ngIf="loggedInStatus">
-    <ion-toolbar color="light" no-padding>
-        <div class="checkout-button-wrap" *ngIf="itemsInBag.length">
-            <button ion-button block color="red" class="order-now" no-padding (tap)="checkout(false)">
-                Checkout
-            </button>
-        </div>
-    </ion-toolbar>
+  <ion-toolbar color="light" no-padding>
+    <div class="checkout-button-wrap" *ngIf="itemsInBag.length">
+      <button ion-button block color="red" class="order-now" no-padding (tap)="checkout(false)">
+        Checkout
+      </button>
+    </div>
+  </ion-toolbar>
 </ion-footer>
