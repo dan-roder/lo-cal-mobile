@@ -17,7 +17,7 @@ page-intro {
         height: 85%;
     }
     .slide-1 {
-        background: url("assets/images/bitmap@3x.png");
+        // background: url("assets/images/bitmap@3x.png");
     }
     ion-slide {
 
@@ -52,7 +52,7 @@ page-intro {
           letter-spacing: 0.6px;
           text-align: left;
           color: rgba(30, 30, 30, 0.99);
-          font-size: 15px;
+          font-size: 17px;
           font-weight: 700;
           max-width: 290px;
         }
@@ -71,6 +71,48 @@ page-intro {
       span {
         letter-spacing: 1.4px;
         color: rgba(255, 255, 255, 0.99);
+      }
+    }
+    .slide-image {
+      background-position: cover;
+      background-repeat: no-repeat;
+
+      background-position: center;
+    }
+    .slide-1 {
+      .slide-image {
+        // background-image: url("../../assets/images/slide1@3x.png");
+      }
+      .slide-content.bottom {
+        bottom: 83px;
+      }
+      .slide-content.top {
+        top: 11.5%;
+      }
+    }
+    .slide-2 {
+      .slide-image {
+        height: 259px;
+        background-image: url("../../assets/images/slide-2.jpg");
+      }
+      .slide-content.bottom {
+        bottom: 65px;
+      }
+      .slide-content.top {
+        top: 19%;
+      }
+    }
+    .slide-3 {
+      .slide-image {
+        height: 259px;
+        background-image: url("../../assets/images/slide-3.jpg");
+      }
+      .slide-content.bottom {
+        bottom: 65px;
+      }
+      .slide-content.top {
+        top: 19%;
+        padding-left: 20px;
       }
     }
 }
