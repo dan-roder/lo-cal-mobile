@@ -13,6 +13,9 @@
       <p class="menu-item-description" text-wrap>
         {{ (menuItemDetails?.item?.Description | allergens).description }}
       </p>
+      <p class="customization-ingredients" *ngIf="currentModifierArray">
+        <span class="customization" *ngFor="let item of currentModifierArray; let last = last;">{{ item?.DisplayName }}<span class="separator" *ngIf="!last">, </span></span>
+      </p>
       <ion-row class="menu-item-meta">
         <ion-col col-3 class="border">
           <span class="price">{{ itemPrice | currency:'USD':'symbol' }}</span>
@@ -28,8 +31,8 @@
       </ion-row>
     </div>
   </div>
-  <div class="size-selection">
-    <div class="sub-heading" text-center *ngIf="menuItemDetails && multipleSalesItems.length > 0">
+  <div class="size-selection" *ngIf="menuItemDetails && multipleSalesItems.length > 0">
+    <div class="sub-heading" text-center>
       <p>Select a size:</p>
     </div>
     <ion-item>
