@@ -274,8 +274,6 @@ export class MenuItemPage {
 
   private arrangeMenuData( data ) {
 
-    console.log(data);
-
     let defaults = [];
     let defaultItemId = data.item.DefaultItemId;
 
@@ -424,7 +422,7 @@ export class MenuItemPage {
     // Adding to bag needs to have all details of modifications
     //  Start simple. Add just the item itself
     let menuItem = {};
-    menuItem = this.menuItemDetails;
+    menuItem = this.menuItemDetails.item;
 
     // add quantity and totalPrice to object
     let      quantity      = this.quantity;
