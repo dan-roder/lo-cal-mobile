@@ -28,8 +28,11 @@
               </ion-col>
             </ion-row>
           </div>
-          <p class="bag-item-description">
+          <p class="bag-item-description" *ngIf="item?.ShortDescription">
             {{ (item.ShortDescription | allergens).description }}
+          </p>
+          <p class="bag-item-customizations" *ngIf="item?.Modifiers">
+            <span class="customization" *ngFor="let mod of item?.Modifiers; let last = last;">{{ mod?.Name }}<span class="separator" *ngIf="!last">, </span></span>
           </p>
           <ion-row class="bag-item-meta">
             <ion-col col-3 class="border">
