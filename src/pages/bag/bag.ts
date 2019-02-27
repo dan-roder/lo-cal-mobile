@@ -15,6 +15,7 @@ export class BagPage {
   public subtotal: number;
   public tax: number;
   public total: number;
+  public isOpen: number = -1;
 
   constructor(
     public platform: Platform,
@@ -74,13 +75,27 @@ export class BagPage {
     });
     alert.present();
   }
+  editItemAtIndex(newVal: number): boolean {
+    if (this.isOpen === newVal) {
+      this.isOpen = -1;
+    } else {
+      this.isOpen = newVal;
+    }
 
+    return false;
+  }
   // goToItem(item, index) {
   //     console.log("edit item", item);
 
   //     this.bag.removeFromBagAtIndex(index);
   //     this.navCtrl.push("MenuItemPage", { menuItem: item });
   // }
+  customizeReturn(item, i){
+    this.bag.editingLineItem = item;
+    this.bag.editingIndex = i;
+    this.navCtrl.push("MenuItemPage", { menuItem: item });
+
+  }
   goToLoginPage() {
     this.navCtrl.push("LoginPage", { fromBagPage: true });
   }
@@ -95,4 +110,5 @@ export class BagPage {
   get loggedInStatus(): boolean {
     return this.customerService.isLoggedIn;
   }
+
 }
