@@ -17,6 +17,8 @@ export class BagProvider {
   private bagObserver = new Subject();
   bagItems = this.bagObserver.asObservable();
   public totalPrice : number;
+  public _editingItem : LineItem;
+  public _editingIndex : number;
 
   constructor(
     public platform: Platform,
@@ -149,5 +151,20 @@ export class BagProvider {
     .catch(error => {
       console.log(error);
     });
+  }
+  get editingLineItem(): LineItem{
+    return this._editingItem;
+  }
+
+  set editingLineItem(item: LineItem){
+    this._editingItem = item;
+  }
+
+  get editingIndex(): number{
+    return this._editingIndex;
+  }
+
+  set editingIndex(num: number){
+    this._editingIndex = num;
   }
 }
