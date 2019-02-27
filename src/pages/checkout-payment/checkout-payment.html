@@ -86,7 +86,7 @@
               <select name="" id="" (change)="whichPayment($event.target.value)" class="custom">
                 <option [value]="savedPaymentMethods.AccountId" selected>{{ savedPaymentMethods.MaskedAccountNumber }}</option>
               </select>
-              <img src="../../assets/images/left-arrow-red@3x.png" />
+              <img src="assets/images/left-arrow-red@3x.png" />
             </div>
           </ion-row>
           <div class="new-card-section" *ngIf="paymentForm.controls['payment-choice'].value === '1'">
