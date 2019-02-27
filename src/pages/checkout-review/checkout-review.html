@@ -115,13 +115,13 @@
   <!--<div class="red-button full-width-button small-text">
     <button ion-button block color="red" (click)="putOrder()" [ngClass]="{ 'disabled': !timeForm.valid || !selectedTime || (!loggedInStatus && !guestCheckoutForm.valid) || !pickupForm.valid }">Proceed
       to Checkout</button>-->
-  </div>
-  </div>
+
   <p class="empty-bag-message" *ngIf="!itemsInBag.length">There is currently nothing in your bag. Please return to
     <a href="#" (tap)="backToMenu()">our menu.</a>
   </p>
+  </div>
 </ion-content>
-<ion-footer no-border *ngIf="loggedInStatus">
+<ion-footer no-border>
   <ion-toolbar color="light" no-padding>
     <div class="red-button full-width-button small-text">
       <button ion-button block color="red" (click)="putOrder()" [ngClass]="{ 'disabled': !timeForm.valid || !selectedTime || (!loggedInStatus && !guestCheckoutForm.valid) || !pickupForm.valid }">
