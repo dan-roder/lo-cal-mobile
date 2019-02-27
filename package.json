@@ -35,7 +35,6 @@
     "cordova-plugin-whitelist": "^1.3.3",
     "cordova-sqlite-storage": "^2.6.0",
     "ionic-angular": "3.5.3",
-    "ionic-plugin-keyboard": "^2.2.1",
     "ionic2-super-tabs": "^4.0.0",
     "ionicons": "3.0.0",
     "moment": "^2.23.0",
@@ -55,12 +54,11 @@
   "cordova": {
     "plugins": {
       "cordova-plugin-device": {},
-      "cordova-plugin-ionic-webview": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-whitelist": {},
-      "ionic-plugin-keyboard": {},
       "cordova-sqlite-storage": {},
-      "cordova-plugin-inappbrowser": {}
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-ionic-webview": {}
     },
     "platforms": [
       "android",
