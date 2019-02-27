@@ -118,7 +118,7 @@
             <div class="form-section half-and-half">
               <div class="form-component border form-component-email">
                 <label for="email" class="visuallyhidden">CVV</label>
-                <input type="text" name="cvv" id="cvv" formControlName="cvv" placeholder="CVV*" [ngClass]="{'has-error':!paymentForm.controls['cvv'].valid && submittedOnce}">
+                <input type="tel" name="cvv" id="cvv" formControlName="cvv" placeholder="CVV*" [ngClass]="{'has-error':!paymentForm.controls['cvv'].valid && submittedOnce}">
                 <div class="error-message" *ngIf="!paymentForm.controls['cvv'].valid && submittedOnce">This field is
                   required.</div>
               </div>
