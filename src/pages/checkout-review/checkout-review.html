@@ -73,18 +73,18 @@
       <div class="car-options" *ngIf="pickupForm.controls['pickup-selection'].value === '4'">
         <div class="form-section half-and-half">
           <div class="form-component form-component-text">
-            <label for="vehicle-make" class="visuallyhidden">Vehicle Make</label>
-            <input type="text" name="vehicle-make" id="vehicle-make" formControlName="vehicle-make" placeholder="Vehicle Make">
+            <ion-label floating for="vehicle-make" class="visuallyhidden">Vehicle Make</ion-label>
+            <ion-input type="text" name="vehicle-make" id="vehicle-make" formControlName="vehicle-make" placeholder="Vehicle Make"></ion-input>
           </div>
           <div class="form-component form-component-text">
-            <label for="vehicle-model" class="visuallyhidden">Vehicle Model</label>
-            <input type="text" name="vehicle-model" id="vehicle-model" formControlName="vehicle-model" placeholder="Vehicle Model">
+            <ion-label floating for="vehicle-model" class="visuallyhidden">Vehicle Model</ion-label>
+            <ion-input type="text" name="vehicle-model" id="vehicle-model" formControlName="vehicle-model" placeholder="Vehicle Model"></ion-input>
           </div>
         </div>
         <div class="form-section half-and-half">
           <div class="form-component form-component-text">
-            <label for="vehicle-color" class="visuallyhidden">Vehicle Color</label>
-            <input type="text" name="vehicle-color" id="vehicle-color" formControlName="vehicle-color" placeholder="Vehicle Color">
+            <ion-label floating for="vehicle-color" class="visuallyhidden">Vehicle Color</ion-label>
+            <ion-input type="text" name="vehicle-color" id="vehicle-color" formControlName="vehicle-color" placeholder="Vehicle Color"></ion-input>
           </div>
         </div>
       </div>
@@ -112,21 +112,12 @@
   <div class="required-message" *ngIf="submitAttempted && !selectedTime">
     <p>Please select a pickup time.</p>
   </div>
-  <!--<div class="red-button full-width-button small-text">
+  <div class="red-button full-width-button small-text">
     <button ion-button block color="red" (click)="putOrder()" [ngClass]="{ 'disabled': !timeForm.valid || !selectedTime || (!loggedInStatus && !guestCheckoutForm.valid) || !pickupForm.valid }">Proceed
-      to Checkout</button>-->
-
+      to Checkout</button>
+  </div>
   <p class="empty-bag-message" *ngIf="!itemsInBag.length">There is currently nothing in your bag. Please return to
     <a href="#" (tap)="backToMenu()">our menu.</a>
   </p>
   </div>
 </ion-content>
-<ion-footer no-border>
-  <ion-toolbar color="light" no-padding>
-    <div class="red-button full-width-button small-text">
-      <button ion-button block color="red" (click)="putOrder()" [ngClass]="{ 'disabled': !timeForm.valid || !selectedTime || (!loggedInStatus && !guestCheckoutForm.valid) || !pickupForm.valid }">
-        Proceed to Checkout
-      </button>
-    </div>
-  </ion-toolbar>
-</ion-footer>
