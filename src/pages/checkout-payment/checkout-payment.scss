@@ -56,7 +56,7 @@ page-checkout-payment {
 
         &:checked {
           +span:before {
-            background: none, url('/assets/images/checkmark.svg') no-repeat;
+            background: none, url('../assets/images/checkmark.svg') no-repeat;
           }
         }
 
@@ -209,7 +209,7 @@ page-checkout-payment {
     padding-top: 7px;
     padding-left: 8px;
     .card{
-      background: url("../../assets/images/cc-sprite.png");
+      background: url("../assets/images/cc-sprite.png");
       display: inline-block;
       margin: 0 0 0 2px;
       width: 21px;
@@ -286,7 +286,7 @@ page-checkout-payment {
     }
   }
   .loading-gif {
-    background-image: url(../../assets/icon/loading-eclipse.svg);
+    background-image: url("../assets/icon/loading-eclipse.svg");
     height: 35px;
     width: 35px;
     background-size: cover;
@@ -296,11 +296,14 @@ page-checkout-payment {
     margin-top: 20px;
     padding-bottom: 10px;
     position: relative;
+    width: 100%;
+    max-width: 350px;
     select {
       height: 55px;
       padding: 0 72px 0 20px;
       border: 1px solid;
       width: 100%;
+      -webkit-appearance: none;
     }
     img {
       width: 8px;
