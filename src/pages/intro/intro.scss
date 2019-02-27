@@ -74,7 +74,7 @@ page-intro {
       }
     }
     .slide-image {
-      background-position: cover;
+      background-size: cover;
       background-repeat: no-repeat;
 
       background-position: center;
@@ -93,7 +93,7 @@ page-intro {
     .slide-2 {
       .slide-image {
         height: 259px;
-        background-image: url("../../assets/images/slide-2.jpg");
+        background-image: url("../assets/images/slide-2.jpg");
       }
       .slide-content.bottom {
         bottom: 65px;
@@ -105,7 +105,7 @@ page-intro {
     .slide-3 {
       .slide-image {
         height: 259px;
-        background-image: url("../../assets/images/slide-3.jpg");
+        background-image: url("../assets/images/slide-3.jpg");
       }
       .slide-content.bottom {
         bottom: 65px;
