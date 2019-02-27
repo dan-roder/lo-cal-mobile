@@ -185,6 +185,9 @@ page-checkout-review {
         padding: 22px 0 22px;
       }
     }
+    .list-md .item-input:last-child {
+      border-bottom: 1px solid #e1e1e1;
+    }
     .pickup-time-form {
       position: relative;
       .item-md.item-block .item-inner {
