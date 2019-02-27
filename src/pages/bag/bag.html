@@ -10,7 +10,7 @@
 
 <ion-content no-padding>
   <ion-list class="bag-items" no-margin *ngIf="itemsInBag.length">
-    <div class="bag-item" *ngFor="let item of itemsInBag; let i = index">
+    <div class="bag-item" *ngFor="let item of itemsInBag; let i = index" [ngClass]="{'margin' : isOpen === i}">
       <ion-row>
         <ion-col col-3 no-padding>
           <div *ngIf="item.CartImage" class="bag-image" [ngStyle]="{'background-image': 'url(' + item.CartImage + ')'}"></div>
@@ -25,6 +25,8 @@
               <ion-col>
                 <span class="bag-item-name">{{ item.Name }}</span>
                 <span class="bag-item-quantity">x{{ item.Quantity }}</span>
+                <span tabindex="0" (click)="editItemAtIndex(i)" role="button">EDIT</span>
+
               </ion-col>
             </ion-row>
           </div>
@@ -46,14 +48,28 @@
                 <span *ngFor="let allergen of (item.ShortDescription | allergens)?.allergens">
                   {{ allergen }}
                 </span>
+
                 <!-- <ion-icon name="vegan"></ion-icon>
                 <ion-icon name="paleo"></ion-icon>
                 <ion-icon name="veget"></ion-icon> -->
               </span>
+
             </ion-col>
+
           </ion-row>
         </ion-col>
       </ion-row>
+      <div class="edit-pane" [hidden]="isOpen !== i">
+        <span class="quantity-text">Quantity</span>
+        <button class="minus" (click)="decrementQuantity(menuItem)">-</button>
+        <span class="quantity">{{ menuItem?.Quantity }}</span>
+        <button class="plus" (click)="incrementQuantity(menuItem)">+</button>
+
+        <!--<div class="customize-this">
+                          <p><a (click)="customizeReturn(menuItem, i)" routerLink="/">Go back to customize this item</a></p>
+                        </div>-->
+
+      </div><!-- /.edit-pane -->
     </div>
   </ion-list>
   <ion-list class="amounts-charged" padding *ngIf="itemsInBag.length">
