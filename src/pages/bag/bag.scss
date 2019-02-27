@@ -21,4 +21,17 @@ page-bag {
       font-weight: 700;
       font-size: 16px;
     }
+
+    .margin {
+      margin-bottom: 50px;
+    }
+    .edit-pane {
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 0);
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      padding-top: 15px;
+    }
 }
