@@ -103,9 +103,10 @@
     <p class="customization-errors text-center" *ngIf="requiredModifierGroups.length && submitAttempted">Please select an item from the required modifier groups.</p>
 
     <div class="button-bag-wrap">
-      <button ion-button block color="red" (click)="addToBag()" [ngClass]="{ 'disabled': requiredModifierGroups.length }" class="button-bag-view" tappable>
+      <button ion-button block color="red" *ngIf="totalPrice && (editingIndex === undefined)" (click)="addToBag()" [ngClass]="{ 'disabled': requiredModifierGroups.length }" class="button-bag-view" tappable>
         Add to My Bag (+{{ totalPrice | currency:'USD':'symbol' }})
       </button>
+      <button ion-button block color="red" *ngIf="totalPrice && (editingIndex !== undefined)" (click)="saveChanges()" [ngClass]="{ 'disabled': requiredModifierGroups.length }">Save Changes (+{{ totalPrice | currency }})</button>
     </div>
   </ion-toolbar>
 </ion-content>
