@@ -7,7 +7,6 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content no-padding>
   <ion-list class="bag-items" no-margin *ngIf="itemsInBag.length">
     <div class="bag-item" *ngFor="let item of itemsInBag; let i = index" [ngClass]="{'margin' : isOpen === i}">
@@ -26,7 +25,6 @@
                 <span class="bag-item-name">{{ item.Name }}</span>
                 <span class="bag-item-quantity">x{{ item.Quantity }}</span>
                 <span tabindex="0" (click)="editItemAtIndex(i)" role="button">EDIT</span>
-
               </ion-col>
             </ion-row>
           </div>
@@ -34,7 +32,8 @@
             {{ (item.ShortDescription | allergens).description }}
           </p>
           <p class="bag-item-customizations" *ngIf="item?.Modifiers">
-            <span class="customization" *ngFor="let mod of item?.Modifiers; let last = last;">{{ mod?.Name }}<span class="separator" *ngIf="!last">, </span></span>
+            <span class="customization" *ngFor="let mod of item?.Modifiers; let last = last;">{{ mod?.Name }}<span
+                class="separator" *ngIf="!last">, </span></span>
           </p>
           <ion-row class="bag-item-meta">
             <ion-col col-3 class="border">
@@ -48,27 +47,24 @@
                 <span *ngFor="let allergen of (item.ShortDescription | allergens)?.allergens">
                   {{ allergen }}
                 </span>
-
                 <!-- <ion-icon name="vegan"></ion-icon>
                 <ion-icon name="paleo"></ion-icon>
                 <ion-icon name="veget"></ion-icon> -->
               </span>
-
             </ion-col>
-
           </ion-row>
         </ion-col>
       </ion-row>
       <div class="edit-pane" [hidden]="isOpen !== i">
-        <span class="quantity-text">Quantity</span>
-        <button class="minus" (click)="decrementQuantity(menuItem)">-</button>
-        <span class="quantity">{{ menuItem?.Quantity }}</span>
-        <button class="plus" (click)="incrementQuantity(menuItem)">+</button>
-
-        <!--<div class="customize-this">
-                          <p><a (click)="customizeReturn(menuItem, i)" routerLink="/">Go back to customize this item</a></p>
-                        </div>-->
-
+        <div class="quantity-toggle">
+          <span class="quantity-text">Quantity</span>
+          <span class="minus" (click)="decrementQuantity(item)">-</span>
+          <span class="quantity">{{ item?.Quantity }}</span>
+          <span class="plus" (click)="incrementQuantity(item)">+</span>
+        </div>
+        <div class="customize-this">
+          <a href="#" (click)="customizeReturn(item, i)">Go back to customize this item</a>
+        </div>
       </div><!-- /.edit-pane -->
     </div>
   </ion-list>
@@ -101,9 +97,9 @@
   <ion-toolbar color="light" no-padding>
     <div class="bottom-buttons-wrap">
       <div class="checkout-button-wrap" *ngIf="itemsInBag.length">
-          <button ion-button block color="red" class="order-now" no-padding (tap)="checkout(true)">
-              Checkout as Guest
-          </button>
+        <button ion-button block color="red" class="order-now" no-padding (tap)="checkout(true)">
+          Checkout as Guest
+        </button>
       </div>
       <ion-grid no-padding *ngIf="!loggedInStatus">
         <ion-row>
