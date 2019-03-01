@@ -284,13 +284,13 @@ export class MenuItemPage {
     let defaultItemId = data.item.DefaultItemId;
 
     this.menuItemDetails = data;
+
     if(this.bag.editingLineItem){
       this.salesItemDetails = _.find(data['salesItems'], {'SalesItemId': this.bag.editingLineItem.SalesItemId});
-      console.log('edit help', this.salesItemDetails)
+      this.quantity = Number(this.bag.editingLineItem.Quantity)
     }
     else{
       this.salesItemDetails = _.find(data['salesItems'], {'SalesItemId': defaultItemId});
-      console.log('help', this.salesItemDetails)
     }
     this.itemPrice = this.salesItemDetails.Price;
 
@@ -310,12 +310,10 @@ export class MenuItemPage {
       defaults = this.bag.editingLineItem.Modifiers;
       this.registerCustomizationVariables( this.orderedSalesItemDetails, defaults );
 
-      console.log('edit', defaults)
-    } else
-    if ( this.salesItemDetails.ModGroups.length > 0 && this.salesItemDetails.DefaultOptions.length > 0 ) {
+    } else if ( this.salesItemDetails.ModGroups.length > 0 && this.salesItemDetails.DefaultOptions.length > 0 ) {
       defaults = this.salesItemDetails.DefaultOptions;
-      console.log('no edit', defaults)
       this.registerCustomizationVariables( this.orderedSalesItemDetails, defaults );
+
     } else {
       this.registerCustomizationVariables( this.orderedSalesItemDetails );
     }
