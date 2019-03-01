@@ -39,6 +39,7 @@ export class BagProvider {
   public createLineItem(passedMenuItem) {
     // construct object to save in bag
     let lineItem: LineItem = {};
+    let priceOfMods = (passedMenuItem.TotalPrice / passedMenuItem.Quantity) - passedMenuItem.UnitPrice
     lineItem.SalesItemId = passedMenuItem.SalesItemId; // Not sure if this should come from the SalesItem object instead of the DefaultItemId
     lineItem.MenuItemId = passedMenuItem.MenuItemId;
     lineItem.Name = passedMenuItem.Name;
@@ -46,7 +47,7 @@ export class BagProvider {
     lineItem.SpecialInstructions = passedMenuItem.SpecialInstructions;
     lineItem.UnitPrice = passedMenuItem.UnitPrice;
     lineItem.Quantity = passedMenuItem.Quantity;
-    lineItem.ExtendedPrice = passedMenuItem.TotalPrice;
+    lineItem.ExtendedPrice = passedMenuItem.UnitPrice + priceOfMods;
     lineItem.caloricValue = passedMenuItem.caloricValue;
     lineItem.Modifiers = this.constructLineItemModifiers(passedMenuItem.Modifiers);
     lineItem.CartImage = passedMenuItem.CartImage;
