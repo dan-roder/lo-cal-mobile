@@ -96,6 +96,21 @@ export class BagPage {
     this.navCtrl.push("MenuItemPage", { menuItem: item });
 
   }
+  incrementQuantity(item){
+    item.Quantity++;
+    this.bag.updatePrice();
+    this.total = this.totalPrice
+
+  }
+
+  decrementQuantity(item){
+    if(item.Quantity > 1){
+      item.Quantity--;
+      this.bag.updatePrice();
+      this.total = this.totalPrice
+    }
+  }
+
   goToLoginPage() {
     this.navCtrl.push("LoginPage", { fromBagPage: true });
   }
@@ -109,6 +124,9 @@ export class BagPage {
   }
   get loggedInStatus(): boolean {
     return this.customerService.isLoggedIn;
+  }
+  get totalPrice() {
+    return this.bag.totalPrice
   }
 
 }
