@@ -16,7 +16,7 @@ export class BagProvider {
   public _itemCountInBag: number = 0;
   private bagObserver = new Subject();
   bagItems = this.bagObserver.asObservable();
-  public totalPrice : number;
+  private _totalPrice : number;
   public _editingItem : LineItem;
   public _editingIndex : number;
 
@@ -152,6 +152,25 @@ export class BagProvider {
       console.log(error);
     });
   }
+  public updatePrice(){
+    let value = 0;
+    let arr = this._itemsInBag;
+
+    _.forEach(this._itemsInBag, function(item, key){
+      value += (item.ExtendedPrice * item.Quantity);
+    });
+
+    this.totalPrice = value;
+  }
+
+  get totalPrice(): number{
+    return this._totalPrice;
+  }
+
+  set totalPrice(price: number){
+    this._totalPrice = price;
+  }
+
   get editingLineItem(): LineItem{
     return this._editingItem;
   }
@@ -167,4 +186,5 @@ export class BagProvider {
   set editingIndex(num: number){
     this._editingIndex = num;
   }
+
 }
