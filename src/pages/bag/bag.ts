@@ -45,7 +45,7 @@ export class BagPage {
   calculateSubtotal(bagItems): number {
     let total = 0.0;
     bagItems.forEach(item => {
-      total += parseFloat(item.ExtendedPrice);
+      total += parseFloat((item.ExtendedPrice * item.Quantity).toString());
     });
     return total;
   }
