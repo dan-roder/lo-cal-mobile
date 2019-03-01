@@ -22,9 +22,9 @@
           <div class="bag-item-title">
             <ion-row>
               <ion-col>
-                <span class="bag-item-name">{{ item.Name }}</span>
-                <span class="bag-item-quantity">x{{ item.Quantity }}</span>
-                <span tabindex="0" (click)="editItemAtIndex(i)" role="button">EDIT</span>
+                <span class="bag-item-name">{{ item.Name }}<span class="bag-item-quantity">x{{ item.Quantity }}</span></span>
+
+                <span class="edit-button" tabindex="0" (click)="editItemAtIndex(i)" role="button">EDIT</span>
               </ion-col>
             </ion-row>
           </div>
@@ -57,10 +57,12 @@
       </ion-row>
       <div class="edit-pane" [hidden]="isOpen !== i">
         <div class="quantity-toggle">
-          <span class="quantity-text">Quantity</span>
-          <span class="minus" (click)="decrementQuantity(item)">-</span>
+          <!-- <span class="quantity-text">Quantity</span> -->
+          <!-- <span class="minus" (click)="decrementQuantity(item)">-</span> -->
+          <ion-icon color="red" (click)="decrementQuantity(item)" name="minus" role="img" tappable="" class="icon icon-md icon-md-red ion-md-minus" aria-label="minus" ng-reflect-color="red" ng-reflect-name="minus"></ion-icon>
           <span class="quantity">{{ item?.Quantity }}</span>
-          <span class="plus" (click)="incrementQuantity(item)">+</span>
+          <!-- <span class="plus" (click)="incrementQuantity(item)">+</span> -->
+          <ion-icon color="red" name="plus" role="img" (click)="incrementQuantity(item)" tappable="" class="icon icon-md icon-md-red ion-md-plus" aria-label="plus" ng-reflect-color="red" ng-reflect-name="plus"></ion-icon>
         </div>
         <div class="customize-this">
           <a href="#" (click)="customizeReturn(item, i)">Go back to customize this item</a>

@@ -33,5 +33,42 @@ page-bag {
       display: flex;
       justify-content: space-around;
       padding-top: 15px;
+      .icon-md-red {
+        font-size: 12px;
+      }
+      .quantity {
+        padding-left: 9px;
+        padding-right: 10px;
+        font-size: 16px;
+        line-height: 1.1;
+      }
+      a {
+        font-size: 13px;
+        color: #ff3b30;
+        background: none, url("../assets/images/left-arrow-red@3x.png") no-repeat;
+        background-position: right center;
+        padding: 0px 15px 2px 0;
+        background-size: 8px;
+        text-decoration: none;
+        font-weight: 600;
+      }
+    }
+    .bag-item-title {
+      .edit-button {
+        color: #ff3b30;
+        font-size: 12.5px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        align-self: center;
+        padding-right: 10px;
+
+      }
+      .col {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+    .bag-item-quantity {
+      padding-left: 5px;
     }
 }
