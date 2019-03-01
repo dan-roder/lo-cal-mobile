@@ -87,6 +87,12 @@ export class MenuItemPage {
 
   ionViewWillLeave() {
     document.body.classList.remove("fullscreen");
+    this.bag.editingIndex = undefined;
+    this.bag.editingLineItem = null
+  }
+  ionViewDidLeave(){
+    this.bag.editingIndex = undefined;
+    this.bag.editingLineItem = null
   }
 
   private recalculateCost(){
@@ -278,7 +284,14 @@ export class MenuItemPage {
     let defaultItemId = data.item.DefaultItemId;
 
     this.menuItemDetails = data;
-    this.salesItemDetails = _.find(data['salesItems'], {'SalesItemId': defaultItemId});
+    if(this.bag.editingLineItem){
+      this.salesItemDetails = _.find(data['salesItems'], {'SalesItemId': this.bag.editingLineItem.SalesItemId});
+      console.log('edit help', this.salesItemDetails)
+    }
+    else{
+      this.salesItemDetails = _.find(data['salesItems'], {'SalesItemId': defaultItemId});
+      console.log('help', this.salesItemDetails)
+    }
     this.itemPrice = this.salesItemDetails.Price;
 
     this.calorieCount = (this.navParams.get('menuItem').CaloricServingUnit === null) ? 0 : parseInt(this.navParams.get('menuItem').CaloricServingUnit, 10);
@@ -293,61 +306,116 @@ export class MenuItemPage {
     this.recalculateCost();
 
     this.orderedSalesItemDetails = this.orderModifierGroups( this.salesItemDetails.ModifierGroups, this.salesItemDetails.ModGroups );
+    if(this.bag.editingLineItem) {
+      defaults = this.bag.editingLineItem.Modifiers;
+      this.registerCustomizationVariables( this.orderedSalesItemDetails, defaults );
 
+      console.log('edit', defaults)
+    } else
     if ( this.salesItemDetails.ModGroups.length > 0 && this.salesItemDetails.DefaultOptions.length > 0 ) {
       defaults = this.salesItemDetails.DefaultOptions;
+      console.log('no edit', defaults)
       this.registerCustomizationVariables( this.orderedSalesItemDetails, defaults );
     } else {
       this.registerCustomizationVariables( this.orderedSalesItemDetails );
     }
   }
+  public saveChanges(){
+    // if the array of required mods is not empty, don't add to bag
+    if(this.requiredModifierGroups.length > 0){
+      this.submitAttempted = true; // triggers showing of error messages
+      return; // disallow adding to bag
+    }
 
-  private registerCustomizationVariables( allModifiers, defaultOptions: Array<DefaultOptions> = [] ) {
-    // console.log( defaultOptions );
-    let tempObj      = {};
+    this.bag.removeFromBagAtIndex(this.bag.editingIndex);
+
+    this.addToBag();
+
+  }
+  private registerCustomizationVariables( allModifiers, defaultOptions : Array<any> = [] ){
     let reqMods = new Array;
-    // let defaultArray = [];
-    allModifiers.forEach( modifierGroup => {
-      // console.log( modifierGroup );
-      let modObject = {};
-      modObject['maximumItems'] = modifierGroup.MaximumItems;
-      modObject['minimumItems'] = modifierGroup.MinimumItems;
-      modObject['currentlySelected'] = [];
-      modObject['modifiers'] = {};
-      modObject['groupDetails'] = {};
-      // console.log( modObject );
 
-      modifierGroup.Mods.forEach( mod => {
-        // console.log( defaultOptions, mod );
-        modObject['groupDetails'] = modifierGroup;
-        modObject['modifiers'][mod.$id] = {};
-        // console.log(defaultOptions);
-        let isModDefault = defaultOptions.find( option => {
-          // console.log( option.ModifierId, mod.ModifierId);
-          return option['ModifierId'] === mod.ModifierId;
-        });
-        // console.log( isModDefault );
-        if ( isModDefault ) {
-          modObject['modifiers'][mod.$id]['quantity'] = isModDefault.DefaultQuantity;
-          modObject['currentlySelected'].push(mod);
-        } else {
-          modObject['modifiers'][mod.$id]['quantity'] = 0;
+    _.forEach(allModifiers, (modifierGroup) => {
+      this.customizationData[modifierGroup.$id] = new Object();
+
+      // Create new object to store values in
+      let modObject = new Object();
+      modObject['maximumItems'] = (modifierGroup.MaximumItems === 0) ? 'unlimited' : modifierGroup.MaximumItems;
+      modObject['minimumItems'] = modifierGroup.MinimumItems;
+      modObject['currentlySelected'] = new Array;
+      modObject['modifiers'] = new Object();
+      modObject['groupDetails'] = new Object();
+      this.customizationData[modifierGroup.$id] = modObject;
+
+      _.forEach(modifierGroup.Mods, (modifier) => {
+        this.customizationData[modifierGroup.$id]['groupDetails'] = modifierGroup;
+        this.customizationData[modifierGroup.$id]['modifiers'][modifier.$id] = new Object();
+        this.customizationData[modifierGroup.$id]['modifiers'][modifier.$id]['quantity'] = 0;
+
+        let isModDefault = _.find(defaultOptions, {'ModifierId': modifier.ModifierId});
+
+        if(isModDefault !== undefined){
+          this.addMod(modifierGroup, modifier);
         }
       });
 
-      if(modifierGroup.MinimumItems > 0 && modObject['currentlySelected'].length <= 0){
+      // If the modifier group has a minimum item requirement, push to array
+      if(modifierGroup.MinimumItems > 0 && this.customizationData[modifierGroup.$id]['currentlySelected'].length <= 0){
         reqMods.push({'$id' : modifierGroup.$id});
       }
 
-      tempObj[modifierGroup.$id] = {};
-      tempObj[modifierGroup.$id] = modObject;
-
     });
 
-    this.customizationData = tempObj;
     this.requiredModifierGroups = reqMods;
-    // console.log( this.customizationData );
+
+    this.recalculateCost();
   }
+  // private registerCustomizationVariables( allModifiers, defaultOptions: Array<DefaultOptions> = [] ) {
+  //   // console.log( defaultOptions );
+  //   let tempObj      = {};
+  //   let reqMods = new Array;
+  //   // let defaultArray = [];
+  //   allModifiers.forEach( modifierGroup => {
+  //     // console.log( modifierGroup );
+  //     let modObject = {};
+  //     modObject['maximumItems'] = modifierGroup.MaximumItems;
+  //     modObject['minimumItems'] = modifierGroup.MinimumItems;
+  //     modObject['currentlySelected'] = [];
+  //     modObject['modifiers'] = {};
+  //     modObject['groupDetails'] = {};
+  //     // console.log( modObject );
+
+  //     modifierGroup.Mods.forEach( mod => {
+  //       // console.log( defaultOptions, mod );
+  //       modObject['groupDetails'] = modifierGroup;
+  //       modObject['modifiers'][mod.$id] = {};
+  //       // console.log(defaultOptions);
+  //       let isModDefault = defaultOptions.find( option => {
+  //         // console.log( option.ModifierId, mod.ModifierId);
+  //         return option['ModifierId'] === mod.ModifierId;
+  //       });
+  //       // console.log( isModDefault );
+  //       if ( isModDefault ) {
+  //         modObject['modifiers'][mod.$id]['quantity'] = isModDefault.DefaultQuantity;
+  //         modObject['currentlySelected'].push(mod);
+  //       } else {
+  //         modObject['modifiers'][mod.$id]['quantity'] = 0;
+  //       }
+  //     });
+
+  //     if(modifierGroup.MinimumItems > 0 && modObject['currentlySelected'].length <= 0){
+  //       reqMods.push({'$id' : modifierGroup.$id});
+  //     }
+
+  //     tempObj[modifierGroup.$id] = {};
+  //     tempObj[modifierGroup.$id] = modObject;
+
+  //   });
+  //   console.log('hello mods', tempObj)
+  //   this.customizationData = tempObj;
+  //   this.requiredModifierGroups = reqMods;
+  //   // console.log( this.customizationData );
+  // }
 
   public updateDataPerSize(salesId: number){
     this.salesItemDetails = _.find(this.menuItemDetails.salesItems, {'SalesItemId': +salesId});
@@ -491,5 +559,8 @@ export class MenuItemPage {
     });
 
     return sortedCollection;
+  }
+  get editingIndex(): number{
+    return this.bag.editingIndex;
   }
 }
