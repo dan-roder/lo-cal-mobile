@@ -297,7 +297,7 @@ export class AccountPage {
       message: "Are you sure? This cannot be undone",
       buttons: [
         {
-          text: "No.",
+          text: "No",
           role: "cancel",
           cssClass: "button-cancel",
           handler: () => {
@@ -305,7 +305,7 @@ export class AccountPage {
           }
         },
         {
-          text: "Yes.",
+          text: "Yes",
           cssClass: "button-accept",
           handler: () => {
             this.customerService.deleteSavedPayment(this.customerId, paymentId).subscribe(() => {

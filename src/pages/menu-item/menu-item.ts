@@ -513,14 +513,14 @@ export class MenuItemPage {
       title: message,
       message: 'Would you like to continue adding items or checkout?',
       buttons: [{
-          text: "Go back?",
+          text: "Go back",
           role: "cancel",
           handler: () => {
             console.log("Cancel clicked");
           }
         },
         {
-          text: "Checkout?",
+          text: "Checkout",
           handler: () => {
             console.log("Go to bag");
             this.navCtrl.push("BagPage").then(() => {
