@@ -2,7 +2,7 @@ page-menu-item {
   background-color: #f4f4f4;
 
   .list-header-md {
-    min-height: 6.4rem;
+    padding: 10px 0;
   }
 
   .menu-item-header {
@@ -154,6 +154,7 @@ page-menu-item {
       border-top: none;
       border-bottom: 1px solid #f4f4f4;
       padding-left: 0;
+      background-color: white;
     }
 
     .label {
