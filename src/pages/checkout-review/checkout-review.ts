@@ -169,7 +169,7 @@ export class CheckoutReviewPage {
       title: "Confirm",
       message: "Are you sure you want to remove this item from your bag?",
       buttons: [{
-          text: "No.",
+          text: "No",
           role: "cancel",
           cssClass: "button-cancel",
           handler: () => {
@@ -177,7 +177,7 @@ export class CheckoutReviewPage {
           }
         },
         {
-          text: "Yes.",
+          text: "Yes",
           cssClass: "button-accept",
           handler: () => {
             console.log("Removed clicked");
