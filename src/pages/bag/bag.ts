@@ -93,8 +93,11 @@ export class BagPage {
   customizeReturn(item, i){
     this.bag.editingLineItem = item;
     this.bag.editingIndex = i;
-    this.navCtrl.push("MenuItemPage", { menuItem: item });
-
+    // this.navCtrl.push("MenuItemPage", { menuItem: item });
+    let currentIndex = this.navCtrl.getActive().index;
+    this.navCtrl.push("MenuItemPage", { menuItem: item }).then(() => {
+      this.navCtrl.remove(currentIndex);
+    });
   }
   incrementQuantity(item){
     item.Quantity++;

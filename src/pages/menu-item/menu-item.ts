@@ -480,7 +480,7 @@ export class MenuItemPage {
   }
 
   public addToBag() {
-    if(this.requiredModifierGroups.length > 0){
+    if (this.requiredModifierGroups.length > 0) {
       this.submitAttempted = true; // triggers showing of error messages
       return; // disallow adding to bag
     }
@@ -491,12 +491,12 @@ export class MenuItemPage {
     menuItem = this.menuItemDetails.item;
 
     // add quantity and totalPrice to object
-    let      quantity      = this.quantity;
-    let      totalPrice    = this.totalPrice;
-    menuItem['Quantity']   = quantity;
+    let quantity = this.quantity;
+    let totalPrice = this.totalPrice;
+    menuItem['Quantity'] = quantity;
     menuItem['TotalPrice'] = totalPrice;
-    menuItem['Modifiers']  = Object.values( this.customizationData );
-    menuItem['UnitPrice']  = this.salesItemDetails.Price;
+    menuItem['Modifiers'] = Object.values(this.customizationData);
+    menuItem['UnitPrice'] = this.salesItemDetails.Price;
     menuItem['caloricValue'] = this.calorieCount;
     menuItem['SalesItemId'] = this.salesItemId;
     menuItem['SpecialInstructions'] = this.specialInstructions;
@@ -504,13 +504,15 @@ export class MenuItemPage {
 
     let message = `${ menuItem['DisplayName'] } has been added to you your bag.`
     // Push full object to bag service
-    this.bag.createLineItem( menuItem );
+    this.bag.createLineItem(menuItem);
+
+    // find current nav index
+    let currentIndex = this.navCtrl.getActive().index;
 
     let alert = this.alertCtrl.create({
       title: message,
       message: 'Would you like to continue adding items or checkout?',
-      buttons: [
-        {
+      buttons: [{
           text: "Go back?",
           role: "cancel",
           handler: () => {
@@ -521,16 +523,24 @@ export class MenuItemPage {
           text: "Checkout?",
           handler: () => {
             console.log("Go to bag");
-            this.app.getRootNavs()[0].push('BagPage');
+            this.navCtrl.push("BagPage").then(() => {
+              this.navCtrl.remove(currentIndex);
+            });
           }
         }
       ]
     });
-
-    alert.present();
+    if (this.bag.editingLineItem) {
+        this.navCtrl.push("BagPage").then(() => {
+        this.navCtrl.remove(currentIndex);
+      });
+      // this.app.getRootNavs()[0].push('BagPage')
+    } else {
+      alert.present();
+    }
     // Wipe out local values
-    menuItem   = null;
-    quantity   = null;
+    menuItem = null;
+    quantity = null;
     totalPrice = null;
   }
 
