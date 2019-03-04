@@ -117,7 +117,7 @@
 
 <ion-footer no-border *ngIf="loggedInStatus">
   <ion-toolbar color="light" no-padding>
-    <div class="checkout-button-wrap" *ngIf="itemsInBag.length">
+    <div class="checkout-button-wrap wrap-logged-in" *ngIf="itemsInBag.length">
       <button ion-button block color="red" class="order-now" no-padding (tap)="checkout(false)">
         Checkout
       </button>
