@@ -48,7 +48,7 @@ page-burgers {
   }
 
   .menu-items {
-    padding-bottom: 50px;
+    padding-bottom: 40px;
 
     @include breakpoint(768px) {
       display: flex;
