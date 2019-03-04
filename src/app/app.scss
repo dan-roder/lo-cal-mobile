@@ -268,30 +268,40 @@ ion-scroll[scrollX] {
         .alert-head {
             padding-bottom: 10px;
             .alert-title {
-                font-size: 21px;
-
+              font-weight: 700;
+              font-size: 20px;
             }
         }
         .alert-message {
-            font-size: 16px;
+          font-size: 14px;
+          line-height: 1.23;
+          letter-spacing: 0.7px;
+          color: rgba(30, 30, 30, 0.99);
+          padding-bottom: 5px;
+          padding-top: 5px;
         }
     }
     .alert-button {
         width: 45%;
         font-size: 18px;
         font-weight: 600;
-        &-reject {
-
+        &-reject, &-accept, &-cancel, &-default {
+          color: white;
+          background-color: #ff3b30;
+          max-width: 150px;
+          margin: 0;
+          border-radius: 2px;
         }
-        &-accept {
-            background: map-get( $colors, red );
-            color: white;
+        &-group {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          padding: 15px 24px;
         }
-        &-reject, &-accept {
-            .button-inner {
-                justify-content: center;
-                font-weight: 700
-            }
+        .button-inner {
+          justify-content: center;
+          text-align: center;
+          font-size: 16px;
         }
     }
 }
@@ -593,3 +603,4 @@ ion-scroll[scrollX] {
       text-align: center;
     }
   }
+
