@@ -502,7 +502,7 @@ export class MenuItemPage {
     menuItem['SpecialInstructions'] = this.specialInstructions;
     menuItem['CartImage'] = this.cartImage;
 
-    let message = `${ menuItem['DisplayName'] } has been added to you your bag.`
+    let message = `${ menuItem['DisplayName'] } has been added to your bag.`
     // Push full object to bag service
     this.bag.createLineItem(menuItem);
 
