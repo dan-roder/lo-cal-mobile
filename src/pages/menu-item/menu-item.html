@@ -35,12 +35,17 @@
     <div class="sub-heading" text-center>
       <p>Select a size:</p>
     </div>
+
+    <div class="size-select">
+    <img src="assets/images/left-arrow-red@3x.png" />
     <ion-item>
-      <ion-label for="size" floating>Size</ion-label>
+      <ion-label for="size" floating class="visuallyhidden">Size</ion-label>
+
       <ion-select name="size" id="size" class="custom white-bg" [(ngModel)]="sizeChoice" (ngModelChange)="updateDataPerSize(sizeChoice)">
         <ion-option [value]="salesItemDetails?.SalesItemId" *ngFor="let salesItemDetails of multipleSalesItems">{{ salesItemDetails?.DisplayName }}</ion-option>
       </ion-select>
     </ion-item>
+    </div>
   </div>
   <div class="sub-heading" text-center *ngIf="menuItemDetails && salesItemDetails?.ModGroups.length">
     <p>Start your modification:</p>

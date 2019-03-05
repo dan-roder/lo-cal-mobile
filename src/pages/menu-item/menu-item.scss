@@ -4,6 +4,40 @@ page-menu-item {
   .list-header-md {
     padding: 10px 0;
   }
+  .size-selection {
+    .item-md.item-block .item-inner {
+      border-bottom: none;
+    }
+    .item-md {
+      padding-left: 0;
+    }
+    ion-item {
+      min-height: 56px;
+    }
+    .select-md {
+      padding-top: 20px;
+    }
+    .item-inner {
+      border-bottom: 1px solid #e1e1e1;
+    }
+    .size-select {
+      position: relative;
+      img {
+        height: 13px;
+        position: absolute;
+        right: 13px;
+        z-index: 9;
+        top: 21px;
+      }
+      .select-icon {
+        display: none;
+      }
+      .select-text {
+        font-weight: 700;
+        font-size: 13px;
+      }
+    }
+  }
 
   .menu-item-header {
     background-repeat: no-repeat;
