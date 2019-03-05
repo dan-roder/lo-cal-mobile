@@ -141,7 +141,11 @@ export class SignupPage implements OnInit {
   }
 
   public createNewAccount( customer ) {
-    let loading = this.loading.create({content: "Creating New Account"});
+    let loading = this.loading.create({
+      content: "Creating New Account",
+      spinner: "circles"
+    });
+
     loading.present();
 
     let phoneNum = this.phone.value.replace(/[^A-Z0-9]/ig, "");

@@ -34,7 +34,10 @@ export class PrivacyPage {
   }
 
   public getPrivacyPolicy () {
-    let loader = this.loadingController.create({ content: "Loading" });
+    let loader = this.loadingController.create({
+      content: "Loading ...",
+      spinner: "circles"
+  });
     loader.present()
 
     this.wordpressService.getPost(3982).subscribe(page => {

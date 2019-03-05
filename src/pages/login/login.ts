@@ -58,7 +58,8 @@ export class LoginPage {
 
   public login() {
     let loader = this.loadingController.create({
-      content: "Please Wait"
+      content: "Please Wait ...",
+      spinner: "circles"
     });
 
     if( this.loginForm.valid ) {

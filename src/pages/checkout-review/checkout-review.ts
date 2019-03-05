@@ -230,7 +230,8 @@ export class CheckoutReviewPage {
 
 
     let loader = this.loadingController.create({
-      content: "Processing Order"
+      content: "Processing Order ...",
+      spinner: "circles"
     });
     loader.present()
 

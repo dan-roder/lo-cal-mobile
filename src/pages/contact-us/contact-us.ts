@@ -59,7 +59,10 @@ export class ContactUsPage {
 
     public getContactUsPage () {
 
-            let loader = this.loadingController.create({ content: "Loading" });
+            let loader = this.loadingController.create({
+              content: "Loading ...",
+              spinner: "circles"
+            });
             loader.present()
 
             this.wordpressService.getPage(132).subscribe(page => {

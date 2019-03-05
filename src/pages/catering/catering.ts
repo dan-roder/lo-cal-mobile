@@ -44,7 +44,10 @@ export class CateringPage implements OnInit {
     }
 
     getCateringPage() {
-        let loader = this.loadingController.create({ content: "Loading" });
+        let loader = this.loadingController.create({
+          content: "Loading ...",
+          spinner: "circles"
+        });
         loader.present()
 
         this.wordpressService.getCustomPostTypeById('landing_page', 126).subscribe(page => {

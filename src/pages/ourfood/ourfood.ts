@@ -34,7 +34,10 @@ export class OurfoodComponent implements OnInit {
 
     public getOurFood() {
 
-        let loader = this.loadingController.create({ content: "Loading" });
+        let loader = this.loadingController.create({
+          content: "Loading ...",
+          spinner: "circles"
+      });
         loader.present()
 
         this.wordpressService.getOurFood()

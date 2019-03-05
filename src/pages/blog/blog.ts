@@ -31,7 +31,10 @@ export class BlogPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad BlogPage');
 
-    let loader = this.loadingController.create({ content: "Loading" });
+    let loader = this.loadingController.create({
+      content: "Loading ...",
+      spinner: "circles"
+    });
     loader.present()
 
     this.wordpressService.getCustomPostType('blog_post').subscribe(posts => {

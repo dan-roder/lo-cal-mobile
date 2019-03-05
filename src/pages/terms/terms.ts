@@ -35,7 +35,10 @@ export class TermsPage implements OnInit {
     }
 
     public getTermsAndPolicy () {
-        let loader = this.loadingController.create({ content: "Loading" });
+        let loader = this.loadingController.create({
+          content: "Loading ...",
+          spinner: "circles"
+        });
         loader.present()
 
         this.wordpressService.getPost(124).subscribe(page => {

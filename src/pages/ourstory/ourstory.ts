@@ -38,7 +38,10 @@ export class OurstoryComponent implements OnInit {
     }
 
     public getOurStory() {
-        let loader = this.loadingController.create({ content: "Loading" });
+        let loader = this.loadingController.create({
+          content: "Loading ...",
+          spinner: "circles"
+        });
         loader.present()
 
         this.wordpressService.getOurStory()
@@ -46,14 +49,14 @@ export class OurstoryComponent implements OnInit {
                 this.page = page;
                 this.acf = page.acf;
                 this.bgImage = (page.acf.background_image !== undefined) ? page.acf.background_image.url : '';
-                
+
                 if(page.featured_media != 0){
                     this.wordpressService.getMedia(page.featured_media).subscribe(media => this.featuredImage = media);
                 }
                 loader.dismiss();
             });
     }
-    
+
     public getBgImage(){
         let style = `background-image: url(${this.bgImage})`;
         return this.sanitizer.bypassSecurityTrustStyle(style);
