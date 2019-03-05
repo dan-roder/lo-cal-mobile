@@ -628,4 +628,8 @@ ion-scroll[scrollX] {
       text-align: center;
     }
   }
-
+  .loading-content {
+    font-weight: 600;
+    letter-spacing: .5px;
+    color: rgba(30, 30, 30, 0.99);
+  }
