@@ -1,25 +1,49 @@
-.history-wrapper{
+page-order-history {
+  .scroll-content {
+    background-color: #f4f4f4;
+  }
   .order-detail-wrapper{
     display: flex;
     justify-content: space-between;
+  }
+  .account-heading {
+    text-align: center;
+    h3 {
+      margin: 9px 0 25px !important;
+    }
+  }
+  .date-time {
+    font-weight: 700;
+    color: #ff0f1b;
+  }
+  .order-price {
+    font-weight: 700;
   }
 
   .order-link{
     p{
       margin: 0;
       font-weight: 700;
+      color: #ff0f1b;
     }
   }
 
   .order{
     padding: 15px 0;
-
+    border-bottom: 1px solid #e1e1e1;
     &:first-child{
       padding: 0 0 15px;
     }
   }
-
-  .order-summary{
+  .order-item {
+    line-height: 1.52;
+    letter-spacing: 0.3px;
+    color: rgba(30, 30, 30, 0.99);
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .order-summary {
+    margin-top: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -35,4 +59,5 @@
       max-width: 45%;
     }
   }
+
 }

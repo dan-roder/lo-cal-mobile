@@ -26,7 +26,7 @@
           <div class="order-items small-text">
             <span class="order-item" *ngFor="let item of order?.LineItems; let last = last;">{{ item?.Name }}<span class="separator" *ngIf="!last">, </span></span>
           </div>
-          <p class="order-price small-text">{{ order?.TotalAmount | currency }}</p>
+          <p class="order-price small-text">{{ order?.TotalAmount | currency:'USD':'symbol' }}</p>
         </div>
       </div>
     </div>
