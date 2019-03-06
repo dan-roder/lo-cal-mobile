@@ -20,8 +20,8 @@
           <div>
             <img src= {{data.image.url}} >
           </div>
-          <h3>{{data.title}}</h3>
-          <p>{{data.description}}</p>
+          <h3 [innerHtml]="data.title"></h3>
+          <p [innerHtml]="data.description"></p>
         </div>
       </div>
     </div>
