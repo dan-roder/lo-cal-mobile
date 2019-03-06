@@ -34,7 +34,9 @@
             <div class="contact-info" [innerHtml]="acf?.right_details | safeHtml"></div>
           </div>
           <div *ngIf="mapImage" class="map-image">
-            <img src={{mapImage}} alt="lo-cal map location"/>
+            <a href="https://maps.google.com/?q=5 Glen Cove Rd, Greenvale, NY 11548" target="_blank">
+              <img src={{mapImage}} alt="lo-cal map location"/>
+            </a>
           </div>
         </div>
 </ion-content>

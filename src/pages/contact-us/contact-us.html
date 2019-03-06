@@ -71,6 +71,8 @@
         <div class="right">
           <div class="contact-info" *ngIf="acf?.right_details" [innerHtml]="acf?.right_details | safeHtml"></div>
         </div>
-        <div *ngIf="mapImage" class="map-image" [ngStyle]="{'background-image': 'url(' + mapImage + ')'}"></div>
+        <div *ngIf="mapImage" class="map-image" [ngStyle]="{'background-image': 'url(' + mapImage + ')'}">
+          <a href="https://maps.google.com/?q=5 Glen Cove Rd, Greenvale, NY 11548" target="_blank"></a>
+        </div>
     </div>
 </ion-content>
