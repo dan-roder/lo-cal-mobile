@@ -18,8 +18,8 @@
             <div *ngFor="let data of acf?.tbi_images">
                 <div class="image_section">
                     <div class="image-holder"> <img src={{data.image.url}}> </div>
-                    <div class="img_title"> {{data.title}} </div>
-                    <div class="img_descriptions"> {{data.description}} </div>
+                    <div class="img_title" [innerHtml]="data.title"></div>
+                    <div class="img_descriptions" [innerHtml]="data.description"></div>
                 </div>
             </div>
             <div class="clear"></div>
