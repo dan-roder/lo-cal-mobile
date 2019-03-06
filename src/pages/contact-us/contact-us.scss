@@ -87,6 +87,10 @@ page-contact-us {
         @include breakpoint(800px) {
                 height: 320px;
         }
+        a {
+          height: 100%;
+          width: 100%;
+        }
     }
     .right {
       @include breakpoint(768px) {
@@ -120,7 +124,7 @@ page-contact-us {
         }
         .label-md {
             margin: 0;
-        
+
         }
     }
     .section-white {
