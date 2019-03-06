@@ -10,26 +10,26 @@
 <ion-content class="page" padding>
     <div *ngIf="page">
         <featured-media *ngIf="featuredImage" [id]="featuredImage.id"></featured-media>
-        <h2 class="center-title">{{page.title.rendered}}</h2>
-        <div class="page_content" [innerHtml]="acf?.body"></div>
+        <h2 class="center-title" [innerHtml]="page.title.rendered | safeHtml"></h2>
+        <div class="page_content" [innerHtml]="acf?.body | safeHtml"></div>
         <div class="section_grey">
-            <div class="page_value" [innerHtml]="acf?.tbi_title"></div>
-            <div class="page_value_content" [innerHtml]="page.acf.tbi_body"></div>
+            <div class="page_value" [innerHtml]="acf?.tbi_title | safeHtml"></div>
+            <div class="page_value_content" [innerHtml]="page.acf.tbi_body | safeHtml"></div>
             <div *ngFor="let data of acf?.tbi_images">
                 <div class="image_section">
                     <div class="image-holder"> <img src={{data.image.url}}> </div>
-                    <div class="img_title" [innerHtml]="data.title"></div>
-                    <div class="img_descriptions" [innerHtml]="data.description"></div>
+                    <div class="img_title" [innerHtml]="data.title | safeHtml"></div>
+                    <div class="img_descriptions" [innerHtml]="data.description | safeHtml"></div>
                 </div>
             </div>
             <div class="clear"></div>
         </div>
         <div class="background-section eating-well" [style]="getBgImage()">
             <div class="content center">
-                <div class="body" [innerHtml]="acf?.text"></div>
+                <div class="body" [innerHtml]="acf?.text | safeHtml"></div>
             </div>
         </div>
-        <div class="extra_text_section_description" [innerHtml]="acf?.right_details"></div>
+        <div class="extra_text_section_description" [innerHtml]="acf?.right_details | safeHtml"></div>
         <img class="extra_text_section_img" src={{acf?.left_image.url}}>
         <div class="clear"></div>
     </div>

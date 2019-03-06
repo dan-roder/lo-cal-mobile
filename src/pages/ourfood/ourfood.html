@@ -10,18 +10,18 @@
 <ion-content class="page" padding>
   <div *ngIf="page">
     <featured-media *ngIf="page.featured_media" [id]="page.featured_media"></featured-media>
-    <h2 class="center-title">{{page.title.rendered}}</h2>
-    <div class="section section-white" [innerHtml]="page.content.rendered"></div>
+    <h2 class="center-title" [innerHtml]="page.title.rendered | safeHtml"></h2>
+    <div class="section section-white" [innerHtml]="page.content.rendered | safeHtml"></div>
     <div class="section food-details">
-      <h3 class="section-title" [innerHtml]="page.acf.tbi_title"></h3>
-      <div [innerHtml]="page.acf.tbi_body"></div>
+      <h3 class="section-title" [innerHtml]="page.acf.tbi_title | safeHtml"></h3>
+      <div [innerHtml]="page.acf.tbi_body | safeHtml"></div>
       <div class="three-column-data">
         <div class="content-wrapper" *ngFor ="let data of page.acf.tbi_images" >
           <div>
-            <img src= {{data.image.url}} >
+            <img src={{data.image.url}} >
           </div>
-          <h3 [innerHtml]="data.title"></h3>
-          <p [innerHtml]="data.description"></p>
+          <h3 [innerHtml]="data.title | safeHtml"></h3>
+          <p [innerHtml]="data.description | safeHtml"></p>
         </div>
       </div>
     </div>
