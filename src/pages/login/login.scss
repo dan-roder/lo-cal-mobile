@@ -1,6 +1,31 @@
 page-login {
+  h2, p, a {
+    color: rgba(30, 30, 30, 0.99);
+  }
   h2 {
     padding-top: 50px;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 2.37;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  p {
+    font-size: 13px;
+    line-height: 1.54;
+    letter-spacing: 0.6px;
+    font-weight: 600;
+  }
+  input {
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    color: #151515 !important;
+  }
+  ion-label {
+    opacity: 0.9;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
   }
   .login-button {
     margin-top: 50px;
@@ -40,13 +65,12 @@ page-login {
     a{
       text-transform: uppercase;
       text-decoration: none;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 1.2px;
-      color: $local-red;
       display: block;
       text-align: center;
       padding: 12px 2px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
     }
   }
 }
