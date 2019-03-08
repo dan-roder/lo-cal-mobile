@@ -39,8 +39,7 @@ export class ContactUsPage {
             'first-name' : [null, Validators.required],
             'last-name' : [null, Validators.required],
             'email' : [null, [Validators.required, Validators.email]],
-            'comments' : null,
-            'recaptchaReactive' : [null, Validators.required]
+            'comments' : null
           })
     }
 

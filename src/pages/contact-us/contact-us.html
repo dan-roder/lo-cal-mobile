@@ -53,10 +53,6 @@
                     <ion-textarea name="comments" id="comments" rows="4" formControlName="comments"></ion-textarea>
                 </ion-item>
 
-                <div class="form-section captcha">
-                     <re-captcha formControlName="recaptchaReactive"></re-captcha>
-                     <div class="error-message" *ngIf="!contactForm.controls['recaptchaReactive'].valid && submittedOnce">This field is required.</div>
-                </div>
                <div class="loading-gif button-size non-full-width" *ngIf="processing"></div>
                 <ion-item class="submit-button">
                     <button ion-button block color="red" value="Send" (tap)="submitForm(contactForm)">Send</button>
