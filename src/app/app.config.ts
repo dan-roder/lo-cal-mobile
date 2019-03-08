@@ -6,7 +6,7 @@ export class Config {
   public siteId : number = 1;
   public menuId : number = 1001;
 
-  public wordpressApiUrl = "https://test-lo-cal.pantheonsite.io/wp-json";
+  public wordpressApiUrl = "https://www.lo-calkitchen.com/wp-json";
   // public localApi = process.env.IONIC_ENV === 'dev' ? "http://localhost:3000" : "http://api.lo-calkitchen.com";
   public localApi = "https://api.lo-calkitchen.com";
   public railsCustomerEndpoint : string = 'https://api.lo-calkitchen.com/customers';
