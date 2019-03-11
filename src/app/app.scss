@@ -56,6 +56,15 @@ ion-header {
 }
 
 .platform-ios {
+  page-menu-item {
+    ion-content {
+      // position: absolute;
+      top: -30px;
+    }
+    .menu-item-header {
+      height: 330px;
+    }
+  }
   // .button-bag-wrap {
   //   padding-bottom: 25px;
   //   // padding-bottom: calc(constant(safe-area-inset-top));
