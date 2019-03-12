@@ -54,7 +54,7 @@
         <div class="form-control-feedback" *ngIf="email.invalid && email.dirty">
           <p class="error-help">Please enter a valid email address.</p>
         </div>
-        <ion-item [ngClass]="{ 'has-error': phone.invalid && phone.dirty }" no-padding no-lines no-border>
+        <ion-item [ngClass]="{ 'has-error': phone.invalid && phone.dirty }" no-padding>
           <ion-label floating>Telephone</ion-label>
           <ion-input type="text" phone name="phone" formControlName="phone" autocomplete="new-password"></ion-input>
         </ion-item>
@@ -89,7 +89,6 @@
         <ion-item [ngClass]="{ 'has-error': state.invalid && state.dirty }" no-padding>
           <ion-label floating>State</ion-label>
           <ion-select name="state" id="state" formControlName="state">
-            <ion-option value=""></ion-option>
             <ion-option value="AL">Alabama</ion-option>
             <ion-option value="AK">Alaska</ion-option>
             <ion-option value="AZ">Arizona</ion-option>
@@ -143,7 +142,7 @@
             <ion-option value="WY">Wyoming</ion-option>
           </ion-select>
         </ion-item>
-        <ion-item [ngClass]="{ 'has-error': zip.invalid && zip.dirty }" no-padding no-lines no-border>
+        <ion-item [ngClass]="{ 'has-error': zip.invalid && zip.dirty }" no-padding>
           <ion-label floating>Zip Code</ion-label>
           <ion-input type="number" name="zip" formControlName="zip"></ion-input>
         </ion-item>
@@ -168,18 +167,18 @@
         </h4>
         <p class="help-text">Your password needs to be at least 8 characters long, and contain at least one lowercase, one uppercase letter and at least one number.</p>
         <ion-item  [ngClass]="{ 'has-error': password.invalid && password.dirty }" no-padding>
-          <ion-label floating>Password.</ion-label>
+          <ion-label floating>Password</ion-label>
           <ion-input type="password" name="password" formControlName="password"></ion-input>
         </ion-item>
         <p class="form-control-feedback" *ngIf="signupForm.hasError('notValid','passwords')">Password requirements not met </p>
 
         <ion-item no-padding>
-          <ion-label floating>Confirm your password.</ion-label>
+          <ion-label floating>Confirm your password</ion-label>
           <ion-input type="password" name="confirm" formControlName="confirm"></ion-input>
         </ion-item>
         <p class="form-control-feedback" *ngIf="signupForm.hasError('notSame','passwords')">Please ensure your password matches the confirmation. </p>
         <ion-item no-padding>
-          <ion-label floating>Choose a security question.</ion-label>
+          <ion-label floating>Choose a security question</ion-label>
           <ion-select formControlName="question">
             <ion-option value="What was your childhood nickname?">What was your childhood nickname?</ion-option>
             <ion-option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</ion-option>
@@ -195,8 +194,8 @@
             <ion-option value="What was the name of the company where you had your first job?">What was the name of the company where you had your first job?</ion-option>
           </ion-select>
         </ion-item>
-        <ion-item no-padding no-lines no-border [ngClass]="{ 'has-error': answer.invalid && answer.dirty }">
-          <ion-label floating>The answer.</ion-label>
+        <ion-item no-padding [ngClass]="{ 'has-error': answer.invalid && answer.dirty }">
+          <ion-label floating>The answer</ion-label>
           <ion-input type="text" name="answer" formControlName="answer"></ion-input>
         </ion-item>
       </div>
