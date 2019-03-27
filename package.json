@@ -1,6 +1,6 @@
 {
   "name": "lo-cal-mobile",
-  "version": "0.0.1",
+  "version": "1.0.8",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
   "private": true,
@@ -27,7 +27,7 @@
     "@ionic/storage": "^2.0.1",
     "angular-cc-library": "^1.2.4",
     "cordova-android": "7.1.4",
-    "cordova-ios": "4.5.5",
+    "cordova-ios": "5.0.0",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-inappbrowser": "^3.0.0",
     "cordova-plugin-ionic-keyboard": "~2.1.3",
