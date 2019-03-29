@@ -45,6 +45,40 @@ export class BurgersPage implements OnInit {
   ) {}
 
   ngOnInit() {
+
+  }
+  doRefresh(refresher) {
+    let loading = this.loading.create({
+      content: "Loading Menu ... ",
+      spinner: "circles"
+    });
+
+    loading.present();
+
+    this.subMenuMeta = this.navParams.get("menuItem");
+
+    // Retrieving subMenuData
+    this.menuService.getSubmenu( this.subMenuMeta['SubMenuId'] ).subscribe( data => {
+      this.subMenu = data;
+      loading.dismiss();
+      refresher.complete()
+    });
+
+    let navItemName = this.navParams.get('menuItem').Name
+    let navItemFormatted = navItemName.replace(/[^A-Z0-9]+/ig, "-").toLowerCase();
+
+    if (this.subMenuMeta['SubMenuId'] === 7) {
+      this.menuSlug = 'smoothies-and-smoothie-bowls'
+    } else {
+      this.menuSlug = navItemFormatted;
+    }
+
+    this.wpService.getSubMenu(this.menuSlug).subscribe((items) => {
+      let itemJson = items.json();
+      this.wpSubMenuItems = _(itemJson).map('acf').flatten().value();
+    });
+  }
+  ionViewWillEnter(){
     let loading = this.loading.create({
       content: "Loading Menu ... ",
       spinner: "circles"
@@ -73,6 +107,9 @@ export class BurgersPage implements OnInit {
       let itemJson = items.json();
       this.wpSubMenuItems = _(itemJson).map('acf').flatten().value();
     });
+  }
+  getMenuData() {
+
   }
 
   /**
