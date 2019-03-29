@@ -1,4 +1,7 @@
 <ion-content no-padding>
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="menu-items">
     <div *ngFor="let menuItem of subMenu?.menuItems; let i = index" class="menu-item menu-item-{{ i }}"  no-padding>
       <!-- <pre>
