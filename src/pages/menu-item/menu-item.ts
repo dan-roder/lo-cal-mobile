@@ -158,28 +158,6 @@ export class MenuItemPage {
         }
       }
     }
-        // let maxSelections = group.MaximumItems;
-        // let currentSelections = this.customizationData[group.$id]['currentlySelected'];
-        // console.log( "ADDING: ", group.$id, mod );
-        // if ( currentSelections.length < maxSelections ) {
-
-        //     this.customizationData[group.$id]['currentlySelected'].push( mod );
-        //     this.customizationData[group.$id].modifiers[mod.$id]['quantity']++;
-
-        //     if ( mod.ItemModifiers.length > 0 ) {
-
-        //         this.calorieCount += mod.ItemModifiers[0].CaloricValue;
-        //         this.itemPrice += mod.ItemModifiers[0].Price;
-        //         this.recalculateCost();
-        //     }
-
-        // } else {
-
-        //     console.log( 'selection maxed' );
-
-        // }
-        // // console.log( 'hey-data', this.customizationData[group.$id].modifiers[mod.$id].quantity );
-        // this.loadingMenu = false;
   }
 
   private removeMod( group, mod ) {
@@ -225,43 +203,6 @@ export class MenuItemPage {
         }
       }
     }
-      // console.log("Removing: ", mod.$id);
-      // function findModId( selection ) {
-
-      //     return selection.$id === mod.$id;
-      // }
-
-      // let currentSelections = this.customizationData[group.$id]['currentlySelected'];
-      // if ( this.customizationData[group.$id].modifiers[mod.$id].quantity > 0 ) {
-
-      //     let removeIndex = currentSelections.findIndex( findModId );
-      //     let currentQuantity = this.customizationData[group.$id].modifiers[mod.$id].quantity;
-      //     console.log(removeIndex, currentQuantity );
-      //     if( removeIndex > -1 && currentQuantity > 0){
-
-      //         let newSelections = currentSelections.splice(removeIndex, 1);
-      //         currentSelections = newSelections;
-      //         this.customizationData[group.$id].modifiers[mod.$id]['quantity'] -= 1;
-
-      //     }
-
-      //     // Subract from calorie count if the modifier has calorie changes
-      //     if (mod.ItemModifiers.length > 0) {
-
-      //         this.calorieCount -= mod.ItemModifiers[0].CaloricValue;
-      //         // If modifier includes additional price, remove from price
-      //         this.itemPrice -= mod.ItemModifiers[0].Price;
-      //         this.recalculateCost();
-
-      //     }
-
-      // }   else {
-
-      //     console.log( 'selection is empty' );
-
-      // }
-      // console.log( this.customizationData );
-
   }
 
   private getItemImages ( item ) {
@@ -366,52 +307,6 @@ export class MenuItemPage {
 
     this.recalculateCost();
   }
-  // private registerCustomizationVariables( allModifiers, defaultOptions: Array<DefaultOptions> = [] ) {
-  //   // console.log( defaultOptions );
-  //   let tempObj      = {};
-  //   let reqMods = new Array;
-  //   // let defaultArray = [];
-  //   allModifiers.forEach( modifierGroup => {
-  //     // console.log( modifierGroup );
-  //     let modObject = {};
-  //     modObject['maximumItems'] = modifierGroup.MaximumItems;
-  //     modObject['minimumItems'] = modifierGroup.MinimumItems;
-  //     modObject['currentlySelected'] = [];
-  //     modObject['modifiers'] = {};
-  //     modObject['groupDetails'] = {};
-  //     // console.log( modObject );
-
-  //     modifierGroup.Mods.forEach( mod => {
-  //       // console.log( defaultOptions, mod );
-  //       modObject['groupDetails'] = modifierGroup;
-  //       modObject['modifiers'][mod.$id] = {};
-  //       // console.log(defaultOptions);
-  //       let isModDefault = defaultOptions.find( option => {
-  //         // console.log( option.ModifierId, mod.ModifierId);
-  //         return option['ModifierId'] === mod.ModifierId;
-  //       });
-  //       // console.log( isModDefault );
-  //       if ( isModDefault ) {
-  //         modObject['modifiers'][mod.$id]['quantity'] = isModDefault.DefaultQuantity;
-  //         modObject['currentlySelected'].push(mod);
-  //       } else {
-  //         modObject['modifiers'][mod.$id]['quantity'] = 0;
-  //       }
-  //     });
-
-  //     if(modifierGroup.MinimumItems > 0 && modObject['currentlySelected'].length <= 0){
-  //       reqMods.push({'$id' : modifierGroup.$id});
-  //     }
-
-  //     tempObj[modifierGroup.$id] = {};
-  //     tempObj[modifierGroup.$id] = modObject;
-
-  //   });
-  //   console.log('hello mods', tempObj)
-  //   this.customizationData = tempObj;
-  //   this.requiredModifierGroups = reqMods;
-  //   // console.log( this.customizationData );
-  // }
 
   public updateDataPerSize(salesId: number){
     this.salesItemDetails = _.find(this.menuItemDetails.salesItems, {'SalesItemId': +salesId});
