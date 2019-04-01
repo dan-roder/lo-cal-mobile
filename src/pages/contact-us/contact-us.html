@@ -26,21 +26,21 @@
                 </div>
 
                 <div class="thirds">
-                    <ion-item class="border">
+                    <ion-item class="border" no-lines>
                         <ion-label for="first-name" floating>First Name *</ion-label>
                         <ion-input type="text" name="first-name" id="first-name" formControlName="first-name" [ngClass]="{'has-error':!contactForm.controls['first-name'].valid && submittedOnce}"></ion-input>
 
                     </ion-item>
                     <div class="error-message" *ngIf="!contactForm.controls['first-name'].valid && submittedOnce">This
                             field is required.</div>
-                    <ion-item class="border">
+                    <ion-item class="border" no-lines>
                         <ion-label for="last-name" floating>Last Name *</ion-label>
                         <ion-input type="text" name="last-name" id="last-name" formControlName="last-name" [ngClass]="{'has-error':!contactForm.controls['last-name'].valid && submittedOnce}"></ion-input>
 
                     </ion-item>
                     <div class="error-message" *ngIf="!contactForm.controls['last-name'].valid && submittedOnce">This
                             field is required.</div>
-                    <ion-item class="border">
+                    <ion-item class="border" no-lines>
                         <ion-label for="email" floating>Email *</ion-label>
                         <ion-input type="email" name="email" id="email" formControlName="email" [ngClass]="{'has-error':!contactForm.controls['email'].valid && submittedOnce}"></ion-input>
 

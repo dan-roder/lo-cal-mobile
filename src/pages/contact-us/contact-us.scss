@@ -104,7 +104,7 @@ page-contact-us {
         border: none;
     }
     .border {
-        border-bottom: 1px solid #1e1e1e;
+        border-bottom: 1px solid #1e1e1e !important;
         @include breakpoint(575px) {
             width: 32%;
         }
