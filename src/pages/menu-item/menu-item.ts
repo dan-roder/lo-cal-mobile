@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { App, IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
 import { MenuProvider } from "../../providers/menu/menu";
 import { BagProvider } from '../../providers/bag/bag';
-// import { Observable } from "rxjs/Observable";
-import { DefaultOptions } from '../../models/DefaultOptions';
 import { SalesItem } from '../../models/SalesItem';
 import { WordPressProvider } from '../../providers/word-press/word-press';
 import * as _ from 'lodash';
