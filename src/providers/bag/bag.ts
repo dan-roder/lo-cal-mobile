@@ -155,7 +155,6 @@ export class BagProvider {
   }
   public updatePrice(){
     let value = 0;
-    let arr = this._itemsInBag;
 
     _.forEach(this._itemsInBag, function(item, key){
       value += (item.ExtendedPrice * item.Quantity);
