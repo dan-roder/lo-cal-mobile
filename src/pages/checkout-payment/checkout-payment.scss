@@ -85,13 +85,21 @@ page-checkout-payment {
       width: calc(100% - 30px);
     }
     .location-details {
-
+      strong, span,
+      .promotion-text {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+      span {
+        display: inline-block;
+      }
       a {
         color: #ff0f1b;
       }
       p {
         margin: 0;
-        padding-left: 15px;
+        // padding-left: 15px;
+        // padding-right: 15px;
         &:nth-child(4) {
           padding-left: 0;
         }

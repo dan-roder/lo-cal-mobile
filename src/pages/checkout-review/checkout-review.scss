@@ -119,7 +119,10 @@ page-checkout-review {
       border-color: #e1e1e1;
     }
     .location-details {
-
+        span {
+          padding-left: 15px;
+          display: inline-block
+        }
         p {
           margin: 0;
           padding-left: 0;
