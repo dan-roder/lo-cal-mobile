@@ -97,9 +97,9 @@ export class MenuItemPage {
   }
 
   switchDefault(group, modifier) {
-    let oldSelection = this.customizationData[group.$id]['currentlySelected'].pop();
+    // let oldSelection = this.customizationData[group.$id]['currentlySelected'].pop();
     this.customizationData[group.$id]['currentlySelected'].push(modifier);
-    let currentSelection = this.customizationData[group.$id]['currentlySelected']
+    // let currentSelection = this.customizationData[group.$id]['currentlySelected']
   }
 
   public buildModifiers( group, modifier, e ) {
