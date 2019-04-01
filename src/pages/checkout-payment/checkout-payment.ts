@@ -94,7 +94,6 @@ export class CheckoutPaymentPage {
           // If Customer has ID, look for any saved payment methods on customer's account
           if(customer.CustomerId){
             this.customerService.getSavedPayments(customer.CustomerId).subscribe(savedPayments => {
-              console.log('test', JSON.parse(savedPayments._body))
               this.savedPaymentMethods = JSON.parse(savedPayments._body);
             }, error => {
               console.log(error);
@@ -186,7 +185,6 @@ export class CheckoutPaymentPage {
 
         // Order object with payment has been created, submit to API
         this.orderService.submitOrder(finalOrderForSubmission, this.currentOrder.OrderId).subscribe(orderResults => {
-          console.log("result code:", orderResults);
           this.orderResultForTesting = orderResults.ResultCode;
 
 

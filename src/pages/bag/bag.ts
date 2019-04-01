@@ -84,12 +84,7 @@ export class BagPage {
 
     return false;
   }
-  // goToItem(item, index) {
-  //     console.log("edit item", item);
 
-  //     this.bag.removeFromBagAtIndex(index);
-  //     this.navCtrl.push("MenuItemPage", { menuItem: item });
-  // }
   customizeReturn(item, i){
     this.bag.editingLineItem = item;
     this.bag.editingIndex = i;

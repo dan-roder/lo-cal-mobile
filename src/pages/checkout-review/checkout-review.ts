@@ -180,7 +180,6 @@ export class CheckoutReviewPage {
           text: "Yes",
           cssClass: "button-accept",
           handler: () => {
-            console.log("Removed clicked");
             this.bag.removeFromBagAtIndex(index);
           }
         }

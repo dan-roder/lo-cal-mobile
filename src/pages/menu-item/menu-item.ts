@@ -53,7 +53,6 @@ export class MenuItemPage {
   ) {
     this.menuItemId   = this.navParams.get('menuItem').MenuItemId;
     this.defaultPrice = this.navParams.get('menuItem').defaultPrice;
-    console.log('hey-params', this.navParams)
 
     // take menu item from nav params and format replacing spaces with dashes
     let slug = this.navParams.get('menuItem').DisplayName
@@ -101,7 +100,6 @@ export class MenuItemPage {
     let oldSelection = this.customizationData[group.$id]['currentlySelected'].pop();
     this.customizationData[group.$id]['currentlySelected'].push(modifier);
     let currentSelection = this.customizationData[group.$id]['currentlySelected']
-    console.log(group, modifier, oldSelection, currentSelection);
   }
 
   public buildModifiers( group, modifier, e ) {
@@ -368,7 +366,6 @@ export class MenuItemPage {
   }
 
   public updateSpecialInstructions(e) {
-    console.log(e.value);
     this.specialInstructions = e.value;
   }
 
@@ -415,7 +412,6 @@ export class MenuItemPage {
         {
           text: "Checkout",
           handler: () => {
-            console.log("Go to bag");
             this.navCtrl.push("BagPage").then(() => {
               this.navCtrl.remove(currentIndex);
             });
