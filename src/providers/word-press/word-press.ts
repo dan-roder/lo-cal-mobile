@@ -68,8 +68,9 @@ export class WordPressProvider {
   }
 
   getPostBySlug(_slug, _postType) {
-    return this.http.get(this.config.wordpressApiUrl + `/wp/v2/${_postType}?slug=${_slug}&_embed`)
+    return this.http.get(`${this.config.localApi}/menu_item_image/${_postType}/${_slug}`)
       .map(result => {
+        console.log('result', result.json())
         return result.json();
       })
   }
@@ -135,9 +136,8 @@ export class WordPressProvider {
         return result.json();
       });
   }
-
-  public getSubMenu(category: string){
-    return this.http.get(this.config.wordpressApiUrl + `/sub_menus/v2/items/${category}`).map(result => {
+  getSubMenu(category: string):Observable<any>{
+    return this.http.get(`${this.config.localApi}/submenu_images/` + category).map(result => {
       return result;
     }, error => {
       return error;
