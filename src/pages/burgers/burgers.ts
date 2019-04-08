@@ -48,7 +48,7 @@ export class BurgersPage implements OnInit {
 
   }
   doRefresh(refresher) {
-    let loading = this.loading.create({
+     let loading = this.loading.create({
       content: "Loading Menu ... ",
       spinner: "circles"
     });
@@ -127,61 +127,6 @@ export class BurgersPage implements OnInit {
     this.app.getRootNavs()[0].push( 'MenuItemPage', { menuItem: item }, { animate: true } );
   }
 
-  // private arrangeMenuData( data ) {
-
-  //     let defaults     = [];
-  //     // let menuItem     = data.item;
-  //     let salesItems   = data.salesItems[0];
-
-  //     if ( salesItems.ModGroups.length > 0 &&  salesItems.DefaultOptions.length > 0 ) {
-
-  //         defaults = salesItems.DefaultOptions;
-  //         return this.registerCustomizationVariables( salesItems.ModGroups, defaults );
-
-  //     } else {
-
-  //         return this.registerCustomizationVariables( salesItems.ModGroups );
-  //     }
-  // }
-
-  // private registerCustomizationVariables( allModifiers, defaultOptions: Array<DefaultOptions> = [] ) {
-
-  //     let tempObj      = {};
-  //     allModifiers.forEach( modifierGroup => {
-
-  //         let modObject = {};
-  //         modObject['maximumItems'] = modifierGroup.MaximumItems;
-  //         modObject['minimumItems'] = modifierGroup.MinimumItems;
-  //         modObject['currentlySelected'] = [];
-  //         modObject['modifiers'] = {};
-  //         modObject['groupDetails'] = {};
-  //         modifierGroup.Mods.forEach( mod => {
-
-  //             modObject['groupDetails'] = modifierGroup;
-  //             modObject['modifiers'][mod.$id] = {};
-
-  //             let isModDefault = defaultOptions.find( option => {
-  //                 return option['ModifierId'] === mod.ModifierId;
-  //             });
-
-  //             if ( isModDefault ) {
-
-  //                 modObject['modifiers'][mod.$id]['quantity'] = isModDefault.DefaultQuantity;
-  //                 modObject['currentlySelected'].push(mod);
-
-  //             } else {
-  //                 modObject['modifiers'][mod.$id]['quantity'] = 0;
-  //             }
-  //         });
-
-  //         tempObj[modifierGroup.$id] = {};
-  //         tempObj[modifierGroup.$id] = modObject;
-
-  //     });
-
-  //     return this.customData = tempObj;
-
-  // }
 
   public quickAdd( item ) {
     let message = `Add ${ item['DisplayName'] } to your bag?`
