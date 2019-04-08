@@ -207,11 +207,16 @@ export class MenuItemPage {
     // handle if no item is returned from wordpress
     if(item.length !== 0) {
       // set featured image
-      this.featuredImage = (item[0].featured_media !== 0) ? item[0]._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url : '//via.placeholder.com/1440x500';
+      this.featuredImage = (item[0].featured_media !== 0) ? item[0]._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url : 'assets/images/default-image.jpg';
 
       // also pull cart image, will need this when saving object to bag
-      this.cartImage = (item[0].acf !== undefined && item[0].acf.cart_image !== undefined) ? item[0].acf.cart_image.url : '//via.placeholder.com/160x240';
+      this.cartImage = (item[0].acf !== undefined && item[0].acf.cart_image !== undefined) ? item[0].acf.cart_image.url : 'assets/images/default-image.jpg';
       // this.featuredImageAlt = (item[0].featured_media !== 0) ? item[0]._embedded['wp:featuredmedia'][0].alt_text : '';
+    } else {
+      this.featuredImage = 'assets/images/default-image.jpg';
+
+      // also pull cart image, will need this when saving object to bag
+      this.cartImage = 'assets/images/default-image.jpg'
     }
   }
 
