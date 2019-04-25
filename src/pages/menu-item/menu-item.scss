@@ -4,6 +4,7 @@ page-menu-item {
   .list-header-md {
     padding: 10px 0;
   }
+
   .size-selection {
     .item-md.item-block .item-inner {
       border-bottom: none;
@@ -15,7 +16,8 @@ page-menu-item {
       min-height: 56px;
     }
     .select-md {
-      padding-top: 20px;
+      // padding-top: 20px;
+      padding: 0;
     }
     .item-inner {
       border-bottom: 1px solid #e1e1e1;
@@ -35,7 +37,11 @@ page-menu-item {
       .select-text {
         font-weight: 700;
         font-size: 13px;
+        position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
       }
+
     }
   }
 
