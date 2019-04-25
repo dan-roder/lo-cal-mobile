@@ -229,6 +229,7 @@ export class MenuItemPage {
 
     if(this.bag.editingLineItem){
       this.salesItemDetails = _.find(data['salesItems'], {'SalesItemId': this.bag.editingLineItem.SalesItemId});
+      // console.log('here', this.salesItemDetails, data['salesItems'], this.bag.editingLineItem)
       this.quantity = Number(this.bag.editingLineItem.Quantity)
     }
     else{
@@ -266,7 +267,7 @@ export class MenuItemPage {
       this.submitAttempted = true; // triggers showing of error messages
       return; // disallow adding to bag
     }
-
+    // console.log('index', this.bag.editingIndex)
     this.bag.removeFromBagAtIndex(this.bag.editingIndex);
 
     this.addToBag();
@@ -312,6 +313,8 @@ export class MenuItemPage {
   }
 
   public updateDataPerSize(salesId: number){
+    this.salesItemId = salesId
+
     this.salesItemDetails = _.find(this.menuItemDetails.salesItems, {'SalesItemId': +salesId});
     this.calorieCount = +this.salesItemDetails.CaloricValue;
     this.itemPrice = this.salesItemDetails.Price;
@@ -329,17 +332,29 @@ export class MenuItemPage {
       this.registerCustomizationVariables( this.salesItemDetails.ModGroups, defaults );
     }
 
-    // Calculate initial cost based on initial quantity of 1
+    // reset modifiers, quantity and calories if user switches item size
+    let groupIdToRemove = _.findKey(this.customizationData, (item) => (item['currentlySelected'].length !== 0));
+    if(groupIdToRemove !== undefined) {
+      this.customizationData[groupIdToRemove].currentlySelected = []
+
+      Object.keys(this.customizationData[groupIdToRemove].modifiers).forEach(mod => {
+        this.customizationData[groupIdToRemove].modifiers[mod].quantity = 0
+      });
+
+      this.totalPrice = this.itemPrice
+      this.calorieCount = null
+      this.quantity = 1
+    }
+
     this.recalculateCost();
+
   }
 
   defaultItem( group, mod ) {
-    // console.log( group, mod );
     let groupId = group.$id;
     let selectedItems = this.customizationData[groupId].currentlySelected;
     let itemSelected = selectedItems.find( item => item.ModifierId === mod.ModifierId );
 
-    // console.log( this.customizationData[groupId].currentlySelected);
     return typeof itemSelected !== 'undefined' ? true : false;
   }
 
