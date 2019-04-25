@@ -328,6 +328,7 @@ export class MenuItemPage {
         defaults = this.salesItemDetails.DefaultOptions;
       }
 
+      this.customizationData = {};
       this.orderedSalesItemDetails = this.orderModifierGroups( this.salesItemDetails.ModifierGroups, this.salesItemDetails.ModGroups );
       this.registerCustomizationVariables( this.salesItemDetails.ModGroups, defaults );
     }
