@@ -333,20 +333,6 @@ export class MenuItemPage {
       this.registerCustomizationVariables( this.salesItemDetails.ModGroups, defaults );
     }
 
-    // reset modifiers, quantity and calories if user switches item size
-    let groupIdToRemove = _.findKey(this.customizationData, (item) => (item['currentlySelected'].length !== 0));
-    if(groupIdToRemove !== undefined) {
-      this.customizationData[groupIdToRemove].currentlySelected = []
-
-      Object.keys(this.customizationData[groupIdToRemove].modifiers).forEach(mod => {
-        this.customizationData[groupIdToRemove].modifiers[mod].quantity = 0
-      });
-
-      this.totalPrice = this.itemPrice
-      this.calorieCount = null
-      this.quantity = 1
-    }
-
     this.recalculateCost();
 
   }
