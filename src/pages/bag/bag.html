@@ -14,7 +14,7 @@
         <ion-col col-3 no-padding>
           <div *ngIf="item.CartImage" class="bag-image" [ngStyle]="{'background-image': 'url(' + item.CartImage + ')'}"></div>
           <!--<img *ngIf="item.CartImage" [src]="item.CartImage" alt="bag item" class="bag-item-image" /> -->
-          <div tappable class="remove" (tap)="removeItem( item, i )">
+          <div tappable class="remove" (click)="removeItem( item, i )">
             <ion-icon name="close" class="remove-icon"></ion-icon>
           </div>
         </ion-col>
@@ -65,7 +65,7 @@
           <ion-icon color="red" name="plus" role="img" (click)="incrementQuantity(item)" tappable="" class="icon icon-md icon-md-red ion-md-plus" aria-label="plus" ng-reflect-color="red" ng-reflect-name="plus"></ion-icon>
         </div>
         <div class="customize-this">
-          <a href="#" (click)="customizeReturn(item, i)">Go back to customize this item</a>
+          <span (click)="customizeReturn(item, i)">Go back to customize this item</span>
         </div>
       </div><!-- /.edit-pane -->
     </div>
