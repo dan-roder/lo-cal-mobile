@@ -1,5 +1,7 @@
 page-burgers {
-
+  .col {
+    position: static;
+  }
   ion-content.content-md, ion-content.content-ios {
     background: #f4f4f4;
   }
@@ -36,6 +38,7 @@ page-burgers {
 
   .menu-item {
     margin-bottom: 20px;
+    position: relative;
 
     @include breakpoint(425px) {
       max-width: 360px;
