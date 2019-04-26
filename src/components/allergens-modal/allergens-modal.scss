@@ -1,0 +1,9 @@
+allergens-modal {
+  .modal {
+    display: none;
+
+    &.show {
+      display: block;
+    }
+  }
+}
