@@ -1,5 +1,11 @@
 <!-- Generated template for the AllergensModalComponent component -->
 <div (click)="showModal()">
   <ng-content></ng-content>
-  <div class="modal" [ngClass]="{'show' : this.show}">test</div>
+  <div class="modal" [ngClass]="{'show' : this.show}">
+  <ion-icon name="md-close"></ion-icon>
+    <p *ngFor="let allergen of allergens">
+      <span class="allergen">{{allergen.key}}</span>
+       - {{allergen.value}}
+    </p>
+  </div>
 </div>

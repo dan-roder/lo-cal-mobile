@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { Config } from '../../app/app.config';
 /**
  * Generated class for the AllergensModalComponent component.
  *
@@ -12,16 +12,29 @@ import { Component } from '@angular/core';
 })
 export class AllergensModalComponent {
 
-  show: boolean = false;
+  public show: boolean = false;
+  public allergens: any[] = [];
 
-  constructor() {
+  constructor(
+    private config: Config
+  ) {
+    for(let key in this.config.allergenMap){
+      this.allergens.push({
+        key: key,
+        value: this.config.allergenMap[key]
+      });
+    }
     console.log('Hello AllergensModalComponent Component');
-    console.log(this.show)
+    console.log(this.allergens)
   }
   showModal() {
     console.log('click')
     this.show = !this.show
     console.log(this.show)
-  }
+    console.log(this.allergens)
 
+  }
+  // closeModal() {
+  //   this.show = false
+  // }
 }
