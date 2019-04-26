@@ -14,6 +14,7 @@ allergens-modal {
     text-align: right;
     border-radius: 9px;
     border: 1px dotted #ff0f1b;
+    transition: opacity 300ms linear;
     &.show {
       display: block;
       z-index: 9999;
