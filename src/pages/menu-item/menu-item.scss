@@ -4,7 +4,22 @@ page-menu-item {
   .list-header-md {
     padding: 10px 0;
   }
-
+  .col {
+    position: static;
+  }
+  .modal {
+    top: -62px;
+    padding: 32px 0;
+    width: 100%;
+    p, .allergen {
+      font-size: 12px;
+    }
+    ion-icon {
+      position: absolute;
+      top: 10px;
+      right: 1%;
+    }
+  }
   .size-selection {
     .item-md.item-block .item-inner {
       border-bottom: none;

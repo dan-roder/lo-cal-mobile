@@ -43,6 +43,7 @@
               <span class="calories" *ngIf="item.caloricValue !== null && item.caloricValue !== 0">{{ item.caloricValue }} cal</span>
             </ion-col>
             <ion-col col-5 text-center>
+            <allergens-modal>
               <span class="allergen">
                 <span *ngFor="let allergen of (item.ShortDescription | allergens)?.allergens">
                   {{ allergen }}
@@ -51,6 +52,7 @@
                 <ion-icon name="paleo"></ion-icon>
                 <ion-icon name="veget"></ion-icon> -->
               </span>
+              </allergens-modal>
             </ion-col>
           </ion-row>
         </ion-col>

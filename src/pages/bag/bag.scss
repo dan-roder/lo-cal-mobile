@@ -1,4 +1,15 @@
 page-bag {
+  .modal {
+    position: fixed;
+    top: 170px;
+    width: 0;
+    visibility: hidden;
+    padding: 13px 0;
+    &.show {
+      width: 95%;
+      visibility: visible;
+    }
+  }
   ion-content {
 
     &.content-md,
