@@ -24,17 +24,8 @@ export class AllergensModalComponent {
         value: this.config.allergenMap[key]
       });
     }
-    console.log('Hello AllergensModalComponent Component');
-    console.log(this.allergens)
   }
   showModal() {
-    console.log('click')
     this.show = !this.show
-    console.log(this.show)
-    console.log(this.allergens)
-
   }
-  // closeModal() {
-  //   this.show = false
-  // }
 }
