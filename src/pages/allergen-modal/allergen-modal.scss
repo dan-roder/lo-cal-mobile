@@ -1,0 +1,39 @@
+page-allergen-modal {
+  .toolbar-content-md {
+    display: flex;
+  }
+  .scroll-content {
+    background: url(../assets/images/light-grey-pattern-bg.jpg);
+    background-size: cover;
+  }
+  .title-ios {
+    position: absolute;
+    top: 50%;
+    left: 25px;
+    transform: translateY(-50%);
+    padding: 0;
+    .toolbar-title-ios {
+      text-align: left;
+    }
+  }
+  .toolbar-title {
+    font-weight: 800;
+  }
+  p {
+    text-align: left;
+    width: 75%;
+    margin: 15px auto;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  .allergen {
+    color: #ff0f1b;
+    padding-right: 3px;
+    font-size: 18px;
+  }
+  img {
+    width: 200px;
+    border-radius: 50%;
+    margin-top: 60px;
+  }
+}

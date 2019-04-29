@@ -1,0 +1,25 @@
+<!--
+  Generated template for the AllergenModalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title float-left>Allergens</ion-title>
+    <button ion-button float-right color="red" (click)="closeModal()">Close</button>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+<p *ngFor="let allergen of allergens">
+  <span class="allergen">{{allergen.key}}</span>
+  - {{allergen.value}}
+</p>
+<img src="../../assets/images/icon-copy.png" />
+</ion-content>
