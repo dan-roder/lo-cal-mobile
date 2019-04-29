@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { App, IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
+import { App, IonicPage, NavController, AlertController, NavParams, ModalController } from 'ionic-angular';
 import { MenuProvider } from "../../providers/menu/menu";
 import { BagProvider } from '../../providers/bag/bag';
 import { SalesItem } from '../../models/SalesItem';
@@ -49,7 +49,8 @@ export class MenuItemPage {
     private alertCtrl : AlertController,
     private menu      : MenuProvider,
     private bag       : BagProvider,
-    private wpService : WordPressProvider
+    private wpService : WordPressProvider,
+    private myModal   : ModalController
   ) {
     this.menuItemId   = this.navParams.get('menuItem').MenuItemId;
     this.defaultPrice = this.navParams.get('menuItem').defaultPrice;
@@ -466,5 +467,9 @@ export class MenuItemPage {
   }
   get editingIndex(): number{
     return this.bag.editingIndex;
+  }
+  showModal() {
+    const modal = this.myModal.create("AllergenModalPage")
+    modal.present()
   }
 }

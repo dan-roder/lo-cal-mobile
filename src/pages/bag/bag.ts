@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { Platform, AlertController, IonicPage, NavController, NavParams } from "ionic-angular";
+import { Platform, AlertController, IonicPage, NavController, NavParams, ModalController } from "ionic-angular";
 import { BagProvider } from "../../providers/bag/bag";
 import { LineItem } from "../../models/LineItem";
 // import { Storage } from "@ionic/storage";
@@ -24,7 +24,8 @@ export class BagPage {
     private alertCtrl: AlertController,
     private bag: BagProvider,
     // private storage: Storage,
-    private customerService: CustomerProvider
+    private customerService: CustomerProvider,
+    private myModal: ModalController
   ) {
     this.platform.ready().then(() => {
       this.itemsInBag = this.bag.itemsInBag;
@@ -126,5 +127,8 @@ export class BagPage {
   get totalPrice() {
     return this.bag.totalPrice
   }
-
+  showModal() {
+    const modal = this.myModal.create("AllergenModalPage")
+    modal.present()
+  }
 }

@@ -24,11 +24,9 @@
           <span class="calories" *ngIf="calorieCount !== null && calorieCount !== 0">{{ calorieCount }} cal</span>
         </ion-col>
         <ion-col text-center *ngIf="(menuItemDetails?.item?.Description | allergens)?.allergens">
-        <allergens-modal>
-          <span class="allergen" *ngFor="let allergen of (menuItemDetails?.item?.Description | allergens)?.allergens">
+          <span (click)="showModal()" class="allergen" *ngFor="let allergen of (menuItemDetails?.item?.Description | allergens)?.allergens">
             <span> {{ allergen }} </span>
           </span>
-          </allergens-modal>
         </ion-col>
       </ion-row>
     </div>

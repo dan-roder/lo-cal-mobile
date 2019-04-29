@@ -190,7 +190,7 @@ export class BurgersPage implements OnInit {
     });
   }
   showModal() {
-    const myModal = this.myModal.create("AllergenModalPage")
-    myModal.present()
+    const modal = this.myModal.create("AllergenModalPage")
+    modal.present()
   }
 }
