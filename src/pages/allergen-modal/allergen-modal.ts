@@ -2,12 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage, ViewController } from 'ionic-angular';
 import { Config } from '../../app/app.config';
 
-/**
- * Generated class for the AllergenModalPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-allergen-modal',
@@ -30,12 +24,7 @@ export class AllergenModalPage {
       });
     }
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AllergenModalPage');
-  }
   closeModal() {
     this.viewController.dismiss()
   }
-
 }
