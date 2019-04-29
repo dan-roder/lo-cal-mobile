@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { App, IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, LoadingController, AlertController, ModalController } from 'ionic-angular';
 import { MenuProvider } from "../../providers/menu/menu";
 import { BagProvider } from '../../providers/bag/bag';
 import { SubMenu } from "../../models/subMenu";
@@ -41,6 +41,7 @@ export class BurgersPage implements OnInit {
     private menuService : MenuProvider,
     private bag       : BagProvider,
     private wpService : WordPressProvider,
+    private myModal: ModalController
 
   ) {}
 
@@ -187,5 +188,9 @@ export class BurgersPage implements OnInit {
       // quantity   = null;
       // totalPrice = null;
     });
+  }
+  showModal() {
+    const myModal = this.myModal.create("AllergenModalPage")
+    myModal.present()
   }
 }

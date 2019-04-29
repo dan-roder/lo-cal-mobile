@@ -32,13 +32,13 @@
             <span class="calories">{{ menuItem.CaloricServingUnit }} cal</span>
           </ion-col>
           <ion-col col-4 class="border" text-center *ngIf="(menuItem?.Description | allergens).allergens">
-            <allergens-modal>
-            <span class="allergen">
+
+            <span (click)="showModal()" class="allergen">
               <span *ngFor="let allergen of (menuItem.Description | allergens).allergens">
                 {{ allergen }}
               </span>
             </span>
-            </allergens-modal>
+
           </ion-col>
           <ion-col col float-right text-right (click)="quickAdd(menuItem)" *ngIf="menuItem?.SalesItemIds.length <= 1" tappable>
             <span class="add">Add</span>
