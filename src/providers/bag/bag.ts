@@ -53,7 +53,6 @@ export class BagProvider {
     lineItem.CartImage = passedMenuItem.CartImage;
     lineItem.DisplayName = passedMenuItem.DisplayName;
     lineItem.CaloricServingUnit = passedMenuItem.CaloricServingUnit
-
     // Push menuItem and lineItem into arrays
     this.itemsInBag.push(lineItem);
 
@@ -77,7 +76,11 @@ export class BagProvider {
     lineItem.CartImage = passedMenuItem.CartImage;
     lineItem.DisplayName = passedMenuItem.DisplayName;
     lineItem.caloricValue = passedMenuItem.caloricValue;
-    lineItem.CaloricServingUnit = passedMenuItem.CaloricServingUnit
+    lineItem.CaloricServingUnit = passedMenuItem.CaloricServingUnit;
+    if (passedMenuItem.Modifiers.length) {
+      lineItem.Modifiers = passedMenuItem.Modifiers
+    }
+
 
     // add to items in bag
     this.itemsInBag.push(lineItem);
