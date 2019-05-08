@@ -95,6 +95,7 @@ export class BurgersPage implements OnInit {
       loading.dismiss();
     });
 
+
     let navItemName = this.navParams.get('menuItem').Name
     let navItemFormatted = navItemName.replace(/[^A-Z0-9]+/ig, "-").toLowerCase();
 
@@ -171,14 +172,32 @@ export class BurgersPage implements OnInit {
       let menuItem   = data.item;
       let salesItems = data.salesItems[0];
       let quantity   = 1;
+      let defaultOptions = []
+
+      // when user quick adds an item, add default modifiers
+      if(salesItems.DefaultOptions) {
+
+        salesItems.DefaultOptions.forEach((option) => {
+          let modGroup = _.find(salesItems.ModGroups, {ModifierGroupId: option['ModifierGroupId']})
+          let mod = _.find(modGroup['Mods'], {ModifierId: option['ModifierId']})
+
+          defaultOptions.push({
+            Name: mod['DisplayName'],
+            Quantity: option['DefaultQuantity'],
+            ModifierId: option['ModifierId'],
+            SalesItemOptionId: option['ModifierId'],
+            ItemOptionGroupId: option['ModifierGroupId']
+          })
+        });
+      }
 
       // add quantity and totalPrice to object
       menuItem['Quantity']   = quantity;
       menuItem['TotalPrice'] = salesItems.Price;
-      menuItem['Modifiers']  = Object.values( this.customData );
+      menuItem['Modifiers']  = defaultOptions;
       menuItem['UnitPrice']  = salesItems.Price;
       menuItem['CartImage'] = this.cartImage;
-      menuItem['caloricValue'] = (item.CaloricServingUnit === null) ? 0 : parseInt(item.CaloricServingUnit, 10);;
+      menuItem['caloricValue'] = (item.CaloricServingUnit === null) ? 0 : parseInt(item.CaloricServingUnit, 10);
 
       // Push full object to bag service
       this.bag.quickAddLineItem( menuItem );
