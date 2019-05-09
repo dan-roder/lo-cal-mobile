@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { App, IonicPage, NavController, NavParams, LoadingController, AlertController, ModalController } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, LoadingController, AlertController, ModalController, ToastController } from 'ionic-angular';
 import { MenuProvider } from "../../providers/menu/menu";
 import { BagProvider } from '../../providers/bag/bag';
 import { SubMenu } from "../../models/subMenu";
@@ -41,7 +41,8 @@ export class BurgersPage implements OnInit {
     private menuService : MenuProvider,
     private bag       : BagProvider,
     private wpService : WordPressProvider,
-    private myModal: ModalController
+    private myModal: ModalController,
+    public toastCtrl: ToastController
 
   ) {}
 
@@ -61,7 +62,7 @@ export class BurgersPage implements OnInit {
     // Retrieving subMenuData
     this.menuService.getSubmenu( this.subMenuMeta['SubMenuId'] ).subscribe( data => {
       this.subMenu = data;
-      loading.dismiss();
+      loading.dismiss()
       refresher.complete()
     });
 
@@ -175,22 +176,46 @@ export class BurgersPage implements OnInit {
       let defaultOptions = []
 
       // when user quick adds an item, add default modifiers
-      if(salesItems.DefaultOptions) {
+      if (salesItems.DefaultOptions.length) {
 
         salesItems.DefaultOptions.forEach((option) => {
-          let modGroup = _.find(salesItems.ModGroups, {ModifierGroupId: option['ModifierGroupId']})
-          let mod = _.find(modGroup['Mods'], {ModifierId: option['ModifierId']})
-
-          defaultOptions.push({
-            Name: mod['DisplayName'],
-            Quantity: option['DefaultQuantity'],
-            ModifierId: option['ModifierId'],
-            SalesItemOptionId: option['ModifierId'],
-            ItemOptionGroupId: option['ModifierGroupId']
-          })
+          let modGroup = _.find(salesItems.ModGroups, { ModifierGroupId: option['ModifierGroupId'] })
+          let mod = _.find(modGroup['Mods'], { ModifierId: option['ModifierId'] })
+          // need this if statement because sometimes the default mod doesn't exist in the modifier array
+          if(mod) {
+            defaultOptions.push({
+              Name: mod['DisplayName'],
+              Quantity: option['DefaultQuantity'],
+              ModifierId: option['ModifierId'],
+              SalesItemOptionId: option['ModifierId'],
+              ItemOptionGroupId: option['ModifierGroupId']
+            })
+          }
         });
-      }
+      } else if (salesItems.ModGroups.length) {
 
+        // this code runs if the item has no default options but has modifiers
+        let isModsRequired = _.some(salesItems.ModGroups, (mod) => {
+          return mod.MinimumItems > 0;
+        });
+
+        // if the item has required mods but no defaults, prevent user from quick adding
+        if (isModsRequired) {
+          let toast = this.toastCtrl.create({
+            message: 'This item required customization please select the item and choose options.',
+            duration: 12000,
+            position: 'bottom',
+            cssClass: 'req-mod-message',
+            dismissOnPageChange: true,
+            showCloseButton: true,
+            closeButtonText: 'close',
+          });
+          toast.present();
+
+          // prevent item from being added to bag
+          return;
+        }
+      }
       // add quantity and totalPrice to object
       menuItem['Quantity']   = quantity;
       menuItem['TotalPrice'] = salesItems.Price;
