@@ -751,3 +751,11 @@ ion-scroll[scrollX] {
   letter-spacing: .5px;
   color: rgba(30, 30, 30, 0.99);
 }
+.req-mod-message .toast-container {
+  background-color: #ff3b30;
+  color: white;
+  font-weight: 800;
+  .toast-message {
+    font-size: 14px;
+  }
+}
