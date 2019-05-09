@@ -70,7 +70,6 @@ export class WordPressProvider {
   getPostBySlug(_slug, _postType) {
     return this.http.get(`${this.config.localApi}/menu_item_image/${_postType}/${_slug}`)
       .map(result => {
-        console.log('result', result.json())
         return result.json();
       })
   }
