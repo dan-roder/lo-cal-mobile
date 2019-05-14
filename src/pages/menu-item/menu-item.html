@@ -82,7 +82,8 @@
 
   <div *ngIf="menuItemDetails" class="special-instructions" padding>
     <p class="special-instructions-tag">Add Special Instruction (optional)</p>
-    <ion-textarea rows="6" [(ngModel)]="specialInstructions"></ion-textarea>
+    <p class="special-instructions-error customization-errors" *ngIf="specialInstructionsError">Special instructions must be less than 30 characters.</p>
+    <ion-textarea rows="6" [(ngModel)]="specialInstructions" (ngModelChange)="onSpecialInstructionsChange($event)"></ion-textarea>
   </div>
 
   <ion-toolbar color="light" *ngIf="totalPrice">
