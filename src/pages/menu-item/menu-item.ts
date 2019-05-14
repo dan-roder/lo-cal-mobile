@@ -41,6 +41,8 @@ export class MenuItemPage {
   orderedSalesItemDetails
   public multipleSalesItems : Array<SalesItem> = [];
   public sizeChoice : any;
+  public specialInstructionsError: boolean = false;
+
 
   constructor(
     public  app       : App,
@@ -96,7 +98,13 @@ export class MenuItemPage {
   private recalculateCost(){
     this.totalPrice = this.itemPrice * this.quantity;
   }
-
+  public onSpecialInstructionsChange($event) {
+    if ($event.length > 30) {
+      this.specialInstructionsError = true
+    } else {
+      this.specialInstructionsError = false
+    }
+  }
   switchDefault(group, modifier) {
     // let oldSelection = this.customizationData[group.$id]['currentlySelected'].pop();
     this.customizationData[group.$id]['currentlySelected'].push(modifier);
@@ -381,6 +389,11 @@ export class MenuItemPage {
     if (this.requiredModifierGroups.length > 0) {
       this.submitAttempted = true; // triggers showing of error messages
       return; // disallow adding to bag
+    }
+
+    // don't add to bag if special instructions are too long
+    if(this.specialInstructionsError) {
+      return;
     }
 
     // Adding to bag needs to have all details of modifications
