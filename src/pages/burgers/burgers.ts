@@ -192,30 +192,8 @@ export class BurgersPage implements OnInit {
             })
           }
         });
-      } else if (salesItems.ModGroups.length) {
-
-        // this code runs if the item has no default options but has modifiers
-        let isModsRequired = _.some(salesItems.ModGroups, (mod) => {
-          return mod.MinimumItems > 0;
-        });
-
-        // if the item has required mods but no defaults, prevent user from quick adding
-        if (isModsRequired) {
-          let toast = this.toastCtrl.create({
-            message: 'This item required customization please select the item and choose options.',
-            duration: 12000,
-            position: 'bottom',
-            cssClass: 'req-mod-message',
-            dismissOnPageChange: true,
-            showCloseButton: true,
-            closeButtonText: 'close',
-          });
-          toast.present();
-
-          // prevent item from being added to bag
-          return;
-        }
       }
+
       // add quantity and totalPrice to object
       menuItem['Quantity']   = quantity;
       menuItem['TotalPrice'] = salesItems.Price;
