@@ -22,13 +22,21 @@ $ ionic cordova platform add ios
 $ ionic cordova run ios
 ```
 
-Substitute ios for android if not on a Mac.
+## Building the app for HockeyApp/AppCenter
 
+First you should manually update the version number in the **config.xml** file. This makes it easier to distribute through AppCenter.
+
+Run this command from the project root:
+```bash
+$ ionic cordova build ios --device --release
+```
+
+After this is completed, a .ipa file will be created at **/platforms/ios/build/device/**. This is the file you need to upload to AppCenter to distribute the app for testing.
 
 # Architecture
 
 Loading screen / Splash screen
--   Inital screen when openning app
+-   Inital screen when opening app
 -   see, https://ionicframework.com/docs/cli/cordova/resources/
 -   Ionic cli will generate the splash screen and icon, as long as the assets are there
 
